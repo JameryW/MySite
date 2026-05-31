@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://jameryw.github.io/index.html</loc>
+    <loc>https://www.jameryw.dev/index.html</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://jameryw.github.io/projects.html</loc>
+    <loc>https://www.jameryw.dev/projects.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jameryw.github.io/notes.html</loc>
+    <loc>https://www.jameryw.dev/notes.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jameryw.github.io/about.html</loc>
+    <loc>https://www.jameryw.dev/about.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://jameryw.github.io/project.html</loc>
+    <loc>https://www.jameryw.dev/project.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://jameryw.github.io/note.html</loc>
+    <loc>https://www.jameryw.dev/note.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

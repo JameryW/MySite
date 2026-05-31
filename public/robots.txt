@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jameryw.github.io/sitemap.xml
+Sitemap: https://www.jameryw.dev/sitemap.xml

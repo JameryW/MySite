@@ -2,7 +2,7 @@
 
 A geek-themed, AI-focused personal website — zero dependencies, no build step, pure vanilla HTML/CSS/JS.
 
-🌐 **Live:** [jameryw.github.io](https://jameryw.github.io)
+🌐 **Live:** [jameryw.dev](https://www.jameryw.dev)
 
 ## Features
 
