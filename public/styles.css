@@ -841,7 +841,11 @@ body[data-page="home"] .hero-copy {
 }
 
 body[data-page="home"] .hero-copy h1 {
-  max-width: 10ch;
+  max-width: none;
+}
+
+body[data-page="home"] .hero-copy h1 span {
+  white-space: nowrap;
 }
 
 .home-hero-meta {
