@@ -10,8 +10,7 @@ window.siteData = {
   activity: [
     { signal: "ship", text: "XhsGrowthAgent — LangGraph 多 Agent 小红书增长引擎发布", time: "2026-05" },
     { signal: "build", text: "QuantAgent — 代码即策略的启发式代理框架", time: "2026-05" },
-    { signal: "build", text: "RealQuantEngine — 模块化量化交易引擎，对接 Futu 实盘", time: "2026-05" },
-    { signal: "lab", text: "QuantStrategyPrototypes — arXiv 论文驱动的策略原型集合", time: "2026-05" }
+    { signal: "note", text: "Why Agents Matter — 关于执行循环的思考", time: "2026-04" }
   ],
   projects: [
     {
@@ -19,7 +18,6 @@ window.siteData = {
       code: "A1",
       label: "Growth Agent",
       title: "XhsGrowthAgent",
-      featured: true,
       summary: "LangGraph 多 Agent 工作流，自动化小红书内容生命周期：选品→策略→文案→视觉→审核→发布→分析。",
       href: "https://github.com/JameryW/XhsGrowthAgent",
       cta: "view source",
@@ -44,7 +42,6 @@ window.siteData = {
       code: "B2",
       label: "Quant Agent",
       title: "QuantAgent",
-      featured: true,
       summary: "代码即策略的启发式代理框架 — 用可执行代码替代神经网络权重作为策略载体，迭代即学习，测试即记忆。",
       href: "https://github.com/JameryW/QuantAgent",
       cta: "view source",
@@ -62,54 +59,6 @@ window.siteData = {
         "三层策略生成管线：生成→验证→shadow 晋升，含 Bandit 臂统计和健康检查闭环。"
       ],
       outputs: ["Heuristic agent framework", "Code-as-policy engine", "Bandit decision system"],
-      relatedNotes: ["why-agents-matter", "prototype-first"]
-    },
-    {
-      slug: "real-quant-engine",
-      code: "C3",
-      label: "Quant Engine",
-      title: "RealQuantEngine",
-      summary: "模块化量化策略库 — 多策略编排、券商适配和风控管理的交易引擎，支持 Futu 实盘与 dry-run。",
-      href: "https://github.com/JameryW/RealQuantEngine",
-      cta: "view source",
-      status: "Active",
-      stack: ["Python", "Trading", "Futu", "Risk Management", "Modular Strategy"],
-      timeframe: "2025–now",
-      role: "Architect / Builder",
-      detailTitle: "Modular Quant Trading Engine",
-      overview:
-        "基于模块化架构的量化交易策略库，支持主策略（MRP、Chan）、辅助策略（MACD、DualMA）、市场状态检测（Bollinger、RSI）和过滤器的多层组合。通过券商适配器对接 Futu 实盘，含风控管理、状态管理和守护进程模式。",
-      highlights: [
-        "模块化策略架构 — Primary 主策略生成信号，Auxiliary 辅助策略提供参考，Regime 检测市场状态，Filter 决定执行。",
-        "MRP v3 主策略含 4 个子策略：Trend、MeanRevert、VolBreakout、Defensive，自适应参与系数。",
-        "券商适配器对接 Futu，支持 dry-run 和实盘双模式，含风控管理与守护进程。",
-        "完整工具链：交易安全检查、指标计算、凭证管理和服务监控。"
-      ],
-      outputs: ["Trading engine", "Modular strategy library", "Broker adapter"],
-      relatedNotes: ["why-agents-matter", "prototype-first"]
-    },
-    {
-      slug: "quant-strategy-prototypes",
-      code: "D4",
-      label: "Strategy Lab",
-      title: "QuantStrategyPrototypes",
-      summary: "基于 arXiv 论文研究的量化策略原型集合 — 含回测引擎、10 个策略模块和 91% 测试覆盖率。",
-      href: "https://github.com/JameryW/QuantStrategyPrototypes",
-      cta: "view source",
-      status: "Active",
-      stack: ["Python", "Backtest", "arXiv Research", "CI/CD", "Strategy Prototyping"],
-      timeframe: "2025–now",
-      role: "Research / Builder",
-      detailTitle: "Quantitative Strategy Prototypes from Paper Research",
-      overview:
-        "基于 arXiv 论文研究的量化策略原型集合，包含 10 个策略模块（Dual MA、Chan 缠论、VGRSI、Gap 缺口、Trend 强度、MRP 多因子等），配有完整回测引擎、186 个测试用例（91% 覆盖率）和 CI Pipeline。",
-      highlights: [
-        "10 个策略模块：Dual MA、Chan 缠论、VGRSI (arXiv 2605.01300)、Gap 缺口 (arXiv 2605.04004)、Trend 强度 (arXiv 2605.02326)、MRP 多因子等。",
-        "完整回测引擎含 metrics、portfolio 和 data_fetcher 模块，支持港股和 A 股回测。",
-        "186 个测试用例，91% 覆盖率，GitHub Actions CI 自动运行，阈值 60%。",
-        "按策略分组的回测配置和按日期归档的回测报告，支持参数化批量回测。"
-      ],
-      outputs: ["Strategy prototypes", "Backtest engine", "Research-to-code pipeline"],
       relatedNotes: ["why-agents-matter", "prototype-first"]
     }
   ],
@@ -134,7 +83,7 @@ window.siteData = {
         "好的 Agent 框架应该让失败变得可见和可恢复，而不是把错误吞掉假装什么都没发生。"
       ],
       outputs: ["Agent workflow lens", "Execution bias", "Tool-use perspective", "Failure recovery insight"],
-      relatedProjects: ["xhs-growth-agent", "quant-agent", "real-quant-engine", "quant-strategy-prototypes"]
+      relatedProjects: ["xhs-growth-agent", "quant-agent"]
     },
     {
       slug: "prototype-first",
@@ -156,7 +105,7 @@ window.siteData = {
         "这个站点本身就是 prototype-first 的产物：先上线，再从使用中迭代。"
       ],
       outputs: ["Prototype bias", "Faster decisions", "Concrete iteration loop"],
-      relatedProjects: ["xhs-growth-agent", "quant-agent", "real-quant-engine", "quant-strategy-prototypes"]
+      relatedProjects: ["xhs-growth-agent", "quant-agent"]
     },
     {
       slug: "interface-as-signal",
@@ -200,7 +149,7 @@ window.siteData = {
         "仍然需要理解模型能力的边界，但重点从'怎么说'转向'做什么和怎么做'。"
       ],
       outputs: ["Prompt evolution thesis", "System design lens", "Tool-first perspective"],
-      relatedProjects: ["xhs-growth-agent", "quant-agent", "real-quant-engine", "quant-strategy-prototypes"]
+      relatedProjects: ["xhs-growth-agent", "quant-agent"]
     },
     {
       slug: "build-in-public",
@@ -222,7 +171,7 @@ window.siteData = {
         "公开不是目的，可验证才是。如果你不能让别人直接看到你的工作轨迹，你就还在靠声明。"
       ],
       outputs: ["Build-in-public thesis", "Verifiable signal", "Process as evidence"],
-      relatedProjects: ["xhs-growth-agent", "quant-agent", "real-quant-engine", "quant-strategy-prototypes"]
+      relatedProjects: ["xhs-growth-agent", "quant-agent"]
     }
   ]
 };
