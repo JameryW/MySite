@@ -33,7 +33,7 @@
       rel="stylesheet"
     />
     <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" /></noscript>
-    <link rel="stylesheet" href="./styles.css?v=9" />
+    <link rel="stylesheet" href="./styles.css?v=10" />
     <script type="application/ld+json">
     [
       {
@@ -88,7 +88,7 @@
               <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
               <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
             </button>
-            <p class="topbar-status">Shanghai / Online</p>
+            <p class="topbar-status">Hangzhou / Online</p>
             <a
               class="topbar-link"
               href="https://github.com/jameryw"
@@ -102,196 +102,68 @@
       </header>
 
       <main id="main-content">
-        <section class="hero" id="hero">
+        <section class="hero home-hero" id="hero">
           <div class="hero-copy reveal">
-            <p class="eyebrow">AI Enthusiast / Builder / Hacker Energy</p>
-            <div class="hero-badge">Now building AI experiments and weird interfaces</div>
+            <p class="eyebrow">AI Builder / Agents / Quant Systems</p>
             <h1>
               Jamery Wang
               <span>AI 技术狂热者</span>
             </h1>
-            <div class="hero-tags">
-              <span>LLM</span>
-              <span>Agents</span>
-              <span>LangGraph</span>
-              <span>Quant</span>
-              <span>Code-as-Policy</span>
-            </div>
-            <p class="lead">关注模型、自动化、原型和可执行工作流。</p>
-            <div class="hero-strip" aria-label="homepage signals">
-              <article>
-                <span>Track</span>
-                <strong>AI agents + quant</strong>
-              </article>
-              <article>
-                <span>Bias</span>
-                <strong>Code ships first</strong>
-              </article>
-              <article>
-                <span>Mode</span>
-                <strong>4 repos live</strong>
-              </article>
-            </div>
-            <div class="hero-meta">
-              <div>
-                <span>Base</span>
-                <strong>Shanghai / Online</strong>
-              </div>
-              <div>
-                <span>Status</span>
-                <strong>Exploring AI-first builds</strong>
-              </div>
-            </div>
+            <p class="lead">在杭州关注模型、Agent、量化系统和能落地的自动化工作流。</p>
+            <p class="home-hero-meta">Hangzhou / Online · Prototype first · GitHub first</p>
             <div class="hero-actions">
-              <a class="button primary" href="#work">查看实验区</a>
+              <a class="button primary" href="#work">看核心项目</a>
+              <a class="button secondary" href="#notes">读最新笔记</a>
               <a
-                class="button secondary"
+                class="button text-link"
                 href="https://github.com/jameryw"
                 target="_blank"
                 rel="noreferrer"
               >
-                进入 GitHub
+                GitHub
               </a>
             </div>
           </div>
 
-          <div class="hero-stage reveal">
-            <div class="hero-stage-row">
-              <div class="signal-card">
-                <p>Signal Layer</p>
-                <strong>AI System Explorer</strong>
-                <span>模型实验 / 工具链折腾 / 极客界面 / 持续迭代</span>
+          <aside class="hero-focus-panel reveal" aria-label="Current focus">
+            <p class="stack-label">Current Focus</p>
+            <div class="focus-list">
+              <div>
+                <span>01</span>
+                <strong>Agent workflows</strong>
+                <p>把工具调用、状态管理和人审边界串成可执行流程。</p>
               </div>
-              <div class="terminal-card">
-                <div class="terminal-top">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-                <div class="terminal-body">
-                  <p><span class="prompt">$</span> ls ~/projects</p>
-                  <p>XhsGrowthAgent  QuantAgent  RealQuantEngine  QuantStrategyPrototypes</p>
-                  <p><span class="prompt">$</span> git log --oneline -1</p>
-                  <p class="terminal-link">feat: multi-agent content growth engine</p>
-                  <p><span class="prompt">$</span> echo $STATUS</p>
-                  <p>2 active repos / shipping daily</p>
-                </div>
+              <div>
+                <span>02</span>
+                <strong>Quant systems</strong>
+                <p>用代码即策略、回测和风控把想法变成可验证系统。</p>
+              </div>
+              <div>
+                <span>03</span>
+                <strong>Interface as signal</strong>
+                <p>页面和产品界面一起表达技术判断，而不是只做展示。</p>
               </div>
             </div>
-            <div class="radar-panel">
-              <div class="radar-ring ring-1"></div>
-              <div class="radar-ring ring-2"></div>
-              <div class="radar-ring ring-3"></div>
-              <div class="radar-core"></div>
-              <div class="scan-line"></div>
-              <div class="floating-tag tag-one">Prompt to product</div>
-              <div class="floating-tag tag-two">Hack fast, ship signal</div>
-            </div>
-          </div>
+          </aside>
         </section>
-
-        
-        
-        <section class="about section" id="about">
-          <div class="section-head reveal">
-            <p class="section-kicker">About</p>
-            <h2>How I Work</h2>
-            <p class="section-summary">高频关注，高速试验，优先动手。</p>
-          </div>
-          <div class="about-grid">
-            <article class="glass-card statement reveal">
-              <ul class="compact-list">
-                <li>追模型更新和新工具链</li>
-                <li>把想法快速做成可运行原型</li>
-                <li>用页面和代码同时发出技术信号</li>
-              </ul>
-            </article>
-            <article class="glass-card detail reveal">
-              <div>
-                <span>AI</span>
-                <p>对大模型、工具调用、自动化协作保持高频探索。</p>
-              </div>
-              <div>
-                <span>Build</span>
-                <p>偏爱把想法立刻做成原型，而不是长期停在概念层。</p>
-              </div>
-              <div>
-                <span>Geek</span>
-                <p>喜欢干净的代码和带点攻击性的界面表达。</p>
-              </div>
-            </article>
-            <article class="glass-card reveal">
-              <p class="stack-label">Signal</p>
-              <h3>AI Native</h3>
-              <p>明确偏向模型能力、工作流编排和工具协作，而非泛技术展示。</p>
-            </article>
-            <article class="glass-card reveal">
-              <p class="stack-label">Build</p>
-              <h3>Prototype First</h3>
-              <p>先做出可运行版本，再从结果里迭代判断，而非停留在概念层。</p>
-            </article>
-            <article class="glass-card reveal">
-              <p class="stack-label">Geek</p>
-              <h3>Interface Taste</p>
-              <p>页面本身也是作品的一部分，带有控制面板和实验室气味。</p>
-            </article>
-          </div>
-        </section>
-
-        
-        
-        
-        
         <section class="work section" id="work" aria-label="Selected work">
           <div class="section-head reveal">
             <p class="section-kicker">Selected Work</p>
-            <h2>Open Doors</h2>
-            <p class="section-summary">AI Agent 系统与代码即策略框架。</p>
+            <h2>Core Builds</h2>
+            <p class="section-summary">最能代表当前方向的 Agent 与量化系统。</p>
           </div>
           <div class="work-list" data-home-projects></div>
         </section>
 
-        <section class="section" aria-label="Latest notes">
+        <section class="section" id="notes" aria-label="Latest notes">
           <div class="section-head reveal">
             <p class="section-kicker">Latest Notes</p>
-            <h2>Public Thinking Cache</h2>
-            <p class="section-summary">关于 Agent、构建方法论和界面表达的公开思考。</p>
+            <h2>Working Notes</h2>
+            <p class="section-summary">把判断、失败和构建方法沉淀成可继续迭代的笔记。</p>
           </div>
           <div class="notes-grid" data-home-notes></div>
         </section>
 
-        <section class="section" aria-label="Recent activity">
-          <div class="section-head reveal">
-            <p class="section-kicker">Activity</p>
-            <h2>Recent Signals</h2>
-            <p class="section-summary">最近的构建、发布和思考信号。</p>
-          </div>
-          <div class="activity-feed" data-activity-feed></div>
-        </section>
-
-        
-        <section class="quote section" aria-label="Manifesto">
-          <div class="quote-card reveal">
-            <p class="section-kicker">Manifesto</p>
-            <h2>技术入口，不是简历封面。</h2>
-          </div>
-        </section>
-
-        
-        <section class="contact section" id="contact" aria-label="Contact">
-          <div class="contact-card reveal">
-            <div class="contact-copy">
-              <p class="section-kicker">Contact</p>
-              <h2>GitHub First</h2>
-              <p class="section-summary">当前最直接的公开入口。</p>
-            </div>
-            <div class="contact-links">
-              <a href="https://github.com/jameryw" target="_blank" rel="noreferrer">github.com/jameryw</a>
-              <a href="https://github.com/jameryw?tab=repositories" target="_blank" rel="noreferrer">Repositories</a>
-              <a href="https://github.com/jameryw?tab=stars" target="_blank" rel="noreferrer">Stars</a>
-            </div>
-          </div>
-        </section>
       </main>
 
       <footer class="footer reveal">
@@ -309,7 +181,7 @@
         </div>
         <div class="footer-meta">
           <p>Geek mode enabled</p>
-          <p><span data-year></span> / Shanghai / Online</p>
+          <p><span data-year></span> / Hangzhou / Online</p>
         </div>
       </footer>
     </div>
@@ -318,8 +190,8 @@
       <span>Top</span>
     </button>
 
-    <script src="./data.js?v=9" defer></script>
-    <script src="./app.js?v=9" defer></script>
+    <script src="./data.js?v=10" defer></script>
+    <script src="./app.js?v=10" defer></script>
 
     <!-- Command Palette -->
     <div class="palette-overlay" data-palette-overlay></div>

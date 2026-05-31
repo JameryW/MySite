@@ -400,17 +400,6 @@ if (noteLibraryNode) {
 }
 
 /* ── Activity Feed ── */
-const activityFeedNode = document.querySelector("[data-activity-feed]");
-if (activityFeedNode && siteData.activity) {
-  activityFeedNode.innerHTML = siteData.activity.slice(0, 4).map((item) => `
-    <div class="activity-item reveal">
-      <span class="activity-dot ${item.signal}"></span>
-      <span class="activity-text">${item.text}</span>
-      <span class="activity-time">${item.time}</span>
-    </div>
-  `).join("");
-}
-
 if (projectDetailNode) {
   const params = new URLSearchParams(window.location.search);
   const slug = params.get("slug");
