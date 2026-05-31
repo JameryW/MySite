@@ -1,6 +1,33 @@
+# OS
 .DS_Store
-.playwright-mcp/
-.sisyphus/
+Thumbs.db
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules/
+
+# Build artifacts
 dist.zip
 homepage-full.png
-node_modules/
+
+# MCP / Agent tools
+.playwright-mcp/
+.sisyphus/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Misc
+*.tgz
+.cache/
