@@ -145,6 +145,24 @@ document.querySelectorAll(".nav a, .footer-links a, .brand").forEach((link) => {
 const createTagList = (items) =>
   items.map((item) => `<span>${item}</span>`).join("");
 
+const pageHeroPanelMarkup = (title, items) => `
+  <aside class="page-hero-panel reveal" aria-label="${title}">
+    <p class="stack-label">${title}</p>
+    <div class="page-hero-panel-grid">
+      ${items
+        .map(
+          (item) => `
+            <div>
+              <span>${item.label}</span>
+              <strong>${item.value}</strong>
+            </div>
+          `
+        )
+        .join("")}
+    </div>
+  </aside>
+`;
+
 const projectDetailHref = (project) => `./project.html?slug=${project.slug}`;
 const noteDetailHref = (note) => `./note.html?slug=${note.slug}`;
 const projectBySlug = new Map(siteData.projects.map((project) => [project.slug, project]));
@@ -435,6 +453,11 @@ if (projectDetailNode) {
           </a>
           <a class="button secondary" href="./projects.html">Back To Projects</a>
         </div>
+        ${pageHeroPanelMarkup("Project Signal", [
+          { label: "Status", value: project.status },
+          { label: "Role", value: project.role },
+          { label: "Output", value: project.outputs.slice(0, 2).join(" / ") }
+        ])}
       </section>
 
       <section class="section">
@@ -555,6 +578,11 @@ if (noteDetailNode) {
           <a class="button primary" href="./notes.html">Back To Notes</a>
           <a class="button secondary" href="./projects.html">See Related Projects</a>
         </div>
+        ${pageHeroPanelMarkup("Note Signal", [
+          { label: "Status", value: note.status },
+          { label: "Frame", value: note.meta },
+          { label: "Output", value: note.outputs.slice(0, 2).join(" / ") }
+        ])}
       </section>
 
       <section class="section">
