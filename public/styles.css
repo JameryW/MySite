@@ -43,6 +43,7 @@
 
 [data-theme="light"] .hero-copy,
 [data-theme="light"] .hero-stage,
+[data-theme="light"] .hero-focus-panel,
 [data-theme="light"] .glass-card,
 [data-theme="light"] .stack-card,
 [data-theme="light"] .work-card,
@@ -826,6 +827,93 @@ h3 {
   font-size: 1.08rem;
 }
 
+.home-hero {
+  gap: 22px;
+  align-items: stretch;
+  padding: 52px 0 28px;
+}
+
+body[data-page="home"] .hero-copy {
+  flex: 1 1 560px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+body[data-page="home"] .hero-copy h1 {
+  max-width: 10ch;
+}
+
+.home-hero-meta {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero-focus-panel {
+  position: relative;
+  flex: 0 1 360px;
+  overflow: hidden;
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background:
+    linear-gradient(135deg, rgba(108, 242, 255, 0.06), transparent 45%),
+    linear-gradient(180deg, rgba(18, 26, 52, 0.68), rgba(7, 11, 27, 0.9));
+  box-shadow: var(--shadow);
+}
+
+.hero-focus-panel::before {
+  position: absolute;
+  inset: auto -18% -28% auto;
+  width: 220px;
+  height: 220px;
+  content: "";
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(108, 242, 255, 0.16), transparent 68%);
+}
+
+.focus-list {
+  position: relative;
+  display: grid;
+  gap: 18px;
+}
+
+.focus-list div {
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(162, 176, 255, 0.12);
+}
+
+.focus-list div:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.focus-list span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--cyan);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.focus-list strong {
+  display: block;
+  margin-bottom: 8px;
+  font-family: "Syne", sans-serif;
+  font-size: 1.22rem;
+}
+
+.focus-list p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
 .button {
   display: inline-flex;
   align-items: center;
@@ -856,6 +944,14 @@ h3 {
 .button.secondary {
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.02);
+}
+
+.button.text-link {
+  min-width: 0;
+  padding-right: 0;
+  padding-left: 0;
+  color: var(--cyan);
+  background: transparent;
 }
 
 .hero-stage {
@@ -2422,62 +2518,6 @@ h3 {
   }
 }
 
-/* ── Activity Feed ── */
-.activity-feed {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.activity-item {
-  flex: 1 1 100%;
-}
-
-.activity-item {
-  display: grid;
-  grid-template-columns: 8px 1fr auto;
-  gap: 14px;
-  align-items: center;
-  padding: 16px 20px;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: var(--panel);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  transition: border-color 200ms ease, transform 200ms ease, background 200ms ease;
-}
-
-.activity-item:hover {
-  border-color: rgba(108, 242, 255, 0.25);
-  background: var(--panel-strong);
-  transform: translateX(6px);
-}
-
-.activity-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-}
-
-.activity-dot.deploy { background: var(--cyan); box-shadow: 0 0 10px rgba(108, 242, 255, 0.5); }
-.activity-dot.build { background: var(--lime); box-shadow: 0 0 10px rgba(216, 255, 98, 0.5); }
-.activity-dot.ship { background: var(--pink); box-shadow: 0 0 10px rgba(255, 79, 216, 0.5); }
-.activity-dot.note { background: var(--muted); }
-
-.activity-text {
-  color: var(--text);
-  font-size: 0.94rem;
-  line-height: 1.5;
-}
-
-.activity-time {
-  color: var(--muted);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  white-space: nowrap;
-}
-
 /* ── Animated Status Indicators ── */
 .status-live {
   display: inline-flex;
@@ -2606,6 +2646,7 @@ h3 {
 
   .hero-copy,
   .hero-stage,
+  .hero-focus-panel,
   .statement,
   .detail,
   .stack-card,
@@ -2701,7 +2742,6 @@ html.theme-transitioning *::after {
   .note-card:hover,
   .track-card:hover,
   .timeline-item:hover,
-  .activity-item:hover,
   .topbar-link:hover,
   .contact-links a:hover,
   .footer-links a:hover,

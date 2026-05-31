@@ -2,17 +2,11 @@ window.siteData = {
   profile: {
     name: "Jamery Wang",
     title: "AI 技术狂热者",
-    base: "Shanghai / Online",
+    base: "Hangzhou / Online",
     status: "Exploring AI-first builds",
     github: "https://github.com/jameryw",
     focus: ["LLM", "Agents", "Quant", "LangGraph", "Code-as-Policy"]
   },
-  activity: [
-    { signal: "ship", text: "XhsGrowthAgent — LangGraph 多 Agent 小红书增长引擎发布", time: "2026-05" },
-    { signal: "build", text: "QuantAgent — 代码即策略的启发式代理框架", time: "2026-05" },
-    { signal: "build", text: "RealQuantEngine — 模块化量化交易引擎，对接 Futu 实盘", time: "2026-05" },
-    { signal: "lab", text: "QuantStrategyPrototypes — arXiv 论文驱动的策略原型集合", time: "2026-05" }
-  ],
   projects: [
     {
       slug: "xhs-growth-agent",
