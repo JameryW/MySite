@@ -1,0 +1,177 @@
+window.siteData = {
+  profile: {
+    name: "Jamery Wang",
+    title: "AI 技术狂热者",
+    base: "Shanghai / Online",
+    status: "Exploring AI-first builds",
+    github: "https://github.com/jameryw",
+    focus: ["LLM", "Agents", "Quant", "LangGraph", "Code-as-Policy"]
+  },
+  activity: [
+    { signal: "ship", text: "XhsGrowthAgent — LangGraph 多 Agent 小红书增长引擎发布", time: "2026-05" },
+    { signal: "build", text: "QuantAgent — 代码即策略的启发式代理框架", time: "2026-05" },
+    { signal: "note", text: "Why Agents Matter — 关于执行循环的思考", time: "2026-04" }
+  ],
+  projects: [
+    {
+      slug: "xhs-growth-agent",
+      code: "A1",
+      label: "Growth Agent",
+      title: "XhsGrowthAgent",
+      summary: "LangGraph 多 Agent 工作流，自动化小红书内容生命周期：选品→策略→文案→视觉→审核→发布→分析。",
+      href: "https://github.com/JameryW/XhsGrowthAgent",
+      cta: "view source",
+      status: "Active",
+      stack: ["LangGraph", "Python", "Multi-Agent", "Vue 3", "Playwright"],
+      timeframe: "2025–now",
+      role: "Architect / Builder",
+      detailTitle: "Multi-Agent Content Growth Engine",
+      overview:
+        "基于 LangGraph 的多 Agent 编排系统，把小红书内容运营从选题到发布到复盘的全流程自动化。8 个专业 Agent 分工协作，通过 Human Review Gate 保留人工审核环节，兼顾效率和质量控制。前端用 Vue 3 + Element Plus 构建赛博朋克风格的审核面板。",
+      highlights: [
+        "8 个专业 Agent 分工：趋势侦察、内容策略、文案生成、视觉设计、人工审核、发布、数据分析、互动管理。",
+        "智能模型路由：DeepSeek 做路由、Claude 做策略与文案、GPT-4o 做视觉与分析，按任务特性分配模型。",
+        "LangGraph StateGraph 工作流编排，支持断点续跑和状态持久化，Human Review Gate 保障发布质量。",
+        "Vue 3 前端仪表盘 + CLI 双模式运行，支持 dry-run 验证和 Playwright 浏览器自动化。"
+      ],
+      outputs: ["Multi-agent workflow", "Content automation", "Analytics pipeline"],
+      relatedNotes: ["why-agents-matter", "prompt-engineering-evolution"]
+    },
+    {
+      slug: "quant-agent",
+      code: "B2",
+      label: "Quant Agent",
+      title: "QuantAgent",
+      summary: "代码即策略的启发式代理框架 — 用可执行代码替代神经网络权重作为策略载体，迭代即学习，测试即记忆。",
+      href: "https://github.com/JameryW/QuantAgent",
+      cta: "view source",
+      status: "Active research",
+      stack: ["Python", "LLM", "Code-as-Policy", "SQLite", "Bandit"],
+      timeframe: "2025–now",
+      role: "Architect / Builder",
+      detailTitle: "Code as Policy, Not Weights as Policy",
+      overview:
+        "传统强化学习用神经网络权重表达策略，本框架用可执行代码。策略是可读的、可验证的、可调试的。每次有效更新直接跳转到新策略，旧能力固化为回归测试防止遗忘，历史补丁折叠为简洁表示。",
+      highlights: [
+        "代码即策略 — 策略是可读代码，不是黑盒权重，可解释、可验证、可调试。",
+        "迭代即学习 — 一次有效更新直接跳转到新策略，无需梯度下降的漫长训练。",
+        "测试即记忆 — 旧能力固化为回归测试，防止策略更新导致能力遗忘。",
+        "三层策略生成管线：生成→验证→shadow 晋升，含 Bandit 臂统计和健康检查闭环。"
+      ],
+      outputs: ["Heuristic agent framework", "Code-as-policy engine", "Bandit decision system"],
+      relatedNotes: ["why-agents-matter", "prototype-first"]
+    }
+  ],
+  notes: [
+    {
+      slug: "why-agents-matter",
+      code: "N1",
+      label: "Agents",
+      title: "Why Agents Matter",
+      summary: "我更关心连续执行、记忆和工具协作，而不是单轮问答的漂亮程度。",
+      meta: "Focus: execution loop",
+      status: "Research note",
+      timeframe: "Current lens",
+      detailTitle: "Execution Loop Over Single Turn Demos",
+      overview:
+        "我看重 Agent 的原因，不在于把聊天体验包装得更复杂，而在于它能不能把多个动作串成一个连续执行的过程。单轮回答再漂亮，也只是在解释世界；连续执行是在改变世界。",
+      lens: "Agent systems are valuable when they coordinate memory, tools, and multi-step execution — not just when they talk better.",
+      bullets: [
+        "连续执行比单轮回答更接近真实任务。用户要的不是一段解释，而是一个结果。",
+        "工具调用能力决定了系统能否真正做事，而不只是生成文本。没有工具的 Agent 本质上还是聊天机器人。",
+        "记忆和上下文管理是把体验从 demo 推向 workflow 的关键。每次对话都从零开始，等于每次都在重做。",
+        "好的 Agent 框架应该让失败变得可见和可恢复，而不是把错误吞掉假装什么都没发生。"
+      ],
+      outputs: ["Agent workflow lens", "Execution bias", "Tool-use perspective", "Failure recovery insight"],
+      relatedProjects: ["xhs-growth-agent", "quant-agent"]
+    },
+    {
+      slug: "prototype-first",
+      code: "N2",
+      label: "Build",
+      title: "Prototype First",
+      summary: "先跑起来，再暴露真正的问题。很多判断只有在界面和脚本一起工作时才成立。",
+      meta: "Focus: fast validation",
+      status: "Build note",
+      timeframe: "Working rule",
+      detailTitle: "Ship A First Version Before Over-Explaining",
+      overview:
+        "很多问题在抽象讨论里并不会出现，只有当脚本、界面和真实流程接起来之后，问题才会被准确暴露。先做一版不是粗糙的借口，而是更高效的判断工具。",
+      lens: "A runnable prototype is often a better decision tool than extended speculation — it surfaces the real constraints.",
+      bullets: [
+        "真实交互能更快揭露结构问题和信息缺口，纸面讨论无法模拟真实路径。",
+        "先做一版可以让后续优化有明确的基准，而不是对着虚无的完美方案去修改。",
+        "原型不是粗糙的借口，而是更高效的判断工具。重要的是从结果里学习，而不是从概念里推演。",
+        "这个站点本身就是 prototype-first 的产物：先上线，再从使用中迭代。"
+      ],
+      outputs: ["Prototype bias", "Faster decisions", "Concrete iteration loop"],
+      relatedProjects: ["xhs-growth-agent", "quant-agent"]
+    },
+    {
+      slug: "interface-as-signal",
+      code: "N3",
+      label: "Interface",
+      title: "Interface as Signal",
+      summary: "界面选择会暴露技术理解和产品判断，所以站点本身也应该是作品的一部分。",
+      meta: "Focus: visible taste",
+      status: "Interface note",
+      timeframe: "Ongoing principle",
+      detailTitle: "The Interface Also Explains The Builder",
+      overview:
+        "界面不只是承载内容的容器，它本身会透露技术理解、信息组织方式和审美判断，所以它应该参与表达，而不是退到背景。一个没有界面态度的个人站，很难形成记忆点。",
+      lens: "The page itself is part of the message, not just a neutral wrapper around it — design choices are statements.",
+      bullets: [
+        "视觉层级会暴露对内容优先级的判断。用户扫一眼就知道你认为什么最重要。",
+        "交互细节能传达系统感、速度感和完成度。慢半拍的动画比没有动画更糟糕。",
+        "个人站如果没有界面态度，就很难形成记忆点。模板网站的问题是它什么都没说。",
+        "暗色控制台美学不是装饰，它是在几秒内传达'这个人做技术实验'的信号。"
+      ],
+      outputs: ["Visible taste", "UI intent", "Signal-driven presentation"],
+      relatedProjects: ["xhs-growth-agent"]
+    },
+    {
+      slug: "prompt-engineering-evolution",
+      code: "N4",
+      label: "Prompt",
+      title: "Prompt Engineering Is Evolving",
+      summary: "提示工程正在从手工技巧转向结构化接口，从写 prompt 变成设计工具和编排流程。",
+      meta: "Focus: structural shift",
+      status: "Observation note",
+      timeframe: "2025 observation",
+      detailTitle: "From Clever Prompts To Structured Interfaces",
+      overview:
+        "当模型能力越来越强、工具调用越来越成熟的时候，手工写一段精心设计的 prompt 的价值在下降。真正有价值的是设计好工具接口、编排好执行流程、管理好上下文。",
+      lens: "The future of prompt engineering is less about clever phrasing and more about system design — tool interfaces, execution flows, and context management.",
+      bullets: [
+        "Function calling 和结构化输出正在替代手工提示技巧。模型不需要被巧妙地引导，它需要被正确地接入。",
+        "好的 Agent 设计更像系统工程：定义工具、管理状态、处理边界，而不是写一段完美的指令。",
+        "上下文窗口扩大和记忆机制增强意味着单次提示的精细度不再是瓶颈。",
+        "仍然需要理解模型能力的边界，但重点从'怎么说'转向'做什么和怎么做'。"
+      ],
+      outputs: ["Prompt evolution thesis", "System design lens", "Tool-first perspective"],
+      relatedProjects: ["xhs-growth-agent", "quant-agent"]
+    },
+    {
+      slug: "build-in-public",
+      code: "N5",
+      label: "Philosophy",
+      title: "Build In Public",
+      summary: "公开构建不是表演，是让迭代过程本身成为信号，让能力、判断和执行力可直接验证。",
+      meta: "Focus: visible process",
+      status: "Philosophy note",
+      timeframe: "Ongoing practice",
+      detailTitle: "The Process Is Part Of The Product",
+      overview:
+        "公开构建的核心不是为了展示勤奋，而是让迭代过程本身成为可验证的信号。别人能从提交记录、项目演进和决策轨迹里直接读到你的能力、判断和执行力。",
+      lens: "Public building makes your process verifiable — it turns claims into evidence and intentions into track records.",
+      bullets: [
+        "公开迭代比一份精美简历更有说服力。提交记录不会撒谎，但简历可以。",
+        "失败记录比成功展示更有信息量。知道什么行不通比知道什么行得通更有价值。",
+        "这个站点本身就是 build in public 的实践：从占位内容开始，持续往里填真实项目。",
+        "公开不是目的，可验证才是。如果你不能让别人直接看到你的工作轨迹，你就还在靠声明。"
+      ],
+      outputs: ["Build-in-public thesis", "Verifiable signal", "Process as evidence"],
+      relatedProjects: ["xhs-growth-agent", "quant-agent"]
+    }
+  ]
+};

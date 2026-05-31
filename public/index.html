@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jamery Wang | Home</title>
+    <meta
+      name="description"
+      content="Jamery Wang 的极客风个人网站，聚焦 AI、代码实验、技术探索与 GitHub 项目。"
+    />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <meta property="og:title" content="Jamery Wang | Home" />
+    <meta property="og:description" content="AI 技术狂热者的极客风个人信号站，聚焦 LLM、Agent、自动化与原型构建。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_CN" />
+    <link rel="canonical" href="https://jameryw.github.io/index.html" />
+    <meta property="og:url" content="https://jameryw.github.io/index.html" />
+    <meta property="og:site_name" content="Jamery Wang" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Jamery Wang | Home" />
+    <meta name="twitter:description" content="AI 技术狂热者的极客风个人信号站。" />
+    <meta name="theme-color" content="#050816" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self';" />
+    <link rel="manifest" href="./manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Jamery Wang">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://github.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Syne:wght@700;800&display=swap" media="print" onload="this.media='all'"
+      rel="stylesheet"
+    />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" /></noscript>
+    <link rel="stylesheet" href="./styles.css?v=8" />
+    <script type="application/ld+json">
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Jamery Wang",
+        "url": "https://jameryw.github.io",
+        "jobTitle": "AI Enthusiast & Builder",
+        "sameAs": ["https://github.com/jameryw"]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Jamery Wang",
+        "url": "https://jameryw.github.io"
+      }
+    ]
+    </script>
+  </head>
+  <body data-page="home">
+    <div class="page-loader" aria-hidden="true"><div class="loader-ring"></div></div>
+    <div class="cursor-glow" aria-hidden="true"></div>
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
+    <div class="scroll-progress" aria-hidden="true">
+      <span class="scroll-progress-bar" data-scroll-progress></span>
+    </div>
+    <div class="noise"></div>
+    <canvas class="particle-bg" data-particles></canvas>
+    <div class="orb orb-a" aria-hidden="true"></div>
+    <div class="orb orb-b" aria-hidden="true"></div>
+
+    <div class="site-frame">
+      <header class="topbar">
+        <a class="brand" href="./index.html">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>Jamery Wang</span>
+        </a>
+        <button class="menu-toggle" type="button" aria-label="菜单" aria-expanded="false" aria-controls="topbar-meta"><span></span></button>
+        <div class="topbar-meta" id="topbar-meta">
+          <nav class="nav" aria-label="Primary">
+            <a href="./index.html">Home</a>
+            <a href="./projects.html">Projects</a>
+            <a href="./notes.html">Notes</a>
+            <a href="./about.html">About</a>
+          </nav>
+          <div class="topbar-actions">
+            <button class="palette-hint" type="button" aria-label="搜索" data-palette-trigger>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <kbd>⌘K</kbd>
+            </button>
+            <button class="theme-toggle" type="button" aria-label="切换主题">
+              <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+              <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
+            <p class="topbar-status">Shanghai / Online</p>
+            <a
+              class="topbar-link"
+              href="https://github.com/jameryw"
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <main id="main-content">
+        <section class="hero" id="hero">
+          <div class="hero-copy reveal">
+            <p class="eyebrow">AI Enthusiast / Builder / Hacker Energy</p>
+            <div class="hero-badge">Now building AI experiments and weird interfaces</div>
+            <h1>
+              Jamery Wang
+              <span>AI 技术狂热者</span>
+            </h1>
+            <div class="hero-tags">
+              <span>LLM</span>
+              <span>Agents</span>
+              <span>LangGraph</span>
+              <span>Quant</span>
+              <span>Code-as-Policy</span>
+            </div>
+            <p class="lead">关注模型、自动化、原型和可执行工作流。</p>
+            <div class="hero-strip" aria-label="homepage signals">
+              <article>
+                <span>Track</span>
+                <strong>AI agents + quant</strong>
+              </article>
+              <article>
+                <span>Bias</span>
+                <strong>Code ships first</strong>
+              </article>
+              <article>
+                <span>Mode</span>
+                <strong>2 repos live</strong>
+              </article>
+            </div>
+            <div class="hero-meta">
+              <div>
+                <span>Base</span>
+                <strong>Shanghai / Online</strong>
+              </div>
+              <div>
+                <span>Status</span>
+                <strong>Exploring AI-first builds</strong>
+              </div>
+            </div>
+            <div class="hero-actions">
+              <a class="button primary" href="#work">查看实验区</a>
+              <a
+                class="button secondary"
+                href="https://github.com/jameryw"
+                target="_blank"
+                rel="noreferrer"
+              >
+                进入 GitHub
+              </a>
+            </div>
+          </div>
+
+          <div class="hero-stage reveal">
+            <div class="hero-stage-row">
+              <div class="signal-card">
+                <p>Signal Layer</p>
+                <strong>AI System Explorer</strong>
+                <span>模型实验 / 工具链折腾 / 极客界面 / 持续迭代</span>
+              </div>
+              <div class="terminal-card">
+                <div class="terminal-top">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <div class="terminal-body">
+                  <p><span class="prompt">$</span> ls ~/projects</p>
+                  <p>XhsGrowthAgent  QuantAgent</p>
+                  <p><span class="prompt">$</span> git log --oneline -1</p>
+                  <p class="terminal-link">feat: multi-agent content growth engine</p>
+                  <p><span class="prompt">$</span> echo $STATUS</p>
+                  <p>2 active repos / shipping daily</p>
+                </div>
+              </div>
+            </div>
+            <div class="radar-panel">
+              <div class="radar-ring ring-1"></div>
+              <div class="radar-ring ring-2"></div>
+              <div class="radar-ring ring-3"></div>
+              <div class="radar-core"></div>
+              <div class="scan-line"></div>
+              <div class="floating-tag tag-one">Prompt to product</div>
+              <div class="floating-tag tag-two">Hack fast, ship signal</div>
+            </div>
+          </div>
+        </section>
+
+        
+        
+        <section class="about section" id="about">
+          <div class="section-head reveal">
+            <p class="section-kicker">About</p>
+            <h2>How I Work</h2>
+            <p class="section-summary">高频关注，高速试验，优先动手。</p>
+          </div>
+          <div class="about-grid">
+            <article class="glass-card statement reveal">
+              <ul class="compact-list">
+                <li>追模型更新和新工具链</li>
+                <li>把想法快速做成可运行原型</li>
+                <li>用页面和代码同时发出技术信号</li>
+              </ul>
+            </article>
+            <article class="glass-card detail reveal">
+              <div>
+                <span>AI</span>
+                <p>对大模型、工具调用、自动化协作保持高频探索。</p>
+              </div>
+              <div>
+                <span>Build</span>
+                <p>偏爱把想法立刻做成原型，而不是长期停在概念层。</p>
+              </div>
+              <div>
+                <span>Geek</span>
+                <p>喜欢干净的代码和带点攻击性的界面表达。</p>
+              </div>
+            </article>
+            <article class="glass-card reveal">
+              <p class="stack-label">Signal</p>
+              <h3>AI Native</h3>
+              <p>明确偏向模型能力、工作流编排和工具协作，而非泛技术展示。</p>
+            </article>
+            <article class="glass-card reveal">
+              <p class="stack-label">Build</p>
+              <h3>Prototype First</h3>
+              <p>先做出可运行版本，再从结果里迭代判断，而非停留在概念层。</p>
+            </article>
+            <article class="glass-card reveal">
+              <p class="stack-label">Geek</p>
+              <h3>Interface Taste</p>
+              <p>页面本身也是作品的一部分，带有控制面板和实验室气味。</p>
+            </article>
+          </div>
+        </section>
+
+        
+        
+        
+        
+        <section class="work section" id="work" aria-label="Selected work">
+          <div class="section-head reveal">
+            <p class="section-kicker">Selected Work</p>
+            <h2>Open Doors</h2>
+            <p class="section-summary">AI Agent 系统与代码即策略框架。</p>
+          </div>
+          <div class="work-list" data-home-projects></div>
+        </section>
+
+        <section class="section" aria-label="Latest notes">
+          <div class="section-head reveal">
+            <p class="section-kicker">Latest Notes</p>
+            <h2>Public Thinking Cache</h2>
+            <p class="section-summary">关于 Agent、构建方法论和界面表达的公开思考。</p>
+          </div>
+          <div class="notes-grid" data-home-notes></div>
+        </section>
+
+        <section class="section" aria-label="Recent activity">
+          <div class="section-head reveal">
+            <p class="section-kicker">Activity</p>
+            <h2>Recent Signals</h2>
+            <p class="section-summary">最近的构建、发布和思考信号。</p>
+          </div>
+          <div class="activity-feed" data-activity-feed></div>
+        </section>
+
+        
+        <section class="quote section" aria-label="Manifesto">
+          <div class="quote-card reveal">
+            <p class="section-kicker">Manifesto</p>
+            <h2>技术入口，不是简历封面。</h2>
+          </div>
+        </section>
+
+        
+        <section class="contact section" id="contact" aria-label="Contact">
+          <div class="contact-card reveal">
+            <div class="contact-copy">
+              <p class="section-kicker">Contact</p>
+              <h2>GitHub First</h2>
+              <p class="section-summary">当前最直接的公开入口。</p>
+            </div>
+            <div class="contact-links">
+              <a href="https://github.com/jameryw" target="_blank" rel="noreferrer">github.com/jameryw</a>
+              <a href="https://github.com/jameryw?tab=repositories" target="_blank" rel="noreferrer">Repositories</a>
+              <a href="https://github.com/jameryw?tab=stars" target="_blank" rel="noreferrer">Stars</a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer reveal">
+        <div class="footer-grid">
+          <div class="footer-copy">
+            <p class="footer-kicker">Jamery Wang / Personal Signal Site</p>
+            <p>围绕 AI、自动化、原型和公开构建过程持续迭代。</p>
+          </div>
+          <div class="footer-links">
+            <a href="./projects.html">Projects</a>
+            <a href="./notes.html">Notes</a>
+            <a href="./about.html">About</a>
+            <a href="https://github.com/jameryw" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div class="footer-meta">
+          <p>Geek mode enabled</p>
+          <p><span data-year></span> / Shanghai / Online</p>
+        </div>
+      </footer>
+    </div>
+
+    <button class="back-to-top" type="button" aria-label="返回顶部" data-back-to-top>
+      <span>Top</span>
+    </button>
+
+    <script src="./data.js?v=7" defer></script>
+    <script src="./app.js?v=7" defer></script>
+
+    <!-- Command Palette -->
+    <div class="palette-overlay" data-palette-overlay></div>
+    <div class="palette" data-palette>
+      <div class="palette-input-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input class="palette-input" type="text" placeholder="搜索项目、笔记或页面..." data-palette-input autocomplete="off" />
+        <span class="palette-kbd">ESC</span>
+      </div>
+      <div class="palette-results" data-palette-results></div>
+    </div>
+  </body>
+</html>

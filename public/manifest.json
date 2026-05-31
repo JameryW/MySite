@@ -1,0 +1,18 @@
+{
+  "name": "Jamery Wang - AI Signal Site",
+  "short_name": "Jamery Wang",
+  "description": "AI 技术狂热者的极客风个人信号站，聚焦 LLM、Agent、自动化与原型构建。",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "theme_color": "#050816",
+  "background_color": "#050816",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

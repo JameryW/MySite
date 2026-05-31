@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jamery Wang | Notes</title>
+    <meta
+      name="description"
+      content="Jamery Wang 的笔记页，记录 AI 观察、工具实验和技术想法。"
+    />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <meta property="og:title" content="Jamery Wang | Notes" />
+    <meta property="og:description" content="公开思考缓存 — AI 观察、工作流拆解和失败记录。" />
+    <meta property="og:type" content="website" />
+    <link rel="canonical" href="https://jameryw.github.io/notes.html" />
+    <meta property="og:url" content="https://jameryw.github.io/notes.html" />
+    <meta property="og:site_name" content="Jamery Wang" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Jamery Wang | Notes" />
+    <meta name="twitter:description" content="公开思考缓存 — AI 观察、工作流拆解和失败记录。" />
+    <meta name="theme-color" content="#050816" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self';" />
+    <link rel="manifest" href="./manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Jamery Wang">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://github.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Syne:wght@700;800&display=swap" media="print" onload="this.media='all'"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css?v=6" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Notes",
+      "description": "公开思考缓存 — AI 观察、工作流拆解和失败记录。",
+      "url": "https://jameryw.github.io/notes.html",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Jamery Wang",
+        "url": "https://jameryw.github.io"
+      }
+    }
+    </script>
+  </head>
+  <body data-page="notes">
+    <div class="page-loader" aria-hidden="true"><div class="loader-ring"></div></div>
+    <div class="cursor-glow" aria-hidden="true"></div>
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
+    <div class="scroll-progress" aria-hidden="true">
+      <span class="scroll-progress-bar" data-scroll-progress></span>
+    </div>
+    <div class="noise"></div>
+    <canvas class="particle-bg" data-particles></canvas>
+    <div class="orb orb-a" aria-hidden="true"></div>
+    <div class="orb orb-b" aria-hidden="true"></div>
+
+    <div class="site-frame">
+      <header class="topbar">
+        <a class="brand" href="./index.html">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>Jamery Wang</span>
+        </a>
+        <button class="menu-toggle" type="button" aria-label="菜单" aria-expanded="false" aria-controls="topbar-meta"><span></span></button>
+        <div class="topbar-meta" id="topbar-meta">
+          <nav class="nav" aria-label="Primary">
+            <a href="./index.html">Home</a>
+            <a href="./projects.html">Projects</a>
+            <a href="./notes.html">Notes</a>
+            <a href="./about.html">About</a>
+          </nav>
+          <div class="topbar-actions">
+            <button class="theme-toggle" type="button" aria-label="切换主题">
+              <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+              <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
+            <p class="topbar-status">Thinking In Public</p>
+            <a class="topbar-link" href="#writing-loop">Writing Loop</a>
+          </div>
+        </div>
+      </header>
+
+      <main id="main-content">
+        <section class="page-hero reveal">
+          <p class="eyebrow">Notes / AI Watchlist / Thinking in Public</p>
+          <h1 class="page-title">
+            Notes
+            <span>Think in Public</span>
+          </h1>
+          <div class="hero-tags">
+            <span>Agents</span>
+            <span>Build</span>
+            <span>Interface</span>
+            <span>Philosophy</span>
+          </div>
+          <p class="page-lead">关于 Agent、构建方法论和界面表达的公开思考。</p>
+          <div class="page-actions">
+            <a class="button primary" href="#notes">看所有笔记</a>
+            <a class="button secondary" href="./projects.html">看相关项目</a>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="page-status-grid">
+            <article class="status-panel reveal">
+              <p class="stack-label">Writing Mode</p>
+              <h3>Short notes first, deeper breakdowns later.</h3>
+              <p>这里更像公开思考缓存层，先留下观察和判断，再逐步整理成成体系的文章。</p>
+            </article>
+            <article class="status-panel reveal">
+              <p class="stack-label">What To Expect</p>
+              <div class="status-list">
+                <div>
+                  <span>Topics</span>
+                  <strong>Models, agent workflows, tools, failures, interface decisions</strong>
+                </div>
+                <div>
+                  <span>Style</span>
+                  <strong>Short, direct, useful for future project iterations</strong>
+                </div>
+                <div>
+                  <span>Visible Notes</span>
+                  <strong><span data-note-count></span> note cards currently published here</strong>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="notes">
+          <div class="notes-grid" data-note-library></div>
+        </section>
+
+        <section class="section">
+          <div class="section-head reveal">
+            <p class="section-kicker">Note Formats</p>
+            <h2>How Notes Will Expand</h2>
+            <p class="section-summary">让内容未来能自然长成日志、拆解和复盘，而不是散卡片。</p>
+          </div>
+          <div class="build-track-grid">
+            <article class="track-card reveal">
+              <p class="stack-label">Format 01</p>
+              <h3>Observation</h3>
+              <p>记录模型更新、产品变化、工具体验和新的交互模式，偏即时判断。</p>
+              <span class="repo-meta">watchlist</span>
+            </article>
+            <article class="track-card reveal">
+              <p class="stack-label">Format 02</p>
+              <h3>Workflow Breakdown</h3>
+              <p>拆一个任务如何被提示、工具、代码和界面联动完成，偏方法论。</p>
+              <span class="repo-meta">execution logic</span>
+            </article>
+            <article class="track-card reveal">
+              <p class="stack-label">Format 03</p>
+              <h3>Failure Log</h3>
+              <p>留下失败原因、判断失误和修正路径，比只展示成功案例更有价值。</p>
+              <span class="repo-meta">postmortem notes</span>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="writing-loop">
+          <div class="command-card reveal">
+            <div class="command-copy">
+              <p class="section-kicker">Writing Loop</p>
+              <h2>What Gets Written Here</h2>
+              <p class="section-summary">短笔记、长文和项目复盘。</p>
+            </div>
+            <div class="command-list">
+              <p><span>></span> 模型更新与工具观察</p>
+              <p><span>></span> Agent 工作流拆解</p>
+              <p><span>></span> 实验过程与失败记录</p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer reveal">
+        <div class="footer-grid">
+          <div class="footer-copy">
+            <p class="footer-kicker">Notes / Think In Public</p>
+            <p>把观察、失败和工作流判断留在公开轨迹里，方便继续迭代。</p>
+          </div>
+          <div class="footer-links">
+            <a href="./index.html">Home</a>
+            <a href="./projects.html">Projects</a>
+            <a href="./about.html">About</a>
+            <a href="#writing-loop">Writing Loop</a>
+          </div>
+        </div>
+        <div class="footer-meta">
+          <p>Think in public</p>
+          <p><span data-year></span> / Notes in progress</p>
+        </div>
+      </footer>
+    </div>
+
+    <button class="back-to-top" type="button" aria-label="返回顶部" data-back-to-top>
+      <span>Top</span>
+    </button>
+
+<script src="./data.js?v=6" defer></script>
+<script src="./app.js?v=6" defer></script>
+
+    <!-- Command Palette -->
+    <div class="palette-overlay" data-palette-overlay></div>
+    <div class="palette" data-palette>
+      <div class="palette-input-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input class="palette-input" type="text" placeholder="搜索项目、笔记或页面..." data-palette-input autocomplete="off" />
+        <span class="palette-kbd">ESC</span>
+      </div>
+      <div class="palette-results" data-palette-results></div>
+    </div>
+  </body>
+</html>
