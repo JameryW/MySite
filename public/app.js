@@ -292,7 +292,8 @@ document.querySelectorAll(".nav a").forEach((link) => {
 });
 
 if (homeProjectsNode) {
-  homeProjectsNode.innerHTML = siteData.projects.map((project) => projectCardMarkup(project, "home")).join("");
+  const featuredProjects = siteData.projects.filter((project) => project.featured);
+  homeProjectsNode.innerHTML = featuredProjects.map((project) => projectCardMarkup(project, "home")).join("");
 }
 
 if (projectLibraryNode) {
