@@ -578,6 +578,15 @@ body[data-page="about"] .nav a[href="./about.html"]::after {
   line-height: 1.45;
 }
 
+.page-hero-panel-grid strong a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page-hero-panel-grid strong a:hover {
+  color: var(--cyan);
+}
+
 .page-actions {
   display: flex;
   flex-wrap: wrap;
