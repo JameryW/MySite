@@ -116,6 +116,18 @@
   -webkit-text-stroke: 1px rgba(8, 145, 178, 0.6);
 }
 
+[data-theme="light"] .terminal-body {
+  color: #1a2744;
+}
+
+[data-theme="light"] .terminal-out {
+  color: #3d5070;
+}
+
+[data-theme="light"] .terminal-key {
+  color: #0891b2;
+}
+
 [data-theme="light"] body::before {
   background:
     linear-gradient(rgba(80, 90, 140, 0.06) 1px, transparent 1px),
@@ -1061,7 +1073,7 @@ body[data-page="home"] .hero-copy h1 span {
   background: rgba(255, 255, 255, 0.03);
 }
 
-.terminal-top span {
+.terminal-top span:nth-child(-n+3) {
   width: 10px;
   height: 10px;
   border-radius: 999px;
@@ -1090,6 +1102,60 @@ body[data-page="home"] .hero-copy h1 span {
 
 .terminal-body p {
   margin: 0;
+}
+
+/* ── About Page Terminal Statement ── */
+.statement.terminal-statement {
+  padding: 0;
+  overflow: hidden;
+}
+
+.terminal-title {
+  margin-left: auto;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  background: none;
+  font-family: "SFMono-Regular", "Menlo", monospace;
+  font-size: 0.72rem;
+  color: var(--muted);
+  opacity: 0.55;
+  letter-spacing: 0.05em;
+}
+
+.terminal-cmd {
+  margin-top: 14px !important;
+  color: var(--text);
+}
+
+.terminal-cmd:first-child {
+  margin-top: 4px !important;
+}
+
+.terminal-out {
+  padding-left: 2px;
+  color: #a0b8c8;
+  line-height: 1.65;
+}
+
+.terminal-key {
+  color: var(--cyan);
+  font-weight: 700;
+}
+
+.terminal-out.indent {
+  padding-left: 18px;
+}
+
+.cursor-blink {
+  display: inline-block;
+  color: var(--lime);
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 .prompt {
@@ -1197,6 +1263,12 @@ body[data-page="home"] .hero-copy h1 span {
   margin-top: 32px;
   padding-top: 48px;
   border-top: 1px solid rgba(162, 176, 255, 0.06);
+}
+
+/* ── About Page: tighter section spacing ── */
+body[data-page="about"] .section + .section {
+  margin-top: 0;
+  padding-top: 20px;
 }
 .glass-card { padding: 28px; }
 .hero { gap: 20px; }
@@ -1454,7 +1526,7 @@ body[data-page="home"] .hero-copy h1 span {
 
 .notes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
@@ -2552,7 +2624,8 @@ body[data-page="home"] .hero-copy h1 span {
   .ops-status-dot,
   .status-badge-dot,
   .status-live-dot,
-  .status-active-dot {
+  .status-active-dot,
+  .cursor-blink {
     animation: none;
   }
 
@@ -2634,6 +2707,7 @@ body[data-page="home"] .hero-copy h1 span {
   /* 移动端间距覆盖 */
   .section { padding: 24px 0; }
   .section + .section { margin-top: 16px; }
+  body[data-page="about"] .section + .section { margin-top: 0; padding-top: 14px; }
   .glass-card { padding: 20px; }
   .ops-card { padding: 20px; }
   .stack-card { padding: 20px; }

@@ -1,4 +1,4 @@
-const CACHE = 'mysite-v5';
+const CACHE = 'mysite-v6';
 const SHELL = [
   './',
   './index.html',
