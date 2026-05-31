@@ -2,6 +2,22 @@
   "name": "my-site",
   "version": "1.0.0",
   "private": true,
+  "description": "Geek-themed, AI-focused personal website — zero dependencies, no build step, vanilla HTML/CSS/JS",
+  "author": "Jamery Wang",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JameryW/MySite.git"
+  },
+  "homepage": "https://jameryw.github.io",
+  "keywords": [
+    "personal-site",
+    "static-site",
+    "ai",
+    "vanilla-js",
+    "glass-morphism",
+    "dark-theme"
+  ],
   "scripts": {
     "dev": "python3 -m http.server 4173 --directory public"
   }

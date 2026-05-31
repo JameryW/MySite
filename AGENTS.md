@@ -1,39 +1,53 @@
 # Repository Guidelines
 
-## Project Structure & Module Organization
-This repository is currently minimal, with no application code checked in yet. Keep new source files under `src/`, static assets under `public/`, and tests under `tests/`. If the project grows into multiple packages, group them under `packages/` and give each package its own README and test entry point.
+## Project Structure
 
-Recommended layout:
+This is a zero-dependency static personal website. All site files live in `public/` — there is no `src/`, no compilation, no bundler.
 
-```text
-src/        application code
-public/     static assets
-tests/      automated tests
-docs/       design or architecture notes
+```
+public/
+├── index.html          # homepage
+├── projects.html       # project listing
+├── notes.html          # notes listing
+├── about.html          # about page
+├── project.html        # project detail (JS-rendered from ?slug=)
+├── note.html           # note detail (JS-rendered from ?slug=)
+├── 404.html            # custom 404 page
+├── data.js             # all content data (window.siteData)
+├── app.js              # rendering, interactions, animations
+├── styles.css          # single shared stylesheet
+├── sw.js               # service worker
+└── manifest.json       # PWA manifest
 ```
 
-## Build, Test, and Development Commands
-No build tooling is configured yet. When adding a runtime or framework, expose a small, standard command set through a root `Makefile` or `package.json` scripts so contributors can rely on:
+Root config: `package.json`, `CLAUDE.md`, `.editorconfig`, `.gitignore`
 
-- `npm install` or equivalent: install dependencies
-- `npm run dev`: start the local development server
-- `npm test`: run the full test suite
-- `npm run lint`: run formatting and lint checks
+## Development Commands
 
-Document any project-specific alternatives in the root README when they are introduced.
+- `npm run dev` — start local dev server at `http://localhost:4173` (Python HTTP server)
+- No test suite, linter, or build step is configured
 
-## Coding Style & Naming Conventions
-Use 2-space indentation for JavaScript, TypeScript, JSON, YAML, and Markdown. Prefer small modules with one clear responsibility. Use `PascalCase` for components/classes, `camelCase` for functions and variables, and `kebab-case` for file names unless a framework requires otherwise. Keep imports explicit and avoid large utility dumping grounds.
+## Coding Style
 
-Adopt a formatter and linter early, such as Prettier plus ESLint, and run them before opening a pull request.
+- 2-space indentation for HTML, CSS, JS, JSON
+- Content is data-driven: all projects/notes live in `data.js`, never hardcoded in HTML
+- CSS custom properties for theming (`--bg`, `--cyan`, `--pink`, `--lime`, etc.)
+- Bilingual: Chinese primary, English secondary for user-facing content
+- Conventional Commits: `feat:`, `fix:`, `docs:`, `chore:`
 
-## Testing Guidelines
-Place tests in `tests/` or next to source files with a `.test` or `.spec` suffix, for example `tests/api.test.ts` or `src/lib/math.spec.ts`. Cover new features and bug fixes with automated tests before merging. If a change is not practical to test automatically, explain the manual verification steps in the pull request.
+## Key Patterns
 
-## Commit & Pull Request Guidelines
-No Git history is available in this workspace yet, so use Conventional Commits going forward, such as `feat: add homepage scaffold` or `fix: handle empty state`. Keep commits focused and easy to review.
+- `data-*` attributes on DOM nodes drive page rendering in `app.js`
+- Detail pages (`project.html`, `note.html`) are empty shells — content injected by JS from `?slug=`
+- `window.siteData` from `data.js` is the single source of truth
+- Theme switching via `[data-theme="light"]` attribute on `<html>`
+- Scroll animations via IntersectionObserver (add `.reveal` class to new sections)
 
-Pull requests should include a short summary, linked issue or task when relevant, test results, and screenshots for UI changes. Call out any follow-up work or known limitations clearly.
+## Adding Content
 
-## Configuration & Security
-Do not commit secrets, API keys, or environment-specific credentials. Store local configuration in untracked `.env` files and provide a checked-in `.env.example` whenever configuration becomes necessary.
+Edit `data.js` — add an entry to `projects[]` or `notes[]`. No HTML changes needed.
+
+## Security
+
+- Do not commit secrets, API keys, or credentials
+- CSP is set in `index.html` — no external scripts allowed
