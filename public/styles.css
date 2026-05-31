@@ -1237,8 +1237,8 @@ h3 {
 }
 
 .notes-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
 }
 
@@ -1269,7 +1269,6 @@ h3 {
 }
 
 .note-card {
-  flex: 1 1 280px;
   background:
     linear-gradient(135deg, rgba(255, 79, 216, 0.04), transparent 50%),
     linear-gradient(180deg, rgba(18, 26, 52, 0.72), rgba(7, 11, 27, 0.86));
