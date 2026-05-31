@@ -857,6 +857,29 @@ body[data-page="home"] .hero-copy h1 span {
   white-space: nowrap;
 }
 
+.hero-tagline {
+  margin: 16px 0 8px;
+  max-width: 44ch;
+  line-height: 1.85;
+}
+
+.tagline-ch {
+  display: block;
+  font-size: 1.12rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.tagline-en {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+
 .home-hero-meta {
   margin: 8px 0 0;
   color: var(--muted);
