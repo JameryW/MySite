@@ -1,5 +1,4 @@
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-const orbitTarget = document.querySelector(".radar-panel");
 const orbA = document.querySelector(".orb-a");
 const orbB = document.querySelector(".orb-b");
 const currentPage = document.body.dataset.page;
@@ -62,7 +61,6 @@ document.addEventListener("pointermove", (e) => {
       if (!reduceMotion) {
         const x = (pointerX / window.innerWidth - 0.5) * 16;
         const y = (pointerY / window.innerHeight - 0.5) * 16;
-        if (orbitTarget) orbitTarget.style.transform = `perspective(900px) rotateX(${-y}deg) rotateY(${x}deg)`;
         if (orbA) orbA.style.transform = `translate(${x * -1.6}px, ${y * -1.6}px)`;
         if (orbB) orbB.style.transform = `translate(${x * 1.2}px, ${y * 1.2}px)`;
       }
@@ -433,7 +431,6 @@ if (projectDetailNode) {
           ${project.title}
           <span>${project.detailTitle}</span>
         </h1>
-        <div class="hero-tags">${createTagList(project.stack)}</div>
         <p class="page-lead">${project.overview}</p>
         <div class="page-actions">
           <a class="button primary" href="${project.href}" target="_blank" rel="noreferrer">
@@ -447,31 +444,6 @@ if (projectDetailNode) {
           { label: "Role", value: project.role },
           { label: "Output", value: project.outputs.slice(0, 2).join(" / ") }
         ])}
-      </section>
-
-      <section class="section">
-        <div class="page-status-grid">
-          <article class="status-panel reveal">
-            <p class="stack-label">Role</p>
-            <h3>${project.role}</h3>
-            <p>${project.summary}</p>
-          </article>
-          <article class="status-panel reveal">
-            <p class="stack-label">Output</p>
-            <div class="status-list">
-              ${project.outputs
-                .map(
-                  (item) => `
-                    <div>
-                      <span>Signal</span>
-                      <strong>${item}</strong>
-                    </div>
-                  `
-                )
-                .join("")}
-            </div>
-          </article>
-        </div>
       </section>
 
       <section class="section">
@@ -557,11 +529,6 @@ if (noteDetailNode) {
           ${note.title}
           <span>${note.detailTitle}</span>
         </h1>
-        <div class="hero-tags">
-          <span>${note.label}</span>
-          <span>${note.status}</span>
-          <span>${note.meta}</span>
-        </div>
         <p class="page-lead">${note.overview}</p>
         <div class="page-actions">
           <a class="button primary" href="./notes.html">Back To Notes</a>
@@ -575,35 +542,10 @@ if (noteDetailNode) {
       </section>
 
       <section class="section">
-        <div class="page-status-grid">
-          <article class="status-panel reveal">
-            <p class="stack-label">Core Lens</p>
-            <h3>${note.lens}</h3>
-            <p>${note.summary}</p>
-          </article>
-          <article class="status-panel reveal">
-            <p class="stack-label">Outputs</p>
-            <div class="status-list">
-              ${note.outputs
-                .map(
-                  (item) => `
-                    <div>
-                      <span>Signal</span>
-                      <strong>${item}</strong>
-                    </div>
-                  `
-                )
-                .join("")}
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="section">
         <div class="section-head reveal">
           <p class="section-kicker">Breakdown</p>
           <h2>Key Points</h2>
-          <p class="section-summary">把短笔记扩成可阅读的站内说明，而不是只留一句判断。</p>
+          <p class="section-summary">${note.lens}</p>
         </div>
         <div class="build-track-grid">
           ${note.bullets
@@ -621,6 +563,7 @@ if (noteDetailNode) {
         </div>
       </section>
 
+      ${relatedProjects.length > 0 ? `
       <section class="section">
         <div class="section-head reveal">
           <p class="section-kicker">Related Projects</p>
@@ -631,6 +574,7 @@ if (noteDetailNode) {
           ${relatedProjects.map((project) => relatedProjectMarkup(project)).join("")}
         </div>
       </section>
+      ` : ''}
 
       ${detailPagerMarkup({
         previous: siblings.previous,
@@ -645,23 +589,6 @@ if (noteDetailNode) {
     const mainContent = document.getElementById("main-content");
     if (mainContent) mainContent.focus();
   }
-}
-
-/* ── Terminal Typing Animation ── */
-function animateTerminal() {
-  const lines = document.querySelectorAll(".terminal-body p");
-  if (!lines.length || reduceMotion) return;
-
-  lines.forEach((line, index) => {
-    line.style.opacity = "0";
-    line.style.transform = "translateY(8px)";
-    line.style.transition = "opacity 400ms ease, transform 400ms ease";
-
-    setTimeout(() => {
-      line.style.opacity = "1";
-      line.style.transform = "translateY(0)";
-    }, 500 + index * 280);
-  });
 }
 
 const revealNodes = document.querySelectorAll(".reveal");
@@ -692,21 +619,6 @@ if (reduceMotion) {
   emphasisNodes.forEach((node, index) => {
     node.style.transitionDelay = `${120 + index * 60}ms`;
   });
-
-  /* Trigger terminal typing when hero is visible */
-  const heroSection = document.querySelector(".hero");
-  if (heroSection) {
-    const heroObserver = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          animateTerminal();
-          heroObserver.disconnect();
-        }
-      },
-      { threshold: 0.3 }
-    );
-    heroObserver.observe(heroSection);
-  }
 }
 
 if (yearNodes.length > 0) {
