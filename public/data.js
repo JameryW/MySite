@@ -1,7 +1,7 @@
 window.siteData = {
   profile: {
     name: "Jamery Wang",
-    title: "AI 技术狂热者",
+    title: "AI 时代原住民",
     base: "Hangzhou / Online",
     status: "Exploring AI-first builds",
     github: "https://github.com/jameryw",

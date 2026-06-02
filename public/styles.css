@@ -10,6 +10,9 @@
   --pink: #ff4fd8;
   --lime: #d8ff62;
   --shadow: 0 30px 100px rgba(0, 0, 0, 0.45);
+  --font-sans: "Space Grotesk", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+  --font-display: "Syne", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+  --font-mono: "SFMono-Regular", "Menlo", "Consolas", monospace;
 }
 
 /* ── Light Theme ── */
@@ -310,8 +313,7 @@ body {
   margin: 0;
   min-height: 100vh;
   overflow-x: hidden;
-  font-family: "Space Grotesk", system-ui, -apple-system, sans-serif;
-  font-display: swap;
+  font-family: var(--font-sans);
   color: var(--text);
   transition: opacity 200ms ease, transform 200ms ease;
   background:
@@ -707,17 +709,20 @@ h1,
 h2,
 h3 {
   margin: 0;
-  font-family: "Syne", sans-serif;
-  line-height: 0.95;
+  font-family: var(--font-display);
+  line-height: 1.08;
 }
 
 h1 {
   max-width: 8ch;
   font-size: clamp(3.2rem, 8vw, 5.8rem);
+  padding-block: 0.04em;
 }
 
 h1 span {
   display: block;
+  padding-block: 0.04em;
+  margin-block: -0.04em;
   color: transparent;
   -webkit-text-stroke: 1px rgba(245, 247, 255, 0.85);
 }
@@ -948,10 +953,13 @@ body[data-page="home"] .hero-copy {
 
 body[data-page="home"] .hero-copy h1 {
   max-width: none;
+  line-height: 1.16;
 }
 
 body[data-page="home"] .hero-copy h1 span {
-  white-space: nowrap;
+  margin-block: 0;
+  white-space: normal;
+  text-wrap: balance;
 }
 
 .hero-tagline {
@@ -1037,7 +1045,7 @@ body[data-page="home"] .hero-copy h1 span {
 .focus-list strong {
   display: block;
   margin-bottom: 8px;
-  font-family: "Syne", sans-serif;
+  font-family: var(--font-display);
   font-size: 1.22rem;
 }
 
@@ -1179,7 +1187,7 @@ body[data-page="home"] .hero-copy h1 span {
 
 .terminal-body {
   padding: 16px 14px 18px;
-  font-family: "SFMono-Regular", "Menlo", monospace;
+  font-family: var(--font-mono);
   font-size: 0.84rem;
   line-height: 1.7;
   color: #c9f9ff;
@@ -1201,7 +1209,7 @@ body[data-page="home"] .hero-copy h1 span {
   height: auto;
   border-radius: 0;
   background: none;
-  font-family: "SFMono-Regular", "Menlo", monospace;
+  font-family: var(--font-mono);
   font-size: 0.72rem;
   color: var(--muted);
   opacity: 0.55;
@@ -1583,7 +1591,7 @@ body[data-page="about"] .section + .section {
 .metric-panel strong {
   display: block;
   margin-bottom: 10px;
-  font-family: "Syne", sans-serif;
+  font-family: var(--font-display);
   font-size: 2.4rem;
   line-height: 1;
 }
@@ -1797,7 +1805,7 @@ body[data-page="about"] .section + .section {
 }
 
 .work-index {
-  font-family: "Syne", sans-serif;
+  font-family: var(--font-display);
   font-size: 2.2rem;
   color: transparent;
   -webkit-text-stroke: 1.5px rgba(108, 242, 255, 0.6);
@@ -1948,7 +1956,7 @@ body[data-page="about"] .section + .section {
 
 .timeline-item span {
   color: var(--lime);
-  font-family: "Syne", sans-serif;
+  font-family: var(--font-display);
   font-size: 1.5rem;
   line-height: 1;
 }
@@ -2036,7 +2044,7 @@ body[data-page="about"] .section + .section {
   display: inline-block;
   width: 1.4em;
   color: var(--cyan);
-  font-family: "Space Grotesk", monospace;
+  font-family: var(--font-sans);
   font-weight: 700;
   font-size: 0.82em;
 }
