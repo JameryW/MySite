@@ -300,19 +300,30 @@
   box-sizing: border-box;
 }
 
-:focus-visible {
+:where(a, button, input, textarea, select, [role="button"], [tabindex]:not([tabindex="-1"])):focus-visible {
   outline: 2px solid var(--lime);
   outline-offset: 3px;
 }
 
+#main-content:focus {
+  outline: none;
+}
+
 html {
+  width: 100%;
+  max-width: 100%;
   scroll-behavior: smooth;
+  scrollbar-color: rgba(108, 242, 255, 0.35) var(--bg);
+  background: var(--bg);
 }
 
 body {
+  width: 100%;
+  max-width: 100%;
   margin: 0;
   min-height: 100vh;
   overflow-x: hidden;
+  overflow-x: clip;
   font-family: var(--font-sans);
   color: var(--text);
   transition: opacity 200ms ease, transform 200ms ease;
@@ -363,7 +374,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--bg);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -900,6 +911,7 @@ h3 {
   content: "";
   border-radius: 50%;
   background: radial-gradient(circle, rgba(255, 79, 216, 0.28), transparent 72%);
+  pointer-events: none;
 }
 
 .hero-actions {
@@ -1015,6 +1027,7 @@ body[data-page="home"] .hero-copy h1 span {
   content: "";
   border-radius: 50%;
   background: radial-gradient(circle, rgba(108, 242, 255, 0.16), transparent 68%);
+  pointer-events: none;
 }
 
 .focus-list {
@@ -1348,6 +1361,7 @@ body[data-page="home"] .hero-copy h1 span {
   contain: layout style;
   content-visibility: auto;
   contain-intrinsic-size: 0 600px;
+  scroll-margin-top: 96px;
 }
 
 /* ── Global Spacing System (Desktop) ── */
@@ -1641,8 +1655,28 @@ body[data-page="about"] .section + .section {
   gap: 18px;
 }
 
+.related-track-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 10px;
+}
+
 .build-track-grid > .track-card {
+  min-width: 0;
   border-top: 2px solid rgba(108, 242, 255, 0.12);
+}
+
+.related-track-grid > .track-card {
+  flex: initial;
+  min-width: 0;
+  border-top: 2px solid rgba(108, 242, 255, 0.12);
+}
+
+.related-track-grid .related-card {
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
 }
 
 .project-page-grid > * {
@@ -2660,6 +2694,7 @@ body[data-page="about"] .section + .section {
   animation-play-state: paused;
   transition: opacity 400ms ease;
   z-index: -1;
+  pointer-events: none;
 }
 
 .hero-copy:hover::after {
@@ -3003,7 +3038,18 @@ body[data-page="about"] .section + .section {
   }
 
   .site-frame {
-    width: min(100% - 20px, 1200px);
+    width: 100%;
+    padding-right: 6px;
+    padding-left: 6px;
+  }
+
+  .related-track-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .related-track-grid .related-card {
+    min-height: auto;
   }
 
   .topbar {
@@ -3022,6 +3068,7 @@ body[data-page="about"] .section + .section {
     display: flex;
     width: 100%;
     flex-direction: column;
+    align-items: stretch;
     gap: 14px;
     padding: 0;
     max-height: 0;
@@ -3042,9 +3089,21 @@ body[data-page="about"] .section + .section {
     flex-wrap: wrap;
   }
 
+  .topbar-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
   .nav {
     flex-wrap: wrap;
     gap: 10px 16px;
+  }
+
+  .page-title,
+  .track-card h3,
+  .related-card h3 {
+    word-break: break-word;
+    overflow-wrap: anywhere;
   }
 
   .hero-copy,
@@ -3198,7 +3257,40 @@ html.theme-transitioning *::after {
   .repo-card:hover,
   .note-card:hover {
     border-color: var(--line);
+  }
+
+  .repo-card:hover {
     background: linear-gradient(180deg, rgba(18, 26, 52, 0.72), rgba(7, 11, 27, 0.86));
+  }
+
+  .note-card:hover {
+    background:
+      linear-gradient(135deg, rgba(255, 79, 216, 0.04), transparent 50%),
+      linear-gradient(180deg, rgba(18, 26, 52, 0.72), rgba(7, 11, 27, 0.86));
+  }
+
+  .work-card:hover {
+    background:
+      linear-gradient(135deg, rgba(108, 242, 255, 0.03), transparent 50%),
+      linear-gradient(180deg, rgba(18, 26, 52, 0.72), rgba(7, 11, 27, 0.86));
+  }
+
+  [data-theme="light"] .repo-card:hover {
+    background:
+      linear-gradient(135deg, rgba(8, 145, 178, 0.04), transparent 50%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(230, 234, 245, 0.86));
+  }
+
+  [data-theme="light"] .note-card:hover {
+    background:
+      linear-gradient(135deg, rgba(192, 38, 160, 0.04), transparent 50%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(230, 234, 245, 0.86));
+  }
+
+  [data-theme="light"] .work-card:hover {
+    background:
+      linear-gradient(135deg, rgba(8, 145, 178, 0.03), transparent 50%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(230, 234, 245, 0.86));
   }
 
   .repo-card:hover::before,

@@ -149,6 +149,24 @@ document.querySelectorAll(".nav a, .footer-links a, .brand").forEach((link) => {
   });
 });
 
+/* ── Same-page Anchor Scrolling ── */
+document.querySelectorAll('a[href^="#"]').forEach((link) => {
+  const href = link.getAttribute("href");
+  if (!href || href === "#") return;
+
+  link.addEventListener("click", (e) => {
+    const target = document.getElementById(href.slice(1));
+    if (!target) return;
+
+    e.preventDefault();
+    target.scrollIntoView({
+      behavior: reduceMotion ? "auto" : "smooth",
+      block: "start"
+    });
+    history.pushState(null, "", href);
+  });
+});
+
 const createTagList = (items) =>
   items.map((item) => `<span>${item}</span>`).join("");
 
@@ -182,6 +200,30 @@ const getSiblingEntries = (entries, currentSlug) => {
   return {
     previous: entries[safeIndex - 1] || null,
     next: entries[safeIndex + 1] || null
+  };
+};
+
+const detailItemParts = (item, fallbackTitle) => {
+  const text = item.trim();
+  const labeledMatch = text.match(/^(.{2,42}?)(?:\s+[—-]\s+|[:：]\s*)(.+)$/);
+  if (labeledMatch) {
+    return {
+      title: labeledMatch[1].trim(),
+      body: labeledMatch[2].trim()
+    };
+  }
+
+  const sentenceMatch = text.match(/^(.{6,64}?)[，。,.]\s*(.+)$/);
+  if (sentenceMatch) {
+    return {
+      title: sentenceMatch[1].trim(),
+      body: sentenceMatch[2].trim()
+    };
+  }
+
+  return {
+    title: fallbackTitle || (text.length > 24 ? `${text.slice(0, 24)}...` : text),
+    body: text
   };
 };
 
@@ -463,16 +505,18 @@ if (projectDetailNode) {
         </div>
         <div class="build-track-grid">
           ${project.highlights
-            .map(
-              (item, index) => `
+            .map((item, index) => {
+              const highlight = detailItemParts(item);
+
+              return `
                 <article class="track-card reveal">
                   <p class="stack-label">Highlight 0${index + 1}</p>
-                  <h3>${project.label}</h3>
-                  <p>${item.trim()}</p>
-                  <span class="repo-meta">${project.timeframe}</span>
+                  <h3>${highlight.title}</h3>
+                  <p>${highlight.body}</p>
+                  <span class="repo-meta">${project.outputs[index] || project.stack[index] || project.status}</span>
                 </article>
-              `
-            )
+              `;
+            })
             .join("")}
         </div>
       </section>
@@ -484,7 +528,7 @@ if (projectDetailNode) {
           <h2>Linked Thinking</h2>
           <p class="section-summary">从项目继续跳到相关判断和方法论。</p>
         </div>
-        <div class="build-track-grid">
+        <div class="build-track-grid related-track-grid">
           ${relatedNotes.map((note) => relatedNoteMarkup(note)).join("")}
         </div>
       </section>
@@ -558,16 +602,18 @@ if (noteDetailNode) {
         </div>
         <div class="build-track-grid">
           ${note.bullets
-            .map(
-              (item, index) => `
+            .map((item, index) => {
+              const point = detailItemParts(item, note.outputs[index] || `Point ${String(index + 1).padStart(2, "0")}`);
+
+              return `
                 <article class="track-card reveal">
                   <p class="stack-label">Point 0${index + 1}</p>
-                  <h3>${note.label}</h3>
-                  <p>${item}</p>
-                  <span class="repo-meta">${note.timeframe}</span>
+                  <h3>${point.title}</h3>
+                  <p>${point.body}</p>
+                  <span class="repo-meta">${note.outputs[index] || note.status}</span>
                 </article>
-              `
-            )
+              `;
+            })
             .join("")}
         </div>
       </section>
@@ -579,7 +625,7 @@ if (noteDetailNode) {
           <h2>Linked Builds</h2>
           <p class="section-summary">从判断跳回对应的项目入口，让想法和构建产物互相解释。</p>
         </div>
-        <div class="build-track-grid">
+        <div class="build-track-grid related-track-grid">
           ${relatedProjects.map((project) => relatedProjectMarkup(project)).join("")}
         </div>
       </section>
