@@ -60,12 +60,12 @@ For this project:
 
 ```html
 <!-- HTML pages should point at the current stylesheet query version. -->
-<link rel="stylesheet" href="./styles.css?v=20" />
+<link rel="stylesheet" href="./styles.css?v=21" />
 ```
 
 ```js
 // sw.js cache names must change when cached shell assets change.
-const CACHE = 'mysite-v18';
+const CACHE = 'mysite-v19';
 ```
 
 Required checks after editing `styles.css`, `app.js`, or `data.js`:
@@ -111,12 +111,17 @@ const projectHighlightParts = (item, index) => ({
 
 ### Page Shell Edge Gutters
 
-Use a full-width outer shell with `padding-inline` for page gutters. Avoid setting the shell itself to `calc(100% - npx)` because it can make one viewport edge look like an unintended gap when card backgrounds, sticky bars, or rounded borders sit inside the shell.
+Use a full-width outer shell with `padding-inline` for page gutters. Avoid constraining the shell itself with `calc(100% - npx)` or a desktop-only fixed max width because it can make one viewport edge look like an unintended gap when card backgrounds, sticky bars, rounded borders, or scrollbar tracks sit inside the shell.
 
 ```css
+html {
+  background: var(--bg);
+}
+
 .site-frame {
-  width: min(100%, 1240px);
-  padding: 0 20px 48px;
+  width: 100%;
+  max-width: none;
+  padding: 0 clamp(24px, 6vw, 96px) 48px;
 }
 ```
 

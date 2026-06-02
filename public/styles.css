@@ -309,6 +309,8 @@ html {
   width: 100%;
   max-width: 100%;
   scroll-behavior: smooth;
+  scrollbar-color: rgba(108, 242, 255, 0.35) var(--bg);
+  background: var(--bg);
 }
 
 body {
@@ -368,7 +370,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--bg);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -452,9 +454,10 @@ a {
 }
 
 .site-frame {
-  width: min(100%, 1240px);
-  margin: 0 auto;
-  padding: 0 20px 48px;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0 clamp(24px, 6vw, 96px) 48px;
 }
 
 .topbar {
