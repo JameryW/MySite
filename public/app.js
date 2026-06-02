@@ -203,7 +203,7 @@ const getSiblingEntries = (entries, currentSlug) => {
   };
 };
 
-const projectHighlightParts = (item, index) => {
+const detailItemParts = (item, fallbackTitle) => {
   const text = item.trim();
   const labeledMatch = text.match(/^(.{2,42}?)(?:\s+[—-]\s+|[:：]\s*)(.+)$/);
   if (labeledMatch) {
@@ -213,7 +213,7 @@ const projectHighlightParts = (item, index) => {
     };
   }
 
-  const sentenceMatch = text.match(/^(.{6,48}?)[，。,.]\s*(.+)$/);
+  const sentenceMatch = text.match(/^(.{6,64}?)[，。,.]\s*(.+)$/);
   if (sentenceMatch) {
     return {
       title: sentenceMatch[1].trim(),
@@ -222,7 +222,7 @@ const projectHighlightParts = (item, index) => {
   }
 
   return {
-    title: `Highlight ${String(index + 1).padStart(2, "0")}`,
+    title: fallbackTitle || (text.length > 24 ? `${text.slice(0, 24)}...` : text),
     body: text
   };
 };
@@ -506,7 +506,7 @@ if (projectDetailNode) {
         <div class="build-track-grid">
           ${project.highlights
             .map((item, index) => {
-              const highlight = projectHighlightParts(item, index);
+              const highlight = detailItemParts(item);
 
               return `
                 <article class="track-card reveal">
@@ -528,7 +528,7 @@ if (projectDetailNode) {
           <h2>Linked Thinking</h2>
           <p class="section-summary">从项目继续跳到相关判断和方法论。</p>
         </div>
-        <div class="build-track-grid">
+        <div class="build-track-grid related-track-grid">
           ${relatedNotes.map((note) => relatedNoteMarkup(note)).join("")}
         </div>
       </section>
@@ -602,16 +602,18 @@ if (noteDetailNode) {
         </div>
         <div class="build-track-grid">
           ${note.bullets
-            .map(
-              (item, index) => `
+            .map((item, index) => {
+              const point = detailItemParts(item, note.outputs[index] || `Point ${String(index + 1).padStart(2, "0")}`);
+
+              return `
                 <article class="track-card reveal">
                   <p class="stack-label">Point 0${index + 1}</p>
-                  <h3>${note.label}</h3>
-                  <p>${item}</p>
-                  <span class="repo-meta">${note.timeframe}</span>
+                  <h3>${point.title}</h3>
+                  <p>${point.body}</p>
+                  <span class="repo-meta">${note.outputs[index] || note.status}</span>
                 </article>
-              `
-            )
+              `;
+            })
             .join("")}
         </div>
       </section>
@@ -623,7 +625,7 @@ if (noteDetailNode) {
           <h2>Linked Builds</h2>
           <p class="section-summary">从判断跳回对应的项目入口，让想法和构建产物互相解释。</p>
         </div>
-        <div class="build-track-grid">
+        <div class="build-track-grid related-track-grid">
           ${relatedProjects.map((project) => relatedProjectMarkup(project)).join("")}
         </div>
       </section>

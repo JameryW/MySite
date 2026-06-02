@@ -300,9 +300,13 @@
   box-sizing: border-box;
 }
 
-:focus-visible {
+:where(a, button, input, textarea, select, [role="button"], [tabindex]:not([tabindex="-1"])):focus-visible {
   outline: 2px solid var(--lime);
   outline-offset: 3px;
+}
+
+#main-content:focus {
+  outline: none;
 }
 
 html {
@@ -454,10 +458,9 @@ a {
 }
 
 .site-frame {
-  width: 100%;
-  max-width: none;
-  margin: 0;
-  padding: 0 clamp(24px, 6vw, 96px) 48px;
+  width: min(1200px, calc(100% - 40px));
+  margin: 0 auto;
+  padding-bottom: 48px;
 }
 
 .topbar {
@@ -1652,8 +1655,28 @@ body[data-page="about"] .section + .section {
   gap: 18px;
 }
 
+.related-track-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 10px;
+}
+
 .build-track-grid > .track-card {
+  min-width: 0;
   border-top: 2px solid rgba(108, 242, 255, 0.12);
+}
+
+.related-track-grid > .track-card {
+  flex: initial;
+  min-width: 0;
+  border-top: 2px solid rgba(108, 242, 255, 0.12);
+}
+
+.related-track-grid .related-card {
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
 }
 
 .project-page-grid > * {
@@ -3020,6 +3043,15 @@ body[data-page="about"] .section + .section {
     padding-left: 6px;
   }
 
+  .related-track-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .related-track-grid .related-card {
+    min-height: auto;
+  }
+
   .topbar {
     flex-direction: row;
     flex-wrap: wrap;
@@ -3036,6 +3068,7 @@ body[data-page="about"] .section + .section {
     display: flex;
     width: 100%;
     flex-direction: column;
+    align-items: stretch;
     gap: 14px;
     padding: 0;
     max-height: 0;
@@ -3056,9 +3089,21 @@ body[data-page="about"] .section + .section {
     flex-wrap: wrap;
   }
 
+  .topbar-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
   .nav {
     flex-wrap: wrap;
     gap: 10px 16px;
+  }
+
+  .page-title,
+  .track-card h3,
+  .related-card h3 {
+    word-break: break-word;
+    overflow-wrap: anywhere;
   }
 
   .hero-copy,

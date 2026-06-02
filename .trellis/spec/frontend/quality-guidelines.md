@@ -60,12 +60,12 @@ For this project:
 
 ```html
 <!-- HTML pages should point at the current stylesheet query version. -->
-<link rel="stylesheet" href="./styles.css?v=21" />
+<link rel="stylesheet" href="./styles.css?v=22" />
 ```
 
 ```js
 // sw.js cache names must change when cached shell assets change.
-const CACHE = 'mysite-v19';
+const CACHE = 'mysite-v20';
 ```
 
 Required checks after editing `styles.css`, `app.js`, or `data.js`:
@@ -85,7 +85,7 @@ Pages using the Google Fonts async pattern must also load the JavaScript font lo
   data-fonts-load
   rel="stylesheet"
 />
-<script src="./app.js?v=18" defer></script>
+<script src="./app.js?v=19" defer></script>
 ```
 
 If a page intentionally does not load `app.js`, use a normal stylesheet link instead of `media="print" data-fonts-load`.
@@ -95,8 +95,8 @@ If a page intentionally does not load `app.js`, use a normal stylesheet link ins
 When rendering repeated detail sections from data arrays, each card must derive its visible heading and body from the item content, not from the parent project/note metadata. Parent metadata such as `project.label` or `project.timeframe` can be section context, but using it as every repeated card title makes the cards look duplicated.
 
 ```js
-const projectHighlightParts = (item, index) => ({
-  title: `Highlight ${String(index + 1).padStart(2, "0")}`,
+const detailItemParts = (item, fallbackTitle) => ({
+  title: fallbackTitle || (item.length > 24 ? `${item.slice(0, 24)}...` : item),
   body: item.trim()
 });
 ```
@@ -111,17 +111,66 @@ const projectHighlightParts = (item, index) => ({
 
 ### Page Shell Edge Gutters
 
-Use a full-width outer shell with `padding-inline` for page gutters. Avoid constraining the shell itself with `calc(100% - npx)` or a desktop-only fixed max width because it can make one viewport edge look like an unintended gap when card backgrounds, sticky bars, rounded borders, or scrollbar tracks sit inside the shell.
+Keep the main content shell at the established centered width, and handle edge seams through the page canvas/scrollbar backgrounds. Do not widen `.site-frame` to fix a right-edge seam because that changes the desktop layout scale.
 
 ```css
 html {
   background: var(--bg);
 }
 
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
 .site-frame {
-  width: 100%;
-  max-width: none;
-  padding: 0 clamp(24px, 6vw, 96px) 48px;
+  width: min(1200px, calc(100% - 40px));
+  margin: 0 auto;
+  padding-bottom: 48px;
+}
+```
+
+Do not apply global focus outlines to large non-interactive layout containers such as `main[tabindex="-1"]`; the outline can look like an edge gap on desktop detail pages.
+
+```css
+:where(a, button, input, textarea, select, [role="button"], [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: 2px solid var(--lime);
+}
+```
+
+### Related Card Grids
+
+Related project/note grids should use compact spacing and content-driven heights. Do not reuse the generic `.related-card { min-height: 220px; }` behavior without an override for compact related sections.
+
+```css
+.related-track-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 10px;
+}
+
+.build-track-grid > .track-card,
+.related-track-grid > .track-card {
+  min-width: 0;
+}
+
+.related-track-grid .related-card {
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+}
+```
+
+On mobile, project titles and detail-card headings must allow long English/CamelCase tokens to wrap instead of widening or clipping the viewport.
+
+```css
+@media (max-width: 760px) {
+  .page-title,
+  .track-card h3,
+  .related-card h3 {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
 }
 ```
 
