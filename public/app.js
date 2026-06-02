@@ -17,6 +17,11 @@ const siteData = window.siteData || { projects: [], notes: [] };
 const cursorGlow = document.querySelector(".cursor-glow");
 if (cursorGlow && reduceMotion) cursorGlow.style.display = "none";
 
+/* ── Font Loader (replaces inline onload for CSP) ── */
+document.querySelectorAll("[data-fonts-load]").forEach((link) => {
+  link.media = "all";
+});
+
 /* ── Page Loader ── */
 const loader = document.querySelector(".page-loader");
 if (loader) {
