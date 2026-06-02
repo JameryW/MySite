@@ -203,6 +203,30 @@ const getSiblingEntries = (entries, currentSlug) => {
   };
 };
 
+const projectHighlightParts = (item, index) => {
+  const text = item.trim();
+  const labeledMatch = text.match(/^(.{2,42}?)(?:\s+[—-]\s+|[:：]\s*)(.+)$/);
+  if (labeledMatch) {
+    return {
+      title: labeledMatch[1].trim(),
+      body: labeledMatch[2].trim()
+    };
+  }
+
+  const sentenceMatch = text.match(/^(.{6,48}?)[，。,.]\s*(.+)$/);
+  if (sentenceMatch) {
+    return {
+      title: sentenceMatch[1].trim(),
+      body: sentenceMatch[2].trim()
+    };
+  }
+
+  return {
+    title: `Highlight ${String(index + 1).padStart(2, "0")}`,
+    body: text
+  };
+};
+
 const relatedProjectMarkup = (project) => `
   <a class="track-card reveal related-card" href="${projectDetailHref(project)}">
     <p class="stack-label">${project.label}</p>
@@ -481,16 +505,18 @@ if (projectDetailNode) {
         </div>
         <div class="build-track-grid">
           ${project.highlights
-            .map(
-              (item, index) => `
+            .map((item, index) => {
+              const highlight = projectHighlightParts(item, index);
+
+              return `
                 <article class="track-card reveal">
                   <p class="stack-label">Highlight 0${index + 1}</p>
-                  <h3>${project.label}</h3>
-                  <p>${item.trim()}</p>
-                  <span class="repo-meta">${project.timeframe}</span>
+                  <h3>${highlight.title}</h3>
+                  <p>${highlight.body}</p>
+                  <span class="repo-meta">${project.outputs[index] || project.stack[index] || project.status}</span>
                 </article>
-              `
-            )
+              `;
+            })
             .join("")}
         </div>
       </section>

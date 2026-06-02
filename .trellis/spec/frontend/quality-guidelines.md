@@ -60,12 +60,12 @@ For this project:
 
 ```html
 <!-- HTML pages should point at the current stylesheet query version. -->
-<link rel="stylesheet" href="./styles.css?v=19" />
+<link rel="stylesheet" href="./styles.css?v=20" />
 ```
 
 ```js
 // sw.js cache names must change when cached shell assets change.
-const CACHE = 'mysite-v16';
+const CACHE = 'mysite-v18';
 ```
 
 Required checks after editing `styles.css`, `app.js`, or `data.js`:
@@ -85,10 +85,40 @@ Pages using the Google Fonts async pattern must also load the JavaScript font lo
   data-fonts-load
   rel="stylesheet"
 />
-<script src="./app.js?v=17" defer></script>
+<script src="./app.js?v=18" defer></script>
 ```
 
 If a page intentionally does not load `app.js`, use a normal stylesheet link instead of `media="print" data-fonts-load`.
+
+### Detail Array Rendering
+
+When rendering repeated detail sections from data arrays, each card must derive its visible heading and body from the item content, not from the parent project/note metadata. Parent metadata such as `project.label` or `project.timeframe` can be section context, but using it as every repeated card title makes the cards look duplicated.
+
+```js
+const projectHighlightParts = (item, index) => ({
+  title: `Highlight ${String(index + 1).padStart(2, "0")}`,
+  body: item.trim()
+});
+```
+
+```html
+<article class="track-card reveal">
+  <p class="stack-label">Highlight 01</p>
+  <h3>${highlight.title}</h3>
+  <p>${highlight.body}</p>
+</article>
+```
+
+### Page Shell Edge Gutters
+
+Use a full-width outer shell with `padding-inline` for page gutters. Avoid setting the shell itself to `calc(100% - npx)` because it can make one viewport edge look like an unintended gap when card backgrounds, sticky bars, or rounded borders sit inside the shell.
+
+```css
+.site-frame {
+  width: min(100%, 1240px);
+  padding: 0 20px 48px;
+}
+```
 
 ### Display Title Clipping
 
