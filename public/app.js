@@ -19,7 +19,11 @@ if (cursorGlow && reduceMotion) cursorGlow.style.display = "none";
 
 /* ── Font Loader (replaces inline onload for CSP) ── */
 document.querySelectorAll("[data-fonts-load]").forEach((link) => {
-  link.media = "all";
+  if (link.media === "print") {
+    const apply = () => { link.media = "all"; };
+    if (link.sheet) apply();           // already loaded (defer JS runs after CSS)
+    else link.addEventListener("load", apply);
+  }
 });
 
 /* ── Page Loader ── */
