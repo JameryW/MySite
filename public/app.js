@@ -149,6 +149,24 @@ document.querySelectorAll(".nav a, .footer-links a, .brand").forEach((link) => {
   });
 });
 
+/* ── Same-page Anchor Scrolling ── */
+document.querySelectorAll('a[href^="#"]').forEach((link) => {
+  const href = link.getAttribute("href");
+  if (!href || href === "#") return;
+
+  link.addEventListener("click", (e) => {
+    const target = document.getElementById(href.slice(1));
+    if (!target) return;
+
+    e.preventDefault();
+    target.scrollIntoView({
+      behavior: reduceMotion ? "auto" : "smooth",
+      block: "start"
+    });
+    history.pushState(null, "", href);
+  });
+});
+
 const createTagList = (items) =>
   items.map((item) => `<span>${item}</span>`).join("");
 

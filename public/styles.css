@@ -900,6 +900,7 @@ h3 {
   content: "";
   border-radius: 50%;
   background: radial-gradient(circle, rgba(255, 79, 216, 0.28), transparent 72%);
+  pointer-events: none;
 }
 
 .hero-actions {
@@ -1015,6 +1016,7 @@ body[data-page="home"] .hero-copy h1 span {
   content: "";
   border-radius: 50%;
   background: radial-gradient(circle, rgba(108, 242, 255, 0.16), transparent 68%);
+  pointer-events: none;
 }
 
 .focus-list {
@@ -1348,6 +1350,7 @@ body[data-page="home"] .hero-copy h1 span {
   contain: layout style;
   content-visibility: auto;
   contain-intrinsic-size: 0 600px;
+  scroll-margin-top: 96px;
 }
 
 /* ── Global Spacing System (Desktop) ── */
@@ -2660,6 +2663,7 @@ body[data-page="about"] .section + .section {
   animation-play-state: paused;
   transition: opacity 400ms ease;
   z-index: -1;
+  pointer-events: none;
 }
 
 .hero-copy:hover::after {
@@ -3198,7 +3202,40 @@ html.theme-transitioning *::after {
   .repo-card:hover,
   .note-card:hover {
     border-color: var(--line);
+  }
+
+  .repo-card:hover {
     background: linear-gradient(180deg, rgba(18, 26, 52, 0.72), rgba(7, 11, 27, 0.86));
+  }
+
+  .note-card:hover {
+    background:
+      linear-gradient(135deg, rgba(255, 79, 216, 0.04), transparent 50%),
+      linear-gradient(180deg, rgba(18, 26, 52, 0.72), rgba(7, 11, 27, 0.86));
+  }
+
+  .work-card:hover {
+    background:
+      linear-gradient(135deg, rgba(108, 242, 255, 0.03), transparent 50%),
+      linear-gradient(180deg, rgba(18, 26, 52, 0.72), rgba(7, 11, 27, 0.86));
+  }
+
+  [data-theme="light"] .repo-card:hover {
+    background:
+      linear-gradient(135deg, rgba(8, 145, 178, 0.04), transparent 50%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(230, 234, 245, 0.86));
+  }
+
+  [data-theme="light"] .note-card:hover {
+    background:
+      linear-gradient(135deg, rgba(192, 38, 160, 0.04), transparent 50%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(230, 234, 245, 0.86));
+  }
+
+  [data-theme="light"] .work-card:hover {
+    background:
+      linear-gradient(135deg, rgba(8, 145, 178, 0.03), transparent 50%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(230, 234, 245, 0.86));
   }
 
   .repo-card:hover::before,
