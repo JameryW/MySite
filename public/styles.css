@@ -3141,27 +3141,93 @@ body[data-page="about"] .section + .section {
 
   .showcase-grid {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 14px;
   }
 
   .showcase-card {
-    padding: 18px;
-    border-radius: 20px;
+    padding: 20px;
+    border-radius: 22px;
+  }
+
+  .showcase-card-header {
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
   .showcase-card h3 {
-    font-size: clamp(1.2rem, 4vw, 1.6rem);
-    margin-bottom: 8px;
+    font-size: clamp(1.25rem, 5vw, 1.6rem);
+    margin-bottom: 10px;
   }
 
   .showcase-card > p {
-    font-size: 0.88rem;
-    line-height: 1.5;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    margin-bottom: 12px;
+  }
+
+  .showcase-demo-badge {
+    padding: 5px 10px;
+    font-size: 0.68rem;
   }
 
   .showcase-url {
-    font-size: 0.76rem;
-    padding: 8px 12px;
+    font-size: 0.78rem;
+    padding: 10px 12px;
+    margin-top: 12px;
+    border-radius: 12px;
+  }
+
+  .showcase-card .card-tags {
+    margin-top: 10px;
+  }
+
+  .showcase-card .card-actions {
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  /* Showcase page hero mobile */
+  body[data-page="showcase"] .page-hero {
+    padding: 32px 0 20px;
+  }
+
+  body[data-page="showcase"] .page-title {
+    font-size: clamp(2.2rem, 10vw, 3.2rem);
+  }
+
+  body[data-page="showcase"] .page-lead {
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+
+  body[data-page="showcase"] .page-actions {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  body[data-page="showcase"] .page-actions .button {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 12px 16px;
+    font-size: 0.86rem;
+  }
+
+  body[data-page="showcase"] .page-hero-panel-grid {
+    gap: 10px;
+  }
+
+  body[data-page="showcase"] .page-hero-panel-grid div {
+    padding: 12px 14px;
+  }
+
+  body[data-page="showcase"] .page-hero-panel-grid div > span {
+    font-size: 0.68rem;
+    margin-bottom: 6px;
+  }
+
+  body[data-page="showcase"] .page-hero-panel-grid strong {
+    font-size: 0.84rem;
   }
 
   .note-card {
