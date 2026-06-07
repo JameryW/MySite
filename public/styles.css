@@ -182,6 +182,27 @@
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05), 0 0 10px rgba(8, 145, 178, 0.05);
 }
 
+[data-theme="light"] .showcase-card {
+  background:
+    linear-gradient(135deg, rgba(8, 145, 178, 0.06), transparent 50%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(230, 234, 245, 0.86));
+}
+
+[data-theme="light"] .showcase-card:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06), 0 0 12px rgba(8, 145, 178, 0.06);
+}
+
+[data-theme="light"] .showcase-demo-badge {
+  border-color: rgba(90, 138, 0, 0.25);
+  background: rgba(90, 138, 0, 0.08);
+  color: var(--lime);
+}
+
+[data-theme="light"] .showcase-url {
+  border-color: rgba(80, 90, 140, 0.14);
+  background: rgba(255, 255, 255, 0.4);
+}
+
 [data-theme="light"] .ops-card:hover,
 [data-theme="light"] .stack-card:hover,
 [data-theme="light"] .track-card:hover {
@@ -544,6 +565,7 @@ a {
 
 body[data-page="home"] .nav a[href="./index.html"],
 body[data-page="projects"] .nav a[href="./projects.html"],
+body[data-page="showcase"] .nav a[href="./showcase.html"],
 body[data-page="notes"] .nav a[href="./notes.html"],
 body[data-page="about"] .nav a[href="./about.html"] {
   color: var(--text);
@@ -551,6 +573,7 @@ body[data-page="about"] .nav a[href="./about.html"] {
 
 body[data-page="home"] .nav a[href="./index.html"]::after,
 body[data-page="projects"] .nav a[href="./projects.html"]::after,
+body[data-page="showcase"] .nav a[href="./showcase.html"]::after,
 body[data-page="notes"] .nav a[href="./notes.html"]::after,
 body[data-page="about"] .nav a[href="./about.html"]::after {
   transform: scaleX(1);
@@ -1629,6 +1652,101 @@ body[data-page="about"] .section + .section {
   display: flex;
   flex-wrap: wrap;
   gap: 18px;
+}
+
+.showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.showcase-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  text-decoration: none;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(108, 242, 255, 0.08), transparent 45%),
+    linear-gradient(180deg, rgba(18, 26, 52, 0.72), rgba(7, 11, 27, 0.86));
+  box-shadow: var(--shadow);
+  transition: transform 220ms ease, border-color 220ms ease, background 220ms ease, box-shadow 220ms ease;
+  contain: content;
+}
+
+.showcase-card::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 220ms ease;
+  pointer-events: none;
+}
+
+.showcase-card:hover::after {
+  background: radial-gradient(circle at var(--glow-x, 50%) var(--glow-y, 50%), rgba(108, 242, 255, 0.06), transparent 60%);
+  opacity: 1;
+}
+
+.showcase-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(108, 242, 255, 0.34);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 20px rgba(108, 242, 255, 0.06), 0 0 0 1px rgba(108, 242, 255, 0.08);
+}
+
+.showcase-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.showcase-card h3 {
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  margin-bottom: 12px;
+}
+
+.showcase-card > p {
+  color: var(--muted);
+  font-size: 1.04rem;
+  line-height: 1.8;
+  flex: 1;
+}
+
+.showcase-demo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid rgba(216, 255, 98, 0.25);
+  border-radius: 999px;
+  background: rgba(216, 255, 98, 0.08);
+  color: var(--lime);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.showcase-url {
+  margin-top: 16px;
+  padding: 10px 14px;
+  border: 1px solid rgba(162, 176, 255, 0.14);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  word-break: break-all;
+}
+
+.showcase-card:focus-visible {
+  outline: 2px solid var(--lime);
+  outline-offset: 4px;
 }
 
 .notes-grid {
@@ -3019,6 +3137,31 @@ body[data-page="about"] .section + .section {
   /* notes grid 移动端单列 */
   .notes-grid {
     grid-template-columns: 1fr;
+  }
+
+  .showcase-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .showcase-card {
+    padding: 18px;
+    border-radius: 20px;
+  }
+
+  .showcase-card h3 {
+    font-size: clamp(1.2rem, 4vw, 1.6rem);
+    margin-bottom: 8px;
+  }
+
+  .showcase-card > p {
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  .showcase-url {
+    font-size: 0.76rem;
+    padding: 8px 12px;
   }
 
   .note-card {
