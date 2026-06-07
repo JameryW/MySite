@@ -20,9 +20,21 @@ node_modules/
 dist.zip
 homepage-full.png
 
-# MCP / Agent tools
+# MCP / Agent tools (non-project-specific)
 .playwright-mcp/
 .sisyphus/
+.agents/
+.codex/
+.gemini/
+.opencode/
+
+# Claude Code local settings (personal, not shared)
+.claude/settings.local.json
+
+# Temp screenshots and debug files
+home-*.png
+showcase-*.png
+about-page-full.txt
 
 # Logs
 *.log
