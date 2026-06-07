@@ -9,6 +9,7 @@ const homeProjectsNode = document.querySelector("[data-home-projects]");
 const homeNotesNode = document.querySelector("[data-home-notes]");
 const projectLibraryNode = document.querySelector("[data-project-library]");
 const noteLibraryNode = document.querySelector("[data-note-library]");
+const showcaseNode = document.querySelector("[data-showcase]");
 const projectCountNodes = document.querySelectorAll("[data-project-count]");
 const noteCountNodes = document.querySelectorAll("[data-note-count]");
 const projectDetailNode = document.querySelector("[data-project-detail]");
@@ -349,6 +350,7 @@ document.querySelectorAll(".nav a").forEach((link) => {
   const pageMap = {
     "./index.html": "home",
     "./projects.html": "projects",
+    "./showcase.html": "showcase",
     "./notes.html": "notes",
     "./about.html": "about"
   };
@@ -373,6 +375,31 @@ if (homeNotesNode) {
 
 if (noteLibraryNode) {
   noteLibraryNode.innerHTML = siteData.notes.map(noteCardMarkup).join("");
+}
+
+if (showcaseNode) {
+  const demoProjects = siteData.projects.filter((project) => project.demoUrl);
+  showcaseNode.innerHTML = demoProjects.map((project) => {
+    return `
+      <a class="showcase-card reveal" href="${project.demoUrl}" target="_blank" rel="noreferrer">
+        <div class="showcase-card-header">
+          <p class="card-topline">
+            ${project.label}
+            <span class="card-status-dot live" aria-hidden="true"></span>
+          </p>
+          <div class="showcase-demo-badge">Live Demo</div>
+        </div>
+        <h3>${project.title}</h3>
+        <p>${project.summary}</p>
+        <div class="card-tags">${createTagList(project.stack)}</div>
+        <div class="showcase-url">${project.demoUrl}</div>
+        <div class="card-actions">
+          <span class="work-link">open demo</span>
+          <span class="card-inline-link">${project.status}</span>
+        </div>
+      </a>
+    `;
+  }).join("");
 }
 
 if (projectCountNodes.length > 0) {
@@ -751,6 +778,7 @@ if (palette && paletteInput) {
   const pages = [
     { title: "Home", label: "Page", href: "./index.html" },
     { title: "Projects", label: "Page", href: "./projects.html" },
+    { title: "Showcase", label: "Page", href: "./showcase.html" },
     { title: "Notes", label: "Page", href: "./notes.html" },
     { title: "About", label: "Page", href: "./about.html" },
     { title: "GitHub Profile", label: "External", href: "https://github.com/jameryw" }
