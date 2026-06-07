@@ -3,21 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jamery Wang | Project Detail</title>
+    <title>Jamery Wang | Showcase</title>
     <meta
       name="description"
-      content="Jamery Wang 的项目详情页，展示项目角色、输出和构建方向。"
+      content="Jamery Wang 的在线作品展示 — 可直接体验的 AI Agent 与量化系统。"
     />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <meta property="og:title" content="Jamery Wang | Project Detail" />
-    <meta property="og:description" content="项目详情 — 角色、输出和构建方向。" />
-    <meta property="og:type" content="article" />
-    <link rel="canonical" href="https://www.jameryw.dev/project.html" />
-    <meta property="og:url" content="https://www.jameryw.dev/project.html" />
+    <meta property="og:title" content="Jamery Wang | Showcase" />
+    <meta property="og:description" content="在线可体验的 AI Agent 与量化系统作品展示。" />
+    <meta property="og:type" content="website" />
+    <link rel="canonical" href="https://www.jameryw.dev/showcase.html" />
+    <meta property="og:url" content="https://www.jameryw.dev/showcase.html" />
     <meta property="og:site_name" content="Jamery Wang" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Jamery Wang | Project Detail" />
-    <meta name="twitter:description" content="项目详情 — 角色、输出和构建方向。" />
+    <meta name="twitter:title" content="Jamery Wang | Showcase" />
+    <meta name="twitter:description" content="在线可体验的 AI Agent 与量化系统作品展示。" />
     <meta name="theme-color" content="#050816" />
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://stats.jameryw.dev; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://stats.jameryw.dev https://fonts.googleapis.com;" />
     <link rel="manifest" href="./manifest.json">
@@ -31,19 +31,15 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&family=Syne:wght@700;800&display=swap" media="print" data-fonts-load
       rel="stylesheet"
     />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" /></noscript>
     <link rel="stylesheet" href="./styles.css?v=22" />
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": "Project Detail",
-      "description": "项目详情 — 角色、输出和构建方向。",
-      "url": "https://www.jameryw.dev/project.html",
-      "author": {
-        "@type": "Person",
-        "name": "Jamery Wang",
-        "url": "https://www.jameryw.dev"
-      },
+      "@type": "CollectionPage",
+      "name": "Showcase",
+      "description": "在线可体验的 AI Agent 与量化系统作品展示。",
+      "url": "https://www.jameryw.dev/showcase.html",
       "isPartOf": {
         "@type": "WebSite",
         "name": "Jamery Wang",
@@ -52,10 +48,9 @@
     }
     </script>
   </head>
-  <body data-page="projects">
+  <body data-page="showcase">
     <div class="page-loader" aria-hidden="true"><div class="loader-ring"></div></div>
     <div class="cursor-glow" aria-hidden="true"></div>
-    <div class="reading-progress" aria-hidden="true"></div>
     <a class="skip-link" href="#main-content">跳到主要内容</a>
     <div class="scroll-progress" aria-hidden="true">
       <span class="scroll-progress-bar" data-scroll-progress></span>
@@ -85,30 +80,77 @@
               <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
               <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
             </button>
-            <p class="topbar-status">Project Detail</p>
-            <a class="topbar-link" href="./projects.html">All Projects</a>
+            <p class="topbar-status">Live Demos</p>
+            <a
+              class="topbar-link"
+              href="https://github.com/jameryw?tab=repositories"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Repos
+            </a>
           </div>
         </div>
       </header>
 
-      <main id="main-content" data-project-detail tabindex="-1"></main>
+      <main id="main-content">
+        <section class="page-hero reveal">
+          <p class="eyebrow">Showcase / Live Demos</p>
+          <h1 class="page-title">
+            Showcase
+            <span>Live Demos</span>
+          </h1>
+          <p class="page-lead">可直接体验的在线作品，从代码到可运行的系统。</p>
+          <div class="page-actions">
+            <a class="button primary" href="#demos">进入演示</a>
+            <a class="button secondary" href="./projects.html">看全部项目</a>
+          </div>
+          <aside class="page-hero-panel reveal" aria-label="Showcase signal panel">
+            <p class="stack-label">Demo Signal</p>
+            <div class="page-hero-panel-grid">
+              <div>
+                <span>Surface</span>
+                <strong>Live running systems</strong>
+              </div>
+              <div>
+                <span>Access</span>
+                <strong>Public subdomains on jameryw.dev</strong>
+              </div>
+              <div>
+                <span>Focus</span>
+                <strong>Agent workflows, quant systems</strong>
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="section" id="demos">
+          <div class="section-head reveal">
+            <p class="section-kicker">Live Products</p>
+            <h2>在线演示</h2>
+            <p class="section-summary">点击卡片进入在线体验，或查看源码了解实现。</p>
+          </div>
+          <div class="showcase-grid" data-showcase></div>
+        </section>
+      </main>
 
       <footer class="footer reveal">
         <div class="footer-grid">
           <div class="footer-copy">
-            <p class="footer-kicker">Project Detail / Internal Case Layer</p>
-            <p>把外部链接转换成站内可阅读的项目说明，逐步积累成更完整的作品资料。</p>
+            <p class="footer-kicker">Showcase / Ship Then Show</p>
+            <p>从代码到可运行系统，把原型变成可验证的在线体验。</p>
           </div>
           <div class="footer-links">
             <a href="./index.html">Home</a>
             <a href="./projects.html">Projects</a>
             <a href="./notes.html">Notes</a>
             <a href="./about.html">About</a>
+            <a href="https://github.com/jameryw?tab=repositories" target="_blank" rel="noreferrer">Repos</a>
           </div>
         </div>
         <div class="footer-meta">
-          <p>Case page</p>
-          <p><span data-year></span> / Work in progress</p>
+          <p>Ship then show</p>
+          <p><span data-year></span> / Hangzhou / Online</p>
         </div>
       </footer>
     </div>
@@ -119,7 +161,7 @@
 
 <script src="./data.js?v=16" defer></script>
 <script src="./umami-config.js" defer></script>
-<script src="./app.js?v=20" defer></script>
+  <script src="./app.js?v=20" defer></script>
 
     <!-- Command Palette -->
     <div class="palette-overlay" data-palette-overlay></div>

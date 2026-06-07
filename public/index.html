@@ -20,7 +20,7 @@
     <meta name="twitter:title" content="Jamery Wang | Home" />
     <meta name="twitter:description" content="AI 时代原住民的极客风个人信号站。" />
     <meta name="theme-color" content="#050816" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://fonts.googleapis.com;" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://stats.jameryw.dev; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://stats.jameryw.dev https://fonts.googleapis.com;" />
     <link rel="manifest" href="./manifest.json">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -76,6 +76,7 @@
           <nav class="nav" aria-label="Primary">
             <a href="./index.html">Home</a>
             <a href="./projects.html">Projects</a>
+            <a href="./showcase.html">Showcase</a>
             <a href="./notes.html">Notes</a>
             <a href="./about.html">About</a>
           </nav>
@@ -117,6 +118,7 @@
             <p class="home-hero-meta">Hangzhou / Online · Prototype first · GitHub first</p>
             <div class="hero-actions">
               <a class="button primary" href="#work">看核心项目</a>
+              <a class="button secondary" href="./showcase.html">作品展示</a>
               <a class="button secondary" href="#notes">读最新笔记</a>
               <a
                 class="button text-link"
@@ -194,8 +196,9 @@
       <span>Top</span>
     </button>
 
-    <script src="./data.js?v=15" defer></script>
-    <script src="./app.js?v=19" defer></script>
+    <script src="./data.js?v=16" defer></script>
+    <script src="./umami-config.js" defer></script>
+    <script src="./app.js?v=20" defer></script>
 
     <!-- Command Palette -->
     <div class="palette-overlay" data-palette-overlay></div>
