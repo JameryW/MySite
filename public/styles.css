@@ -939,8 +939,13 @@ h3 {
 
 .hero-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 14px;
   margin-top: 22px;
+}
+
+.hero-actions .button.text-link {
+  margin-left: 4px;
 }
 
 .hero-meta {
@@ -3063,6 +3068,7 @@ body[data-page="about"] .section + .section {
   .hero-actions .button.text-link {
     flex: 0 0 auto;
     width: auto;
+    margin-left: 6px;
   }
 
   /* Focus panel 移动端 — 精简 */
