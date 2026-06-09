@@ -28,7 +28,7 @@ window.siteData = {
       highlights: [
         "8 个专业 Agent 分工：趋势侦察、内容策略、文案生成、视觉设计、人工审核、发布、数据分析、互动管理。",
         "智能模型路由：DeepSeek 做路由、Claude 做策略与文案、GPT-4o 做视觉与分析，按任务特性分配模型。",
-        "LangGraph StateGraph 工作流编排，支持断点续跑和状态持久化，Human Review Gate 保障发布质量。",
+        "Harness 驱动 + Loop 工程化：结构化工作流编排，支持断点续跑和状态持久化，Human Review Gate 保障发布质量。",
         "Vue 3 前端仪表盘 + CLI 双模式运行，支持 dry-run 验证和 Playwright 浏览器自动化。"
       ],
       outputs: ["Multi-agent workflow", "Content automation", "Analytics pipeline"],
@@ -253,6 +253,30 @@ window.siteData = {
       ],
       outputs: ["Productivity-relations thesis", "Organizational evolution lens", "Structural disruption insight"],
       relatedProjects: ["xhs-growth-agent", "quant-agent"]
+    },
+    {
+      slug: "evolve-in-loop",
+      code: "N7",
+      label: "Loop",
+      title: "在loop中进化",
+      titleEn: "Evolve In Loop",
+      summary: "进化的本质不是一次性跃迁，而是无数次闭环反馈的累积。每一次 loop 都是一次校准：行动→反馈→调整→再行动。",
+      meta: "Focus: feedback-driven growth",
+      status: "Philosophy note",
+      timeframe: "Ongoing practice",
+      detailTitle: "闭环即进化",
+      detailTitleEn: "Closing The Loop Is Evolving",
+      overview:
+        "进化的本质不是一次性跃迁，而是无数次闭环反馈的累积。每一次 loop 都是一次校准：行动→反馈→调整→再行动。真正的成长不发生在思考中，而发生在闭环完成的瞬间。",
+      lens: "Growth is not a leap but a loop — each cycle of action, feedback, and adjustment compounds into real evolution.",
+      bullets: [
+        "闭环比完美更重要。完成一次 loop 的价值远大于在脑中推演十次。",
+        "反馈是进化的燃料。没有反馈的行动是盲目的，没有行动的反馈是空洞的。",
+        "每次 loop 不需要很大，但必须完整。微小的闭环积累起来就是质的跃升。",
+        "拒绝闭环就是在拒绝进化。停在半路的 loop 等于没有发生。"
+      ],
+      outputs: ["Loop evolution thesis", "Feedback-driven growth", "Compound improvement insight"],
+      relatedProjects: ["xhs-growth-agent", "quant-agent", "real-quant-engine", "quant-strategy-prototypes"]
     }
   ]
 };
