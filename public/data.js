@@ -219,6 +219,28 @@ window.siteData = {
       ],
       outputs: ["Build-in-public thesis", "Verifiable signal", "Process as evidence"],
       relatedProjects: ["xhs-growth-agent", "quant-agent", "real-quant-engine", "quant-strategy-prototypes"]
+    },
+    {
+      slug: "productivity-and-relations",
+      code: "N6",
+      label: "Org",
+      title: "生产力与生产关系",
+      summary: "生产力决定生产关系，用旧的组织形态匹配新生产力，终将被效率更极致的新形态替代。",
+      meta: "Focus: organizational evolution",
+      status: "Observation note",
+      timeframe: "2025 observation",
+      detailTitle: "When Productivity Outgrows Its Organizational Shell",
+      overview:
+        "生产力决定生产关系，这是一个被历史反复验证的基本规律。如果一个组织还是想着用现有生产关系去匹配现有生产力，那么它就像之前资本主义代替封建主义，被另外一种效率更加极致的组织形态所代替。",
+      lens: "Organizations that cling to outdated structures in the face of new productive forces will be displaced — not by worse competitors, but by fundamentally more efficient organizational forms.",
+      bullets: [
+        "生产力决定生产关系，生产关系反作用于生产力。当生产力已经跃迁而生产关系不变，就形成制度性瓶颈。",
+        "资本主义代替封建主义的本质不是技术升级，而是组织形态的跃迁 — 新的生产关系释放了新生产力的全部潜力。",
+        "AI 时代最大的组织风险不是技术落后，而是用工业时代的科层制去管理信息时代的生产力。效率差距不是线性的，是结构性的。",
+        "真正被淘汰的组织往往不是做错了什么，而是在新生产力面前，旧的组织形态本身就失去了存在的合理性。"
+      ],
+      outputs: ["Productivity-relations thesis", "Organizational evolution lens", "Structural disruption insight"],
+      relatedProjects: ["xhs-growth-agent", "quant-agent"]
     }
   ]
 };
