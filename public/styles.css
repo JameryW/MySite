@@ -766,6 +766,15 @@ h1 span {
   font-size: clamp(2.8rem, 7vw, 4.8rem);
 }
 
+.title-en {
+  display: block;
+  font-size: 0.45em;
+  font-weight: 400;
+  opacity: 0.5;
+  margin-top: 0.15em;
+  letter-spacing: 0.02em;
+}
+
 h2 {
   max-width: 12ch;
   font-size: clamp(1.8rem, 3.8vw, 2.8rem);

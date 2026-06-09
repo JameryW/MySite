@@ -336,7 +336,7 @@ const projectCardMarkup = (project, variant) => {
 const noteCardMarkup = (note) => `
   <a class="note-card reveal note-entry-card" href="${noteDetailHref(note)}">
     <p class="stack-label">${note.label}</p>
-    <h3>${note.title}</h3>
+    <h3>${note.title}<span class="title-en">${note.titleEn || ""}</span></h3>
     <p>${note.summary}</p>
     <div class="card-actions">
       <span class="note-meta">open detail page</span>
@@ -607,7 +607,7 @@ if (noteDetailNode) {
         <p class="eyebrow">${note.label} / ${note.timeframe} / ${note.status}</p>
         <h1 class="page-title">
           ${note.title}
-          <span>${note.detailTitle}</span>
+          <span>${note.detailTitle}${note.detailTitleEn ? `<br><span class="title-en">${note.detailTitleEn}</span>` : ""}</span>
         </h1>
         <p class="page-lead">${note.overview}</p>
         <div class="page-actions">
