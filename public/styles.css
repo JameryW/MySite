@@ -1765,7 +1765,7 @@ body[data-page="about"] .section + .section {
 
 .notes-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
 
@@ -2973,10 +2973,6 @@ body[data-page="about"] .section + .section {
     grid-row: auto;
     min-height: auto;
     margin-top: 10px;
-  }
-
-  .notes-grid {
-    grid-template-columns: repeat(2, 1fr);
   }
 }
 
