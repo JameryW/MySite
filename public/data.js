@@ -107,6 +107,32 @@ window.siteData = {
       ],
       outputs: ["Strategy prototypes", "Backtest engine", "Research-to-code pipeline"],
       relatedNotes: ["why-agents-matter", "prototype-first"]
+    },
+    {
+      slug: "ultimate-coders",
+      code: "E5",
+      label: "Distributed AI",
+      title: "UltimateCoders",
+      featured: true,
+      summary: "分布式 AI 编码系统 — Rust 核心处理索引、搜索、记忆与调度，Python 层负责 LLM 交互，支持 PyO3/gRPC 双模式。",
+      href: "https://github.com/JameryW/UltimateCoders",
+      cta: "view source",
+      status: "Active",
+      stack: ["Rust", "Python", "PyO3", "gRPC", "Multi-Agent", "TiKV", "Qdrant"],
+      timeframe: "2025–now",
+      role: "Architect / Builder",
+      detailTitle: "Distributed AI Coding System",
+      overview:
+        "基于 Orchestrator-Worker 模式的分布式 AI 编码系统。Rust 核心负责索引、搜索、记忆和调度，Python 层处理 LLM 任务分解与代码生成。支持 PyO3 FFI 本地运行或 gRPC 分布式部署，运行时切换。存储后端支持 TiKV、Qdrant、PostgreSQL、NATS。",
+      highlights: [
+        "Orchestrator-Worker 多 Agent 协作模式，任务分解与执行分离。",
+        "Rust 核心引擎：索引、搜索、记忆、调度，高性能基础设施。",
+        "Python LLM 层：任务分解、代码生成，灵活的模型接入。",
+        "双通信模式：PyO3 FFI 本地高性能，gRPC 分布式扩展，运行时切换。",
+        "多存储后端：TiKV 键值、Qdrant 向量、PostgreSQL 关系、NATS 消息队列。"
+      ],
+      outputs: ["Distributed AI system", "Rust-Python bridge", "Multi-agent orchestration"],
+      relatedNotes: ["why-agents-matter", "prompt-engineering-evolution"]
     }
   ],
   notes: [
