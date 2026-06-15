@@ -40,6 +40,11 @@ about-page-full.txt
 *.log
 npm-debug.log*
 
+# Trellis — personal workspace, tasks, and runtime state
+.trellis/workspace/
+.trellis/tasks/
+.trellis/.runtime/
+
 # Misc
 *.tgz
 .cache/
