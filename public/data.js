@@ -142,6 +142,7 @@ window.siteData = {
       label: "Agents",
       title: "为什么 Agent 重要",
       titleEn: "Why Agents Matter",
+      featured: true,
       summary: "我更关心连续执行、记忆和工具协作，而不是单轮问答的漂亮程度。",
       meta: "Focus: execution loop",
       status: "Research note",
@@ -214,6 +215,7 @@ window.siteData = {
       label: "Prompt",
       title: "提示工程正在演进",
       titleEn: "Prompt Engineering Is Evolving",
+      featured: true,
       summary: "提示工程正在从手工技巧转向结构化接口，从写 prompt 变成设计工具和编排流程。",
       meta: "Focus: structural shift",
       status: "Observation note",
@@ -286,6 +288,7 @@ window.siteData = {
       label: "Loop",
       title: "在loop中进化",
       titleEn: "Evolve In Loop",
+      featured: true,
       summary: "进化的本质不是一次性跃迁，而是无数次闭环反馈的累积。每一次 loop 都是一次校准：行动→反馈→调整→再行动。",
       meta: "Focus: feedback-driven growth",
       status: "Philosophy note",
@@ -303,6 +306,31 @@ window.siteData = {
       ],
       outputs: ["Loop evolution thesis", "Feedback-driven growth", "Compound improvement insight"],
       relatedProjects: ["xhs-growth-agent", "quant-agent", "real-quant-engine", "quant-strategy-prototypes"]
+    },
+    {
+      slug: "quantity-to-quality",
+      code: "N8",
+      label: "Alpha",
+      title: "量变引起质变",
+      titleEn: "Quantity Becomes Quality",
+      featured: true,
+      summary: "持续高质量的数据产生高质量的策略，高质量策略催生新的 alpha。这是一个自增强的飞轮，不是线性积累。",
+      meta: "Focus: data-strategy flywheel",
+      status: "Research note",
+      timeframe: "2025 observation",
+      detailTitle: "数据飞轮催生 alpha",
+      detailTitleEn: "The Data Flywheel Generates Alpha",
+      overview:
+        "量变引起质变，这不只是一句哲学判断，而是量化策略迭代的底层机制。持续高质量的数据产生高质量的策略，高质量的策略又反过来筛选和生成更高质量的数据，形成自增强的飞轮。新的 alpha 不是灵光一现，而是飞轮转出来的。",
+      lens: "Alpha is not discovered in a single insight — it emerges from a compounding flywheel where quality data and quality strategies reinforce each other.",
+      bullets: [
+        "数据质量决定策略质量，策略质量决定数据筛选标准。两者互为输入，形成正反馈回路。",
+        "alpha 的半衰期在缩短，但飞轮效应在增强。单个 alpha 会衰减，但生产 alpha 的能力在累积。",
+        "量变不是简单地堆数量，而是高密度、高信噪比的持续输出。垃圾数据的量变只会产生垃圾策略。",
+        "真正的壁垒不是某个策略，而是持续生产策略的能力 — 即飞轮本身的转速和稳定性。"
+      ],
+      outputs: ["Data-strategy flywheel thesis", "Alpha compounding insight", "Quality reinforcement loop"],
+      relatedProjects: ["quant-agent", "real-quant-engine", "quant-strategy-prototypes"]
     }
   ]
 };
