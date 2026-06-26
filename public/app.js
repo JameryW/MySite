@@ -370,7 +370,7 @@ if (projectLibraryNode) {
 }
 
 if (homeNotesNode) {
-  homeNotesNode.innerHTML = siteData.notes.filter((note) => note.featured).reverse().slice(0, 6).map(noteCardMarkup).join("");
+  homeNotesNode.innerHTML = siteData.notes.filter((note) => note.featured).reverse().slice(0, 4).map(noteCardMarkup).join("");
 }
 
 if (noteLibraryNode) {

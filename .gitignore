@@ -44,7 +44,6 @@ npm-debug.log*
 .trellis/workspace/
 .trellis/tasks/
 .trellis/.runtime/
-.trellis/scripts/
 
 # Misc
 *.tgz
