@@ -331,6 +331,31 @@ window.siteData = {
       ],
       outputs: ["Data-strategy flywheel thesis", "Alpha compounding insight", "Quality reinforcement loop"],
       relatedProjects: ["quant-agent", "real-quant-engine", "quant-strategy-prototypes"]
+    },
+    {
+      slug: "knowledge-depreciates-experience-appreciates",
+      code: "N9",
+      label: "Judgment",
+      title: "知识贬值，经验升值",
+      titleEn: "Knowledge Depreciates, Experience Appreciates",
+      featured: true,
+      summary: "AI 让可检索的知识快速贬值，却让从踩坑里长出来的工程经验升值。设计能扛亿级并发的分布式架构，靠的不是教科书上的基本知识。",
+      meta: "Focus: AI-era value shift",
+      status: "Judgment note",
+      timeframe: "2025 observation",
+      detailTitle: "AI 时代的价值迁移",
+      detailTitleEn: "The Value Shift In The AI Era",
+      overview:
+        "一个反直觉的判断：AI 时代让知识贬值，但让经验升值。知识是被检索的，AI 把检索成本压到趋近于零；而经验是被踩出来的，它包含失败、权衡和那些只在特定规模下才显形的边界条件。设计一个能承受亿级并发流量的分布式架构，绝不是拥有基本知识就足够的。",
+      lens: "Knowledge is retrievable and AI drives its cost toward zero; experience is earned through failure and scale — and that is what becomes scarce and valuable.",
+      bullets: [
+        "知识贬值不是因为知识没用，而是因为获取成本被 AI 拉平了。人人都能查到的，就不再是壁垒。",
+        "经验升值是因为它无法被检索。亿级并发下的雪崩、热点 key、级联故障，这些只能在真实规模里学到。",
+        "基本知识能让你画出架构图，但撑不住亿级流量。能撑住的是判断：哪里该冗余、哪里该降级、哪里该牺牲一致性。",
+        "AI 时代最值钱的能力，是用经验去问对的问题、验证 AI 给的答案。知识免费了，但知道哪个答案靠谱，反而更贵了。"
+      ],
+      outputs: ["AI-era value shift thesis", "Experience-as-scarcity insight", "Judgment over knowledge argument"],
+      relatedProjects: ["real-quant-engine", "quant-agent"]
     }
   ]
 };
