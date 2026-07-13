@@ -356,6 +356,31 @@ window.siteData = {
       ],
       outputs: ["AI-era value shift thesis", "Experience-as-scarcity insight", "Judgment over knowledge argument"],
       relatedProjects: ["real-quant-engine", "quant-agent"]
+    },
+    {
+      slug: "skills-devoured-tools-fortified",
+      code: "N10",
+      label: "Moat",
+      title: "技能被吞，工具成护城河",
+      titleEn: "Skills Devoured, Tools Fortified",
+      featured: true,
+      summary: "模型能力越强，纯软件技能越像免费 API 一样被吞噬。真正难复刻的是连接物理世界的 tools——传感器、执行器、私有协议、真实环境的反馈闭环。",
+      meta: "Focus: AI-era moat shift",
+      status: "Moat note",
+      timeframe: "2025 observation",
+      detailTitle: "技能被吞噬，工具成护城河",
+      detailTitleEn: "Skills Devoured, Tools Fortified",
+      overview:
+        "一个判断：大模型会让纯软件技能快速贬值。写文案、做表格、调 prompt——这些是模型的 API，一旦模型够强就免费可得，门槛归零。真正无法被吞噬的，是连接物理世界的 tools：硬件接口、私有协议、传感器与执行器、真实环境的反馈闭环。这些需要长期积累、实物调试和现场踩坑，模型再强也替代不了那段物理世界的摩擦。",
+      lens: "Skills are LLM-callable and trend toward free; tools that bridge the physical world carry friction — hardware, private protocols, real feedback loops — that models cannot shortcut.",
+      bullets: [
+        "纯软件技能是模型的输入：能力越强，这些技能越像免费 API，可被一次性吞掉。prompt 工程、文案生成、表格自动化都属于这一类。",
+        "物理世界的 tools 有不可压缩的摩擦：硬件驱动、私有协议、传感器标定、执行器时序，都需要实物调试和长期踩坑，无法靠 token 生成。",
+        "护城河在反馈闭环里：连接真实环境的 tools 能拿到模型拿不到的数据——物理状态、故障现场、边缘 case——这才是难复刻的部分。",
+        "结论：技能层会持续贬值，工具层会持续升值。把精力投在连接物理世界的 tools 上，比优化可被吞掉的技能更抗通胀。"
+      ],
+      outputs: ["Skills-as-LLM-API thesis", "Physical-friction moat insight", "Tools-over-skills argument"],
+      relatedProjects: ["real-quant-engine", "quant-agent"]
     }
   ]
 };
