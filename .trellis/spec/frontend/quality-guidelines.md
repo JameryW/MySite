@@ -74,6 +74,21 @@ Required checks after editing `styles.css`, `app.js`, or `data.js`:
 * Bump the relevant query version in every page that references the changed asset.
 * Bump `public/sw.js` `CACHE` when a shell asset changes so returning visitors do not receive stale cached files.
 
+### Platform Link Logos
+
+Social platform links on standalone pages should use page-local SVG symbols or a verified local brand asset when the platform mark is not a practical inline path. Use the shared classes below and keep visible text alongside the logo for accessibility and recognition; external links retain `target="_blank"` and `rel="noreferrer"`.
+
+```html
+<a class="platform-link" href="https://x.com/JameryWang" target="_blank" rel="noreferrer">
+  <svg class="platform-icon" aria-hidden="true"><use href="#platform-icon-x"></use></svg>
+  <span>X</span>
+</a>
+```
+
+Do not add a remote icon request or a dependency for these static platform marks. Keep the compact topbar icons grouped with `.topbar-socials` and leave primary page actions focused on page navigation.
+
+For image-based marks, add the asset to the Service Worker shell cache and use an empty `alt` when the adjacent visible link text already names the platform.
+
 ### Async Font Links
 
 Pages using the Google Fonts async pattern must also load the JavaScript font loader:

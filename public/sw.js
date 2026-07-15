@@ -1,4 +1,4 @@
-const CACHE = 'mysite-v32';
+const CACHE = 'mysite-v55';
 const SHELL = [
   './',
   './index.html',
@@ -9,6 +9,7 @@ const SHELL = [
   './project.html',
   './note.html',
   './styles.css',
+  './xiaohongshu-logo.png',
   './app.js',
   './data.js',
   './favicon.svg',
