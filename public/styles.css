@@ -3375,6 +3375,21 @@ body[data-page="about"] .contact-links a:nth-child(3) {
     gap: 10px;
   }
 
+  body[data-page="about"] .about-page-actions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  body[data-page="about"] .about-page-actions .button {
+    min-height: 42px;
+    padding: 10px 8px;
+    font-size: 0.78rem;
+    line-height: 1.25;
+    white-space: normal;
+  }
+
   /* 首页 hero 移动端 — 紧凑堆叠 */
   .home-hero {
     flex-direction: column;
@@ -3655,20 +3670,19 @@ body[data-page="about"] .contact-links a:nth-child(3) {
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     padding: 16px 0 12px;
   }
 
   .menu-toggle {
     display: flex;
+    flex: 0 0 40px;
   }
 
   .topbar-meta {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 14px;
+    display: none;
+    width: auto;
+    flex: 0 0 auto;
     padding: 0;
     max-height: 0;
     overflow: hidden;
@@ -3677,28 +3691,117 @@ body[data-page="about"] .contact-links a:nth-child(3) {
   }
 
   .topbar-meta.open {
-    max-height: 400px;
-    opacity: 1;
-    padding: 14px 0;
-  }
-
-  .topbar-meta,
-  .topbar-actions {
+    display: flex;
     width: 100%;
-    flex-wrap: wrap;
+    flex-basis: 100%;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    max-height: 64px;
+    opacity: 1;
+    margin-top: 0;
+    padding: 8px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    order: 4;
+    border: 1px solid rgba(162, 176, 255, 0.18);
+    border-radius: 14px;
+    background:
+      linear-gradient(135deg, rgba(108, 242, 255, 0.08), transparent 58%),
+      rgba(8, 13, 31, 0.96);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.24), 0 0 0 1px rgba(108, 242, 255, 0.04);
+    backdrop-filter: blur(18px);
   }
 
-  .topbar-actions {
-    flex-direction: column;
-    align-items: stretch;
+  .topbar-meta.open .nav {
+    display: grid;
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 3px;
+  }
+
+  .topbar-meta.open .nav a {
+    display: flex;
+    min-width: 0;
+    min-height: 34px;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 2px;
+    border: 1px solid rgba(162, 176, 255, 0.14);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.035);
+    color: var(--muted);
+    overflow: hidden;
+    font-size: 0.58rem;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+  }
+
+  .topbar-meta.open .nav a::after {
+    right: 8px;
+    bottom: 5px;
+    left: 8px;
+    width: auto;
+  }
+
+  .topbar-meta.open .nav a:hover,
+  .topbar-meta.open .nav a:focus-visible {
+    border-color: rgba(108, 242, 255, 0.42);
+    background: rgba(108, 242, 255, 0.08);
+    color: var(--text);
+  }
+
+  .topbar-meta.open .topbar-actions {
+    display: flex;
+    width: auto;
+    flex: 0 0 auto;
+    margin-left: 0;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .topbar-meta.open .topbar-actions .palette-hint {
+    display: none;
+  }
+
+  .topbar-meta.open .topbar-actions .theme-toggle {
+    flex: 0 0 auto;
+    width: 34px;
+    height: 34px;
+  }
+
+  .topbar-meta.open .topbar-actions .topbar-status {
+    display: none;
   }
 
   .topbar-socials {
+    width: auto;
+    align-self: center;
     justify-content: center;
+    flex: 0 0 auto;
+    margin-left: auto;
+    order: 3;
   }
 
-  .topbar-link.platform-icon-only {
+  .topbar-socials .topbar-link.platform-icon-only {
     width: 44px;
+    min-width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+    text-align: center;
+  }
+
+  .topbar-actions .topbar-status {
+    width: auto;
+    align-self: center;
+    text-align: center;
   }
 
   .nav {
@@ -3821,6 +3924,35 @@ body[data-page="about"] .contact-links a:nth-child(3) {
   .lead,
   .page-lead {
     max-width: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .topbar {
+    gap: 8px;
+  }
+
+  .brand {
+    gap: 8px;
+    font-size: 0.84rem;
+    letter-spacing: 0.06em;
+  }
+
+  .brand-mark {
+    width: 10px;
+    height: 10px;
+  }
+
+  .topbar-socials {
+    gap: 4px;
+  }
+
+  .topbar-socials .topbar-link.platform-icon-only {
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
+    flex-basis: 32px;
+    padding: 6px;
   }
 }
 
