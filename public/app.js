@@ -126,6 +126,13 @@ if (themeToggle) {
 const menuToggle = document.querySelector(".menu-toggle");
 const topbarMeta = document.querySelector(".topbar-meta");
 if (menuToggle && topbarMeta) {
+  const topbar = menuToggle.closest(".topbar");
+  const closeMenu = () => {
+    menuToggle.classList.remove("open");
+    topbarMeta.classList.remove("open");
+    menuToggle.setAttribute("aria-expanded", "false");
+  };
+
   menuToggle.addEventListener("click", () => {
     const isOpen = menuToggle.classList.toggle("open");
     topbarMeta.classList.toggle("open");
@@ -134,6 +141,22 @@ if (menuToggle && topbarMeta) {
       const firstLink = topbarMeta.querySelector(".nav a");
       if (firstLink) firstLink.focus();
     }
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!topbarMeta.classList.contains("open")) return;
+    if (topbar && !topbar.contains(event.target)) closeMenu();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && topbarMeta.classList.contains("open")) {
+      closeMenu();
+      menuToggle.focus();
+    }
+  });
+
+  topbarMeta.querySelectorAll(".nav a").forEach((link) => {
+    link.addEventListener("click", closeMenu);
   });
 }
 

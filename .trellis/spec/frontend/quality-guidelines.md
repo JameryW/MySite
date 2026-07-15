@@ -89,6 +89,8 @@ Do not add a remote icon request or a dependency for these static platform marks
 
 On mobile, keep `.topbar-socials` as a direct child of `.topbar`, outside the collapsible `.topbar-meta` container. The menu toggle should control navigation and utility actions only, so the three platform icons remain visible before the menu is opened.
 
+The mobile `.topbar-meta.open` state should be a bounded panel with a two-column navigation grid and a separated utility row. Close it on navigation, outside clicks, and `Escape`, while returning focus to the menu button for keyboard users.
+
 For image-based marks, add the asset to the Service Worker shell cache and use an empty `alt` when the adjacent visible link text already names the platform.
 
 ### Async Font Links
