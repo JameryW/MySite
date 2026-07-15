@@ -3375,6 +3375,21 @@ body[data-page="about"] .contact-links a:nth-child(3) {
     gap: 10px;
   }
 
+  body[data-page="about"] .about-page-actions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  body[data-page="about"] .about-page-actions .button {
+    min-height: 42px;
+    padding: 10px 8px;
+    font-size: 0.78rem;
+    line-height: 1.25;
+    white-space: normal;
+  }
+
   /* 首页 hero 移动端 — 紧凑堆叠 */
   .home-hero {
     flex-direction: column;

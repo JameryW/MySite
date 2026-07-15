@@ -91,6 +91,8 @@ On mobile, keep `.topbar-socials` as a direct child of `.topbar`, outside the co
 
 The mobile `.topbar-meta.open` state should be a bounded panel with a two-column navigation grid and a separated utility row. Close it on navigation, outside clicks, and `Escape`, while returning focus to the menu button for keyboard users.
 
+For the About page's three primary entry links, override the generic mobile stacked action layout with a compact three-column grid. Keep each target at least 42px tall and allow the label to wrap instead of stretching each link to the full viewport width.
+
 For image-based marks, add the asset to the Service Worker shell cache and use an empty `alt` when the adjacent visible link text already names the platform.
 
 ### Async Font Links
