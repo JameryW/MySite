@@ -31,7 +31,7 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&family=Syne:wght@700;800&display=swap" media="print" data-fonts-load
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=26" />
+    <link rel="stylesheet" href="./styles.css?v=45" />
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -55,6 +55,16 @@
     <script defer src="https://stats.jameryw.dev/recorder.js" data-website-id="9f2c6bb7-954c-4c5c-beb2-fe362b28958e" data-sample-rate="0.15" data-mask-level="moderate" data-max-duration="300000"></script>
   </head>
   <body data-page="notes">
+    <svg class="platform-icon-defs" aria-hidden="true">
+      <defs>
+        <symbol id="platform-icon-x" viewBox="0 0 24 24">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817-5.966 6.817H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+        </symbol>
+        <symbol id="platform-icon-github" viewBox="0 0 24 24">
+          <path d="M12 .297a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.74.08-.74 1.2.08 1.84 1.23 1.84 1.23 1.07 1.83 2.8 1.3 3.48.99.11-.77.42-1.3.76-1.6-2.66-.3-5.46-1.33-5.46-5.93 0-1.31.47-2.38 1.23-3.22-.12-.3-.53-1.52.12-3.17 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.3-1.55 3.3-1.23 3.3-1.23.65 1.65.24 2.87.12 3.17.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.62-5.47 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.22.7.83.58A12 12 0 0 0 12 .297" />
+        </symbol>
+      </defs>
+    </svg>
     <div class="page-loader" aria-hidden="true"><div class="loader-ring"></div></div>
     <div class="cursor-glow" aria-hidden="true"></div>
     <div class="reading-progress" aria-hidden="true"></div>
@@ -88,7 +98,17 @@
               <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
             </button>
             <p class="topbar-status">Note Detail</p>
-            <a class="topbar-link" href="./notes.html">All Notes</a>
+            <div class="topbar-socials" role="group" aria-label="Social profiles">
+              <a class="topbar-link platform-link platform-icon-only" href="https://github.com/jameryw" target="_blank" rel="noreferrer" aria-label="GitHub Profile" title="GitHub">
+                <svg class="platform-icon" aria-hidden="true"><use href="#platform-icon-github"></use></svg>
+              </a>
+              <a class="topbar-link platform-link platform-icon-only" href="https://x.com/JameryWang" target="_blank" rel="noreferrer" aria-label="X Profile" title="X">
+                <svg class="platform-icon" aria-hidden="true"><use href="#platform-icon-x"></use></svg>
+              </a>
+              <a class="topbar-link platform-link platform-icon-only" href="https://xhslink.com/m/5WfdZrtFi4K" target="_blank" rel="noreferrer" aria-label="小红书" title="小红书">
+                <img class="platform-icon platform-icon-xiaohongshu" src="./xiaohongshu-logo.png" alt="" />
+              </a>
+            </div>
           </div>
         </div>
       </header>
