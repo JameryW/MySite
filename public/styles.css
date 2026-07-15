@@ -3694,10 +3694,10 @@ body[data-page="about"] .contact-links a:nth-child(3) {
     display: flex;
     width: 100%;
     flex-basis: 100%;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-    max-height: min(280px, calc(100vh - 86px));
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    max-height: 64px;
     opacity: 1;
     margin-top: 0;
     padding: 8px;
@@ -3715,25 +3715,27 @@ body[data-page="about"] .contact-links a:nth-child(3) {
 
   .topbar-meta.open .nav {
     display: grid;
+    flex: 1 1 auto;
+    min-width: 0;
     width: 100%;
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 4px;
+    gap: 3px;
   }
 
   .topbar-meta.open .nav a {
     display: flex;
     min-width: 0;
-    min-height: 36px;
+    min-height: 34px;
     align-items: center;
     justify-content: center;
-    padding: 7px 4px;
+    padding: 7px 2px;
     border: 1px solid rgba(162, 176, 255, 0.14);
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.035);
     color: var(--muted);
     overflow: hidden;
-    font-size: 0.62rem;
-    letter-spacing: 0.03em;
+    font-size: 0.58rem;
+    letter-spacing: 0.02em;
     white-space: nowrap;
     text-overflow: ellipsis;
     text-transform: uppercase;
@@ -3755,18 +3757,24 @@ body[data-page="about"] .contact-links a:nth-child(3) {
 
   .topbar-meta.open .topbar-actions {
     display: flex;
-    width: 100%;
+    width: auto;
+    flex: 0 0 auto;
     margin-left: 0;
     align-items: center;
     justify-content: flex-end;
-    gap: 6px;
-    padding-top: 6px;
-    border-top: 1px solid rgba(162, 176, 255, 0.14);
+    gap: 4px;
+    padding-top: 0;
+    border-top: 0;
   }
 
-  .topbar-meta.open .topbar-actions .palette-hint,
+  .topbar-meta.open .topbar-actions .palette-hint {
+    display: none;
+  }
+
   .topbar-meta.open .topbar-actions .theme-toggle {
     flex: 0 0 auto;
+    width: 34px;
+    height: 34px;
   }
 
   .topbar-meta.open .topbar-actions .topbar-status {
