@@ -87,6 +87,8 @@ Social platform links on standalone pages should use page-local SVG symbols or a
 
 Do not add a remote icon request or a dependency for these static platform marks. Keep the compact topbar icons grouped with `.topbar-socials` and leave primary page actions focused on page navigation.
 
+On mobile, keep `.topbar-socials` as a direct child of `.topbar`, outside the collapsible `.topbar-meta` container. The menu toggle should control navigation and utility actions only, so the three platform icons remain visible before the menu is opened.
+
 For image-based marks, add the asset to the Service Worker shell cache and use an empty `alt` when the adjacent visible link text already names the platform.
 
 ### Async Font Links

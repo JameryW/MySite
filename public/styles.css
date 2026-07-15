@@ -3664,11 +3664,9 @@ body[data-page="about"] .contact-links a:nth-child(3) {
   }
 
   .topbar-meta {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 14px;
+    display: none;
+    width: auto;
+    flex: 0 0 auto;
     padding: 0;
     max-height: 0;
     overflow: hidden;
@@ -3677,28 +3675,55 @@ body[data-page="about"] .contact-links a:nth-child(3) {
   }
 
   .topbar-meta.open {
+    display: flex;
+    width: 100%;
+    flex-basis: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
     max-height: 400px;
     opacity: 1;
     padding: 14px 0;
+    overflow: visible;
+    order: 4;
   }
 
-  .topbar-meta,
   .topbar-actions {
+    width: auto;
+    margin-left: auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .topbar-meta.open .topbar-actions {
     width: 100%;
-    flex-wrap: wrap;
-  }
-
-  .topbar-actions {
+    margin-left: 0;
     flex-direction: column;
-    align-items: stretch;
+    align-items: center;
   }
 
   .topbar-socials {
+    width: auto;
+    align-self: center;
     justify-content: center;
+    flex: 0 0 auto;
+    margin-left: auto;
+    order: 3;
   }
 
-  .topbar-link.platform-icon-only {
+  .topbar-socials .topbar-link.platform-icon-only {
     width: 44px;
+    min-width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+    text-align: center;
+  }
+
+  .topbar-actions .topbar-status {
+    width: auto;
+    align-self: center;
+    text-align: center;
   }
 
   .nav {
@@ -3821,6 +3846,35 @@ body[data-page="about"] .contact-links a:nth-child(3) {
   .lead,
   .page-lead {
     max-width: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .topbar {
+    gap: 8px;
+  }
+
+  .brand {
+    gap: 8px;
+    font-size: 0.84rem;
+    letter-spacing: 0.06em;
+  }
+
+  .brand-mark {
+    width: 10px;
+    height: 10px;
+  }
+
+  .topbar-socials {
+    gap: 4px;
+  }
+
+  .topbar-socials .topbar-link.platform-icon-only {
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
+    flex-basis: 32px;
+    padding: 6px;
   }
 }
 
