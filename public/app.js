@@ -1,6 +1,13 @@
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const orbA = document.querySelector(".orb-a");
 const orbB = document.querySelector(".orb-b");
+let orbC = document.querySelector(".orb-c");
+if (!orbC && !reduceMotion) {
+  orbC = document.createElement("div");
+  orbC.className = "orb orb-c";
+  orbC.setAttribute("aria-hidden", "true");
+  document.body.insertBefore(orbC, document.body.firstChild);
+}
 const currentPage = document.body.dataset.page;
 const yearNodes = document.querySelectorAll("[data-year]");
 const scrollProgressNode = document.querySelector("[data-scroll-progress]");
@@ -36,6 +43,15 @@ if (loader) {
   } else {
     dismiss();
   }
+}
+
+/* ── Data Streams Background ── */
+if (!reduceMotion) {
+  const dataStreams = document.createElement("div");
+  dataStreams.className = "data-streams";
+  dataStreams.setAttribute("aria-hidden", "true");
+  dataStreams.innerHTML = "<span></span><span></span><span></span><span></span><span></span><span></span>";
+  document.body.insertBefore(dataStreams, document.body.firstChild);
 }
 
 /* ── Unified Pointer Tracking (rAF-throttled) ── */
@@ -121,6 +137,35 @@ if (themeToggle) {
     setTheme(current === "dark" ? "light" : "dark");
   });
 }
+
+/* ── Terminal Command / Output Stagger ── */
+document.querySelectorAll(".terminal-body").forEach((terminal) => {
+  const children = Array.from(terminal.children);
+  let delay = 200;
+  children.forEach((child) => {
+    if (child.classList.contains("terminal-cmd")) {
+      child.style.animationDelay = `${delay}ms`;
+      delay += 280;
+    } else if (child.classList.contains("terminal-out")) {
+      child.style.animationDelay = `${delay}ms`;
+      delay += 100;
+    }
+  });
+});
+
+/* ── Button Ripple Effect ── */
+document.querySelectorAll(".button").forEach((button) => {
+  button.addEventListener("click", (e) => {
+    if (reduceMotion) return;
+    const rect = button.getBoundingClientRect();
+    const ripple = document.createElement("span");
+    ripple.className = "ripple";
+    ripple.style.left = `${e.clientX - rect.left}px`;
+    ripple.style.top = `${e.clientY - rect.top}px`;
+    button.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 600);
+  });
+});
 
 /* ── Mobile Menu Toggle ── */
 const menuToggle = document.querySelector(".menu-toggle");
@@ -994,16 +1039,19 @@ if (particleCanvas && !reduceMotion) {
 
   function createParticles() {
     const area = window.innerWidth * window.innerHeight;
-    const maxCount = window.innerWidth < 760 ? 18 : 40;
-    const count = Math.min(Math.floor(area / 24000), maxCount);
+    const maxCount = window.innerWidth < 760 ? 18 : 46;
+    const count = Math.min(Math.floor(area / 22000), maxCount);
     particles = [];
     for (let i = 0; i < count; i++) {
       particles.push({
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        size: Math.random() * 1.5 + 0.5
+        vx: (Math.random() - 0.5) * 0.34,
+        vy: (Math.random() - 0.5) * 0.34,
+        baseSize: Math.random() * 1.4 + 0.6,
+        size: 0,
+        phase: Math.random() * Math.PI * 2,
+        pulseSpeed: 0.02 + Math.random() * 0.03
       });
     }
   }
@@ -1024,16 +1072,37 @@ if (particleCanvas && !reduceMotion) {
 
     for (let i = 0; i < particles.length; i++) {
       const p = particles[i];
-      p.x += p.vx;
-      p.y += p.vy;
+      p.phase += p.pulseSpeed;
+      p.size = p.baseSize + Math.sin(p.phase) * 0.35;
+
+      let vx = p.vx;
+      let vy = p.vy;
+
+      // Subtle mouse interaction: particles drift away from cursor
+      if (!reduceMotion) {
+        const dx = p.x - pointerX;
+        const dy = p.y - pointerY;
+        const distSq = dx * dx + dy * dy;
+        const interactRadius = 140;
+        if (distSq < interactRadius * interactRadius) {
+          const dist = Math.sqrt(distSq) || 1;
+          const force = (1 - dist / interactRadius) * 0.12;
+          vx += (dx / dist) * force;
+          vy += (dy / dist) * force;
+        }
+      }
+
+      p.x += vx;
+      p.y += vy;
       if (p.x < 0) p.x = w;
       if (p.x > w) p.x = 0;
       if (p.y < 0) p.y = h;
       if (p.y > h) p.y = 0;
 
+      const flicker = 0.42 + Math.sin(p.phase * 1.7) * 0.22;
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${dotColor}, 0.5)`;
+      ctx.fillStyle = `rgba(${dotColor}, ${Math.max(0.18, flicker).toFixed(3)})`;
       ctx.fill();
     }
 
@@ -1081,8 +1150,8 @@ if (particleCanvas && !reduceMotion) {
               ctx.beginPath();
               ctx.moveTo(pa.x, pa.y);
               ctx.lineTo(pb.x, pb.y);
-              ctx.strokeStyle = `rgba(${lineColor}, ${0.15 * (1 - distSq / maxDistSq)})`;
-              ctx.lineWidth = 0.5;
+              ctx.strokeStyle = `rgba(${lineColor}, ${(0.22 * (1 - distSq / maxDistSq)).toFixed(3)})`;
+              ctx.lineWidth = 0.7;
               ctx.stroke();
             }
           }
@@ -1102,8 +1171,8 @@ if (particleCanvas && !reduceMotion) {
                 ctx.beginPath();
                 ctx.moveTo(pa.x, pa.y);
                 ctx.lineTo(pb.x, pb.y);
-                ctx.strokeStyle = `rgba(${lineColor}, ${0.15 * (1 - distSq / maxDistSq)})`;
-                ctx.lineWidth = 0.5;
+                ctx.strokeStyle = `rgba(${lineColor}, ${(0.22 * (1 - distSq / maxDistSq)).toFixed(3)})`;
+                ctx.lineWidth = 0.7;
                 ctx.stroke();
               }
             }
