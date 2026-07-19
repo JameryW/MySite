@@ -441,6 +441,15 @@ body {
   transform: translateY(0);
 }
 
+.skip-link:focus-visible {
+  border-radius: 14px;
+}
+
+[data-theme="light"] .skip-link {
+  background: rgba(240, 242, 248, 0.96);
+  border-color: rgba(8, 145, 178, 0.35);
+}
+
 .scroll-progress {
   position: fixed;
   inset: 0 0 auto;
