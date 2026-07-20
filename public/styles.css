@@ -437,12 +437,9 @@ body {
   transition: transform 180ms ease;
 }
 
-.skip-link:focus {
-  transform: translateY(0);
-}
-
 .skip-link:focus-visible {
   border-radius: 14px;
+  transform: translateY(0);
 }
 
 [data-theme="light"] .skip-link {
