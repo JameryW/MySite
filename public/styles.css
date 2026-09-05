@@ -1292,9 +1292,10 @@ h3 {
 
 body[data-page="home"] .hero-copy {
   flex: 1 1 560px;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 body[data-page="home"] .hero-copy h1 {
@@ -1309,7 +1310,7 @@ body[data-page="home"] .hero-copy h1 span {
 }
 
 .hero-tagline {
-  margin: 16px 0 8px;
+  margin: 18px 0 0;
   max-width: 44ch;
   line-height: 1.85;
 }
@@ -1332,7 +1333,7 @@ body[data-page="home"] .hero-copy h1 span {
 }
 
 .home-hero-meta {
-  margin: 8px 0 0;
+  margin: 14px 0 0;
   color: var(--muted);
   font-size: 0.92rem;
   font-weight: 700;
@@ -1340,9 +1341,15 @@ body[data-page="home"] .hero-copy h1 span {
   text-transform: uppercase;
 }
 
+body[data-page="home"] .hero-copy .lead {
+  margin: 12px 0 0;
+  max-width: 46ch;
+}
+
 .hero-focus-panel {
   position: relative;
   flex: 0 1 360px;
+  min-width: 0;
   overflow: hidden;
   padding: 26px;
   border: 1px solid var(--line);
@@ -1839,6 +1846,31 @@ body[data-page="about"] .section + .section {
 
 .section-head > :first-child {
   margin-top: 8px;
+}
+
+/* ── Home: stacked section heads (other pages keep the 180px grid) ── */
+body[data-page="home"] .section-head {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+body[data-page="home"] .section-head > :first-child {
+  margin-top: 0;
+}
+
+body[data-page="home"] .section-head h2 {
+  max-width: none;
+}
+
+body[data-page="home"] .section-kicker {
+  margin-bottom: 6px;
+}
+
+body[data-page="home"] .section-head .section-summary {
+  margin-top: 4px;
+  max-width: 62ch;
 }
 
 .about-grid {
@@ -2359,6 +2391,47 @@ body[data-page="about"] .section + .section {
   transform: translateX(10px);
   border-color: rgba(108, 242, 255, 0.38);
   background: linear-gradient(180deg, rgba(18, 26, 52, 0.88), rgba(9, 15, 36, 0.95));
+}
+
+/* ── Home: card density (work-card only renders on home) ── */
+body[data-page="home"] .work-card {
+  grid-template-columns: 72px minmax(0, 1fr);
+  padding: 20px 22px;
+}
+
+body[data-page="home"] .work-card:hover {
+  transform: translateX(6px);
+}
+
+body[data-page="home"] .work-copy {
+  min-width: 0;
+}
+
+body[data-page="home"] .notes-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+body[data-page="home"] .note-card {
+  min-width: 0;
+}
+
+body[data-page="home"] .work-copy h3,
+body[data-page="home"] .note-card h3 {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 760px) {
+  body[data-page="home"] .work-card {
+    grid-template-columns: 36px minmax(0, 1fr);
+    padding: 14px 16px;
+  }
+
+  body[data-page="home"] .notes-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
 }
 
 .button:focus-visible,
@@ -4460,6 +4533,10 @@ html.theme-transitioning *::after {
   .back-to-top:hover,
   .filter-pill:hover,
   .signal-route:hover {
+    transform: none;
+  }
+
+  body[data-page="home"] .work-card:hover {
     transform: none;
   }
 
