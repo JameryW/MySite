@@ -368,12 +368,13 @@ const projectCardMarkup = (project, variant) => {
           <p class="card-topline">
             ${project.label}
             <span class="card-status-dot ${project.status.toLowerCase().includes('active') || project.status.toLowerCase().includes('production') || project.status.toLowerCase().includes('live') ? 'live' : 'dev'}" aria-hidden="true"></span>
+            <span class="work-status-pill">${project.status}</span>
           </p>
           <h3>${project.title}</h3>
-          <p>${project.summary}</p>
+          <p class="work-summary">${project.summary}</p>
           <div class="card-tags">${createTagList(project.stack)}</div>
           <div class="card-actions">
-            <span class="work-link">open detail</span>
+            <span class="work-link">open detail <span class="work-arrow" aria-hidden="true">→</span></span>
             <span class="card-inline-link">${project.cta}</span>
           </div>
         </div>

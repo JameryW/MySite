@@ -33,7 +33,7 @@
       rel="stylesheet"
     />
     <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" /></noscript>
-    <link rel="stylesheet" href="./styles.css?v=59" />
+    <link rel="stylesheet" href="./styles.css?v=61" />
     <script type="application/ld+json">
     [
       {
@@ -161,8 +161,13 @@
         </section>
         <section class="work section" id="work" aria-label="Selected work">
           <div class="section-head reveal">
-            <p class="section-kicker">Selected Work</p>
-            <h2>Core Builds</h2>
+            <div class="section-head-top">
+              <div class="section-head-titles">
+                <p class="section-kicker">Selected Work</p>
+                <h2>Core Builds</h2>
+              </div>
+              <a class="section-view-all" href="./projects.html">View all <span aria-hidden="true">→</span></a>
+            </div>
             <p class="section-summary">最能代表当前方向的 Agent 与量化系统。</p>
           </div>
           <div class="work-list" data-home-projects></div>
@@ -170,8 +175,13 @@
 
         <section class="section" id="notes" aria-label="Latest notes">
           <div class="section-head reveal">
-            <p class="section-kicker">Latest Notes</p>
-            <h2>Working Notes</h2>
+            <div class="section-head-top">
+              <div class="section-head-titles">
+                <p class="section-kicker">Latest Notes</p>
+                <h2>Working Notes</h2>
+              </div>
+              <a class="section-view-all" href="./notes.html">View all <span aria-hidden="true">→</span></a>
+            </div>
             <p class="section-summary">把判断、失败和构建方法沉淀成可继续迭代的笔记。</p>
           </div>
           <div class="notes-grid" data-home-notes></div>
@@ -207,7 +217,7 @@
 
     <script src="./data.js?v=26" defer></script>
     <script src="./umami-config.js" defer></script>
-    <script src="./app.js?v=25" defer></script>
+    <script src="./app.js?v=26" defer></script>
 
     <!-- Command Palette -->
     <div class="palette-overlay" data-palette-overlay></div>
