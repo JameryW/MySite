@@ -42,6 +42,9 @@ Root config: `package.json`, `CLAUDE.md`, `.editorconfig`, `.gitignore`
 - `window.siteData` from `data.js` is the single source of truth
 - Theme switching via `[data-theme="light"]` attribute on `<html>`
 - Scroll animations via IntersectionObserver (add `.reveal` class to new sections)
+- Fonts: self-hosted latin variable woff2 (Syne, Space Grotesk) + system CJK stack (PingFang SC / Microsoft YaHei) — no Google Fonts requests anywhere
+- `recorder.js` (umami session replay) is lazy-injected by `app.js` after `window load` + idle; never a static head script
+- Cache versioning: bump `styles.css?v=` / `app.js?v=` in every page head together with the matching `sw.js` SHELL keys (exact URLs, query string included) and the `sw.js` CACHE name
 
 ## Adding Content
 

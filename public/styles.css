@@ -23,9 +23,7 @@
    One-time-measured approximations (fontTools hhea metrics, 2026-09-08, computed
    with the web.dev/next-font formulas: override = primary-metric / upm / size-adjust).
    Syne 925/-275 per 1000upm, latin avg-width .5605em vs Arial (2048upm) .5791em.
-   Space Grotesk 984/-292 per 1000upm, latin avg-width .5897em vs Arial.
-   Noto Sans SC 1160/-288 per 1000upm, CJK advance 1em vs PingFang SC 1060/-340,
-   CJK advance 1em; Microsoft YaHei rides the same overrides as an approximation. */
+   Space Grotesk 984/-292 per 1000upm, latin avg-width .5897em vs Arial. */
 @font-face {
   font-family: "Syne Fallback";
   font-style: normal;
@@ -48,17 +46,6 @@
   line-gap-override: 0%;
 }
 
-@font-face {
-  font-family: "Noto Sans SC Fallback";
-  font-style: normal;
-  font-weight: 400 700;
-  src: local("PingFang SC"), local("Microsoft YaHei");
-  size-adjust: 100%;
-  ascent-override: 116%;
-  descent-override: 28.8%;
-  line-gap-override: 0%;
-}
-
 :root {
   --bg: #050816;
   --bg-soft: rgba(12, 18, 39, 0.78);
@@ -71,8 +58,8 @@
   --pink: #ff4fd8;
   --lime: #d8ff62;
   --shadow: 0 30px 100px rgba(0, 0, 0, 0.45);
-  --font-sans: "Space Grotesk", "Space Grotesk Fallback", "Noto Sans SC", "Noto Sans SC Fallback", "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
-  --font-display: "Syne", "Syne Fallback", "Noto Sans SC", "Noto Sans SC Fallback", "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+  --font-sans: "Space Grotesk", "Space Grotesk Fallback", "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+  --font-display: "Syne", "Syne Fallback", "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
   --font-mono: "SFMono-Regular", "Menlo", "Consolas", monospace;
 }
 
@@ -473,14 +460,19 @@ body {
   animation: page-enter 600ms cubic-bezier(0.22, 1, 0.36, 1) 60ms forwards;
 }
 
+/* Opacity only — NEVER add filter/transform here. A non-none filter or transform
+   on body makes it the containing block for every position: fixed descendant
+   (.scroll-progress, .back-to-top, .palette, .toast, .cursor-glow, .orb-*,
+   background layers), so those elements stop being viewport-fixed: the scroll
+   progress bar scrolls away, the palette lands at 18% of document height, the
+   cursor glow (positioned from clientX/clientY) drifts off the pointer when
+   scrolled. It also keeps a full-page composited filter layer alive forever. */
 @keyframes page-enter {
   from {
     opacity: 0;
-    filter: blur(2px);
   }
   to {
     opacity: 1;
-    filter: blur(0);
   }
 }
 
@@ -654,25 +646,30 @@ body::after {
   will-change: transform;
 }
 
+/* Orb offsets use viewport units, not %: if body ever gains a filter/transform
+   (see page-enter comment) it becomes the containing block for these fixed
+   elements and %-offsets would re-resolve against body height as content
+   mounts (CLS regression 2026-09-08). vh/vw resolve identically under either
+   containing block, so the decor survives that regime change. */
 .orb-a {
-  top: 6%;
-  left: -8%;
+  top: 6vh;
+  left: -8vw;
   width: 280px;
   height: 280px;
   background: rgba(255, 79, 216, 0.16);
 }
 
 .orb-b {
-  right: -6%;
-  top: 35%;
+  right: -6vw;
+  top: 35vh;
   width: 340px;
   height: 340px;
   background: rgba(108, 242, 255, 0.12);
 }
 
 .orb-c {
-  right: 12%;
-  bottom: -10%;
+  right: 12vw;
+  bottom: -10vh;
   width: 260px;
   height: 260px;
   background: rgba(216, 255, 98, 0.08);
@@ -3430,53 +3427,53 @@ body[data-page="about"] .contact-links a:nth-child(3) {
 }
 
 .hero-copy.reveal.visible .eyebrow {
-  animation: hero-text-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
+  animation: hero-text-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 60ms both;
 }
 
 .hero-copy.reveal.visible h1 {
-  animation: hero-text-in 900ms cubic-bezier(0.22, 1, 0.36, 1) 220ms both;
+  animation: hero-text-in 900ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
 }
 
 .hero-copy.reveal.visible .hero-tagline {
-  animation: hero-text-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 380ms both;
+  animation: hero-text-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 200ms both;
 }
 
 .hero-copy.reveal.visible .lead {
-  animation: hero-text-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 500ms both;
+  animation: hero-text-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 260ms both;
 }
 
 .hero-copy.reveal.visible .home-hero-meta {
-  animation: hero-text-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 580ms both;
+  animation: hero-text-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 300ms both;
 }
 
 .hero-copy.reveal.visible .hero-actions {
-  animation: hero-text-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 660ms both;
+  animation: hero-text-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 340ms both;
 }
 
 .hero-copy.reveal.visible .hero-badge {
-  animation: hero-text-in 600ms ease both, badge-pulse 3s ease-in-out 800ms infinite;
+  animation: hero-text-in 600ms ease both, badge-pulse 3s ease-in-out 400ms infinite;
 }
 
 .hero-copy.reveal.visible .hero-tags span {
   animation: tag-stagger 400ms ease both;
 }
 
-.hero-copy.reveal.visible .hero-tags span:nth-child(1) { animation-delay: 420ms; }
-.hero-copy.reveal.visible .hero-tags span:nth-child(2) { animation-delay: 520ms; }
-.hero-copy.reveal.visible .hero-tags span:nth-child(3) { animation-delay: 620ms; }
-.hero-copy.reveal.visible .hero-tags span:nth-child(4) { animation-delay: 720ms; }
+.hero-copy.reveal.visible .hero-tags span:nth-child(1) { animation-delay: 200ms; }
+.hero-copy.reveal.visible .hero-tags span:nth-child(2) { animation-delay: 250ms; }
+.hero-copy.reveal.visible .hero-tags span:nth-child(3) { animation-delay: 300ms; }
+.hero-copy.reveal.visible .hero-tags span:nth-child(4) { animation-delay: 350ms; }
 
 .hero-focus-panel.reveal.visible .stack-label {
-  animation: hero-text-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 300ms both;
+  animation: hero-text-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 160ms both;
 }
 
 .hero-focus-panel.reveal.visible .focus-list div {
   animation: hero-text-in 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.hero-focus-panel.reveal.visible .focus-list div:nth-child(1) { animation-delay: 420ms; }
-.hero-focus-panel.reveal.visible .focus-list div:nth-child(2) { animation-delay: 540ms; }
-.hero-focus-panel.reveal.visible .focus-list div:nth-child(3) { animation-delay: 660ms; }
+.hero-focus-panel.reveal.visible .focus-list div:nth-child(1) { animation-delay: 200ms; }
+.hero-focus-panel.reveal.visible .focus-list div:nth-child(2) { animation-delay: 260ms; }
+.hero-focus-panel.reveal.visible .focus-list div:nth-child(3) { animation-delay: 320ms; }
 
 /* ── Page Loader ── */
 .page-loader {
@@ -3514,27 +3511,40 @@ body[data-page="about"] .contact-links a:nth-child(3) {
 /* ── Cursor Glow ── */
 .cursor-glow {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 420px;
   height: 420px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+  transform: translate3d(-420px, -420px, 0);
+  will-change: transform;
+}
+
+/* The breathe animation lives on a child layer so the outer element's transform
+   stays free for pointer positioning (app.js). Positioning this element via
+   left/top was real layout work + a counted layout shift on every pointer move
+   (headless CLS 0.096, 2026-09-08). */
+.cursor-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
   border-radius: 50%;
   background:
     radial-gradient(circle at center, var(--cursor-glow-core, rgba(108, 242, 255, 0.09)) 0%, transparent 45%),
     radial-gradient(circle at center, var(--cursor-glow-halo, rgba(255, 79, 216, 0.04)) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: -1;
-  transform: translate(-50%, -50%);
-  will-change: left, top;
   animation: cursor-breathe 5s ease-in-out infinite;
 }
 
 @keyframes cursor-breathe {
   0%, 100% {
     opacity: 0.8;
-    transform: translate(-50%, -50%) scale(1);
+    transform: scale(1);
   }
   50% {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1.06);
+    transform: scale(1.06);
   }
 }
 
