@@ -42,8 +42,10 @@ Content is driven entirely by `data.js`, which sets `window.siteData` with `proj
 - `projects.html` — project listing
 - `notes.html` — notes listing
 - `about.html` — about page
+- `showcase.html` — online demo showcase listing
 - `project.html` — project detail shell (JS-rendered from slug)
 - `note.html` — note detail shell (JS-rendered from slug)
+- `404.html` — custom 404 page (static, does not load `app.js` or record sessions)
 
 All pages share the same header/nav structure, `data.js`, `app.js`, and `styles.css`.
 
@@ -52,7 +54,7 @@ All pages share the same header/nav structure, `data.js`, `app.js`, and `styles.
 - 2-space indentation for HTML, CSS, JS, and JSON
 - Content is bilingual: Chinese primary, English secondary
 - CSS custom properties for theming (`--bg`, `--cyan`, `--pink`, `--lime`, `--text`, `--muted`, `--line`)
-- Google Fonts: Space Grotesk (body) + Syne (headings)
+- Fonts: self-hosted latin variable woff2 under `public/fonts/` (Space Grotesk body + Syne headings) + system CJK stack (PingFang SC / Microsoft YaHei) — no Google Fonts requests anywhere
 - Responsive breakpoints: 980px and 760px
 - `prefers-reduced-motion` support required for all animations
 - Conventional Commits format (e.g., `feat:`, `fix:`)

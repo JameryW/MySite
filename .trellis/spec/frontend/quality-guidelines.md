@@ -110,28 +110,41 @@ For the About page's three primary entry links, override the generic mobile stac
 
 For image-based marks, add the asset to the Service Worker shell cache and use an empty `alt` when the adjacent visible link text already names the platform.
 
-### Async Font Links
+### Self-hosted Latin Fonts + System CJK Stack
 
-Syne (400–800) and Space Grotesk (300–700) are self-hosted latin variable woff2 files under `public/fonts/` with versioned filenames (e.g. `syne-latin-var-v1.woff2`), declared via `@font-face` at the top of `styles.css` together with metric-override fallback faces (`Syne Fallback`, `Space Grotesk Fallback`, `Noto Sans SC Fallback` using `size-adjust`/`ascent-override`/`descent-override`). Only Noto Sans SC still loads from Google Fonts, async:
+Google Fonts is fully retired from this site (decided 2026-09-08 in `09-08-first-load-weight-reduction`: Noto Sans SC slices were ~800KB of the 1344KB first load and the css2 payload added ~91KB). No page may reference `fonts.googleapis.com` / `fonts.gstatic.com` — not in `<link>`, preconnect, CSP, `noscript`, or `sw.js`.
+
+Latin text uses two self-hosted variable woff2 files under `public/fonts/` with versioned filenames (e.g. `syne-latin-var-v1.woff2`), declared via `@font-face` at the top of `styles.css` together with metric-override fallback faces (`Syne Fallback`, `Space Grotesk Fallback` using `size-adjust`/`ascent-override`/`descent-override`):
 
 ```html
 <link rel="preload" href="./fonts/syne-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
-<link
-  href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"
-  media="print"
-  data-fonts-load
-  rel="stylesheet"
-/>
-<script src="./app.js?v=27" defer></script>
+<link rel="stylesheet" href="./styles.css?v=65" />
+<script src="./app.js?v=29" defer></script>
 ```
+
+CJK text uses the **system font stack only** — no webfont, no swap, zero font-driven CLS. `--font-sans` / `--font-display` fall through `"PingFang SC"`, `"Microsoft YaHei"`, `system-ui`. Do not re-add a CJK webfont or a `Noto Sans SC Fallback` metric-override face; with no web↔fallback exchange there is nothing to override.
 
 Rules that come with this pipeline:
 
 * Preload **Syne only** (the LCP display face); Space Grotesk is discovered through the `@font-face` in `styles.css`. The preload `href` must resolve to exactly the same URL as the `@font-face` `src` or the font downloads twice.
-* Fonts are cache-keyed by their versioned filename — bump `-v1` → `-v2` (file + `@font-face` src + preload href + `sw.js` SHELL entry) when replacing a font file. `CSP` `font-src` must keep `'self' https://fonts.gstatic.com` on every page that declares a CSP meta.
+* Fonts are cache-keyed by their versioned filename — bump `-v1` → `-v2` (file + `@font-face` src + preload href + `sw.js` SHELL entry) when replacing a font file. `CSP` `font-src` is `'self'` only; `style-src` and `connect-src` must NOT list any Google Fonts host.
 * When replacing the self-hosted woff2 files, keep the metric-override fallback values in sync (recompute with the web.dev/next-font formulas; current values are one-time-measured approximations noted in `styles.css`).
+* There is no JS font loader anymore. Do not re-introduce `data-fonts-load` / `media="print"` async links; the plain stylesheet link is the single delivery path.
 
-Pages using the async Google Fonts pattern must also load the JavaScript font loader (`app.js` flips `media="print"` → `all`; it is the only loader because CSP forbids inline handlers). If a page intentionally does not load `app.js` (e.g. `404.html`), use a normal stylesheet link instead of `media="print" data-fonts-load` — the async link would never activate there.
+### Lazy Umami Session Replay
+
+`recorder.js` (~186KB session-replay bundle) must never be a static `<script>` in any page head — it competes with first paint. It is injected by the loader at the end of `app.js`: after `window load`, on `requestIdleCallback` (fallback `setTimeout(..., 2000)`), creating a script element with the exact umami attributes (`data-website-id`, `data-sample-rate`, `data-mask-level`, `data-max-duration`). CSP already allows `script-src https://stats.jameryw.dev`, so dynamic injection needs no policy change. The pageview tracker `script.js` stays a static head script (and `umami-config.js` unchanged); pages that do not load `app.js` (e.g. `404.html`) simply do not record sessions.
+
+### Fixed-element Containing Blocks (body filter/transform)
+
+`position: fixed` UI on this site — `.scroll-progress`, `.back-to-top`, `.palette`/`.palette-overlay`, `.toast`, `.cursor-glow`, `.reading-progress`, `.page-loader`, `.orb-*`, and the fixed background layers — must stay anchored to the **viewport**. A non-none `filter`/`transform`/`contain` on `body` (or `html`) silently makes that element the containing block for every fixed descendant, and they all become body-absolute instead: the scroll progress bar scrolls out of view, `.back-to-top`/`.toast` land at the document bottom, `.palette` (`top: 18%`) opens off-screen when scrolled, `.cursor-glow` drifts off the pointer (`app.js` positions it from `clientX`/`clientY`), and the particle canvas (sized from `innerWidth`/`innerHeight`) no longer matches the viewport. It also keeps a full-page composited filter layer alive forever.
+
+Rules that keep this true:
+
+* The `page-enter` keyframes on `body` must stay **opacity-only**. Never add `filter` or `transform` there — the 2026-09-08 check pass found the earlier `blur(2px) → blur(0)` keyframes had broken every fixed element site-wide since they were introduced (forwards fill kept `blur(0)` applied permanently). Verified by CDP probe: `.scroll-progress.top === -scrollY` while scrolled.
+* Never add or remove a `filter`/`transform`/`contain` on `body` or `html` without probing the fixed layers: gaining it mid-load flips the containing block and produces large layout shifts; losing it after load moves every body-anchored fixed layer.
+* Decorative fixed elements must anchor with viewport units (`vh`/`vw`) rather than percentages — percentages resolve against body size when body is the containing block, and shift whenever body height changes. `vh`/`vw` resolve identically under either containing block, so the decor survives a regime change — see `.orb-a/b/c` in `styles.css`.
+* Pointer-following decor (`.cursor-glow`) must be positioned by `transform: translate3d(...) translate(-50%, -50%)` — never `left`/`top`, which are real layout work on every pointer move and register as layout shifts (headless CLS 0.096, learned 2026-09-08 in `09-08-first-load-weight-reduction`, check agent fix). Because `cursor-breathe` animates `transform` (animations outrank inline styles), the breathing layer lives on `.cursor-glow::after` so the outer element's transform stays free for positioning.
 
 ### Detail Array Rendering
 
