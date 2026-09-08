@@ -25,15 +25,6 @@ const siteData = window.siteData || { projects: [], notes: [] };
 const cursorGlow = document.querySelector(".cursor-glow");
 if (cursorGlow && reduceMotion) cursorGlow.style.display = "none";
 
-/* ── Font Loader (replaces inline onload for CSP) ── */
-document.querySelectorAll("[data-fonts-load]").forEach((link) => {
-  if (link.media === "print") {
-    const apply = () => { link.media = "all"; };
-    if (link.sheet) apply();           // already loaded (defer JS runs after CSS)
-    else link.addEventListener("load", apply);
-  }
-});
-
 /* ── Page Loader ── */
 const loader = document.querySelector(".page-loader");
 if (loader) {
@@ -81,8 +72,11 @@ document.addEventListener("pointermove", (e) => {
     requestAnimationFrame(() => {
       pointerFrame = false;
       if (cursorGlow) {
-        cursorGlow.style.left = pointerX + "px";
-        cursorGlow.style.top = pointerY + "px";
+        /* transform, not left/top: transform is composited-only and never a
+           layout shift; the trailing translate(-50%,-50%) keeps centering
+           size-independent. cursor-breathe lives on ::after so it cannot
+           fight this inline transform. */
+        cursorGlow.style.transform = `translate3d(${pointerX}px, ${pointerY}px, 0) translate(-50%, -50%)`;
       }
       if (!reduceMotion) {
         const x = (pointerX / window.innerWidth - 0.5) * 16;
@@ -141,14 +135,14 @@ if (themeToggle) {
 /* ── Terminal Command / Output Stagger ── */
 document.querySelectorAll(".terminal-body").forEach((terminal) => {
   const children = Array.from(terminal.children);
-  let delay = 200;
+  let delay = 120;
   children.forEach((child) => {
     if (child.classList.contains("terminal-cmd")) {
       child.style.animationDelay = `${delay}ms`;
-      delay += 280;
+      delay += 140;
     } else if (child.classList.contains("terminal-out")) {
       child.style.animationDelay = `${delay}ms`;
-      delay += 100;
+      delay += 60;
     }
   });
 });
@@ -750,8 +744,27 @@ const emphasisNodes = document.querySelectorAll(".work-card, .command-list p, .o
 if (reduceMotion) {
   revealNodes.forEach((node) => node.classList.add("visible"));
 } else {
+  /* Safety net: a `.reveal` node must never stay stranded at opacity 0.
+     Registered before the observer so it still runs if the IntersectionObserver
+     constructor itself throws. If the observer never fires within 4s, force-show
+     everything; if it is alive, only rescue nodes currently in the viewport so
+     below-fold content keeps its staggered scroll entrance. */
+  let observerFired = false;
+  setTimeout(() => {
+    if (!observerFired) {
+      revealNodes.forEach((node) => node.classList.add("visible"));
+      return;
+    }
+    revealNodes.forEach((node) => {
+      if (node.classList.contains("visible")) return;
+      const rect = node.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) node.classList.add("visible");
+    });
+  }, 4000);
+
   const observer = new IntersectionObserver(
     (entries) => {
+      observerFired = true;
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("visible");
@@ -765,12 +778,12 @@ if (reduceMotion) {
   );
 
   revealNodes.forEach((node, index) => {
-    node.style.transitionDelay = `${Math.min(index * 60, 600)}ms`;
+    node.style.transitionDelay = `${Math.min(index * 40, 240)}ms`;
     observer.observe(node);
   });
 
   emphasisNodes.forEach((node, index) => {
-    node.style.transitionDelay = `${120 + index * 60}ms`;
+    node.style.transitionDelay = `${80 + Math.min(index * 40, 240)}ms`;
   });
 }
 
@@ -1226,4 +1239,33 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js').catch(() => {});
   });
+}
+
+/* ── Umami Session Replay Loader (lazy, CSP-safe) ──
+   recorder.js (~186KB) must not compete with first paint: inject it after
+   window load once the main thread goes idle. Attributes mirror the static
+   head tag this loader replaced on every page. */
+const RECORDER_SRC = "https://stats.jameryw.dev/recorder.js";
+const loadRecorder = () => {
+  if (document.querySelector(`script[src="${RECORDER_SRC}"]`)) return;
+  const script = document.createElement("script");
+  script.src = RECORDER_SRC;
+  script.defer = true;
+  script.setAttribute("data-website-id", "9f2c6bb7-954c-4c5c-beb2-fe362b28958e");
+  script.setAttribute("data-sample-rate", "0.15");
+  script.setAttribute("data-mask-level", "moderate");
+  script.setAttribute("data-max-duration", "300000");
+  document.head.appendChild(script);
+};
+const idleLoadRecorder = () => {
+  if ("requestIdleCallback" in window) {
+    requestIdleCallback(loadRecorder, { timeout: 4000 });
+  } else {
+    setTimeout(loadRecorder, 2000);
+  }
+};
+if (document.readyState === "complete") {
+  idleLoadRecorder();
+} else {
+  window.addEventListener("load", idleLoadRecorder);
 }

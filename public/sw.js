@@ -1,4 +1,4 @@
-const CACHE = 'mysite-v75';
+const CACHE = 'mysite-v77';
 /* Precache keys must exactly match the URLs pages request, otherwise
    caches.match() never hits (query params are part of the cache key).
    Bump styles.css?v= / app.js?v= / data.js?v= in every HTML head together
@@ -12,11 +12,11 @@ const SHELL = [
   './about.html',
   './project.html',
   './note.html',
-  './styles.css?v=63',
+  './styles.css?v=65',
   './fonts/syne-latin-var-v1.woff2',
   './fonts/space-grotesk-latin-var-v1.woff2',
   './xiaohongshu-logo.png',
-  './app.js?v=27',
+  './app.js?v=29',
   './data.js?v=26',
   './favicon.svg',
   './manifest.json'
@@ -38,17 +38,6 @@ self.addEventListener('activate', (e) => {
 
 self.addEventListener('fetch', (e) => {
   const url = new URL(e.request.url);
-
-  if (url.hostname.includes('fonts.googleapis.com') || url.hostname.includes('fonts.gstatic.com')) {
-    e.respondWith(
-      fetch(e.request).then((response) => {
-        const clone = response.clone();
-        caches.open(CACHE).then((c) => c.put(e.request, clone));
-        return response;
-      }).catch(() => caches.match(e.request))
-    );
-    return;
-  }
 
   if (url.origin === self.location.origin) {
     e.respondWith(
