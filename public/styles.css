@@ -1292,9 +1292,10 @@ h3 {
 
 body[data-page="home"] .hero-copy {
   flex: 1 1 560px;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 body[data-page="home"] .hero-copy h1 {
@@ -1309,7 +1310,7 @@ body[data-page="home"] .hero-copy h1 span {
 }
 
 .hero-tagline {
-  margin: 16px 0 8px;
+  margin: 18px 0 0;
   max-width: 44ch;
   line-height: 1.85;
 }
@@ -1332,7 +1333,7 @@ body[data-page="home"] .hero-copy h1 span {
 }
 
 .home-hero-meta {
-  margin: 8px 0 0;
+  margin: 14px 0 0;
   color: var(--muted);
   font-size: 0.92rem;
   font-weight: 700;
@@ -1340,9 +1341,15 @@ body[data-page="home"] .hero-copy h1 span {
   text-transform: uppercase;
 }
 
+body[data-page="home"] .hero-copy .lead {
+  margin: 12px 0 0;
+  max-width: 46ch;
+}
+
 .hero-focus-panel {
   position: relative;
   flex: 0 1 360px;
+  min-width: 0;
   overflow: hidden;
   padding: 26px;
   border: 1px solid var(--line);
@@ -1839,6 +1846,85 @@ body[data-page="about"] .section + .section {
 
 .section-head > :first-child {
   margin-top: 8px;
+}
+
+/* ── Home: stacked section heads (other pages keep the 180px grid) ── */
+body[data-page="home"] .section-head {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+body[data-page="home"] .section-head > :first-child {
+  margin-top: 0;
+}
+
+body[data-page="home"] .section-head h2 {
+  max-width: none;
+  font-size: clamp(2.2rem, 4.6vw, 3.4rem);
+  letter-spacing: -0.01em;
+}
+
+body[data-page="home"] .section-kicker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+body[data-page="home"] .section-kicker::before {
+  content: "";
+  width: 28px;
+  height: 2px;
+  flex-shrink: 0;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--lime), var(--cyan));
+  pointer-events: none;
+}
+
+body[data-page="home"] .section-head .section-summary {
+  margin-top: 4px;
+  max-width: 62ch;
+  color: var(--muted);
+}
+
+body[data-page="home"] .section-head-top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+body[data-page="home"] .section-head-titles {
+  min-width: 0;
+}
+
+body[data-page="home"] .section-view-all {
+  flex-shrink: 0;
+  padding-bottom: 8px;
+  color: var(--cyan);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 180ms ease, text-shadow 180ms ease;
+}
+
+body[data-page="home"] .section-view-all:hover {
+  color: var(--lime);
+  text-shadow: 0 0 14px rgba(216, 255, 98, 0.35);
+}
+
+body[data-page="home"] .section-view-all span {
+  display: inline-block;
+  transition: transform 180ms ease;
+}
+
+body[data-page="home"] .section-view-all:hover span {
+  transform: translateX(5px);
 }
 
 .about-grid {
@@ -2359,6 +2445,250 @@ body[data-page="about"] .section + .section {
   transform: translateX(10px);
   border-color: rgba(108, 242, 255, 0.38);
   background: linear-gradient(180deg, rgba(18, 26, 52, 0.88), rgba(9, 15, 36, 0.95));
+}
+
+/* ── Home: card density (work-card only renders on home) ── */
+body[data-page="home"] .work-card {
+  grid-template-columns: 84px minmax(0, 1fr);
+  align-items: start;
+  padding: 22px 24px;
+}
+
+body[data-page="home"] .work-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(108, 242, 255, 0.5);
+  background: linear-gradient(180deg, rgba(24, 34, 66, 0.9), rgba(9, 15, 36, 0.96));
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.35),
+    0 0 28px rgba(108, 242, 255, 0.14),
+    0 0 52px rgba(108, 242, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="light"] body[data-page="home"] .work-card:hover {
+  border-color: rgba(8, 145, 178, 0.4);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(228, 232, 244, 0.96));
+  box-shadow:
+    0 20px 54px rgba(0, 0, 0, 0.08),
+    0 0 24px rgba(8, 145, 178, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+body[data-page="home"] .work-copy {
+  min-width: 0;
+}
+
+body[data-page="home"] .notes-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+body[data-page="home"] .note-card {
+  min-width: 0;
+}
+
+body[data-page="home"] .work-copy h3,
+body[data-page="home"] .note-card h3 {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* ── Home Round 2: bolder hero / work cards / note cards ── */
+
+/* Hero: eyebrow pill */
+body[data-page="home"] .hero-copy .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  padding: 9px 16px;
+  border: 1px solid rgba(216, 255, 98, 0.32);
+  border-radius: 999px;
+  background: rgba(216, 255, 98, 0.07);
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
+}
+
+[data-theme="light"] body[data-page="home"] .hero-copy .eyebrow {
+  border-color: rgba(90, 138, 0, 0.38);
+  background: rgba(90, 138, 0, 0.08);
+}
+
+/* Hero: stronger H1 hierarchy (line-height / balance / anti-clip kept above) */
+body[data-page="home"] .hero-copy h1 {
+  font-size: clamp(3.4rem, 7.2vw, 5.6rem);
+  letter-spacing: -0.015em;
+  text-shadow: 0 0 34px rgba(108, 242, 255, 0.16);
+}
+
+body[data-page="home"] .hero-copy h1 span {
+  -webkit-text-stroke-width: 1.5px;
+}
+
+/* Hero: tagline / lead contrast */
+body[data-page="home"] .hero-copy .lead {
+  color: var(--text);
+  opacity: 0.88;
+  font-size: 1.06rem;
+}
+
+/* Hero: primary CTA weight + glow */
+body[data-page="home"] .hero-actions .button.primary {
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  box-shadow:
+    0 14px 36px rgba(108, 242, 255, 0.32),
+    0 0 28px rgba(108, 242, 255, 0.24),
+    0 0 56px rgba(216, 255, 98, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* Hero: focus items with accent rails + hover */
+body[data-page="home"] .focus-list div {
+  padding: 12px 14px 14px 16px;
+  border: 1px solid transparent;
+  border-left: 3px solid rgba(108, 242, 255, 0.45);
+  border-radius: 0 14px 14px 0;
+  transition: background 200ms ease, border-color 200ms ease;
+}
+
+body[data-page="home"] .focus-list div:nth-child(2) {
+  border-left-color: rgba(255, 79, 216, 0.5);
+}
+
+body[data-page="home"] .focus-list div:nth-child(3) {
+  border-left-color: rgba(216, 255, 98, 0.5);
+}
+
+body[data-page="home"] .focus-list div:hover {
+  border-color: rgba(108, 242, 255, 0.22);
+  border-left-color: var(--lime);
+  background: rgba(108, 242, 255, 0.05);
+}
+
+[data-theme="light"] body[data-page="home"] .focus-list div:hover {
+  border-color: rgba(8, 145, 178, 0.2);
+  border-left-color: var(--lime);
+  background: rgba(255, 255, 255, 0.65);
+}
+
+/* Work cards: big outlined index */
+body[data-page="home"] .work-index {
+  font-size: 3rem;
+  line-height: 1;
+  -webkit-text-stroke-width: 2px;
+}
+
+/* Work cards: status pill */
+body[data-page="home"] .work-status-pill {
+  padding: 4px 11px;
+  border: 1px solid rgba(216, 255, 98, 0.34);
+  border-radius: 999px;
+  background: rgba(216, 255, 98, 0.08);
+  color: var(--lime);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+[data-theme="light"] body[data-page="home"] .work-status-pill {
+  border-color: rgba(90, 138, 0, 0.38);
+  background: rgba(90, 138, 0, 0.09);
+}
+
+/* Work cards: larger title + 2-line summary clamp */
+body[data-page="home"] .work-copy .card-topline {
+  flex-wrap: wrap;
+  row-gap: 6px;
+}
+
+body[data-page="home"] .work-copy h3 {
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  letter-spacing: -0.01em;
+}
+
+body[data-page="home"] .work-summary {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Work cards: footer arrow slides on hover */
+body[data-page="home"] .work-card .work-arrow {
+  display: inline-block;
+  transition: transform 200ms ease;
+}
+
+body[data-page="home"] .work-card:hover .work-arrow {
+  transform: translateX(6px);
+}
+
+/* Note cards: top meta row */
+body[data-page="home"] .note-card .stack-label {
+  display: flex;
+  width: 100%;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(162, 176, 255, 0.12);
+}
+
+/* Note cards: title + hover accent */
+body[data-page="home"] .note-card h3 {
+  font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+  transition: color 200ms ease;
+}
+
+body[data-page="home"] .note-card:hover h3 {
+  color: var(--cyan);
+}
+
+/* Note cards: 3-line summary clamp + footer meta row */
+body[data-page="home"] .note-card > p:not(.stack-label) {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+body[data-page="home"] .note-card .card-actions {
+  padding-top: 12px;
+  border-top: 1px solid rgba(162, 176, 255, 0.12);
+}
+
+@media (max-width: 760px) {
+  body[data-page="home"] .section-head {
+    margin-bottom: 20px;
+  }
+
+  body[data-page="home"] .section-head-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  body[data-page="home"] .section-view-all {
+    padding-bottom: 0;
+  }
+
+  body[data-page="home"] .work-card {
+    grid-template-columns: 36px minmax(0, 1fr);
+    padding: 14px 16px;
+  }
+
+  body[data-page="home"] .work-index {
+    font-size: 1.4rem;
+    -webkit-text-stroke-width: 1px;
+  }
+
+  body[data-page="home"] .work-status-pill {
+    font-size: 0.62rem;
+    padding: 3px 9px;
+  }
+
+  body[data-page="home"] .notes-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
 }
 
 .button:focus-visible,
@@ -4460,6 +4790,58 @@ html.theme-transitioning *::after {
   .back-to-top:hover,
   .filter-pill:hover,
   .signal-route:hover {
+    transform: none;
+  }
+
+  body[data-page="home"] .work-card:hover {
+    transform: none;
+  }
+
+  /* Home Round 2: same-specificity touch resets for the richer hover */
+  body[data-page="home"] .work-card:hover {
+    border-color: var(--line);
+    box-shadow: var(--shadow);
+    background:
+      linear-gradient(135deg, rgba(108, 242, 255, 0.03), transparent 50%),
+      linear-gradient(180deg, rgba(18, 26, 52, 0.72), rgba(7, 11, 27, 0.86));
+  }
+
+  [data-theme="light"] body[data-page="home"] .work-card:hover {
+    border-color: var(--line);
+    box-shadow: var(--shadow);
+    background:
+      linear-gradient(135deg, rgba(8, 145, 178, 0.03), transparent 50%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(230, 234, 245, 0.86));
+  }
+
+  body[data-page="home"] .work-card:hover .work-arrow {
+    transform: none;
+  }
+
+  body[data-page="home"] .note-card:hover h3 {
+    color: inherit;
+  }
+
+  body[data-page="home"] .focus-list div:hover {
+    border-color: transparent;
+    border-left-color: rgba(108, 242, 255, 0.45);
+    background: transparent;
+  }
+
+  body[data-page="home"] .focus-list div:nth-child(2):hover {
+    border-left-color: rgba(255, 79, 216, 0.5);
+  }
+
+  body[data-page="home"] .focus-list div:nth-child(3):hover {
+    border-left-color: rgba(216, 255, 98, 0.5);
+  }
+
+  body[data-page="home"] .section-view-all:hover {
+    color: var(--cyan);
+    text-shadow: none;
+  }
+
+  body[data-page="home"] .section-view-all:hover span {
     transform: none;
   }
 

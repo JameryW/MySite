@@ -52,6 +52,17 @@ Mobile touch devices can keep `:hover` active after a tap. Any `@media (hover: n
 
 Decorative pseudo-elements layered over clickable cards or hero CTAs must use `pointer-events: none` so they cannot intercept touch hit-testing.
 
+> **Warning**: Page-scoped hover overrides outrank the generic `@media (hover: none)` reset. `body[data-page="home"] .work-card:hover` (0,3,1) beats `.work-card:hover` (0,2,0), so the card stays shifted after tap on touch devices. Whenever you add a higher-specificity hover (e.g. home-scoped `transform`), add a same-specificity reset inside the `hover: none` block:
+>
+> ```css
+> @media (hover: none) {
+>   body[data-page="home"] .work-card:hover {
+>     transform: none;
+>   }
+> }
+> ```
+> Learned 2026-09-05 in `09-05-optimize-homepage-layout` (check agent fix).
+
 ### Static Asset Cache Versioning
 
 When changing a cached static asset, update every cache key that can keep the old bytes alive.
