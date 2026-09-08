@@ -556,15 +556,16 @@ if (projectDetailNode) {
 
   if (!project) {
     projectDetailNode.innerHTML = `
-      <section class="page-hero" style="display:flex;align-items:center;justify-content:center;min-height:60vh;text-align:center;">
-        <div>
-          <p class="section-kicker" style="margin-bottom:12px;">404</p>
-          <h1 class="page-title" style="max-width:none;">Project Not Found</h1>
-          <p class="page-lead" style="max-width:36ch;margin:16px auto 32px;">This project doesn't exist yet, or the slug is incorrect.</p>
-          <div class="page-actions" style="justify-content:center;">
-            <a class="button primary" href="./projects.html">Back to Projects</a>
-            <a class="button secondary" href="./index.html">Home</a>
-          </div>
+      <section class="page-hero notfound-hero">
+        <p class="eyebrow">Error 404 / Projects</p>
+        <h1 class="page-title">
+          Project Not Found
+          <span>404</span>
+        </h1>
+        <p class="page-lead">This project doesn't exist yet, or the slug is incorrect.</p>
+        <div class="page-actions">
+          <a class="button primary" href="./projects.html">Back to Projects</a>
+          <a class="button secondary" href="./index.html">Home</a>
         </div>
       </section>
     `;
@@ -641,7 +642,7 @@ if (projectDetailNode) {
     `;
     projectDetailNode.setAttribute("aria-busy", "false");
     const mainContent = document.getElementById("main-content");
-    if (mainContent) mainContent.focus();
+    if (mainContent) mainContent.focus({ preventScroll: true });
   }
 }
 
@@ -656,15 +657,16 @@ if (noteDetailNode) {
 
   if (!note) {
     noteDetailNode.innerHTML = `
-      <section class="page-hero" style="display:flex;align-items:center;justify-content:center;min-height:60vh;text-align:center;">
-        <div>
-          <p class="section-kicker" style="margin-bottom:12px;">404</p>
-          <h1 class="page-title" style="max-width:none;">Note Not Found</h1>
-          <p class="page-lead" style="max-width:36ch;margin:16px auto 32px;">This note doesn't exist yet, or the slug is incorrect.</p>
-          <div class="page-actions" style="justify-content:center;">
-            <a class="button primary" href="./notes.html">Back to Notes</a>
-            <a class="button secondary" href="./index.html">Home</a>
-          </div>
+      <section class="page-hero notfound-hero">
+        <p class="eyebrow">Error 404 / Notes</p>
+        <h1 class="page-title">
+          Note Not Found
+          <span>404</span>
+        </h1>
+        <p class="page-lead">This note doesn't exist yet, or the slug is incorrect.</p>
+        <div class="page-actions">
+          <a class="button primary" href="./notes.html">Back to Notes</a>
+          <a class="button secondary" href="./index.html">Home</a>
         </div>
       </section>
     `;
@@ -738,7 +740,7 @@ if (noteDetailNode) {
     `;
     noteDetailNode.setAttribute("aria-busy", "false");
     const mainContent = document.getElementById("main-content");
-    if (mainContent) mainContent.focus();
+    if (mainContent) mainContent.focus({ preventScroll: true });
   }
 }
 

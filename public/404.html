@@ -13,11 +13,12 @@
     <meta name="apple-mobile-web-app-title" content="Jamery Wang">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" href="./fonts/syne-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&family=Syne:wght@700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=61" />
+    <link rel="stylesheet" href="./styles.css?v=63" />
     <script defer src="https://stats.jameryw.dev/script.js" data-website-id="9f2c6bb7-954c-4c5c-beb2-fe362b28958e"></script>
     <script defer src="https://stats.jameryw.dev/recorder.js" data-website-id="9f2c6bb7-954c-4c5c-beb2-fe362b28958e" data-sample-rate="0.15" data-mask-level="moderate" data-max-duration="300000"></script>
   </head>
@@ -53,23 +54,22 @@
         </div>
       </header>
 
-      <main id="main-content" style="display:flex;align-items:center;justify-content:center;min-height:70vh;text-align:center;">
-        <div>
-          <p class="section-kicker" style="margin-bottom:12px;">404</p>
-          <h1 style="max-width:none;font-size:clamp(2.4rem,6vw,4rem);margin-bottom:16px;">
+      <main id="main-content" class="notfound-main">
+        <section class="page-hero notfound-hero">
+          <p class="eyebrow">Error 404 / Route Not Found</p>
+          <h1 class="page-title">
             Signal Lost
+            <span>404</span>
           </h1>
-          <p style="color:var(--muted);font-size:1.1rem;max-width:36ch;margin:0 auto 32px;">
-            This route doesn't exist yet. Maybe it's a future experiment, or maybe the path changed.
-          </p>
-          <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+          <p class="page-lead">This route doesn't exist yet. Maybe it's a future experiment, or maybe the path changed.</p>
+          <div class="page-actions">
             <a class="button primary" href="./index.html">Back to Home</a>
             <a class="button secondary" href="./projects.html">Browse Projects</a>
           </div>
-        </div>
+        </section>
       </main>
 
-      <footer class="footer" style="margin-top:auto;">
+      <footer class="footer notfound-footer">
         <div class="footer-meta">
           <p>Geek mode enabled</p>
           <p>Jamery Wang / Hangzhou / Online</p>

@@ -62,6 +62,8 @@ Decorative pseudo-elements layered over clickable cards or hero CTAs must use `p
 > }
 > ```
 > Learned 2026-09-05 in `09-05-optimize-homepage-layout` (check agent fix).
+>
+> The same applies to theme-scoped hovers: `[data-theme="light"] body[data-page="home"] .focus-list div:hover` (0,4,2) outranks a non-theme-scoped reset (0,3,2), so a theme-scoped hover needs its own `[data-theme="light"] …` reset inside `hover: none` (including per-item variants when resting styles differ, e.g. nth-child accent rails). Learned 2026-09-08 in `09-08-site-visual-perf-polish` (check agent fix).
 
 ### Static Asset Cache Versioning
 
@@ -84,6 +86,8 @@ Required checks after editing `styles.css`, `app.js`, or `data.js`:
 * Search all HTML pages for the matching query string, for example `styles.css?v=`.
 * Bump the relevant query version in every page that references the changed asset.
 * Bump `public/sw.js` `CACHE` when a shell asset changes so returning visitors do not receive stale cached files.
+* Keep `sw.js` `SHELL` precache keys **exactly equal** to the versioned URLs the pages request (query string included). `caches.match()` does exact-key matching, so a precached `./styles.css` entry never satisfies a `./styles.css?v=62` request — the mismatch sat unnoticed until 2026-09 (`09-08-site-visual-perf-polish`).
+* Self-hosted fonts under `public/fonts/` are keyed by their versioned filename (`-v1`, `-v2`, …); adding a file means adding the same path to `SHELL`.
 
 ### Platform Link Logos
 
@@ -108,19 +112,26 @@ For image-based marks, add the asset to the Service Worker shell cache and use a
 
 ### Async Font Links
 
-Pages using the Google Fonts async pattern must also load the JavaScript font loader:
+Syne (400–800) and Space Grotesk (300–700) are self-hosted latin variable woff2 files under `public/fonts/` with versioned filenames (e.g. `syne-latin-var-v1.woff2`), declared via `@font-face` at the top of `styles.css` together with metric-override fallback faces (`Syne Fallback`, `Space Grotesk Fallback`, `Noto Sans SC Fallback` using `size-adjust`/`ascent-override`/`descent-override`). Only Noto Sans SC still loads from Google Fonts, async:
 
 ```html
+<link rel="preload" href="./fonts/syne-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
 <link
-  href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&family=Syne:wght@700;800&display=swap"
+  href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"
   media="print"
   data-fonts-load
   rel="stylesheet"
 />
-<script src="./app.js?v=19" defer></script>
+<script src="./app.js?v=27" defer></script>
 ```
 
-If a page intentionally does not load `app.js`, use a normal stylesheet link instead of `media="print" data-fonts-load`.
+Rules that come with this pipeline:
+
+* Preload **Syne only** (the LCP display face); Space Grotesk is discovered through the `@font-face` in `styles.css`. The preload `href` must resolve to exactly the same URL as the `@font-face` `src` or the font downloads twice.
+* Fonts are cache-keyed by their versioned filename — bump `-v1` → `-v2` (file + `@font-face` src + preload href + `sw.js` SHELL entry) when replacing a font file. `CSP` `font-src` must keep `'self' https://fonts.gstatic.com` on every page that declares a CSP meta.
+* When replacing the self-hosted woff2 files, keep the metric-override fallback values in sync (recompute with the web.dev/next-font formulas; current values are one-time-measured approximations noted in `styles.css`).
+
+Pages using the async Google Fonts pattern must also load the JavaScript font loader (`app.js` flips `media="print"` → `all`; it is the only loader because CSP forbids inline handlers). If a page intentionally does not load `app.js` (e.g. `404.html`), use a normal stylesheet link instead of `media="print" data-fonts-load` — the async link would never activate there.
 
 ### Detail Array Rendering
 
