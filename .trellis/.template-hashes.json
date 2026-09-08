@@ -200,6 +200,7 @@
     ".trellis/scripts/common/__pycache__/tasks.cpython-314.pyc": "6742535dc6d8bce75a0ce5dfdfe110cb23b7c85c789f67d318a67e767df10fa0",
     ".trellis/scripts/common/__pycache__/trellis_config.cpython-314.pyc": "4a5611cef4f35b2e38b733dcbf6c32dd7f2f386d1e32570029e139fe7f50240c",
     ".trellis/scripts/common/__pycache__/types.cpython-314.pyc": "37592d853d3db25335217b5c75723a22a9fa5299cc1839782e299e2de6f1676d",
-    ".trellis/scripts/common/__pycache__/workflow_phase.cpython-314.pyc": "c6a0e9912d8354329b72fa478704e2ab7aa8408687127dc59c38afa34bb7155d"
+    ".trellis/scripts/common/__pycache__/workflow_phase.cpython-314.pyc": "c6a0e9912d8354329b72fa478704e2ab7aa8408687127dc59c38afa34bb7155d",
+    "AGENTS.md": "f506ad99d6291ac04955646887a004f39dbcba8d7fb95a1ec3cf91c5d01e7c3a"
   }
 }

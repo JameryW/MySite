@@ -34,7 +34,11 @@ homepage-full.png
 # Temp screenshots and debug files
 home-*.png
 showcase-*.png
+index-after.png
 about-page-full.txt
+
+# CodeGraph local index
+.codegraph/
 
 # Logs
 *.log
