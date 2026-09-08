@@ -1,3 +1,64 @@
+/* ── Self-hosted latin variable fonts ──
+   Pulled from Google Fonts css2 (SIL OFL 1.1), 2026-09-08. Versioned filenames
+   double as cache keys; unicode-range mirrors Google's own css2 latin block. */
+@font-face {
+  font-family: "Syne";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("./fonts/syne-latin-var-v1.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("./fonts/space-grotesk-latin-var-v1.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ── Metric-override fallback faces ──
+   One-time-measured approximations (fontTools hhea metrics, 2026-09-08, computed
+   with the web.dev/next-font formulas: override = primary-metric / upm / size-adjust).
+   Syne 925/-275 per 1000upm, latin avg-width .5605em vs Arial (2048upm) .5791em.
+   Space Grotesk 984/-292 per 1000upm, latin avg-width .5897em vs Arial.
+   Noto Sans SC 1160/-288 per 1000upm, CJK advance 1em vs PingFang SC 1060/-340,
+   CJK advance 1em; Microsoft YaHei rides the same overrides as an approximation. */
+@font-face {
+  font-family: "Syne Fallback";
+  font-style: normal;
+  font-weight: 400 800;
+  src: local("Arial"), local("Helvetica Neue"), local("Segoe UI"), local("Roboto");
+  size-adjust: 96.8%;
+  ascent-override: 95.57%;
+  descent-override: 28.41%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Space Grotesk Fallback";
+  font-style: normal;
+  font-weight: 300 700;
+  src: local("Arial"), local("Helvetica Neue"), local("Segoe UI"), local("Roboto");
+  size-adjust: 101.84%;
+  ascent-override: 96.62%;
+  descent-override: 28.67%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Noto Sans SC Fallback";
+  font-style: normal;
+  font-weight: 400 700;
+  src: local("PingFang SC"), local("Microsoft YaHei");
+  size-adjust: 100%;
+  ascent-override: 116%;
+  descent-override: 28.8%;
+  line-gap-override: 0%;
+}
+
 :root {
   --bg: #050816;
   --bg-soft: rgba(12, 18, 39, 0.78);
@@ -10,8 +71,8 @@
   --pink: #ff4fd8;
   --lime: #d8ff62;
   --shadow: 0 30px 100px rgba(0, 0, 0, 0.45);
-  --font-sans: "Space Grotesk", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
-  --font-display: "Syne", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+  --font-sans: "Space Grotesk", "Space Grotesk Fallback", "Noto Sans SC", "Noto Sans SC Fallback", "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+  --font-display: "Syne", "Syne Fallback", "Noto Sans SC", "Noto Sans SC Fallback", "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
   --font-mono: "SFMono-Regular", "Menlo", "Consolas", monospace;
 }
 
@@ -881,7 +942,7 @@ body[data-page="about"] .nav a[href="./about.html"]::after {
   grid-template-columns: minmax(0, 1fr) minmax(280px, 390px);
   gap: 0 clamp(28px, 5vw, 72px);
   align-items: end;
-  padding: 44px 0 24px;
+  padding: 48px 0 26px;
 }
 
 .page-hero > :not(.page-hero-panel) {
@@ -1018,6 +1079,25 @@ body[data-page="about"] .nav a[href="./about.html"]::after {
   }
 }
 
+/* Page-hero eyebrow pill (same treatment as the home hero eyebrow) */
+.page-hero .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  max-width: 100%;
+  padding: 9px 16px;
+  border: 1px solid rgba(216, 255, 98, 0.32);
+  border-radius: 999px;
+  background: rgba(216, 255, 98, 0.07);
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
+}
+
+[data-theme="light"] .page-hero .eyebrow {
+  border-color: rgba(90, 138, 0, 0.38);
+  background: rgba(90, 138, 0, 0.08);
+}
+
 h1,
 h2,
 h3 {
@@ -1037,11 +1117,12 @@ h1 span {
   padding-block: 0.04em;
   margin-block: -0.04em;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(245, 247, 255, 0.85);
+  -webkit-text-stroke: 1.5px rgba(245, 247, 255, 0.85);
   text-shadow:
     0 0 16px rgba(108, 242, 255, 0.18),
     0 0 32px rgba(108, 242, 255, 0.08);
   animation: text-glow 4s ease-in-out infinite;
+  text-wrap: balance;
 }
 
 @keyframes text-glow {
@@ -1060,7 +1141,8 @@ h1 span {
 
 .page-title {
   max-width: 9ch;
-  font-size: clamp(2.8rem, 7vw, 4.8rem);
+  font-size: clamp(3rem, 7.2vw, 5.2rem);
+  letter-spacing: -0.015em;
 }
 
 .title-en {
@@ -1825,55 +1907,35 @@ body[data-page="about"] .section + .section {
 .section-summary { line-height: 1.7; }
 .stack-card p { line-height: 1.7; }
 
+/* ── Section heads: stacked pattern shared by every page (aligned with home) ── */
 .section-head {
-  display: grid;
-  grid-template-columns: 180px minmax(0, 1fr);
-  gap: 16px;
-  align-items: start;
-  margin-bottom: 18px;
-}
-
-.section-summary {
-  margin: 8px 0 0;
-  font-size: 1rem;
-  line-height: 1.7;
-  max-width: 52ch;
-}
-
-.section-head h2 {
-  max-width: 16ch;
-}
-
-.section-head > :first-child {
-  margin-top: 8px;
-}
-
-/* ── Home: stacked section heads (other pages keep the 180px grid) ── */
-body[data-page="home"] .section-head {
   display: flex;
   flex-direction: column;
   gap: 8px;
   margin-bottom: 28px;
 }
 
-body[data-page="home"] .section-head > :first-child {
-  margin-top: 0;
+.section-summary {
+  margin: 4px 0 0;
+  font-size: 1rem;
+  line-height: 1.7;
+  max-width: 62ch;
 }
 
-body[data-page="home"] .section-head h2 {
+.section-head h2 {
   max-width: none;
   font-size: clamp(2.2rem, 4.6vw, 3.4rem);
   letter-spacing: -0.01em;
 }
 
-body[data-page="home"] .section-kicker {
+.section-kicker {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 8px;
 }
 
-body[data-page="home"] .section-kicker::before {
+.section-kicker::before {
   content: "";
   width: 28px;
   height: 2px;
@@ -1883,24 +1945,18 @@ body[data-page="home"] .section-kicker::before {
   pointer-events: none;
 }
 
-body[data-page="home"] .section-head .section-summary {
-  margin-top: 4px;
-  max-width: 62ch;
-  color: var(--muted);
-}
-
-body[data-page="home"] .section-head-top {
+.section-head-top {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   gap: 16px;
 }
 
-body[data-page="home"] .section-head-titles {
+.section-head-titles {
   min-width: 0;
 }
 
-body[data-page="home"] .section-view-all {
+.section-view-all {
   flex-shrink: 0;
   padding-bottom: 8px;
   color: var(--cyan);
@@ -1913,17 +1969,17 @@ body[data-page="home"] .section-view-all {
   transition: color 180ms ease, text-shadow 180ms ease;
 }
 
-body[data-page="home"] .section-view-all:hover {
+.section-view-all:hover {
   color: var(--lime);
   text-shadow: 0 0 14px rgba(216, 255, 98, 0.35);
 }
 
-body[data-page="home"] .section-view-all span {
+.section-view-all span {
   display: inline-block;
   transition: transform 180ms ease;
 }
 
-body[data-page="home"] .section-view-all:hover span {
+.section-view-all:hover span {
   transform: translateX(5px);
 }
 
@@ -2210,7 +2266,7 @@ body[data-page="home"] .section-view-all:hover span {
 }
 
 .showcase-card h3 {
-  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  font-size: clamp(1.4rem, 2.4vw, 1.8rem);
   margin-bottom: 12px;
 }
 
@@ -2256,7 +2312,7 @@ body[data-page="home"] .section-view-all:hover span {
 .notes-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  gap: 16px;
 }
 
 .about-page-grid {
@@ -2337,6 +2393,13 @@ body[data-page="home"] .section-view-all:hover span {
 .note-card {
   text-decoration: none;
   contain: content;
+}
+
+/* Shared card-title scale for library + detail cards (home cards keep their own heavier scale) */
+.repo-card h3,
+.note-card h3,
+.track-card h3 {
+  font-size: clamp(1.4rem, 2.4vw, 1.8rem);
 }
 
 .repo-card:hover,
@@ -2520,10 +2583,6 @@ body[data-page="home"] .hero-copy h1 {
   text-shadow: 0 0 34px rgba(108, 242, 255, 0.16);
 }
 
-body[data-page="home"] .hero-copy h1 span {
-  -webkit-text-stroke-width: 1.5px;
-}
-
 /* Hero: tagline / lead contrast */
 body[data-page="home"] .hero-copy .lead {
   color: var(--text);
@@ -2656,20 +2715,6 @@ body[data-page="home"] .note-card .card-actions {
 }
 
 @media (max-width: 760px) {
-  body[data-page="home"] .section-head {
-    margin-bottom: 20px;
-  }
-
-  body[data-page="home"] .section-head-top {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-
-  body[data-page="home"] .section-view-all {
-    padding-bottom: 0;
-  }
-
   body[data-page="home"] .work-card {
     grid-template-columns: 36px minmax(0, 1fr);
     padding: 14px 16px;
@@ -3165,6 +3210,68 @@ body[data-page="about"] .contact-links a:nth-child(3) {
   font-size: 0.82em;
 }
 
+/* ── 404 Page ── */
+.notfound-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  text-align: center;
+}
+
+.notfound-hero {
+  grid-template-columns: 1fr;
+  justify-items: center;
+  padding: 40px 0 36px;
+}
+
+.notfound-hero::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.notfound-hero .eyebrow {
+  justify-self: center;
+}
+
+.notfound-hero .page-title {
+  max-width: none;
+}
+
+.notfound-hero .page-lead {
+  max-width: 36ch;
+  margin: 0 auto 8px;
+}
+
+.notfound-hero .page-actions {
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.notfound-footer {
+  margin-top: 24px;
+}
+
+@media (max-width: 760px) {
+  .notfound-main {
+    min-height: 56vh;
+  }
+
+  .notfound-hero {
+    padding: 24px 0;
+  }
+
+  .notfound-hero .page-lead {
+    max-width: none;
+  }
+
+  .notfound-hero .page-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
 .footer {
   margin-top: 22px;
   padding: 18px 20px;
@@ -3632,12 +3739,15 @@ body[data-page="about"] .contact-links a:nth-child(3) {
   background: rgba(5, 8, 22, 0.7);
   opacity: 0;
   visibility: hidden;
-  transition: opacity 200ms ease, visibility 200ms ease;
+  /* visibility flips instantly on open (so the palette input is focusable)
+     and is delayed on close until the fade-out finishes */
+  transition: opacity 200ms ease, visibility 0s linear 200ms;
 }
 
 .palette-overlay.open {
   opacity: 1;
   visibility: visible;
+  transition: opacity 200ms ease, visibility 0s;
 }
 
 [data-theme="light"] .palette-overlay {
@@ -3657,13 +3767,16 @@ body[data-page="about"] .contact-links a:nth-child(3) {
   box-shadow: var(--shadow), 0 0 0 1px rgba(108, 242, 255, 0.06);
   opacity: 0;
   visibility: hidden;
-  transition: opacity 200ms ease, transform 200ms ease, visibility 200ms ease;
+  /* visibility flips instantly on open so paletteInput.focus() succeeds
+     (hidden containers are unfocusable); delayed on close until faded out */
+  transition: opacity 200ms ease, transform 200ms ease, visibility 0s linear 200ms;
 }
 
 .palette.open {
   opacity: 1;
   visibility: visible;
   transform: translateX(-50%) translateY(0);
+  transition: opacity 200ms ease, transform 200ms ease, visibility 0s;
 }
 
 .palette-input-wrap {
@@ -4405,7 +4518,7 @@ body[data-page="about"] .contact-links a:nth-child(3) {
     padding: 32px 0 20px;
   }
 
-  body[data-page="showcase"] .page-title {
+  .page-title {
     font-size: clamp(2.2rem, 10vw, 3.2rem);
   }
 
@@ -4638,9 +4751,18 @@ body[data-page="about"] .contact-links a:nth-child(3) {
   }
 
   .section-head {
-    grid-template-columns: 1fr;
-    gap: 4px;
-    margin-bottom: 12px;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+
+  .section-head-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .section-view-all {
+    padding-bottom: 0;
   }
 
   .section-kicker {
@@ -4781,6 +4903,8 @@ html.theme-transitioning *::after {
   .repo-card:hover,
   .note-card:hover,
   .track-card:hover,
+  .showcase-card:hover,
+  .command-card:hover,
   .timeline-item:hover,
   .topbar-link:hover,
   .contact-links a:hover,
@@ -4789,7 +4913,10 @@ html.theme-transitioning *::after {
   .theme-toggle:hover,
   .back-to-top:hover,
   .filter-pill:hover,
-  .signal-route:hover {
+  .signal-route:hover,
+  .hero-strip article:hover,
+  .pager-card:first-child:hover,
+  .pager-card:last-child:hover {
     transform: none;
   }
 
@@ -4836,12 +4963,48 @@ html.theme-transitioning *::after {
     border-left-color: rgba(216, 255, 98, 0.5);
   }
 
-  body[data-page="home"] .section-view-all:hover {
+  /* Light-theme parity: the theme-scoped hover outranks the dark resets above,
+     so light mode needs same-specificity resets or taps stick the hover state */
+  [data-theme="light"] body[data-page="home"] .focus-list div:hover {
+    border-color: transparent;
+    border-left-color: rgba(108, 242, 255, 0.45);
+    background: transparent;
+  }
+
+  [data-theme="light"] body[data-page="home"] .focus-list div:nth-child(2):hover {
+    border-left-color: rgba(255, 79, 216, 0.5);
+  }
+
+  [data-theme="light"] body[data-page="home"] .focus-list div:nth-child(3):hover {
+    border-left-color: rgba(216, 255, 98, 0.5);
+  }
+
+  /* Color-only hover states that would otherwise stick after tap */
+  .contact-links a:hover {
+    color: inherit;
+  }
+
+  body[data-page="about"] .contact-links .platform-link:hover {
+    color: var(--text);
+  }
+
+  /* Showcase cards: lift + glow border + deep shadow would stick after tap */
+  .showcase-card:hover {
+    transform: none;
+    border-color: var(--line);
+    box-shadow: var(--shadow);
+  }
+
+  [data-theme="light"] .showcase-card:hover {
+    box-shadow: var(--shadow);
+  }
+
+  .section-view-all:hover {
     color: var(--cyan);
     text-shadow: none;
   }
 
-  body[data-page="home"] .section-view-all:hover span {
+  .section-view-all:hover span {
     transform: none;
   }
 
@@ -4993,10 +5156,6 @@ html.theme-transitioning *::after {
     padding: 16px 0;
     page-break-inside: avoid;
     border-top: 1px solid #ddd;
-  }
-
-  .section-head {
-    grid-template-columns: 1fr;
   }
 
   .reveal {
