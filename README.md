@@ -47,7 +47,7 @@ public/
 ├── data.js             # all content data (window.siteData = {profile, projects[5], notes[10]})
 ├── app.js              # rendering, interactions, nav, animations
 ├── styles.css          # single shared stylesheet
-├── sw.js               # service worker (cache-first, CACHE = 'mysite-v65')
+├── sw.js               # service worker (cache-first, CACHE = 'mysite-v77')
 ├── manifest.json       # PWA manifest
 ├── umami-config.js     # Umami analytics configuration
 ├── favicon.svg         # site icon
@@ -63,11 +63,11 @@ public/
 
 **Shared chrome:** topbar nav (Home / Projects / Showcase / Notes / About), decorative overlays (noise, particle-bg canvas, parallax orbs, cursor-glow, scroll-progress), ⌘K command palette, dark/light theme, glass-morphism.
 
-**PWA:** `manifest.json` + `sw.js` (cache-first, `CACHE = 'mysite-v65'`).
+**PWA:** `manifest.json` + `sw.js` (cache-first, `CACHE = 'mysite-v77'`).
 
 **SEO:** JSON-LD, Open Graph tags, `sitemap.xml`, `robots.txt`.
 
-**Fonts:** Space Grotesk + Syne + Noto Sans SC.
+**Fonts:** Space Grotesk + Syne (self-hosted latin woff2) + system CJK stack (PingFang SC / Microsoft YaHei) — no webfont requests for Chinese.
 
 The 5 projects map 1:1 to other `~/aiworks` repos.
 
@@ -97,7 +97,7 @@ The rendering, listing pages, detail pages, and search all update automatically.
 Self-hosted [Umami](https://umami.is/) at `stats.jameryw.dev`:
 
 - **Pageviews** — `script.js` loaded on every page
-- **Session replays** — `recorder.js` at 15% sample rate
+- **Session replays** — `recorder.js` at 15% sample rate, lazy-injected by `app.js` after window load + idle
 - Blocked by no third-party trackers; CSP allows only `self` and `stats.jameryw.dev`
 
 ## Deployment
@@ -111,7 +111,7 @@ GitHub Actions workflow (`.github/workflows/deploy.yml`) uploads `public/` to Gi
 | Markup | Vanilla HTML5 |
 | Styling | CSS custom properties, glass-morphism, no preprocessors |
 | Scripting | Vanilla JS (ES2020+), no framework |
-| Fonts | Space Grotesk + Syne + Noto Sans SC |
+| Fonts | Space Grotesk + Syne (self-hosted latin) + system CJK stack |
 | PWA | Service Worker + Web App Manifest |
 | Analytics | Self-hosted Umami (pageviews + session replays) |
 | Security | Strict CSP per page |
