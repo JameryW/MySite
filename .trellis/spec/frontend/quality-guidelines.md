@@ -265,6 +265,25 @@ body[data-page="home"] .hero-copy h1 span {
 }
 ```
 
+### Project Card Long-Title Handling
+
+Project library cards use repo names as titles, so unbroken CamelCase tokens (e.g. `QuantStrategyPrototypes`) must not force the flex track wider. Flex children need `min-width: 0`, titles need break + 2-line clamp with even-row `min-height`, and the summary clamp must exclude the `.stack-label` eyebrow.
+
+```css
+.project-page-grid > * {
+  min-width: 0;
+}
+
+.project-entry-card > p:not(.stack-label) {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+```
+
+> **Warning**: `.project-entry-card > p` also matches `p.stack-label` — clamping the eyebrow collapses its glow/label row. Always use `> p:not(.stack-label)` for the summary clamp (same idiom as line 2756). Learned 2026-09-14 in `09-14-remove-fork-optimize-layout` (check agent fix).
+
 ---
 
 ## Testing Requirements
