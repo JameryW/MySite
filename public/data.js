@@ -135,60 +135,6 @@ window.siteData = {
       relatedNotes: ["why-agents-matter", "prompt-engineering-evolution"]
     },
     {
-      slug: "trendradar",
-      code: "F6",
-      label: "AI Monitor",
-      title: "TrendRadar",
-      featured: false,
-      summary: "AI 舆情监控与热点筛选工具 — 聚合多平台热搜与 RSS 订阅，关键词精准筛选，AI 分析简报直推手机，支持 MCP 自然语言对话分析。",
-      href: "https://github.com/JameryW/TrendRadar",
-      cta: "view source",
-      status: "Active",
-      stack: ["Python", "FastMCP", "RSS", "LiteLLM", "Docker", "SQLite"],
-      timeframe: "2026–now",
-      role: "Maintainer / Builder",
-      detailTitle: "AI-Driven Public Opinion & Trend Monitor",
-      overview:
-        "聚合百度热搜、微博、今日头条、抖音、华尔街见闻等多平台热榜与 RSS 订阅源，用关键词词组（支持正则、必须词、过滤词、别名）精准筛选关注热点。三种推送模式（当日汇总/当前榜单/增量监控）配合时间线调度预设，把热点与 AI 洞察定时推送到飞书、钉钉、企业微信、Telegram、邮件等渠道。内置 LiteLLM 统一 AI 接口，提供热点分析简报、翻译与兴趣过滤；独立的 FastMCP 服务暴露 17 个工具，可在 Cursor、Cherry Studio 等客户端里用自然语言查询与剖析本地新闻数据。支持 Docker 双镜像部署（推送 + MCP），数据存本地 output/ 或 S3/R2 云端。",
-      highlights: [
-        "多平台热点聚合 + RSS：统一抓取百度热搜、微博、抖音、今日头条、华尔街见闻、知乎、HackerNews 等热榜及自定义 RSS 源，feedparser 解析。",
-        "关键词系统灵活：frequency_words.txt 支持分组、正则、必须词(+)、过滤词(!)、别名(=>)、权重(@N)，热点算法 rank/frequency/hotness 权重可调。",
-        "AI 分析简报：基于 LiteLLM 统一接口（DeepSeek/OpenAI/Gemini 等 100+ 提供商），支持 AI 热点分析、AI 翻译、AI 兴趣过滤，人设可用提示词自定义。",
-        "MCP 服务双形态：FastMCP 实现，支持 stdio 与 streamableHttp（端口 3333）两种接入，暴露 17 个工具（新闻查询、搜索、情感分析、趋势对比、摘要报告等）。",
-        "多渠道推送：飞书/钉钉/企业微信/Telegram/邮件(SMTP)/ntfy/Bark/slack 九种渠道，多账号分号分隔，一次配置多群多设备。",
-        "部署灵活：Docker 双镜像（wantcat/trendradar + wantcat/trendradar-mcp）docker compose 一键起，或 GitHub Actions cron 定时 + Cloudflare R2 存储，SQLite + HTML 报告本地可查。"
-      ],
-      outputs: ["Multi-platform trend aggregation", "AI analysis briefings", "MCP news analytics server"],
-      relatedNotes: ["why-agents-matter", "prompt-engineering-evolution"]
-    },
-    {
-      slug: "ripple",
-      code: "G7",
-      label: "Prediction Engine",
-      title: "Ripple",
-      featured: false,
-      summary: "基于复杂自适应系统（CAS）理论的 Agent-Native 人类社会行为预测引擎 — 群体模拟替代逐人模拟，LLM 调用量较 OASIS 压缩约 3 个数量级。",
-      href: "https://github.com/JameryW/Ripple",
-      cta: "view source",
-      status: "Active research",
-      stack: ["Python", "FastAPI", "LLM", "CAS", "Docker", "SQLite"],
-      timeframe: "2026–now",
-      role: "Maintainer / Builder",
-      detailTitle: "Agent-Native Human Behavior Prediction via Complex Adaptive Systems",
-      overview:
-        "把社会信息传播建模为水面涟漪：信号在智能体之间传递能量，涌现出非线性放大、反馈环与相变。采用「星海合议」四体架构——星（KOL 个体模拟）、海（群体模拟）、全视者（全局编排）、合议庭（多专家辩论校准），由全视者驱动的 5-Phase Wave 循环执行模拟，全程结构化 JSON 可追溯，预测附置信度。核心 CAS 引擎领域无关，通过自然语言 Skill 包注入领域知识：已实现社交媒体传播预测（7 平台）与 PMF 产品市场契合度验证（8 渠道 × 5 垂类）。无三方 Agent 框架依赖，纯 Python + httpx 直连多家 LLM API，Docker 一键部署为 HTTP+SSE 服务。",
-      highlights: [
-        "星海合议四体架构：星(Star)个体模拟 KOL、海(Sea)群体统计模拟普通用户、全视者(Omniscient)全局编排、合议庭(Tribunal)多专家结构化辩论校准，五阶段 Wave 执行循环（INIT→SEED→RIPPLE→OBSERVE→FEEDBACK + DELIBERATE）。",
-        "CAS 原生编码：Ripple/Event/Field/PhaseVector/Meme 五大原语直接实现涌现、非线性、正负反馈环与相变；Agent-Native 即决策权完全交给 LLM，无硬编码传播规则。",
-        "成本优势：群体模拟范式使单次模拟 LLM 调用量从 OASIS 的 ~300,000 压缩至 ~100–500（约 3 个数量级），分钟级出结果，输出含置信度的预测 + 动力学诊断 + 优化建议。",
-        "两个领域 Skill：social-media（小红书/抖音/微博/B站/知乎/公众号 7 平台画像）与 pmf-validation（8 传播渠道 × 5 行业垂类正交组合），纯自然语言画像驱动、零代码扩展新领域。",
-        "反乐观偏误五层防线 + 合议庭 evaluate→challenge→revise→synthesize 辩论流程，对抗 LLM 乐观倾向，379 个测试全部通过。",
-        "多形态交付：FastAPI HTTP+SSE 服务（Docker 镜像、Bearer Token 鉴权、SQLite 任务仓库）、ripple-cli 命令行、OpenClaw 一键安装 skill、端到端示例脚本与示例报告 PDF。"
-      ],
-      outputs: ["CAS social simulation engine", "PMF validation", "Confidence-scored predictions"],
-      relatedNotes: ["why-agents-matter", "build-in-public"]
-    },
-    {
       slug: "awesome-workflows",
       code: "H8",
       label: "Agent Workflows",

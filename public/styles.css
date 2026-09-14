@@ -2486,6 +2486,60 @@ body[data-page="about"] .section + .section {
     linear-gradient(180deg, rgba(18, 26, 52, 0.72), rgba(7, 11, 27, 0.86));
 }
 
+/* ── Projects page: long repo-name titles (e.g. QuantStrategyPrototypes) ──
+   Keep desktop 2-col / mobile 1-col, but let unbroken Latin tokens wrap and
+   clamp the title to 2 lines so cards stay even. Flex children need
+   min-width: 0 or a long word forces the track wider than 50%. */
+.project-page-grid > * {
+  min-width: 0;
+}
+
+.project-page-grid .project-entry-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.project-page-grid .project-entry-card h3 {
+  font-size: clamp(1.25rem, 1.4vw + 0.95rem, 1.55rem);
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  min-height: calc(1.28em * 2);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.project-page-grid .project-entry-card > p:not(.stack-label) {
+  overflow-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.project-page-grid .project-entry-meta {
+  min-width: 0;
+}
+
+.project-page-grid .project-entry-card .card-tags {
+  min-width: 0;
+}
+
+.project-page-grid .project-entry-card .card-tags span {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.project-page-grid .project-entry-card .card-actions {
+  margin-top: auto;
+  padding-top: 12px;
+}
+
 .work-card {
   display: grid;
   grid-template-columns: 92px 1fr;
@@ -4255,6 +4309,12 @@ body[data-page="about"] .contact-links a:nth-child(3) {
   .project-page-grid > * {
     flex: 1 1 100%;
     max-width: 100%;
+  }
+  .project-page-grid .project-entry-card h3 {
+    font-size: clamp(1.15rem, 5vw, 1.4rem);
+    min-height: 0;
+    word-break: break-word;
+    overflow-wrap: anywhere;
   }
   .lead { line-height: 1.55; font-size: 0.94rem; }
   .section-summary { line-height: 1.55; font-size: 0.94rem; }
