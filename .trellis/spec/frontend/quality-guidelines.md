@@ -300,6 +300,12 @@ Project library cards use repo names as titles, so unbroken CamelCase tokens (e.
 
 > **Warning**: home has page-scoped note-card rules (e.g. the old `body[data-page="home"] .note-card > p:not(.stack-label)` 3-line clamp). When the template drops a row (like the `stack-label` eyebrow), delete/replace the matching home-scoped rules too — a clamp selector that no longer matches its intended paragraph will silently clamp the wrong text. Learned 2026-09-22 in `09-22-optimize-notes-layout`.
 
+### Detail-Page Runtime Meta
+
+`project.html` / `note.html` are JS-rendered shells (`?slug=`) — crawlers only see the static head, never per-slug content. Per-slug `document.title` + description metas (`description`, `og:description`, `twitter:description`) are set at runtime in `app.js` next to the existing title updates, via `setAttribute("content", entry.overview)` (never `innerHTML` — data.js content must not be parsed as HTML). Canonicals intentionally stay on the param-less shell so slug variants consolidate ranking signals. Social-card scrapers still get the generic description; that is accepted, not a bug.
+
+> **Warning**: head `<meta>` tags in this repo use attribute-per-line formatting, so single-line `grep 'name="description"'` misses them. Audit meta tags with `grep -A2` or a multiline-aware pattern — a single-line grep false-negative caused a wrong "missing description" finding in `09-22-site-optimize` brainstorm. Same applies to any multiline-formatted head element.
+
 ---
 
 ## Testing Requirements
