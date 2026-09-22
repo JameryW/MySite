@@ -407,6 +407,31 @@ window.siteData = {
       ],
       outputs: ["Skills-as-LLM-API thesis", "Physical-friction moat insight", "Tools-over-skills argument"],
       relatedProjects: ["real-quant-engine", "quant-agent"]
+    },
+    {
+      slug: "pure-software-devalued-physical-premium",
+      code: "N11",
+      label: "Value",
+      title: "纯软件贬值，软硬一体升值",
+      titleEn: "Pure Software Devalued, Physical Integration Premium",
+      featured: true,
+      summary: "大模型把纯软件能力不断内化为免费基础设施，与物理世界相连的软硬一体技术反而因真实数据闭环而升值。",
+      meta: "Focus: physical-connected premium",
+      status: "Value note",
+      timeframe: "2025 observation",
+      detailTitle: "纯软件被内化，物理连接成溢价",
+      detailTitleEn: "Pure Software Internalized, Physical Connection Commands A Premium",
+      overview:
+        "大模型正在把纯软件能力逐层内化：推理、代码生成、知识工作一旦被模型学会，就从收费功能变成免费基础设施，价格趋近于零。与之相对，与物理世界相连的软硬一体技术——传感器、执行器、具身终端、边缘实时闭环——每一次交付都要经过物理摩擦的检验，无法被 token 一次性生成。谁拥有真实世界的数据闭环，谁就拥有模型拿不到的稀缺输入，这部分价值会显著提升。",
+      lens: "Pure software is internalized by models toward zero marginal cost; software-hardware systems that close the loop with the physical world earn a premium from friction and real-world data no model can synthesize.",
+      bullets: [
+        "纯软件贬值是因为被内化：推理、代码、知识工作一旦进入模型能力圈，就从产品变成基础设施，调用成本趋近于零。",
+        "软硬一体升值是因为有物理摩擦：传感器标定、执行器时序、边缘实时性、具身调试，每一步都不可压缩、不可跳过。",
+        "溢价来自真实数据闭环：物理状态、故障现场、边缘 case 是模型合成不出来的稀缺输入，拥有闭环即拥有定价权。",
+        "结论：少押注可被内化的纯软件层，多押注连接物理的软硬一体层——价值从代码本身转向真实世界的闭环。"
+      ],
+      outputs: ["Pure-software devaluation thesis", "Physical-connected premium insight", "Software-hardware integration argument"],
+      relatedProjects: ["real-quant-engine", "quant-agent"]
     }
   ]
 };
