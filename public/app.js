@@ -290,6 +290,21 @@ const detailItemParts = (item, fallbackTitle) => {
   };
 };
 
+/* Detail pages are JS-rendered shells: mirror the per-slug overview into the
+   description metas next to document.title. Canonical intentionally stays on
+   the parametric shell so slug variants converge instead of splitting weight.
+   The static head description remains the no-slug / not-found fallback. */
+const setDetailMetaDescription = (description) => {
+  if (!description) return;
+  [
+    document.querySelector('meta[name="description"]'),
+    document.querySelector('meta[property="og:description"]'),
+    document.querySelector('meta[name="twitter:description"]')
+  ].forEach((node) => {
+    if (node) node.setAttribute("content", description);
+  });
+};
+
 const relatedProjectMarkup = (project) => `
   <a class="track-card reveal related-card" href="${projectDetailHref(project)}">
     <p class="stack-label">${project.label}</p>
@@ -564,6 +579,7 @@ if (projectDetailNode) {
     `;
   } else {
     document.title = `Jamery Wang | ${project.title}`;
+    setDetailMetaDescription(project.overview);
     projectDetailNode.setAttribute("aria-busy", "true");
     projectDetailNode.innerHTML = `
       <section class="page-hero reveal">
@@ -665,6 +681,7 @@ if (noteDetailNode) {
     `;
   } else {
     document.title = `Jamery Wang | ${note.title}`;
+    setDetailMetaDescription(note.overview);
     noteDetailNode.setAttribute("aria-busy", "true");
     noteDetailNode.innerHTML = `
       <section class="page-hero reveal">
