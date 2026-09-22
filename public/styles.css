@@ -2308,8 +2308,12 @@ body[data-page="about"] .section + .section {
 
 .notes-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
+}
+
+.notes-grid > * {
+  min-width: 0;
 }
 
 .about-page-grid {
@@ -2734,12 +2738,13 @@ body[data-page="home"] .work-card:hover .work-arrow {
   transform: translateX(6px);
 }
 
-/* Note cards: top meta row */
-body[data-page="home"] .note-card .stack-label {
-  display: flex;
-  width: 100%;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgba(162, 176, 255, 0.12);
+/* Note cards: overview-first layout (label row removed 2026-09-22,
+   overview renders full text with no line clamp) */
+body[data-page="home"] .note-card .note-overview {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.75;
+  overflow-wrap: break-word;
 }
 
 /* Note cards: title + hover accent */
@@ -2752,14 +2757,7 @@ body[data-page="home"] .note-card:hover h3 {
   color: var(--cyan);
 }
 
-/* Note cards: 3-line summary clamp + footer meta row */
-body[data-page="home"] .note-card > p:not(.stack-label) {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
+/* Note cards: footer meta row */
 body[data-page="home"] .note-card .card-actions {
   padding-top: 12px;
   border-top: 1px solid rgba(162, 176, 255, 0.12);
@@ -2918,7 +2916,30 @@ body[data-page="home"] .note-card .card-actions {
 }
 
 .note-entry-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
   min-height: 240px;
+  overflow-wrap: anywhere;
+}
+
+.note-entry-card h3 {
+  margin-bottom: 10px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.note-entry-card .note-overview {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.75;
+  overflow-wrap: break-word;
+}
+
+.note-entry-card .card-actions {
+  margin-top: auto;
+  padding-top: 12px;
 }
 
 .related-card {
@@ -4640,6 +4661,11 @@ body[data-page="about"] .contact-links a:nth-child(3) {
   .note-card p {
     font-size: 0.88rem;
     line-height: 1.5;
+  }
+
+  .note-card .note-overview {
+    font-size: 0.88rem;
+    line-height: 1.6;
   }
 
   .site-frame {

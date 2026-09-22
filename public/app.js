@@ -398,9 +398,8 @@ const projectCardMarkup = (project, variant) => {
 
 const noteCardMarkup = (note) => `
   <a class="note-card reveal note-entry-card" href="${noteDetailHref(note)}">
-    <p class="stack-label">${note.label}</p>
     <h3>${note.title}<span class="title-en">${note.titleEn || ""}</span></h3>
-    <p>${note.summary}</p>
+    <p class="note-overview">${note.overview}</p>
     <div class="card-actions">
       <span class="note-meta">open detail page</span>
       <span class="card-inline-link">${note.meta}</span>

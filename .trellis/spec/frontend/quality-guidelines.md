@@ -284,6 +284,22 @@ Project library cards use repo names as titles, so unbroken CamelCase tokens (e.
 
 > **Warning**: `.project-entry-card > p` also matches `p.stack-label` — clamping the eyebrow collapses its glow/label row. Always use `> p:not(.stack-label)` for the summary clamp (same idiom as line 2756). Learned 2026-09-14 in `09-14-remove-fork-optimize-layout` (check agent fix).
 
+### Note Card Shared Template
+
+`noteCardMarkup` in `app.js` is shared by the notes library (`noteLibraryNode`, all notes) and the home featured slice (`homeNotesNode`, `featured` reverse slice 4). Editing the template changes both surfaces at once — verify home + notes together.
+
+```css
+.notes-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.notes-grid > * {
+  min-width: 0;
+}
+```
+
+> **Warning**: home has page-scoped note-card rules (e.g. the old `body[data-page="home"] .note-card > p:not(.stack-label)` 3-line clamp). When the template drops a row (like the `stack-label` eyebrow), delete/replace the matching home-scoped rules too — a clamp selector that no longer matches its intended paragraph will silently clamp the wrong text. Learned 2026-09-22 in `09-22-optimize-notes-layout`.
+
 ---
 
 ## Testing Requirements
