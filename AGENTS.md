@@ -44,11 +44,21 @@ Root config: `package.json`, `CLAUDE.md`, `.editorconfig`, `.gitignore`
 - Scroll animations via IntersectionObserver (add `.reveal` class to new sections)
 - Fonts: self-hosted latin variable woff2 (Syne, Space Grotesk) + system CJK stack (PingFang SC / Microsoft YaHei) — no Google Fonts requests anywhere
 - `recorder.js` (umami session replay) is lazy-injected by `app.js` after `window load` + idle; never a static head script
-- Cache versioning: bump `styles.css?v=` / `app.js?v=` in every page head together with the matching `sw.js` SHELL keys (exact URLs, query string included) and the `sw.js` CACHE name
+- Cache versioning: bump `styles.css?v=` / `app.js?v=` / `data.js?v=` in every page head together with the matching `sw.js` SHELL keys (exact URLs, query string included) and the `sw.js` CACHE name
 
 ## Adding Content
 
 Edit `data.js` — add an entry to `projects[]` or `notes[]`. No HTML changes needed.
+
+### Notes bilingual contract
+
+Every `notes[]` entry must ship mirror fields, otherwise the EN toggle renders blanks:
+- `titleEn`, `detailTitleEn` (EN titles; `title` / `detailTitle` stay Chinese)
+- `summaryEn`, `overviewEn`, `bulletsEn[]` (same length as `bullets[]`)
+- `lensZh` (`lens` stays English)
+- `label`, `status`, `timeframe`, `meta`, `outputs` stay English-only; page chrome stays mixed
+- Tone: direct, contracted forms (`isn't`, `don't`, `can't` — never `is not`, `cannot`); shared terms: `closed loop`, `flywheel`, `moat`, `hundred-million-scale`, `build in public`
+- After editing, toggle EN on the notes list and one detail page and check for blanks or `undefined`
 
 ## Security
 

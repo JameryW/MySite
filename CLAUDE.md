@@ -61,7 +61,7 @@ All pages share the same header/nav structure, `data.js`, `app.js`, and `styles.
 
 ## Adding Content
 
-To add a new project or note, edit `data.js` — add an entry to the `projects` or `notes` array with all required fields (slug, code, label, title, summary, etc.). The rendering and detail pages update automatically. No HTML changes needed for new entries.
+To add a new project or note, edit `data.js` — add an entry to the `projects` or `notes` array with all required fields (slug, code, label, title, summary, etc.). Notes additionally require bilingual mirror fields (`titleEn`, `detailTitleEn`, `summaryEn`, `overviewEn`, `bulletsEn[]` matching `bullets[]`, `lensZh`) — see the notes bilingual contract in `AGENTS.md`. The rendering and detail pages update automatically. No HTML changes needed for new entries.
 
 ## Design Notes
 
