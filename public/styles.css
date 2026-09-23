@@ -2740,7 +2740,8 @@ body[data-page="home"] .work-card:hover .work-arrow {
 
 /* Note cards: overview-first layout (label row removed 2026-09-22,
    overview renders full text with no line clamp) */
-body[data-page="home"] .note-card .note-overview {
+body[data-page="home"] .note-card .note-overview,
+body[data-page="home"] .note-card .note-summary {
   margin: 0;
   font-size: 0.98rem;
   line-height: 1.75;
@@ -2919,27 +2920,325 @@ body[data-page="home"] .note-card .card-actions {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  min-height: 240px;
+  min-height: 280px;
   overflow-wrap: anywhere;
 }
 
 .note-entry-card h3 {
   margin-bottom: 10px;
+  font-size: clamp(1.3rem, 2.2vw, 1.65rem);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
   overflow-wrap: anywhere;
   word-break: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
+.note-entry-card .note-code {
+  color: var(--cyan);
+}
+
+.note-entry-card .note-summary,
 .note-entry-card .note-overview {
   margin: 0;
   color: var(--muted);
-  font-size: 0.98rem;
-  line-height: 1.75;
+  font-size: 0.96rem;
+  line-height: 1.7;
   overflow-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.note-entry-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.note-status-pill {
+  padding: 4px 11px;
+  border: 1px solid rgba(216, 255, 98, 0.3);
+  border-radius: 999px;
+  background: rgba(216, 255, 98, 0.07);
+  color: var(--lime);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.note-timeframe {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .note-entry-card .card-actions {
   margin-top: auto;
-  padding-top: 12px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(162, 176, 255, 0.12);
+}
+
+.section-head-side {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 8px;
+}
+
+@media (max-width: 760px) {
+  .section-head-side {
+    width: 100%;
+    justify-content: space-between;
+    padding-bottom: 0;
+  }
+}
+
+/* ── Notes language toggle ── */
+.lang-toggle {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-self: flex-start;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.lang-toggle button {
+  padding: 8px 18px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: background 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+
+.lang-toggle button:hover {
+  color: var(--text);
+}
+
+.lang-toggle button.active {
+  background: linear-gradient(135deg, var(--cyan), var(--lime));
+  color: #02040d;
+  box-shadow: 0 4px 16px rgba(108, 242, 255, 0.25);
+}
+
+.section-head-top:has(.lang-toggle) {
+  flex-wrap: wrap;
+  row-gap: 14px;
+}
+
+.page-actions .lang-toggle {
+  align-self: center;
+}
+
+[data-theme="light"] .lang-toggle {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* ── Note detail: standalone overview reading block ── */
+.note-overview-card {
+  padding: 26px 28px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(18, 26, 52, 0.5), rgba(7, 11, 27, 0.85));
+  box-shadow: var(--shadow);
+}
+
+.note-overview-card p {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(1.05rem, 1.5vw, 1.22rem);
+  line-height: 2;
+  overflow-wrap: break-word;
+}
+
+[data-theme="light"] .note-overview-card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(230, 234, 245, 0.9));
+}
+
+@media (max-width: 760px) {
+  .note-overview-card {
+    padding: 20px;
+    border-radius: 18px;
+  }
+}
+
+/* ── Note detail: meta row / lens callout / numbered points ── */
+.detail-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.note-lens {
+  margin: 0 0 22px;
+  padding: 18px 20px 18px 22px;
+  border: 1px solid rgba(108, 242, 255, 0.18);
+  border-left: 3px solid var(--cyan);
+  border-radius: 0 18px 18px 0;
+  background: rgba(108, 242, 255, 0.04);
+}
+
+.note-lens p {
+  margin: 0;
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.note-points {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+.note-point {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 14px;
+  align-items: start;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(18, 26, 52, 0.64), rgba(7, 11, 27, 0.9));
+  box-shadow: var(--shadow);
+}
+
+.note-point-index {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.2px rgba(108, 242, 255, 0.65);
+}
+
+.note-point p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.8;
+  overflow-wrap: break-word;
+}
+
+.note-point {
+  scroll-margin-top: 110px;
+}
+
+/* ── Note detail: in-page TOC for key points ── */
+.note-toc {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 18px;
+}
+
+.note-toc-label {
+  margin-right: 2px;
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.note-toc ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.note-toc a {
+  display: inline-flex;
+  min-width: 44px;
+  justify-content: center;
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  transition: border-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.note-toc a:hover {
+  border-color: rgba(108, 242, 255, 0.45);
+  color: var(--cyan);
+  transform: translateY(-1px);
+}
+
+[data-theme="light"] .note-toc a {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 760px) {
+  .note-points {
+    grid-template-columns: 1fr;
+  }
+}
+
+.related-note-card p:not(.stack-label) {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+[data-theme="light"] .note-status-pill {
+  border-color: rgba(90, 138, 0, 0.35);
+  background: rgba(90, 138, 0, 0.08);
+}
+
+[data-theme="light"] .note-lens {
+  border-color: rgba(8, 145, 178, 0.2);
+  border-left-color: var(--cyan);
+  background: rgba(255, 255, 255, 0.55);
+}
+
+[data-theme="light"] .note-point {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(230, 234, 245, 0.9));
+}
+
+.pager-card p {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .related-card {
@@ -4556,6 +4855,16 @@ body[data-page="about"] .contact-links a:nth-child(3) {
     grid-template-columns: 1fr;
   }
 
+  /* detail pager 移动端单列，空位占位隐藏 */
+  .detail-pager {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .pager-spacer {
+    display: none;
+  }
+
   .showcase-grid {
     grid-template-columns: 1fr;
     gap: 14px;
@@ -4611,6 +4920,15 @@ body[data-page="about"] .contact-links a:nth-child(3) {
 
   .page-title {
     font-size: clamp(2.2rem, 10vw, 3.2rem);
+    line-height: 1.16;
+  }
+
+  /* CJK glyphs are taller than latin caps: the desktop optical
+     tightening (negative margin on the outline span) collides on
+     small screens, so neutralize it here. */
+  .page-title span {
+    margin-block: 0;
+    padding-block: 0;
   }
 
   body[data-page="showcase"] .page-lead {
@@ -4663,7 +4981,8 @@ body[data-page="about"] .contact-links a:nth-child(3) {
     line-height: 1.5;
   }
 
-  .note-card .note-overview {
+  .note-card .note-overview,
+  .note-card .note-summary {
     font-size: 0.88rem;
     line-height: 1.6;
   }
