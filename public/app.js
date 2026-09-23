@@ -256,6 +256,78 @@ const noteDetailHref = (note) => `./note.html?slug=${note.slug}`;
 const projectBySlug = new Map(siteData.projects.map((project) => [project.slug, project]));
 const noteBySlug = new Map(siteData.notes.map((note) => [note.slug, note]));
 
+/* ── Notes bilingual (zh / en) ──
+   The toggle switches every note content field; preference persists. */
+const NOTES_LANG_KEY = "notes-lang";
+let notesLang = "zh";
+try {
+  const savedNotesLang = localStorage.getItem(NOTES_LANG_KEY);
+  if (savedNotesLang === "en" || savedNotesLang === "zh") notesLang = savedNotesLang;
+} catch (langLoadErr) {}
+
+const noteText = (note, base) => {
+  if (notesLang === "en" && note[`${base}En`]) return note[`${base}En`];
+  return note[base];
+};
+const noteTitle = (note) => (notesLang === "en" ? note.titleEn || note.title : note.title);
+const noteTitleSub = (note) => (notesLang === "en" ? "" : note.titleEn || "");
+const noteDetailTitle = (note) => (notesLang === "en" ? note.detailTitleEn || note.detailTitle : note.detailTitle);
+const noteDetailTitleSub = (note) => (notesLang === "en" ? "" : note.detailTitleEn || "");
+const noteBullets = (note) => (notesLang === "en" && Array.isArray(note.bulletsEn) ? note.bulletsEn : note.bullets);
+const noteLens = (note) => (notesLang === "zh" ? note.lensZh || note.lens : note.lens);
+const langToggleMarkup = () => `
+  <div class="lang-toggle" role="group" aria-label="语言切换 Language">
+    <button type="button" data-lang-toggle="zh" class="${notesLang === "zh" ? "active" : ""}" aria-pressed="${notesLang === "zh"}">中文</button>
+    <button type="button" data-lang-toggle="en" class="${notesLang === "en" ? "active" : ""}" aria-pressed="${notesLang === "en"}">EN</button>
+  </div>
+`;
+const updateLangToggleUI = () => {
+  document.querySelectorAll("[data-lang-toggle]").forEach((btn) => {
+    const active = btn.getAttribute("data-lang-toggle") === notesLang;
+    btn.classList.toggle("active", active);
+    btn.setAttribute("aria-pressed", String(active));
+  });
+};
+const applyStoredFilter = (container) => {
+  const cards = [...container.querySelectorAll(":scope > a")];
+  const activeLabel = (container.dataset.activeFilter || "").trim();
+  if (!activeLabel) return cards.length;
+  let visible = 0;
+  cards.forEach((card) => {
+    const cardLabel = card.querySelector(".stack-label, .card-topline, .note-meta");
+    const shown = cardLabel && cardLabel.textContent.includes(activeLabel);
+    card.style.display = shown ? "" : "none";
+    if (shown) visible++;
+  });
+  return visible;
+};
+function renderNoteLibraries(instant = false) {
+  if (homeNotesNode) {
+    homeNotesNode.innerHTML = siteData.notes.filter((note) => note.featured).reverse().slice(0, 4).map(noteCardMarkup).join("");
+  }
+  if (noteLibraryNode) {
+    noteLibraryNode.innerHTML = siteData.notes.map(noteCardMarkup).join("");
+    updateNoteCount(applyStoredFilter(noteLibraryNode));
+  }
+  updateLangToggleUI();
+  if (instant) {
+    [homeNotesNode, noteLibraryNode].forEach((node) => {
+      if (node) node.querySelectorAll(".reveal").forEach((card) => card.classList.add("visible"));
+    });
+  }
+}
+const updateNoteCount = (visible) => {
+  noteCountNodes.forEach((node) => {
+    node.textContent = visible;
+  });
+};
+const noteReadMinutes = (note) => {
+  const text = [noteText(note, "overview"), noteLens(note), ...noteBullets(note)].join(" ");
+  const cjk = (text.match(/[一-鿿豈-﫿]/g) || []).length;
+  const words = (text.match(/[A-Za-z0-9']+/g) || []).length;
+  return Math.max(1, Math.ceil(cjk / 400 + words / 200));
+};
+
 const getSiblingEntries = (entries, currentSlug) => {
   const index = entries.findIndex((entry) => entry.slug === currentSlug);
   const safeIndex = index >= 0 ? index : 0;
@@ -318,13 +390,13 @@ const relatedProjectMarkup = (project) => `
 `;
 
 const relatedNoteMarkup = (note) => `
-  <a class="track-card reveal related-card" href="${noteDetailHref(note)}">
-    <p class="stack-label">${note.label}</p>
-    <h3>${note.title}</h3>
-    <p>${note.summary}</p>
+  <a class="track-card reveal related-card related-note-card" href="${noteDetailHref(note)}">
+    <p class="stack-label">${note.code ? `${note.code} / ` : ""}${note.label}</p>
+    <h3>${noteTitle(note)}</h3>
+    <p>${noteText(note, "summary")}</p>
     <div class="card-actions">
-      <span class="repo-meta">open note detail</span>
-      <span class="card-inline-link">${note.meta}</span>
+      <span class="repo-meta">${note.timeframe || "open note detail"}</span>
+      <span class="card-inline-link">${notesLang === "en" ? "read note" : "阅读全文"} <span aria-hidden="true">→</span></span>
     </div>
   </a>
 `;
@@ -344,7 +416,7 @@ const detailPagerMarkup = (options) => {
             ? `
               <a class="track-card reveal related-card pager-card" href="${previousHref(previous)}">
                 <p class="stack-label">Previous</p>
-                <h3>${previous.title}</h3>
+                <h3>${noteTitle(previous)}</h3>
                 <p>${previousLabel(previous)}</p>
                 <span class="repo-meta">go back one</span>
               </a>
@@ -356,7 +428,7 @@ const detailPagerMarkup = (options) => {
             ? `
               <a class="track-card reveal related-card pager-card" href="${nextHref(next)}">
                 <p class="stack-label">Next</p>
-                <h3>${next.title}</h3>
+                <h3>${noteTitle(next)}</h3>
                 <p>${nextLabel(next)}</p>
                 <span class="repo-meta">keep reading</span>
               </a>
@@ -411,16 +483,35 @@ const projectCardMarkup = (project, variant) => {
   `;
 };
 
-const noteCardMarkup = (note) => `
+const noteCardMarkup = (note) => {
+  const pointCount = Array.isArray(note.bullets) ? note.bullets.length : 0;
+  const buildCount = Array.isArray(note.relatedProjects) ? note.relatedProjects.length : 0;
+  const teaser = noteText(note, "summary") || noteText(note, "overview") || "";
+  const title = noteTitle(note);
+  const titleSub = noteTitleSub(note);
+  const pointWord = notesLang === "en" ? "points" : "要点";
+  const buildWord = notesLang === "en" ? "builds" : "关联项目";
+  const readWord = notesLang === "en" ? "read note" : "阅读全文";
+  return `
   <a class="note-card reveal note-entry-card" href="${noteDetailHref(note)}">
-    <h3>${note.title}<span class="title-en">${note.titleEn || ""}</span></h3>
-    <p class="note-overview">${note.overview}</p>
+    <p class="stack-label">
+      <span class="note-code">${note.code || "Note"}</span>
+      <span aria-hidden="true">/</span>
+      ${note.label || ""}
+    </p>
+    <h3>${title}${titleSub ? `<span class="title-en">${titleSub}</span>` : ""}</h3>
+    <p class="note-summary">${teaser}</p>
+    <div class="note-entry-meta">
+      <span class="note-status-pill">${note.status || ""}</span>
+      <span class="note-timeframe">${note.timeframe || ""}</span>
+    </div>
     <div class="card-actions">
-      <span class="note-meta">open detail page</span>
-      <span class="card-inline-link">${note.meta}</span>
+      <span class="repo-meta">${pointCount > 0 ? `${pointCount} ${pointWord}` : ""}${pointCount > 0 && buildCount > 0 ? " · " : ""}${buildCount > 0 ? `${buildCount} ${buildWord}` : ""}</span>
+      <span class="card-inline-link">${readWord} <span aria-hidden="true">→</span></span>
     </div>
   </a>
-`;
+  `;
+};
 
 document.querySelectorAll(".nav a").forEach((link) => {
   const href = link.getAttribute("href");
@@ -446,13 +537,7 @@ if (projectLibraryNode) {
   projectLibraryNode.innerHTML = siteData.projects.map((project) => projectCardMarkup(project, "library")).join("");
 }
 
-if (homeNotesNode) {
-  homeNotesNode.innerHTML = siteData.notes.filter((note) => note.featured).reverse().slice(0, 4).map(noteCardMarkup).join("");
-}
-
-if (noteLibraryNode) {
-  noteLibraryNode.innerHTML = siteData.notes.map(noteCardMarkup).join("");
-}
+renderNoteLibraries();
 
 if (showcaseNode) {
   const demoProjects = siteData.projects.filter((project) => project.demoUrl);
@@ -492,7 +577,7 @@ if (noteCountNodes.length > 0) {
 }
 
 /* ── Filter/Tag System for Library Pages ── */
-function setupFilter(container, items) {
+function setupFilter(container, items, onFilter) {
   const allLabels = new Set();
   items.forEach((item) => {
     if (item.label) allLabels.add(item.label);
@@ -500,12 +585,31 @@ function setupFilter(container, items) {
 
   if (allLabels.size < 2 || !container) return;
 
+  const applyFilter = (activeLabel) => {
+    container.dataset.activeFilter = activeLabel || "";
+    const cards = container.querySelectorAll(":scope > a");
+    let visible = 0;
+    cards.forEach((card) => {
+      if (!activeLabel) {
+        card.style.display = "";
+        visible++;
+        return;
+      }
+      const cardLabel = card.querySelector(".stack-label, .card-topline, .note-meta");
+      const shown = cardLabel && cardLabel.textContent.includes(activeLabel);
+      card.style.display = shown ? "" : "none";
+      if (shown) visible++;
+    });
+    if (typeof onFilter === "function") onFilter(activeLabel, visible, cards.length);
+    return visible;
+  };
+
   const filterBar = document.createElement("div");
   filterBar.className = "filter-bar";
 
   const allPill = document.createElement("button");
   allPill.className = "filter-pill active";
-  allPill.textContent = "All";
+  allPill.textContent = `All (${items.length})`;
   allPill.setAttribute("aria-pressed", "true");
   filterBar.appendChild(allPill);
 
@@ -532,15 +636,7 @@ function setupFilter(container, items) {
     pill.setAttribute("aria-pressed", "true");
 
     const activeLabel = pill.dataset.filterLabel || null;
-    const cards = container.querySelectorAll(":scope > a");
-    cards.forEach((card) => {
-      if (!activeLabel) {
-        card.style.display = "";
-        return;
-      }
-      const cardLabel = card.querySelector(".stack-label, .card-topline, .note-meta");
-      card.style.display = (cardLabel && cardLabel.textContent.includes(activeLabel)) ? "" : "none";
-    });
+    applyFilter(activeLabel);
   });
 }
 
@@ -549,7 +645,7 @@ if (projectLibraryNode) {
 }
 
 if (noteLibraryNode) {
-  setupFilter(noteLibraryNode, siteData.notes);
+  setupFilter(noteLibraryNode, siteData.notes, (label, visible) => updateNoteCount(visible));
 }
 
 /* ── Activity Feed ── */
@@ -655,7 +751,8 @@ if (projectDetailNode) {
   }
 }
 
-if (noteDetailNode) {
+const renderNoteDetail = (instant = false) => {
+  if (!noteDetailNode) return;
   const params = new URLSearchParams(window.location.search);
   const slug = params.get("slug");
   const note = noteBySlug.get(slug);
@@ -681,49 +778,75 @@ if (noteDetailNode) {
     `;
   } else {
     document.title = `Jamery Wang | ${note.title}`;
-    setDetailMetaDescription(note.overview);
+    setDetailMetaDescription(noteText(note, "overview"));
     noteDetailNode.setAttribute("aria-busy", "true");
     noteDetailNode.innerHTML = `
-      <section class="page-hero reveal">
-        <p class="eyebrow">${note.label} / ${note.timeframe} / ${note.status}</p>
+      <section class="page-hero reveal note-detail-hero">
+        <p class="eyebrow">${note.code ? `${note.code} / ` : ""}${note.label} / ${note.status}</p>
         <h1 class="page-title">
-          ${note.title}
-          <span>${note.detailTitle}${note.detailTitleEn ? `<br><span class="title-en">${note.detailTitleEn}</span>` : ""}</span>
+          ${noteTitle(note)}
+          <span>${noteDetailTitle(note)}${noteDetailTitleSub(note) ? `<br><span class="title-en">${noteDetailTitleSub(note)}</span>` : ""}</span>
         </h1>
-        <p class="page-lead">${note.overview}</p>
+        <p class="detail-meta-row">
+          <span>${note.timeframe || ""}</span>
+          <span aria-hidden="true">·</span>
+          <span>${note.meta || ""}</span>
+          <span aria-hidden="true">·</span>
+          <span>${noteBullets(note).length} ${notesLang === "en" ? "points" : "要点"}</span>
+          <span aria-hidden="true">·</span>
+          <span>${noteReadMinutes(note)} ${notesLang === "en" ? "min read" : "分钟阅读"}</span>
+          ${relatedProjects.length > 0 ? `<span aria-hidden="true">·</span><span>${relatedProjects.length} ${notesLang === "en" ? "linked builds" : "关联项目"}</span>` : ""}
+        </p>
         <div class="page-actions">
           <a class="button primary" href="./notes.html">Back To Notes</a>
           <a class="button secondary" href="./projects.html">See Related Projects</a>
+          ${langToggleMarkup()}
         </div>
         ${pageHeroPanelMarkup("Note Signal", [
           { label: "Status", value: note.status },
-          { label: "Frame", value: note.meta },
-          { label: "Output", value: note.outputs.slice(0, 2).join(" / ") }
+          { label: "Focus", value: note.meta },
+          { label: "Period", value: note.timeframe }
         ])}
       </section>
 
-      <section class="section">
+      <section class="section note-overview-section">
+        <div class="section-head reveal">
+          <p class="section-kicker">Overview</p>
+          <h2>Full Text</h2>
+        </div>
+        <div class="note-overview-card reveal">
+          <p>${noteText(note, "overview")}</p>
+        </div>
+      </section>
+
+      <section class="section note-detail-body">
         <div class="section-head reveal">
           <p class="section-kicker">Breakdown</p>
           <h2>Key Points</h2>
-          <p class="section-summary">${note.lens}</p>
         </div>
-        <div class="build-track-grid">
-          ${note.bullets
-            .map((item, index) => {
-              const point = detailItemParts(item, note.outputs[index] || `Point ${String(index + 1).padStart(2, "0")}`);
-
-              return `
-                <article class="track-card reveal">
-                  <p class="stack-label">Point 0${index + 1}</p>
-                  <h3>${point.title}</h3>
-                  <p>${point.body}</p>
-                  <span class="repo-meta">${note.outputs[index] || note.status}</span>
-                </article>
-              `;
-            })
+        <blockquote class="note-lens reveal">
+          <p>${noteLens(note)}</p>
+        </blockquote>
+        <nav class="note-toc reveal" aria-label="${notesLang === "en" ? "On this page" : "本页目录"}">
+          <span class="note-toc-label">${notesLang === "en" ? "On this page" : "本页目录"}</span>
+          <ol>
+            ${noteBullets(note).map((_, index) => {
+              const pointId = `note-point-${String(index + 1).padStart(2, "0")}`;
+              const pointNum = String(index + 1).padStart(2, "0");
+              return `<li><a href="#${pointId}">${pointNum}</a></li>`;
+            }).join("")}
+          </ol>
+        </nav>
+        <ol class="note-points">
+          ${noteBullets(note)
+            .map((item, index) => `
+                <li class="note-point reveal" id="note-point-${String(index + 1).padStart(2, "0")}">
+                  <span class="note-point-index" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>
+                  <p>${item}</p>
+                </li>
+            `)
             .join("")}
-        </div>
+        </ol>
       </section>
 
       ${relatedProjects.length > 0 ? `
@@ -744,15 +867,33 @@ if (noteDetailNode) {
         next: siblings.next,
         previousHref: noteDetailHref,
         nextHref: noteDetailHref,
-        previousLabel: (entry) => entry.meta,
-        nextLabel: (entry) => entry.meta
+        previousLabel: (entry) => noteText(entry, "summary"),
+        nextLabel: (entry) => noteText(entry, "summary")
        })}
     `;
     noteDetailNode.setAttribute("aria-busy", "false");
     const mainContent = document.getElementById("main-content");
     if (mainContent) mainContent.focus({ preventScroll: true });
   }
-}
+  updateLangToggleUI();
+  if (instant) {
+    noteDetailNode.querySelectorAll(".reveal").forEach((node) => node.classList.add("visible"));
+  }
+};
+renderNoteDetail();
+
+document.addEventListener("click", (event) => {
+  const toggle = event.target.closest("[data-lang-toggle]");
+  if (!toggle) return;
+  const lang = toggle.getAttribute("data-lang-toggle");
+  if ((lang !== "en" && lang !== "zh") || lang === notesLang) return;
+  notesLang = lang;
+  try {
+    localStorage.setItem(NOTES_LANG_KEY, lang);
+  } catch (persistErr) {}
+  renderNoteLibraries(true);
+  renderNoteDetail(true);
+});
 
 const revealNodes = document.querySelectorAll(".reveal");
 const emphasisNodes = document.querySelectorAll(".work-card, .command-list p, .ops-command-list p");

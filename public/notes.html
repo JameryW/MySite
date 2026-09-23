@@ -26,7 +26,7 @@
     <meta name="apple-mobile-web-app-title" content="Jamery Wang">
     <link rel="dns-prefetch" href="https://github.com" />
     <link rel="preload" href="./fonts/syne-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="./styles.css?v=67" />
+    <link rel="stylesheet" href="./styles.css?v=75" />
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -138,9 +138,17 @@
 
         <section class="section" id="notes">
           <div class="section-head reveal">
-            <p class="section-kicker">All Notes</p>
-            <h2>Latest Thinking</h2>
-            <p class="section-summary">先留下判断，再让项目和后续复盘继续验证。</p>
+            <div class="section-head-top">
+              <div class="section-head-titles">
+                <p class="section-kicker">All Notes</p>
+                <h2>Latest Thinking</h2>
+                <p class="section-summary">先留下判断，再让项目和后续复盘继续验证。</p>
+              </div>
+              <div class="lang-toggle" role="group" aria-label="语言切换 Language">
+                <button type="button" data-lang-toggle="zh" class="active" aria-pressed="true">中文</button>
+                <button type="button" data-lang-toggle="en" aria-pressed="false">EN</button>
+              </div>
+            </div>
           </div>
           <div class="notes-grid" data-note-library></div>
         </section>
@@ -170,9 +178,9 @@
       <span>Top</span>
     </button>
 
-<script src="./data.js?v=29" defer></script>
+<script src="./data.js?v=31" defer></script>
 <script src="./umami-config.js" defer></script>
-<script src="./app.js?v=31" defer></script>
+<script src="./app.js?v=39" defer></script>
 
     <!-- Command Palette -->
     <div class="palette-overlay" data-palette-overlay></div>
