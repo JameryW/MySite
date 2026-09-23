@@ -289,12 +289,17 @@ const updateLangToggleUI = () => {
   });
 };
 const applyStoredFilter = (container) => {
+  const cards = [...container.querySelectorAll(":scope > a")];
   const activeLabel = (container.dataset.activeFilter || "").trim();
-  if (!activeLabel) return;
-  container.querySelectorAll(":scope > a").forEach((card) => {
+  if (!activeLabel) return cards.length;
+  let visible = 0;
+  cards.forEach((card) => {
     const cardLabel = card.querySelector(".stack-label, .card-topline, .note-meta");
-    card.style.display = cardLabel && cardLabel.textContent.includes(activeLabel) ? "" : "none";
+    const shown = cardLabel && cardLabel.textContent.includes(activeLabel);
+    card.style.display = shown ? "" : "none";
+    if (shown) visible++;
   });
+  return visible;
 };
 function renderNoteLibraries(instant = false) {
   if (homeNotesNode) {
@@ -302,7 +307,7 @@ function renderNoteLibraries(instant = false) {
   }
   if (noteLibraryNode) {
     noteLibraryNode.innerHTML = siteData.notes.map(noteCardMarkup).join("");
-    applyStoredFilter(noteLibraryNode);
+    updateNoteCount(applyStoredFilter(noteLibraryNode));
   }
   updateLangToggleUI();
   if (instant) {
@@ -311,6 +316,11 @@ function renderNoteLibraries(instant = false) {
     });
   }
 }
+const updateNoteCount = (visible) => {
+  noteCountNodes.forEach((node) => {
+    node.textContent = visible;
+  });
+};
 const noteReadMinutes = (note) => {
   const text = [noteText(note, "overview"), noteLens(note), ...noteBullets(note)].join(" ");
   const cjk = (text.match(/[一-鿿豈-﫿]/g) || []).length;
@@ -567,13 +577,32 @@ if (noteCountNodes.length > 0) {
 }
 
 /* ── Filter/Tag System for Library Pages ── */
-function setupFilter(container, items) {
+function setupFilter(container, items, onFilter) {
   const allLabels = new Set();
   items.forEach((item) => {
     if (item.label) allLabels.add(item.label);
   });
 
   if (allLabels.size < 2 || !container) return;
+
+  const applyFilter = (activeLabel) => {
+    container.dataset.activeFilter = activeLabel || "";
+    const cards = container.querySelectorAll(":scope > a");
+    let visible = 0;
+    cards.forEach((card) => {
+      if (!activeLabel) {
+        card.style.display = "";
+        visible++;
+        return;
+      }
+      const cardLabel = card.querySelector(".stack-label, .card-topline, .note-meta");
+      const shown = cardLabel && cardLabel.textContent.includes(activeLabel);
+      card.style.display = shown ? "" : "none";
+      if (shown) visible++;
+    });
+    if (typeof onFilter === "function") onFilter(activeLabel, visible, cards.length);
+    return visible;
+  };
 
   const filterBar = document.createElement("div");
   filterBar.className = "filter-bar";
@@ -607,16 +636,7 @@ function setupFilter(container, items) {
     pill.setAttribute("aria-pressed", "true");
 
     const activeLabel = pill.dataset.filterLabel || null;
-    container.dataset.activeFilter = activeLabel || "";
-    const cards = container.querySelectorAll(":scope > a");
-    cards.forEach((card) => {
-      if (!activeLabel) {
-        card.style.display = "";
-        return;
-      }
-      const cardLabel = card.querySelector(".stack-label, .card-topline, .note-meta");
-      card.style.display = (cardLabel && cardLabel.textContent.includes(activeLabel)) ? "" : "none";
-    });
+    applyFilter(activeLabel);
   });
 }
 
@@ -625,7 +645,7 @@ if (projectLibraryNode) {
 }
 
 if (noteLibraryNode) {
-  setupFilter(noteLibraryNode, siteData.notes);
+  setupFilter(noteLibraryNode, siteData.notes, (label, visible) => updateNoteCount(visible));
 }
 
 /* ── Activity Feed ── */
