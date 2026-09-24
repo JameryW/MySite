@@ -273,8 +273,14 @@ const noteTitle = (note) => (notesLang === "en" ? note.titleEn || note.title : n
 const noteTitleSub = (note) => (notesLang === "en" ? "" : note.titleEn || "");
 const noteDetailTitle = (note) => (notesLang === "en" ? note.detailTitleEn || note.detailTitle : note.detailTitle);
 const noteDetailTitleSub = (note) => (notesLang === "en" ? "" : note.detailTitleEn || "");
+/* EN mirror of the whole heading (title + detail title) as one small caption
+   line — keeps the h1 down to two clear weights instead of three. */
+const noteHeadingEn = (note) => [noteTitleSub(note), noteDetailTitleSub(note)].filter(Boolean).join(" — ");
 const noteBullets = (note) => (notesLang === "en" && Array.isArray(note.bulletsEn) ? note.bulletsEn : note.bullets);
 const noteLens = (note) => (notesLang === "zh" ? note.lensZh || note.lens : note.lens);
+/* note.meta is authored as "Focus: xxx" — the facts strip already labels the
+   cell, so drop the inline prefix to avoid printing the word twice. */
+const noteFocusValue = (note) => (note.meta || "").replace(/^\s*focus\s*[:：]\s*/i, "").trim();
 const langToggleMarkup = () => `
   <div class="lang-toggle" role="group" aria-label="语言切换 Language">
     <button type="button" data-lang-toggle="zh" class="${notesLang === "zh" ? "active" : ""}" aria-pressed="${notesLang === "zh"}">中文</button>
@@ -492,21 +498,29 @@ const noteCardMarkup = (note) => {
   const pointWord = notesLang === "en" ? "points" : "要点";
   const buildWord = notesLang === "en" ? "builds" : "关联项目";
   const readWord = notesLang === "en" ? "read note" : "阅读全文";
+  const counts = [
+    pointCount > 0 ? `${pointCount} ${pointWord}` : "",
+    buildCount > 0 ? `${buildCount} ${buildWord}` : ""
+  ]
+    .filter(Boolean)
+    .join(" · ");
   return `
   <a class="note-card reveal note-entry-card" href="${noteDetailHref(note)}">
-    <p class="stack-label">
-      <span class="note-code">${note.code || "Note"}</span>
-      <span aria-hidden="true">/</span>
-      ${note.label || ""}
-    </p>
+    <div class="note-card-head">
+      <p class="stack-label">
+        <span class="note-code">${note.code || "Note"}</span>
+        <span aria-hidden="true">/</span>
+        ${note.label || ""}
+      </p>
+      ${note.timeframe ? `<span class="note-timeframe">${note.timeframe}</span>` : ""}
+    </div>
     <h3>${title}${titleSub ? `<span class="title-en">${titleSub}</span>` : ""}</h3>
     <p class="note-summary">${teaser}</p>
-    <div class="note-entry-meta">
-      <span class="note-status-pill">${note.status || ""}</span>
-      <span class="note-timeframe">${note.timeframe || ""}</span>
-    </div>
     <div class="card-actions">
-      <span class="repo-meta">${pointCount > 0 ? `${pointCount} ${pointWord}` : ""}${pointCount > 0 && buildCount > 0 ? " · " : ""}${buildCount > 0 ? `${buildCount} ${buildWord}` : ""}</span>
+      <span class="note-meta-inline">
+        ${note.status ? `<span class="note-status-pill">${note.status}</span>` : ""}
+        ${counts ? `<span class="repo-meta">${counts}</span>` : ""}
+      </span>
       <span class="card-inline-link">${readWord} <span aria-hidden="true">→</span></span>
     </div>
   </a>
@@ -781,41 +795,48 @@ const renderNoteDetail = (instant = false) => {
     setDetailMetaDescription(noteText(note, "overview"));
     noteDetailNode.setAttribute("aria-busy", "true");
     noteDetailNode.innerHTML = `
-      <section class="page-hero reveal note-detail-hero">
-        <p class="eyebrow">${note.code ? `${note.code} / ` : ""}${note.label} / ${note.status}</p>
+      <section class="page-hero note-detail-hero reveal">
+        <p class="eyebrow">${note.code ? `${note.code} / ` : ""}${note.label}</p>
         <h1 class="page-title">
           ${noteTitle(note)}
-          <span>${noteDetailTitle(note)}${noteDetailTitleSub(note) ? `<br><span class="title-en">${noteDetailTitleSub(note)}</span>` : ""}</span>
+          <span>${noteDetailTitle(note)}</span>
         </h1>
-        <p class="detail-meta-row">
-          <span>${note.timeframe || ""}</span>
-          <span aria-hidden="true">·</span>
-          <span>${note.meta || ""}</span>
-          <span aria-hidden="true">·</span>
-          <span>${noteBullets(note).length} ${notesLang === "en" ? "points" : "要点"}</span>
-          <span aria-hidden="true">·</span>
-          <span>${noteReadMinutes(note)} ${notesLang === "en" ? "min read" : "分钟阅读"}</span>
-          ${relatedProjects.length > 0 ? `<span aria-hidden="true">·</span><span>${relatedProjects.length} ${notesLang === "en" ? "linked builds" : "关联项目"}</span>` : ""}
-        </p>
+        ${noteHeadingEn(note) ? `<p class="note-detail-en">${noteHeadingEn(note)}</p>` : ""}
+        <ul class="note-facts reveal">
+          ${[
+            { label: "Status", value: note.status },
+            { label: "Focus", value: noteFocusValue(note) },
+            { label: "Period", value: note.timeframe },
+            { label: "Points", value: String(noteBullets(note).length) },
+            { label: "Read", value: `${noteReadMinutes(note)} min` },
+            { label: "Builds", value: String(relatedProjects.length) }
+          ]
+            .filter((fact) => fact.value)
+            .map(
+              (fact) => `
+            <li class="note-fact">
+              <span class="note-fact-label">${fact.label}</span>
+              <strong class="note-fact-value">${fact.value}</strong>
+            </li>
+          `
+            )
+            .join("")}
+        </ul>
         <div class="page-actions">
           <a class="button primary" href="./notes.html">Back To Notes</a>
-          <a class="button secondary" href="./projects.html">See Related Projects</a>
+          <a class="button secondary" href="${relatedProjects.length > 0 ? "#linked-builds" : "./projects.html"}">See Related Projects</a>
           ${langToggleMarkup()}
         </div>
-        ${pageHeroPanelMarkup("Note Signal", [
-          { label: "Status", value: note.status },
-          { label: "Focus", value: note.meta },
-          { label: "Period", value: note.timeframe }
-        ])}
       </section>
 
       <section class="section note-overview-section">
-        <div class="section-head reveal">
-          <p class="section-kicker">Overview</p>
-          <h2>Full Text</h2>
-        </div>
+        <blockquote class="note-lens reveal">
+          <span class="note-lens-label">Lens</span>
+          <p>${noteLens(note)}</p>
+        </blockquote>
         <div class="note-overview-card reveal">
-          <p>${noteText(note, "overview")}</p>
+          <p class="note-overview-label">Overview</p>
+          <p class="note-overview-text">${noteText(note, "overview")}</p>
         </div>
       </section>
 
@@ -824,19 +845,6 @@ const renderNoteDetail = (instant = false) => {
           <p class="section-kicker">Breakdown</p>
           <h2>Key Points</h2>
         </div>
-        <blockquote class="note-lens reveal">
-          <p>${noteLens(note)}</p>
-        </blockquote>
-        <nav class="note-toc reveal" aria-label="${notesLang === "en" ? "On this page" : "本页目录"}">
-          <span class="note-toc-label">${notesLang === "en" ? "On this page" : "本页目录"}</span>
-          <ol>
-            ${noteBullets(note).map((_, index) => {
-              const pointId = `note-point-${String(index + 1).padStart(2, "0")}`;
-              const pointNum = String(index + 1).padStart(2, "0");
-              return `<li><a href="#${pointId}">${pointNum}</a></li>`;
-            }).join("")}
-          </ol>
-        </nav>
         <ol class="note-points">
           ${noteBullets(note)
             .map((item, index) => `
@@ -850,7 +858,7 @@ const renderNoteDetail = (instant = false) => {
       </section>
 
       ${relatedProjects.length > 0 ? `
-      <section class="section">
+      <section class="section" id="linked-builds">
         <div class="section-head reveal">
           <p class="section-kicker">Related Projects</p>
           <h2>Linked Builds</h2>
@@ -1391,8 +1399,19 @@ if (particleCanvas && !reduceMotion) {
   themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 }
 
-/* ── Service Worker Registration ── */
+/* ── Service Worker Registration + Update Reload ──
+   When a NEW sw.js takes control from a previous one (post-deploy), the
+   open page still shows the old shell — reload once so fresh HTML applies.
+   First-ever installs have no previous controller, so they never reload.
+   The flag guards against reload loops. */
 if ('serviceWorker' in navigator) {
+  const hadController = !!navigator.serviceWorker.controller;
+  let swRefreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (swRefreshing || !hadController) return;
+    swRefreshing = true;
+    window.location.reload();
+  });
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js').catch(() => {});
   });

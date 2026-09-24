@@ -45,6 +45,7 @@ Root config: `package.json`, `CLAUDE.md`, `.editorconfig`, `.gitignore`
 - Fonts: self-hosted latin variable woff2 (Syne, Space Grotesk) + system CJK stack (PingFang SC / Microsoft YaHei) — no Google Fonts requests anywhere
 - `recorder.js` (umami session replay) is lazy-injected by `app.js` after `window load` + idle; never a static head script
 - Cache versioning: bump `styles.css?v=` / `app.js?v=` / `data.js?v=` in every page head together with the matching `sw.js` SHELL keys (exact URLs, query string included) and the `sw.js` CACHE name
+- SW strategy: network-first for navigations (deploys land on the next online visit, offline falls back to cache), cache-first for versioned `?v=` statics; `controllerchange` in `app.js` reloads once when a new SW takes over (first installs excluded)
 
 ## Adding Content
 
