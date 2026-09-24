@@ -5057,6 +5057,15 @@ body[data-page="about"] .contact-links a:nth-child(3) {
     min-height: auto;
   }
 
+  .note-card-head {
+    flex-wrap: wrap;
+    gap: 4px 10px;
+  }
+
+  .note-card-head .note-timeframe {
+    font-size: 0.68rem;
+  }
+
   .note-card h3 {
     font-size: clamp(1.1rem, 4vw, 1.4rem);
     margin-bottom: 6px;
