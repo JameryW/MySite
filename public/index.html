@@ -27,7 +27,8 @@
     <meta name="apple-mobile-web-app-title" content="Jamery Wang">
     <link rel="dns-prefetch" href="https://github.com" />
     <link rel="preload" href="./fonts/syne-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="./styles.css?v=76" />
+    <link rel="preload" href="./fonts/space-grotesk-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="./styles.css?v=77" />
     <script type="application/ld+json">
     [
       {
@@ -46,7 +47,6 @@
       }
     ]
     </script>
-    <script defer src="https://stats.jameryw.dev/script.js" data-website-id="9f2c6bb7-954c-4c5c-beb2-fe362b28958e"></script>
   </head>
   <body data-page="home">
     <svg class="platform-icon-defs" aria-hidden="true">
@@ -65,8 +65,8 @@
     <div class="scroll-progress" aria-hidden="true">
       <span class="scroll-progress-bar" data-scroll-progress></span>
     </div>
-    <div class="noise"></div>
-    <canvas class="particle-bg" data-particles></canvas>
+    <div class="noise" aria-hidden="true"></div>
+    <canvas class="particle-bg" data-particles aria-hidden="true"></canvas>
     <div class="orb orb-a" aria-hidden="true"></div>
     <div class="orb orb-b" aria-hidden="true"></div>
 
@@ -122,7 +122,7 @@
               <span class="tagline-ch">终端是我的第二个大脑，LLM 是第三个。写 prompt 比写 PPT 多，debug Agent 比 debug 自己勤。</span>
               <span class="tagline-en">Prompt-native · Agent-first · Ship before sleep</span>
             </p>
-            <p class="lead">扎根杭州，专注 Agent 原型构建与启发式学习，同时折腾量化策略、Harness 和 Loop 工程与 Code-as-Policy——原型跑通才叫验证。</p>
+            <p class="lead">扎根杭州，专注 Agent 原型构建与启发式学习，同时折腾量化策略、Harness、Loop 工程和 Code-as-Policy——原型跑通才叫验证。</p>
             <p class="home-hero-meta">Hangzhou / Online · Prototype first · GitHub first</p>
             <div class="hero-actions">
               <a class="button primary" href="#work">核心项目</a>
@@ -214,9 +214,9 @@
       <span>Top</span>
     </button>
 
-    <script src="./data.js?v=31" defer></script>
+    <script src="./data.js?v=32" defer></script>
     <script src="./umami-config.js" defer></script>
-    <script src="./app.js?v=41" defer></script>
+    <script src="./app.js?v=43" defer></script>
 
     <!-- Command Palette -->
     <div class="palette-overlay" data-palette-overlay></div>

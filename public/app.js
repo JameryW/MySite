@@ -253,6 +253,8 @@ const pageHeroPanelMarkup = (title, items) => `
 
 const projectDetailHref = (project) => `./project.html?slug=${project.slug}`;
 const noteDetailHref = (note) => `./note.html?slug=${note.slug}`;
+const detailCanonicalHref = (kind, slug) =>
+  `https://www.jameryw.dev/${kind}.html?slug=${encodeURIComponent(slug)}`;
 const projectBySlug = new Map(siteData.projects.map((project) => [project.slug, project]));
 const noteBySlug = new Map(siteData.notes.map((note) => [note.slug, note]));
 
@@ -368,19 +370,35 @@ const detailItemParts = (item, fallbackTitle) => {
   };
 };
 
-/* Detail pages are JS-rendered shells: mirror the per-slug overview into the
-   description metas next to document.title. Canonical intentionally stays on
-   the parametric shell so slug variants converge instead of splitting weight.
-   The static head description remains the no-slug / not-found fallback. */
-const setDetailMetaDescription = (description) => {
-  if (!description) return;
-  [
-    document.querySelector('meta[name="description"]'),
-    document.querySelector('meta[property="og:description"]'),
-    document.querySelector('meta[name="twitter:description"]')
-  ].forEach((node) => {
-    if (node) node.setAttribute("content", description);
-  });
+/* Detail pages are JS-rendered shells: mirror title/description/canonical per
+   slug so share cards and crawlers see the entry, not the empty shell. Canonical
+   uses the clean ?slug= URL so extra params converge instead of splitting weight.
+   The static head metas remain the no-slug / not-found fallback. */
+const setDetailMeta = ({ title, description, canonical }) => {
+  if (title) {
+    document.title = `Jamery Wang | ${title}`;
+    [
+      document.querySelector('meta[property="og:title"]'),
+      document.querySelector('meta[name="twitter:title"]')
+    ].forEach((node) => {
+      if (node) node.setAttribute("content", `Jamery Wang | ${title}`);
+    });
+  }
+  if (description) {
+    [
+      document.querySelector('meta[name="description"]'),
+      document.querySelector('meta[property="og:description"]'),
+      document.querySelector('meta[name="twitter:description"]')
+    ].forEach((node) => {
+      if (node) node.setAttribute("content", description);
+    });
+  }
+  if (canonical) {
+    const canonicalNode = document.querySelector('link[rel="canonical"]');
+    if (canonicalNode) canonicalNode.setAttribute("href", canonical);
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.setAttribute("content", canonical);
+  }
 };
 
 const relatedProjectMarkup = (project) => `
@@ -680,16 +698,19 @@ if (projectDetailNode) {
           Project Not Found
           <span>404</span>
         </h1>
-        <p class="page-lead">This project doesn't exist yet, or the slug is incorrect.</p>
+        <p class="page-lead">这个项目还不存在，或者 slug 不正确。</p>
         <div class="page-actions">
-          <a class="button primary" href="./projects.html">Back to Projects</a>
-          <a class="button secondary" href="./index.html">Home</a>
+          <a class="button primary" href="./projects.html">返回项目</a>
+          <a class="button secondary" href="./index.html">首页</a>
         </div>
       </section>
     `;
   } else {
-    document.title = `Jamery Wang | ${project.title}`;
-    setDetailMetaDescription(project.overview);
+    setDetailMeta({
+      title: project.title,
+      description: project.overview,
+      canonical: detailCanonicalHref("project", project.slug)
+    });
     projectDetailNode.setAttribute("aria-busy", "true");
     projectDetailNode.innerHTML = `
       <section class="page-hero reveal">
@@ -702,9 +723,9 @@ if (projectDetailNode) {
         <div class="page-actions">
           <a class="button primary" href="${project.href}" target="_blank" rel="noreferrer">
             <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="vertical-align:-3px;margin-right:6px;"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-            View on GitHub
+            查看源码
           </a>
-          <a class="button secondary" href="./projects.html">Back To Projects</a>
+          <a class="button secondary" href="./projects.html">返回项目</a>
         </div>
         ${pageHeroPanelMarkup("Project Signal", [
           { label: "Status", value: project.status },
@@ -783,16 +804,19 @@ const renderNoteDetail = (instant = false) => {
           Note Not Found
           <span>404</span>
         </h1>
-        <p class="page-lead">This note doesn't exist yet, or the slug is incorrect.</p>
+        <p class="page-lead">这篇笔记还不存在，或者 slug 不正确。</p>
         <div class="page-actions">
-          <a class="button primary" href="./notes.html">Back to Notes</a>
-          <a class="button secondary" href="./index.html">Home</a>
+          <a class="button primary" href="./notes.html">返回笔记</a>
+          <a class="button secondary" href="./index.html">首页</a>
         </div>
       </section>
     `;
   } else {
-    document.title = `Jamery Wang | ${note.title}`;
-    setDetailMetaDescription(noteText(note, "overview"));
+    setDetailMeta({
+      title: note.title,
+      description: noteText(note, "overview"),
+      canonical: detailCanonicalHref("note", note.slug)
+    });
     noteDetailNode.setAttribute("aria-busy", "true");
     noteDetailNode.innerHTML = `
       <section class="page-hero note-detail-hero reveal">
@@ -823,8 +847,8 @@ const renderNoteDetail = (instant = false) => {
             .join("")}
         </ul>
         <div class="page-actions">
-          <a class="button primary" href="./notes.html">Back To Notes</a>
-          <a class="button secondary" href="${relatedProjects.length > 0 ? "#linked-builds" : "./projects.html"}">See Related Projects</a>
+          <a class="button primary" href="./notes.html">返回笔记</a>
+          <a class="button secondary" href="${relatedProjects.length > 0 ? "#linked-builds" : "./projects.html"}">相关项目</a>
           ${langToggleMarkup()}
         </div>
       </section>
