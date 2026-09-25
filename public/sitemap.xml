@@ -11,6 +11,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.jameryw.dev/showcase.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.jameryw.dev/notes.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -21,18 +26,88 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.jameryw.dev/project.html</loc>
-    <changefreq>weekly</changefreq>
+    <loc>https://www.jameryw.dev/project.html?slug=xhs-growth-agent</loc>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.jameryw.dev/note.html</loc>
-    <changefreq>weekly</changefreq>
+    <loc>https://www.jameryw.dev/project.html?slug=quant-agent</loc>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.jameryw.dev/showcase.html</loc>
-    <changefreq>weekly</changefreq>
+    <loc>https://www.jameryw.dev/project.html?slug=real-quant-engine</loc>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.jameryw.dev/project.html?slug=quant-strategy-prototypes</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.jameryw.dev/project.html?slug=ultimate-coders</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.jameryw.dev/project.html?slug=awesome-workflows</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.jameryw.dev/note.html?slug=why-agents-matter</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.jameryw.dev/note.html?slug=prototype-first</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.jameryw.dev/note.html?slug=interface-as-signal</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.jameryw.dev/note.html?slug=prompt-engineering-evolution</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.jameryw.dev/note.html?slug=build-in-public</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.jameryw.dev/note.html?slug=productivity-and-relations</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.jameryw.dev/note.html?slug=evolve-in-loop</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.jameryw.dev/note.html?slug=quantity-to-quality</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.jameryw.dev/note.html?slug=knowledge-depreciates-experience-appreciates</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.jameryw.dev/note.html?slug=skills-devoured-tools-fortified</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.jameryw.dev/note.html?slug=pure-software-devalued-physical-premium</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 </urlset>

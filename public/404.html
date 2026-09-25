@@ -4,16 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>404 | Jamery Wang</title>
-    <meta name="description" content="Page not found." />
+    <meta name="description" content="页面不存在。" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <meta name="theme-color" content="#050816" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://stats.jameryw.dev; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://stats.jameryw.dev;" />
     <link rel="manifest" href="./manifest.json">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Jamery Wang">
     <link rel="preload" href="./fonts/syne-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="./styles.css?v=76" />
-    <script defer src="https://stats.jameryw.dev/script.js" data-website-id="9f2c6bb7-954c-4c5c-beb2-fe362b28958e"></script>
+    <link rel="preload" href="./fonts/space-grotesk-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="./styles.css?v=77" />
   </head>
   <body>
     <svg class="platform-icon-defs" aria-hidden="true">
@@ -54,10 +55,10 @@
             Signal Lost
             <span>404</span>
           </h1>
-          <p class="page-lead">This route doesn't exist yet. Maybe it's a future experiment, or maybe the path changed.</p>
+          <p class="page-lead">这个路径还不存在。也许是未来的一次实验，也许链接已经变了。</p>
           <div class="page-actions">
-            <a class="button primary" href="./index.html">Back to Home</a>
-            <a class="button secondary" href="./projects.html">Browse Projects</a>
+            <a class="button primary" href="./index.html">回到首页</a>
+            <a class="button secondary" href="./projects.html">浏览项目</a>
           </div>
         </section>
       </main>
@@ -69,5 +70,6 @@
         </div>
       </footer>
     </div>
+    <script src="./umami-config.js" defer></script>
   </body>
 </html>

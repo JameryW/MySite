@@ -386,7 +386,7 @@ window.siteData = {
         "进化的本质不是一次性跃迁，而是无数次闭环反馈的累积。每一次 loop 都是一次校准：行动→反馈→调整→再行动。真正的成长不发生在思考中，而发生在闭环完成的瞬间。",
       overviewEn:
         "Evolution isn't a one-time leap but the accumulation of countless closed feedback loops. Each loop is a calibration: act, feedback, adjust, act again. Real growth doesn't happen in thinking — it happens the moment a loop closes.",
-      lens: "Growth is not a leap but a loop — each cycle of action, feedback, and adjustment compounds into real evolution.",
+      lens: "Growth isn't a leap but a loop — each cycle of action, feedback, and adjustment compounds into real evolution.",
       lensZh: "成长不是跳跃而是循环，行动、反馈、调整的每一次复合都沉淀为真正的进化。",
       bullets: [
         "闭环比完美更重要。完成一次 loop 的价值远大于在脑中推演十次。",
@@ -411,7 +411,7 @@ window.siteData = {
       titleEn: "Quantity Becomes Quality",
       featured: true,
       summary: "持续高质量的数据产生高质量的策略，高质量策略催生新的 alpha。这是一个自增强的飞轮，不是线性积累。",
-      summaryEn: "Sustained high-quality data produces high-quality strategies, and high-quality strategies spawn new alpha. It is a self-reinforcing flywheel, not linear accumulation.",
+      summaryEn: "Sustained high-quality data produces high-quality strategies, and high-quality strategies spawn new alpha. It's a self-reinforcing flywheel, not linear accumulation.",
       meta: "Focus: data-strategy flywheel",
       status: "Research note",
       timeframe: "2025 observation",
@@ -421,7 +421,7 @@ window.siteData = {
         "量变引起质变，这不只是一句哲学判断，而是量化策略迭代的底层机制。持续高质量的数据产生高质量的策略，高质量的策略又反过来筛选和生成更高质量的数据，形成自增强的飞轮。新的 alpha 不是灵光一现，而是飞轮转出来的。",
       overviewEn:
         "Quantity turning into quality isn't just a philosophical claim — it's the underlying mechanism of quant strategy iteration. Sustained high-quality data produces high-quality strategies, which in turn filter and generate even higher-quality data: a self-reinforcing flywheel. New alpha isn't a flash of insight; it's what the flywheel spins out.",
-      lens: "Alpha is not discovered in a single insight — it emerges from a compounding flywheel where quality data and quality strategies reinforce each other.",
+      lens: "Alpha isn't discovered in a single insight — it emerges from a compounding flywheel where quality data and quality strategies reinforce each other.",
       lensZh: "Alpha 不是在某次灵光一现中被发现的，它从优质数据与优质策略互相增强的复利飞轮中涌现。",
       bullets: [
         "数据质量决定策略质量，策略质量决定数据筛选标准。两者互为输入，形成正反馈回路。",
@@ -433,7 +433,7 @@ window.siteData = {
         "Data quality determines strategy quality, and strategy quality determines data filtering standards. Each feeds the other, forming a positive feedback loop.",
         "Alpha's half-life is shrinking, but the flywheel effect is strengthening. Individual alphas decay; the capacity to produce alpha compounds.",
         "Accumulation isn't piling up volume, but sustained high-density, high-signal output. Accumulating garbage data only produces garbage strategies.",
-        "The real moat isn't any single strategy but the capacity to keep producing strategies — the flywheel's speed and stability itself.",
+        "The real moat isn't any single strategy but the capacity to keep producing strategies — the flywheel's own speed and stability.",
       ],
       outputs: ["Data-strategy flywheel thesis", "Alpha compounding insight", "Quality reinforcement loop"],
       relatedProjects: ["quant-agent", "real-quant-engine", "quant-strategy-prototypes"]
@@ -456,7 +456,7 @@ window.siteData = {
         "一个反直觉的判断：AI 时代让知识贬值，但让经验升值。知识是被检索的，AI 把检索成本压到趋近于零；而经验是被踩出来的，它包含失败、权衡和那些只在特定规模下才显形的边界条件。设计一个能承受亿级并发流量的分布式架构，绝不是拥有基本知识就足够的。",
       overviewEn:
         "A counterintuitive call: the AI era depreciates knowledge but appreciates experience. Knowledge is retrieved, and AI drives retrieval cost toward zero; experience is earned through failures — it contains the failures, trade-offs, and boundary conditions that only reveal themselves at specific scales. Designing a distributed architecture that withstands hundred-million-scale traffic takes far more than basic knowledge.",
-      lens: "Knowledge is retrievable and AI drives its cost toward zero; experience is earned through failure and scale — and that is what becomes scarce and valuable.",
+      lens: "Knowledge is retrievable and AI drives its cost toward zero; experience is earned through failure and scale — and that's what becomes scarce and valuable.",
       lensZh: "知识可检索，AI 把它的成本压向零；经验靠失败和规模挣来，这才是稀缺和值钱的部分。",
       bullets: [
         "知识贬值不是因为知识没用，而是因为获取成本被 AI 拉平了。人人都能查到的，就不再是壁垒。",
@@ -466,7 +466,7 @@ window.siteData = {
       ],
       bulletsEn: [
         "Knowledge depreciates not because it's useless, but because AI flattened its acquisition cost. What everyone can look up is no longer a moat.",
-        "Experience appreciates because it can't be retrieved. Traffic avalanches, hot keys, and cascading failures at hundred-million scale can only be learned at real scale.",
+        "Experience appreciates because it can't be retrieved. Traffic avalanches, hot keys, and cascading failures at hundred-million-scale concurrency can only be learned at real scale.",
         "Basics let you draw architecture diagrams, but they won't survive that scale of traffic. What survives is judgment: where to add redundancy, where to degrade, where to sacrifice consistency.",
         "The most valuable AI-era skill is using experience to ask the right questions and verify AI's answers. Knowledge is free — but knowing which answer to trust costs more than ever.",
       ],
@@ -490,8 +490,8 @@ window.siteData = {
       overview:
         "一个判断：大模型会让纯软件技能快速贬值。写文案、做表格、调 prompt——这些是模型的 API，一旦模型够强就免费可得，门槛归零。真正无法被吞噬的，是连接物理世界的 tools：硬件接口、私有协议、传感器与执行器、真实环境的反馈闭环。这些需要长期积累、实物调试和现场踩坑，模型再强也替代不了那段物理世界的摩擦。",
       overviewEn:
-        "One call: large models will rapidly depreciate pure-software skills. Copywriting, spreadsheets, prompt tuning — these are the model's APIs; once models are strong enough they are free, and the barrier drops to zero. What can't be devoured is the layer connected to the physical world: hardware interfaces, private protocols, sensors and actuators, real-environment feedback loops. These demand long accumulation, physical debugging, and on-site failures — friction no model, however strong, can shortcut.",
-      lens: "Skills are LLM-callable and trend toward free; tools that bridge the physical world carry friction — hardware, private protocols, real feedback loops — that models cannot shortcut.",
+        "One call: large models will rapidly depreciate pure-software skills. Copywriting, spreadsheets, prompt tuning — these are the model's APIs; once models are strong enough they're free, and the barrier drops to zero. What can't be devoured is the layer connected to the physical world: hardware interfaces, private protocols, sensors and actuators, real-environment feedback loops. These demand long accumulation, physical debugging, and on-site failures — friction no model, however strong, can shortcut.",
+      lens: "Skills are LLM-callable and trend toward free; tools that bridge the physical world carry friction — hardware, private protocols, real feedback loops — that models can't shortcut.",
       lensZh: "技能可被模型调用并趋向免费；连接物理世界的工具自带摩擦，硬件、私有协议、真实反馈闭环，模型无法抄近道。",
       bullets: [
         "纯软件技能是模型的输入：能力越强，这些技能越像免费 API，可被一次性吞掉。prompt 工程、文案生成、表格自动化都属于这一类。",
@@ -501,8 +501,8 @@ window.siteData = {
       ],
       bulletsEn: [
         "Pure-software skills are model inputs: the stronger the model, the more these skills behave like free APIs to be swallowed whole — prompt engineering, copywriting, and spreadsheet automation all belong here.",
-        "Physical-world tools carry incompressible friction: hardware drivers, private protocols, sensor calibration, and actuator timing all demand physical debugging and long-term failure — none of it can be generated by tokens.",
-        "The moat lives in the feedback loop: tools wired to real environments capture data models can't — physical states, failure scenes, edge cases. That is the hard-to-replicate part.",
+        "Physical-world tools carry incompressible friction: hardware drivers, private protocols, sensor calibration, and actuator timing all demand physical debugging and long-term trial and error — none of it can be generated by tokens.",
+        "The moat lives in the feedback loop: tools wired to real environments capture data models can't get — physical states, failure scenes, edge cases. That's the hard-to-replicate part.",
         "Conclusion: the skills layer keeps depreciating while the tools layer keeps appreciating. Investing in tools that touch the physical world is more inflation-proof than optimizing skills that can be devoured.",
       ],
       outputs: ["Skills-as-LLM-API thesis", "Physical-friction moat insight", "Tools-over-skills argument"],
