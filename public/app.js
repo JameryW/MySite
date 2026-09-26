@@ -115,6 +115,8 @@ function setTheme(theme) {
   document.documentElement.classList.add("theme-transitioning");
   document.documentElement.setAttribute("data-theme", theme);
   localStorage.setItem("theme", theme);
+  const themeColor = document.querySelector('meta[name="theme-color"]');
+  if (themeColor) themeColor.setAttribute("content", theme === "light" ? "#f0f2f8" : "#050816");
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       document.documentElement.classList.remove("theme-transitioning");

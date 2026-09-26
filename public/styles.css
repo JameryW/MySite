@@ -47,6 +47,7 @@
 }
 
 :root {
+  color-scheme: dark;
   --bg: #050816;
   --bg-soft: rgba(12, 18, 39, 0.78);
   --panel: rgba(10, 18, 36, 0.62);
@@ -65,6 +66,7 @@
 
 /* ── Light Theme ── */
 [data-theme="light"] {
+  color-scheme: light;
   --bg: #f0f2f8;
   --bg-soft: rgba(230, 234, 245, 0.85);
   --panel: rgba(220, 226, 240, 0.72);
