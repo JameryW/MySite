@@ -131,6 +131,30 @@ Rules that come with this pipeline:
 * When replacing the self-hosted woff2 files, keep the metric-override fallback values in sync (recompute with the web.dev/next-font formulas; current values are one-time-measured approximations noted in `styles.css`).
 * There is no JS font loader anymore. Do not re-introduce `data-fonts-load` / `media="print"` async links; the plain stylesheet link is the single delivery path.
 
+### Theme Before First Paint
+
+Saved light theme is applied by one inline boot script in every page `<head>`, placed **after** the `Content-Security-Policy` meta and after `<meta name="theme-color">`. `script-src` carries that script's `'sha256-…'` hash. Do not reformat the script without recomputing the hash — a mismatch blocks it and light-mode visitors flash dark. `404.html` does not load `app.js`, so this script is its only theme restore.
+
+`setTheme(theme, animate)` adds `theme-transitioning` only for a click (`animate === true`) and removes it after 220ms. The load path passes `false`. The class may transition color, background, border, and shadow. It must not transition `opacity`, `filter`, or `transform` — those fade the whole page and restart scroll entrances.
+
+### Hero And Reveal Paint
+
+Above-the-fold shells (`.hero-copy`, `.hero-focus-panel`, `.page-hero`, `.page-hero-panel`) are in the HTML and must not sit at `opacity: 0` until `app.js`. The home title is not blurred and not held for the intersection observer. `.reveal` entrance is opacity plus translate only: no `filter`, no `scale()`, no permanent `will-change`. A `filter: blur(0)` left on the title after the animation keeps a compositing layer and softens the LCP text.
+
+Pointer tilt, the cursor glow, data streams, and the particle canvas run only for `(hover: hover) and (pointer: fine)`. Touch screens keep the orbs and grid, but those orbs and the `body::after` grid scan do not animate. `.cursor-glow` is `display: none` under `(hover: none)`.
+
+Do not fade `body` in from `opacity: 0`, and do not set `transition` or `animation` on `body`. The title has to be visible on the first frame. Static text-shadow and button box-shadow stay; do not put them back on infinite `text-shadow` / `box-shadow` animations (`label-glow`, `text-glow`, `button-glow`). A hidden tab adds `page-hidden` on `<html>`, which pauses CSS animations.
+
+Do not intercept in-site link clicks to play a fade. `preventDefault` plus a delayed `location` assignment blocks cmd-click, the back-forward cache, and adds a blank wait. A class that sets `transform` on `body` (the old `.page-transitioning`) also detaches every fixed layer for that wait. Hero entrance keyframes must not start at `opacity: 0`; a short translate is enough, otherwise the paragraph under the title is invisible on the first frame. Do not put `content-visibility: auto` on `.section` — the reserved 600px height does not match the real sections and the page jumps as they render.
+
+Orbs, the grid sheen (`body::after`), and `.card-status-dot.live` stay visible and do not animate. A full-viewport translate or a blurred layer that scales forever repaints on every frame. The particle canvas runs only for a fine pointer and sleeps after 2s without pointer or scroll movement; the last frame stays put until the next move.
+
+The same boot script owns the page loader: `.page-loader` stays `visibility: hidden` through first paint, gains `.is-slow` only if it still lacks `.loaded` after 480ms, and is forced to `.loaded` after 2.4s so a failed script cannot leave the shell covered. `app.js` adds `.loaded` as soon as it runs.
+
+### PWA Icons
+
+`manifest.json` needs PNG icons at 192 and 512 (`icon-192.png`, `icon-512.png`) in addition to `favicon.svg` and `apple-touch-icon.png`. Chrome's install check does not treat the SVG or the 180px apple icon as those sizes. Both PNGs are in the service worker `SHELL`. They are drawn from the same cyan-to-pink mark as `favicon.svg` on the `#050816` field; do not swap in a screenshot or a padded mask.
+
 ### Lazy Umami Session Replay
 
 `recorder.js` (~186KB session-replay bundle) must never be a static `<script>` in any page head — it competes with first paint. It is injected by the loader at the end of `app.js`: after `window load`, on `requestIdleCallback` (fallback `setTimeout(..., 2000)`), creating a script element with the exact umami attributes (`data-website-id`, `data-sample-rate`, `data-mask-level`, `data-max-duration`). CSP already allows `script-src https://stats.jameryw.dev`, so dynamic injection needs no policy change. The pageview tracker `script.js` stays a static head script (and `umami-config.js` unchanged); pages that do not load `app.js` (e.g. `404.html`) simply do not record sessions.

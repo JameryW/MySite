@@ -1,4 +1,10 @@
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+const syncPageVisibility = () => {
+  document.documentElement.classList.toggle("page-hidden", document.hidden);
+};
+syncPageVisibility();
+document.addEventListener("visibilitychange", syncPageVisibility);
 const orbA = document.querySelector(".orb-a");
 const orbB = document.querySelector(".orb-b");
 let orbC = document.querySelector(".orb-c");
@@ -25,7 +31,9 @@ const siteData = window.siteData || { projects: [], notes: [] };
 const cursorGlow = document.querySelector(".cursor-glow");
 if (cursorGlow && reduceMotion) cursorGlow.style.display = "none";
 
-/* ── Page Loader ── */
+/* ── Page Loader ──
+   The shell stays visible. The head boot script only raises the cover
+   after 480ms, and this dismisses it as soon as the script runs. */
 const loader = document.querySelector(".page-loader");
 if (loader) {
   const dismiss = () => loader.classList.add("loaded");
@@ -37,7 +45,7 @@ if (loader) {
 }
 
 /* ── Data Streams Background ── */
-if (!reduceMotion) {
+if (!reduceMotion && finePointer) {
   const dataStreams = document.createElement("div");
   dataStreams.className = "data-streams";
   dataStreams.setAttribute("aria-hidden", "true");
@@ -55,7 +63,7 @@ let glowEvent = null;
 
 const tiltSelector = ".ops-card, .stack-card, .track-card, .metric-panel, .lab-card";
 
-document.addEventListener("pointermove", (e) => {
+if (finePointer) document.addEventListener("pointermove", (e) => {
   pointerX = e.clientX;
   pointerY = e.clientY;
 
@@ -100,7 +108,7 @@ document.addEventListener("pointermove", (e) => {
 });
 
 /* Card tilt reset on pointerout */
-if (!reduceMotion) {
+if (finePointer && !reduceMotion) {
   document.addEventListener("pointerout", (e) => {
     const card = e.target.closest(tiltSelector);
     if (card && !card.contains(e.relatedTarget)) {
@@ -111,26 +119,29 @@ if (!reduceMotion) {
 
 /* ── Theme Toggle ── */
 const themeToggle = document.querySelector(".theme-toggle");
-function setTheme(theme) {
-  document.documentElement.classList.add("theme-transitioning");
+let themeTimer = 0;
+function setTheme(theme, animate) {
+  if (animate) {
+    document.documentElement.classList.add("theme-transitioning");
+    clearTimeout(themeTimer);
+    themeTimer = setTimeout(() => {
+      document.documentElement.classList.remove("theme-transitioning");
+    }, 220);
+  }
   document.documentElement.setAttribute("data-theme", theme);
   localStorage.setItem("theme", theme);
   const themeColor = document.querySelector('meta[name="theme-color"]');
   if (themeColor) themeColor.setAttribute("content", theme === "light" ? "#f0f2f8" : "#050816");
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      document.documentElement.classList.remove("theme-transitioning");
-    });
-  });
 }
 if (themeToggle) {
-  /* Restore saved theme */
+  /* Head boot script already applied a saved light theme before paint.
+     Re-apply without the color transition so restore does not fade the page. */
   const saved = localStorage.getItem("theme");
-  if (saved) setTheme(saved);
+  if (saved === "light" || saved === "dark") setTheme(saved, false);
 
   themeToggle.addEventListener("click", () => {
     const current = document.documentElement.getAttribute("data-theme") || "dark";
-    setTheme(current === "dark" ? "light" : "dark");
+    setTheme(current === "dark" ? "light" : "dark", true);
   });
 }
 
@@ -152,7 +163,7 @@ document.querySelectorAll(".terminal-body").forEach((terminal) => {
 /* ── Button Ripple Effect ── */
 document.querySelectorAll(".button").forEach((button) => {
   button.addEventListener("click", (e) => {
-    if (reduceMotion) return;
+    if (reduceMotion || !finePointer) return;
     const rect = button.getBoundingClientRect();
     const ripple = document.createElement("span");
     ripple.className = "ripple";
@@ -201,25 +212,13 @@ if (menuToggle && topbarMeta) {
   });
 }
 
-/* ── Smooth Page Transitions ── */
-document.querySelectorAll(".nav a, .footer-links a, .brand").forEach((link) => {
-  const href = link.getAttribute("href");
-  if (!href || href.startsWith("#") || href.startsWith("http")) return;
-  link.addEventListener("click", (e) => {
-    e.preventDefault();
-    document.body.classList.add("page-transitioning");
-    setTimeout(() => {
-      window.location.href = href;
-    }, 180);
-  });
-});
-
 /* ── Same-page Anchor Scrolling ── */
 document.querySelectorAll('a[href^="#"]').forEach((link) => {
   const href = link.getAttribute("href");
   if (!href || href === "#") return;
 
   link.addEventListener("click", (e) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
     const target = document.getElementById(href.slice(1));
     if (!target) return;
 
@@ -1227,13 +1226,24 @@ if (palette && paletteInput) {
 
 /* ── Particle Background ── */
 const particleCanvas = document.querySelector("[data-particles]");
-if (particleCanvas && !reduceMotion) {
+const saveData = navigator.connection && navigator.connection.saveData;
+if (particleCanvas && !reduceMotion && !saveData && finePointer) {
   const ctx = particleCanvas.getContext("2d");
   let particles = [];
-  let animId;
+  let animId = 0;
   let lastFrame = 0;
+  let lastActivity = performance.now();
+  const idleAfter = 2000;
   const frameInterval = 1000 / 24; // cap at 24fps
   let isLight = document.documentElement.getAttribute("data-theme") === "light";
+
+  function wakeParticles() {
+    lastActivity = performance.now();
+    if (!animId && !document.hidden) {
+      lastFrame = 0;
+      animId = requestAnimationFrame(drawParticles);
+    }
+  }
 
   function resizeCanvas() {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -1264,6 +1274,10 @@ if (particleCanvas && !reduceMotion) {
   }
 
   function drawParticles(timestamp) {
+    if (document.hidden || timestamp - lastActivity > idleAfter) {
+      animId = 0;
+      return;
+    }
     animId = requestAnimationFrame(drawParticles);
 
     // Throttle to ~24fps
@@ -1393,14 +1407,16 @@ if (particleCanvas && !reduceMotion) {
   createParticles();
   animId = requestAnimationFrame(drawParticles);
 
-  /* Pause animation when tab is hidden */
+  window.addEventListener("pointermove", wakeParticles, { passive: true });
+  window.addEventListener("scroll", wakeParticles, { passive: true });
+
+  /* Pause while the tab is hidden. Coming back counts as activity. */
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
       cancelAnimationFrame(animId);
-      animId = null;
-    } else if (!animId) {
-      lastFrame = 0;
-      animId = requestAnimationFrame(drawParticles);
+      animId = 0;
+    } else {
+      wakeParticles();
     }
   });
 
@@ -1408,13 +1424,12 @@ if (particleCanvas && !reduceMotion) {
   let resizeTimer;
   window.addEventListener("resize", () => {
     cancelAnimationFrame(animId);
-    animId = null;
+    animId = 0;
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
       resizeCanvas();
       createParticles();
-      lastFrame = 0;
-      animId = requestAnimationFrame(drawParticles);
+      wakeParticles();
     }, 200);
   });
 

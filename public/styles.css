@@ -143,20 +143,6 @@
   text-shadow:
     0 0 14px rgba(8, 145, 178, 0.14),
     0 0 28px rgba(8, 145, 178, 0.06);
-  animation: text-glow-light 4s ease-in-out infinite;
-}
-
-@keyframes text-glow-light {
-  0%, 100% {
-    text-shadow:
-      0 0 14px rgba(8, 145, 178, 0.14),
-      0 0 28px rgba(8, 145, 178, 0.06);
-  }
-  50% {
-    text-shadow:
-      0 0 20px rgba(8, 145, 178, 0.22),
-      0 0 40px rgba(8, 145, 178, 0.1);
-  }
 }
 
 [data-theme="light"] .eyebrow,
@@ -165,20 +151,6 @@
   text-shadow:
     0 0 6px rgba(90, 138, 0, 0.14),
     0 0 12px rgba(90, 138, 0, 0.06);
-  animation: label-glow-light 3.5s ease-in-out infinite;
-}
-
-@keyframes label-glow-light {
-  0%, 100% {
-    text-shadow:
-      0 0 6px rgba(90, 138, 0, 0.14),
-      0 0 12px rgba(90, 138, 0, 0.06);
-  }
-  50% {
-    text-shadow:
-      0 0 10px rgba(90, 138, 0, 0.22),
-      0 0 20px rgba(90, 138, 0, 0.1);
-  }
 }
 
 [data-theme="light"] .work-index {
@@ -412,34 +384,22 @@ body {
   max-width: 100%;
   margin: 0;
   min-height: 100vh;
-  overflow-x: hidden;
   overflow-x: clip;
   font-family: var(--font-sans);
   color: var(--text);
-  transition: opacity 200ms ease, transform 200ms ease;
   background:
     radial-gradient(circle at 20% 20%, rgba(255, 79, 216, 0.18), transparent 20%),
     radial-gradient(circle at 80% 15%, rgba(108, 242, 255, 0.16), transparent 18%),
     radial-gradient(circle at 50% 75%, rgba(216, 255, 98, 0.1), transparent 20%),
     linear-gradient(180deg, #050816 0%, #070b1b 45%, #04060f 100%);
-  animation: page-enter 600ms cubic-bezier(0.22, 1, 0.36, 1) 60ms forwards;
 }
 
-/* Opacity only — NEVER add filter/transform here. A non-none filter or transform
-   on body makes it the containing block for every position: fixed descendant
-   (.scroll-progress, .back-to-top, .palette, .toast, .cursor-glow, .orb-*,
-   background layers), so those elements stop being viewport-fixed: the scroll
-   progress bar scrolls away, the palette lands at 18% of document height, the
-   cursor glow (positioned from clientX/clientY) drifts off the pointer when
-   scrolled. It also keeps a full-page composited filter layer alive forever. */
-@keyframes page-enter {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
+/* NEVER add filter, transform, or an opacity:0 entrance on body. A non-none
+   filter or transform makes body the containing block for every position:fixed
+   descendant (.scroll-progress, .back-to-top, .palette, .toast, .cursor-glow,
+   .orb-*, background layers): the scroll progress bar scrolls away, the palette
+   lands at 18% of document height, and the cursor glow drifts off the pointer.
+   Fading body from opacity 0 also hides the title until the animation ends. */
 
 /* Visually hidden but accessible to screen readers and keyboard focus */
 .skip-link {
@@ -511,17 +471,7 @@ body::after {
   background:
     linear-gradient(105deg, transparent 40%, rgba(108, 242, 255, 0.03) 48%, rgba(108, 242, 255, 0.06) 50%, rgba(108, 242, 255, 0.03) 52%, transparent 60%);
   mask-image: radial-gradient(circle at center, black 20%, transparent 65%);
-  animation: grid-scan 16s linear infinite;
   pointer-events: none;
-}
-
-@keyframes grid-scan {
-  0% {
-    transform: translateX(-120%);
-  }
-  100% {
-    transform: translateX(120%);
-  }
 }
 
 .noise {
@@ -557,7 +507,6 @@ body::after {
   border-radius: 2px;
   background: linear-gradient(180deg, transparent, rgba(108, 242, 255, 0.22), rgba(255, 79, 216, 0.1), transparent);
   animation: stream-fall linear infinite;
-  filter: blur(0.5px);
 }
 
 .data-streams span:nth-child(1) { left: 8%; animation-duration: 10s; animation-delay: 0s; }
@@ -608,11 +557,10 @@ body::after {
   filter: blur(26px);
   border-radius: 50%;
   pointer-events: none;
-  will-change: transform;
 }
 
 /* Orb offsets use viewport units, not %: if body ever gains a filter/transform
-   (see page-enter comment) it becomes the containing block for these fixed
+   (see the comment above the skip-link) it becomes the containing block for these fixed
    elements and %-offsets would re-resolve against body height as content
    mounts (CLS regression 2026-09-08). vh/vw resolve identically under either
    containing block, so the decor survives that regime change. */
@@ -638,48 +586,6 @@ body::after {
   width: 260px;
   height: 260px;
   background: rgba(216, 255, 98, 0.08);
-  animation: orb-pulse-c 14s ease-in-out infinite;
-}
-
-.orb-a {
-  animation: orb-pulse-a 10s ease-in-out infinite;
-}
-
-.orb-b {
-  animation: orb-pulse-b 12s ease-in-out infinite;
-}
-
-@keyframes orb-pulse-a {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.9;
-  }
-  50% {
-    transform: scale(1.12);
-    opacity: 1;
-  }
-}
-
-@keyframes orb-pulse-b {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.85;
-  }
-  45% {
-    transform: scale(1.08);
-    opacity: 1;
-  }
-}
-
-@keyframes orb-pulse-c {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.8;
-  }
-  50% {
-    transform: scale(1.15);
-    opacity: 1;
-  }
 }
 
 a {
@@ -1021,20 +927,6 @@ body[data-page="about"] .nav a[href="./about.html"]::after {
   text-shadow:
     0 0 8px rgba(216, 255, 98, 0.18),
     0 0 16px rgba(216, 255, 98, 0.08);
-  animation: label-glow 3.5s ease-in-out infinite;
-}
-
-@keyframes label-glow {
-  0%, 100% {
-    text-shadow:
-      0 0 8px rgba(216, 255, 98, 0.18),
-      0 0 16px rgba(216, 255, 98, 0.08);
-  }
-  50% {
-    text-shadow:
-      0 0 12px rgba(216, 255, 98, 0.26),
-      0 0 24px rgba(216, 255, 98, 0.12);
-  }
 }
 
 /* Page-hero eyebrow pill (same treatment as the home hero eyebrow) */
@@ -1079,22 +971,7 @@ h1 span {
   text-shadow:
     0 0 16px rgba(108, 242, 255, 0.18),
     0 0 32px rgba(108, 242, 255, 0.08);
-  animation: text-glow 4s ease-in-out infinite;
   text-wrap: balance;
-}
-
-@keyframes text-glow {
-  0%, 100% {
-    text-shadow:
-      0 0 16px rgba(108, 242, 255, 0.18),
-      0 0 32px rgba(108, 242, 255, 0.08);
-  }
-  50% {
-    text-shadow:
-      0 0 22px rgba(108, 242, 255, 0.26),
-      0 0 44px rgba(108, 242, 255, 0.12),
-      0 0 56px rgba(255, 79, 216, 0.06);
-  }
 }
 
 .page-title {
@@ -1399,22 +1276,6 @@ body[data-page="home"] .hero-copy .lead {
     0 12px 30px rgba(108, 242, 255, 0.24),
     0 0 20px rgba(108, 242, 255, 0.18),
     inset 0 1px 0 rgba(255, 255, 255, 0.35);
-  animation: button-glow 3s ease-in-out infinite;
-}
-
-@keyframes button-glow {
-  0%, 100% {
-    box-shadow:
-      0 12px 30px rgba(108, 242, 255, 0.24),
-      0 0 20px rgba(108, 242, 255, 0.18),
-      inset 0 1px 0 rgba(255, 255, 255, 0.35);
-  }
-  50% {
-    box-shadow:
-      0 14px 34px rgba(108, 242, 255, 0.3),
-      0 0 32px rgba(108, 242, 255, 0.26),
-      inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  }
 }
 
 .button.primary:hover {
@@ -1535,18 +1396,7 @@ body[data-page="home"] .hero-copy .lead {
 .terminal-key {
   color: var(--cyan);
   font-weight: 700;
-  animation: key-blink 3s ease-in-out infinite;
-}
-
-@keyframes key-blink {
-  0%, 100% {
-    opacity: 1;
-    text-shadow: 0 0 8px rgba(108, 242, 255, 0.2);
-  }
-  50% {
-    opacity: 0.75;
-    text-shadow: 0 0 16px rgba(108, 242, 255, 0.45);
-  }
+  text-shadow: 0 0 8px rgba(108, 242, 255, 0.2);
 }
 
 .terminal-out.indent {
@@ -1570,9 +1420,6 @@ body[data-page="home"] .hero-copy .lead {
 }
 
 .section {
-  contain: layout style;
-  content-visibility: auto;
-  contain-intrinsic-size: 0 600px;
   scroll-margin-top: 96px;
 }
 
@@ -2394,7 +2241,6 @@ body[data-page="home"] .note-card .card-actions {
 .card-status-dot.live {
   background: var(--lime);
   box-shadow: 0 0 8px rgba(216, 255, 98, 0.6);
-  animation: pulse-dot 2s ease-in-out infinite;
 }
 
 .card-status-dot.dev {
@@ -3331,14 +3177,10 @@ body[data-page="about"] .contact-links a:nth-child(3) {
 
 @keyframes hero-text-in {
   from {
-    opacity: 0;
-    transform: translateY(28px) scale(0.96);
-    filter: blur(8px);
+    transform: translateY(10px);
   }
   to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
+    transform: none;
   }
 }
 
@@ -3353,43 +3195,43 @@ body[data-page="about"] .contact-links a:nth-child(3) {
   }
 }
 
-.hero-copy.reveal.visible .eyebrow {
+/* Hero copy is in the HTML. Animate it from the stylesheet so the title
+   paints without waiting for app.js, and never leave a filter on the text. */
+.hero-copy .eyebrow {
   animation: hero-text-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 60ms both;
 }
 
-.hero-copy.reveal.visible h1 {
-  animation: hero-text-in 900ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
-}
-
-.hero-copy.reveal.visible .hero-tagline {
+.hero-copy .hero-tagline {
   animation: hero-text-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 200ms both;
 }
 
-.hero-copy.reveal.visible .lead {
+.hero-copy .lead {
   animation: hero-text-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 260ms both;
 }
 
-.hero-copy.reveal.visible .home-hero-meta {
+.hero-copy .home-hero-meta {
   animation: hero-text-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 300ms both;
 }
 
-.hero-copy.reveal.visible .hero-actions {
+.hero-copy .hero-actions {
   animation: hero-text-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 340ms both;
 }
 
-.hero-focus-panel.reveal.visible .stack-label {
+.hero-focus-panel .stack-label {
   animation: hero-text-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 160ms both;
 }
 
-.hero-focus-panel.reveal.visible .focus-list div {
+.hero-focus-panel .focus-list div {
   animation: hero-text-in 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.hero-focus-panel.reveal.visible .focus-list div:nth-child(1) { animation-delay: 200ms; }
-.hero-focus-panel.reveal.visible .focus-list div:nth-child(2) { animation-delay: 260ms; }
-.hero-focus-panel.reveal.visible .focus-list div:nth-child(3) { animation-delay: 320ms; }
+.hero-focus-panel .focus-list div:nth-child(1) { animation-delay: 200ms; }
+.hero-focus-panel .focus-list div:nth-child(2) { animation-delay: 260ms; }
+.hero-focus-panel .focus-list div:nth-child(3) { animation-delay: 320ms; }
 
-/* ── Page Loader ── */
+/* ── Page Loader ──
+   Hidden through first paint. The head boot script adds .is-slow only
+   when scripts are still running after 480ms, and .loaded wins after that. */
 .page-loader {
   position: fixed;
   inset: 0;
@@ -3398,7 +3240,16 @@ body[data-page="about"] .contact-links a:nth-child(3) {
   align-items: center;
   justify-content: center;
   background: var(--bg);
-  transition: opacity 400ms ease, visibility 400ms ease;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 180ms ease, visibility 180ms ease;
+}
+
+.page-loader.is-slow:not(.loaded) {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .page-loader.loaded {
@@ -3502,13 +3353,6 @@ body[data-page="about"] .contact-links a:nth-child(3) {
   opacity: 1;
 }
 
-/* ── Smooth Page Transition ── */
-.page-transitioning {
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 200ms ease, transform 200ms ease;
-}
-
 /* ── Filter/Search Bar ── */
 .filter-bar {
   display: flex;
@@ -3538,15 +3382,6 @@ body[data-page="about"] .contact-links a:nth-child(3) {
 .filter-pill.active {
   color: var(--cyan);
 }/* ── Status Badge ── */
-
-@keyframes pulse-dot {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.4;
-  }
-}
 
 /* ── Reading Progress ── */
 .reading-progress {
@@ -3904,7 +3739,12 @@ body[data-page="about"] .contact-links a:nth-child(3) {
   animation: shimmer 2.2s ease-in-out infinite;
 }
 
-@media (prefers-reduced-motion: reduce) {  .loader-ring,
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .loader-ring,
   .hero-copy::after,
   .cursor-blink,
   .orb-a,
@@ -3933,25 +3773,46 @@ body[data-page="about"] .contact-links a:nth-child(3) {
   .reveal,
   .terminal-cmd,
   .terminal-out {
-    opacity: 1;
-    transform: none;
-    filter: none;
-    transition: none;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+
+  .hero-copy.reveal,
+  .hero-focus-panel.reveal,
+  .page-hero.reveal,
+  .page-hero-panel.reveal,
+  .hero-copy h1,
+  .hero-copy .hero-tagline,
+  .hero-copy .lead,
+  .hero-copy .home-hero-meta,
+  .hero-copy .hero-actions,
+  .hero-focus-panel .focus-list div {
+    animation: none;
   }
 }/* ── Animated Status Indicators ── */
 
 .reveal {
   opacity: 0;
-  transform: translateY(32px) scale(0.96);
-  filter: blur(2px);
-  transition: opacity 800ms cubic-bezier(0.22, 1, 0.36, 1), transform 800ms cubic-bezier(0.22, 1, 0.36, 1), filter 800ms cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, transform, filter;
+  transform: translateY(20px);
+  transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1), transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .reveal.visible {
   opacity: 1;
-  transform: translateY(0) scale(1);
-  filter: blur(0);
+  transform: none;
+}
+
+/* Above-the-fold shells are in the HTML. Don't hold them at opacity 0
+   until app.js, and don't leave a filter layer on the title. */
+.hero-copy.reveal,
+.hero-focus-panel.reveal,
+.page-hero.reveal,
+.page-hero-panel.reveal {
+  opacity: 1;
+  transform: none;
+  transition: none;
 }
 
 @media (max-width: 980px) {
@@ -4710,7 +4571,26 @@ html.theme-transitioning,
 html.theme-transitioning *,
 html.theme-transitioning *::before,
 html.theme-transitioning *::after {
-  transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease, opacity 200ms ease !important;
+  transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease !important;
+}
+
+@media (hover: none) {
+  .cursor-glow {
+    display: none;
+  }
+
+  .orb,
+  body::after {
+    animation: none;
+    will-change: auto;
+  }
+}
+
+/* Background tabs should not keep painting glows, orbs, or the grid scan. */
+html.page-hidden *,
+html.page-hidden *::before,
+html.page-hidden *::after {
+  animation-play-state: paused !important;
 }
 
 /* ── Touch Device Hover Fix ── */
