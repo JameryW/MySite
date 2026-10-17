@@ -69,7 +69,7 @@ public/
 
 **Fonts:** Space Grotesk + Syne (self-hosted latin woff2) + system CJK stack (PingFang SC / Microsoft YaHei) — no webfont requests for Chinese.
 
-The 5 projects map 1:1 to other `~/aiworks` repos.
+The 6 projects map to the corresponding public and private builds under active development.
 
 ## Adding Content
 
