@@ -18,7 +18,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Improve hero text wrapping and detail-page section rhythm
 - Ship site-wide ZH/EN bilingual switching (`site-lang`); keep product keywords in English
 - Add project `summaryEn` / `overviewEn` / `highlightsEn` mirrors and chrome `data-i18n` coverage
-- Cache bump: `styles.css?v=89`, `app.js?v=54`, `data.js?v=36`, Service Worker `mysite-v112`
+- Keep language toggle outside the mobile hamburger; translate footers; search both locales in ⌘K
+- Cache bump: `styles.css?v=90`, `app.js?v=55`, `data.js?v=37`, Service Worker `mysite-v113`
 
 ## [1.0.0] - 2026-05-31
 

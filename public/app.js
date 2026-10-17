@@ -367,6 +367,14 @@ const I18N = {
     "card.openDetail": "open detail",
     "card.openDemo": "open demo",
     "palette.placeholder": "搜索项目、笔记或页面...",
+    "palette.empty": "没有匹配结果",
+    "footer.home": "围绕 AI、自动化、原型和公开构建过程持续迭代。",
+    "footer.about": "兴趣、偏好和构建方法，整理成可读的公开说明。",
+    "footer.projects": "从核心项目直接进入代码、设计选择和相关笔记。",
+    "footer.showcase": "从代码到可运行系统，把原型变成可验证的在线体验。",
+    "footer.notes": "把观察、失败和工作流判断留在公开轨迹里，方便继续迭代。",
+    "footer.projectDetail": "把外部链接转换成站内可阅读的项目说明，逐步积累成更完整的作品资料。",
+    "footer.noteDetail": "把短观察扩成站内可持续阅读的笔记条目，为后续长文和项目复盘打底。",
     "aria.skip": "跳到主要内容",
     "shipping": "Shipping"
   },
@@ -464,6 +472,14 @@ const I18N = {
     "card.openDetail": "open detail",
     "card.openDemo": "open demo",
     "palette.placeholder": "Search projects, notes, or pages...",
+    "palette.empty": "No matches",
+    "footer.home": "Iterating on AI, automation, prototypes, and building in public.",
+    "footer.about": "Interests, bias, and build method — kept as a readable public profile.",
+    "footer.projects": "Jump from core builds into code, design choices, and related notes.",
+    "footer.showcase": "From code to a running system — prototypes you can verify online.",
+    "footer.notes": "Leave observations, failures, and workflow judgment in a public trail.",
+    "footer.projectDetail": "Turn external repos into readable on-site case notes that compound over time.",
+    "footer.noteDetail": "Expand short observations into lasting note entries for later reviews.",
     "aria.skip": "Skip to main content",
     "shipping": "Shipping"
   }
@@ -1260,6 +1276,8 @@ const setSiteLang = (lang, instant = false) => {
       pill.textContent = count ? `${t("filter.all")} (${count})` : t("filter.all");
     }
   });
+  const paletteEmpty = document.querySelector(".palette-empty");
+  if (paletteEmpty) paletteEmpty.textContent = t("palette.empty");
 };
 
 document.addEventListener("click", (event) => {
@@ -1433,17 +1451,25 @@ if (palette && paletteInput) {
       }
     });
 
-    /* Projects */
+    /* Projects — search both locales so EN queries hit summaryEn too */
     siteData.projects.forEach((p) => {
-      if (!q || p.title.toLowerCase().includes(q) || p.summary.toLowerCase().includes(q) || p.stack.join(" ").toLowerCase().includes(q)) {
+      const hay = [p.title, p.summary, p.summaryEn, p.label, ...(p.stack || [])]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+      if (!q || hay.includes(q)) {
         items.push({ title: p.title, label: "Project", href: projectDetailHref(p) });
       }
     });
 
-    /* Notes */
+    /* Notes — prefer the active-locale title in results */
     siteData.notes.forEach((n) => {
-      if (!q || n.title.toLowerCase().includes(q) || n.summary.toLowerCase().includes(q) || n.label.toLowerCase().includes(q)) {
-        items.push({ title: n.title, label: "Note", href: noteDetailHref(n) });
+      const hay = [n.title, n.titleEn, n.summary, n.summaryEn, n.label]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+      if (!q || hay.includes(q)) {
+        items.push({ title: noteTitle(n), label: "Note", href: noteDetailHref(n) });
       }
     });
 
@@ -1458,7 +1484,7 @@ if (palette && paletteInput) {
       paletteResults.textContent = "";
       const empty = document.createElement("div");
       empty.className = "palette-empty";
-      empty.textContent = "没有匹配结果";
+      empty.textContent = t("palette.empty");
       paletteResults.appendChild(empty);
       return;
     }

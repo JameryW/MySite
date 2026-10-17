@@ -34,7 +34,7 @@
     <link rel="preconnect" href="https://stats.jameryw.dev" />
     <link rel="dns-prefetch" href="https://github.com" />
     <link rel="preload" href="./fonts/syne-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="./styles.css?v=89" />
+    <link rel="stylesheet" href="./styles.css?v=90" />
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -88,10 +88,6 @@
             <a href="./about.html" data-i18n="nav.about">About</a>
           </nav>
           <div class="topbar-actions">
-            <div class="lang-toggle lang-toggle-compact" role="group" aria-label="语言切换 Language" data-i18n-aria="aria.lang">
-              <button type="button" data-lang-toggle="zh" class="active" aria-pressed="true">中文</button>
-              <button type="button" data-lang-toggle="en" aria-pressed="false">EN</button>
-            </div>
             <button class="palette-hint" type="button" aria-label="搜索" data-palette-trigger data-i18n-aria="aria.search">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
               <kbd>⌘K</kbd>
@@ -102,6 +98,10 @@
             </button>
             <p class="topbar-status">Live Demos</p>
           </div>
+        </div>
+        <div class="lang-toggle lang-toggle-compact topbar-lang" role="group" aria-label="语言切换 Language" data-i18n-aria="aria.lang">
+          <button type="button" data-lang-toggle="zh" class="active" aria-pressed="true">中文</button>
+          <button type="button" data-lang-toggle="en" aria-pressed="false">EN</button>
         </div>
         <div class="topbar-socials" role="group" aria-label="Social profiles">
           <a class="topbar-link platform-link platform-icon-only" href="https://github.com/jameryw" target="_blank" rel="noreferrer" aria-label="GitHub Profile" title="GitHub">
@@ -165,7 +165,7 @@
         <div class="footer-grid">
           <div class="footer-copy">
             <p class="footer-kicker">Showcase / Ship Then Show</p>
-            <p>从代码到可运行系统，把原型变成可验证的在线体验。</p>
+            <p data-i18n="footer.showcase">从代码到可运行系统，把原型变成可验证的在线体验。</p>
           </div>
           <div class="footer-links">
             <a href="./index.html">Home</a>
@@ -186,9 +186,9 @@
       <span>Top</span>
     </button>
 
-<script src="./data.js?v=36" defer></script>
+<script src="./data.js?v=37" defer></script>
 <script src="./umami-config.js" defer></script>
-  <script src="./app.js?v=54" defer></script>
+  <script src="./app.js?v=55" defer></script>
 
     <!-- Command Palette -->
     <div class="palette-overlay" data-palette-overlay></div>

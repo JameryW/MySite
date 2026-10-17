@@ -605,7 +605,8 @@ a {
   z-index: 20;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 14px;
   padding: 24px 0 18px;
   background: linear-gradient(180deg, rgba(5, 8, 22, 0.96), rgba(5, 8, 22, 0.5), transparent);
 }
@@ -618,6 +619,7 @@ a {
 
 .topbar-meta {
   gap: 22px;
+  margin-left: auto;
 }
 
 .topbar-actions {
@@ -2486,8 +2488,19 @@ body[data-page="home"] .note-card .card-actions {
   font-size: 0.72rem;
 }
 
+.topbar-lang {
+  flex-shrink: 0;
+  margin-left: 0;
+}
+
 .topbar-actions .lang-toggle {
   align-self: center;
+}
+
+/* EN mode: drop ZH dual-caption clutter once the primary string is already English */
+[data-lang="en"] .title-en,
+[data-lang="en"] [data-i18n-en-hint] {
+  display: none;
 }
 
 .section-head-top:has(.lang-toggle) {
@@ -2501,10 +2514,6 @@ body[data-page="home"] .note-card .card-actions {
 
 [data-theme="light"] .lang-toggle {
   background: rgba(255, 255, 255, 0.5);
-}
-
-[data-lang="en"] .title-en[hidden] {
-  display: none;
 }
 
 /* ── Note detail: single-column hero + one facts strip ──
@@ -4493,10 +4502,18 @@ body[data-page="about"] .contact-links a:nth-child(3) {
     flex: 0 0 40px;
   }
 
+  /* Keep language switch outside the hamburger — same rule as .topbar-socials */
+  .topbar-lang {
+    order: 2;
+    margin-left: auto;
+    margin-right: 4px;
+  }
+
   .topbar-meta {
     display: none;
     width: auto;
     flex: 0 0 auto;
+    margin-left: 0;
     padding: 0;
     max-height: 0;
     overflow: hidden;
@@ -4514,6 +4531,7 @@ body[data-page="about"] .contact-links a:nth-child(3) {
     max-height: 64px;
     opacity: 1;
     margin-top: 0;
+    margin-left: 0;
     padding: 8px;
     overflow-y: auto;
     overscroll-behavior: contain;
@@ -4600,7 +4618,7 @@ body[data-page="about"] .contact-links a:nth-child(3) {
     align-self: center;
     justify-content: center;
     flex: 0 0 auto;
-    margin-left: auto;
+    margin-left: 0;
     order: 3;
   }
 
