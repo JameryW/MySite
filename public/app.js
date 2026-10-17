@@ -368,6 +368,10 @@ const I18N = {
     "detail.openProject": "打开项目详情",
     "detail.notFoundProject": "这个项目还不存在，或者 slug 不正确。",
     "detail.notFoundNote": "这篇笔记还不存在，或者 slug 不正确。",
+    "detail.notFoundProjectTitle": "未找到项目",
+    "detail.notFoundNoteTitle": "未找到笔记",
+    "detail.notFoundProjectEyebrow": "Error 404 / Projects",
+    "detail.notFoundNoteEyebrow": "Error 404 / Notes",
     "meta.status": "状态",
     "meta.role": "角色",
     "meta.output": "产出",
@@ -382,6 +386,21 @@ const I18N = {
     "detail.relatedNotesKicker": "Related Notes",
     "detail.breakdownKicker": "Breakdown",
     "detail.relatedProjectsKicker": "Related Projects",
+    "about.eyebrow": "About / AI-Native Profile",
+    "about.nowKicker": "Now Building",
+    "about.profileKicker": "Working Profile",
+    "about.signalBase": "基地 / 在线",
+    "about.signalProjects": "项目",
+    "about.signalNotes": "笔记",
+    "about.signalLens": "当前透镜",
+    "about.signalAria": "个人快照",
+    "about.nowAria": "最新进展",
+    "about.entryKicker": "Entry Points",
+    "about.signalsHeading": "Build Signals",
+    "about.signalBias": "Bias",
+    "about.signalMethod": "Method",
+    "about.signalLensLabel": "Lens",
+    "about.signalHomeBase": "Home Base",
     "card.relatedBuilds": "关联项目",
     "card.openDetail": "查看详情",
     "card.openDemo": "打开演示",
@@ -485,6 +504,10 @@ const I18N = {
     "detail.openProject": "open project detail",
     "detail.notFoundProject": "This project doesn't exist yet, or the slug is wrong.",
     "detail.notFoundNote": "This note doesn't exist yet, or the slug is wrong.",
+    "detail.notFoundProjectTitle": "Project Not Found",
+    "detail.notFoundNoteTitle": "Note Not Found",
+    "detail.notFoundProjectEyebrow": "Error 404 / Projects",
+    "detail.notFoundNoteEyebrow": "Error 404 / Notes",
     "meta.status": "Status",
     "meta.role": "Role",
     "meta.output": "Output",
@@ -499,6 +522,21 @@ const I18N = {
     "detail.relatedNotesKicker": "Related Notes",
     "detail.breakdownKicker": "Breakdown",
     "detail.relatedProjectsKicker": "Related Projects",
+    "about.eyebrow": "About / AI-Native Profile",
+    "about.nowKicker": "Now Building",
+    "about.profileKicker": "Working Profile",
+    "about.signalBase": "Base / online",
+    "about.signalProjects": "Projects",
+    "about.signalNotes": "Notes",
+    "about.signalLens": "Current lens",
+    "about.signalAria": "Profile snapshot",
+    "about.nowAria": "Now building",
+    "about.entryKicker": "Entry Points",
+    "about.signalsHeading": "Build Signals",
+    "about.signalBias": "Bias",
+    "about.signalMethod": "Method",
+    "about.signalLensLabel": "Lens",
+    "about.signalHomeBase": "Home Base",
     "card.relatedBuilds": "builds",
     "card.openDetail": "Open detail",
     "card.openDemo": "Open demo",
@@ -978,9 +1016,9 @@ const renderProjectDetail = (instant = false) => {
   if (!project) {
     projectDetailNode.innerHTML = `
       <section class="page-hero notfound-hero">
-        <p class="eyebrow">Error 404 / Projects</p>
+        <p class="eyebrow">${t("detail.notFoundProjectEyebrow")}</p>
         <h1 class="page-title">
-          Project Not Found
+          ${t("detail.notFoundProjectTitle")}
           <span>404</span>
         </h1>
         <p class="page-lead">${t("detail.notFoundProject")}</p>
@@ -1093,9 +1131,9 @@ const renderNoteDetail = (instant = false) => {
   if (!note) {
     noteDetailNode.innerHTML = `
       <section class="page-hero notfound-hero">
-        <p class="eyebrow">Error 404 / Notes</p>
+        <p class="eyebrow">${t("detail.notFoundNoteEyebrow")}</p>
         <h1 class="page-title">
-          Note Not Found
+          ${t("detail.notFoundNoteTitle")}
           <span>404</span>
         </h1>
         <p class="page-lead">${t("detail.notFoundNote")}</p>

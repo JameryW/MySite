@@ -24,7 +24,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Platform-aware palette shortcut (Ctrl+K / ⌘K); cluster mobile lang+socials; unify EN CTA casing
 - Align project/note `outputs[]` 1:1 with highlights/bullets so detail highlight footers stay on-topic
 - Localize project detail signal panel + section kickers; capitalize EN highlight bodies after colon split
-- Cache bump: `styles.css?v=94`, `app.js?v=59`, `data.js?v=39`, Service Worker `mysite-v118`
+- Normalize highlight titles to labeled splits; bilingualize About signal strip and detail not-found titles
+- Cache bump: `styles.css?v=94`, `app.js?v=60`, `data.js?v=40`, Service Worker `mysite-v119`
 
 ## [1.0.0] - 2026-05-31
 

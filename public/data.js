@@ -119,14 +119,14 @@ window.siteData = {
         "A modular quant trading library that combines primary strategies (MRP, Chan), auxiliary signals (MACD, DualMA), regime detectors (Bollinger, RSI), and filters. A broker adapter talks to Futu for live and dry-run modes, with risk control, state management, and a daemon path.",
       highlights: [
         "模块化策略架构 — Primary 主策略生成信号，Auxiliary 辅助策略提供参考，Regime 检测市场状态，Filter 决定执行。",
-        "MRP v3 主策略含 4 个子策略：Trend、MeanRevert、VolBreakout、Defensive，自适应参与系数。",
-        "券商适配器对接 Futu，支持 dry-run 和实盘双模式，含风控管理与守护进程。",
+        "MRP v3 主策略：含 Trend、MeanRevert、VolBreakout、Defensive 四个子策略，自适应参与系数。",
+        "券商适配器：对接 Futu，支持 dry-run 和实盘双模式，含风控管理与守护进程。",
         "完整工具链：交易安全检查、指标计算、凭证管理和服务监控。"
       ],
       highlightsEn: [
         "Modular strategy stack — Primary emits signals, Auxiliary adds context, Regime reads market state, Filter decides execution.",
-        "MRP v3 primary with four sub-strategies: Trend, MeanRevert, VolBreakout, Defensive, plus adaptive participation.",
-        "Futu broker adapter with dry-run and live modes, risk controls, and daemon operation.",
+        "MRP v3 primary: four sub-strategies — Trend, MeanRevert, VolBreakout, Defensive — plus adaptive participation.",
+        "Futu broker adapter: dry-run and live modes, risk controls, and daemon operation.",
         "Full toolchain: trade safety checks, indicator math, credential handling, and service monitoring."
       ],
       outputs: ["Modular strategy stack", "MRP v3 primary", "Futu broker adapter", "Trading toolchain"],
@@ -152,15 +152,15 @@ window.siteData = {
         "A research-to-code set of quant strategy prototypes from arXiv papers: 10 modules (Dual MA, Chan, VGRSI, Gap, Trend strength, MRP multifactor, and more), a full backtest engine, 186 tests at 91% coverage, and a CI pipeline.",
       highlights: [
         "10 个策略模块：Dual MA、Chan 缠论、VGRSI (arXiv 2605.01300)、Gap 缺口 (arXiv 2605.04004)、Trend 强度 (arXiv 2605.02326)、MRP 多因子等。",
-        "完整回测引擎含 metrics、portfolio 和 data_fetcher 模块，支持港股和 A 股回测。",
-        "186 个测试用例，91% 覆盖率，GitHub Actions CI 自动运行，阈值 60%。",
-        "按策略分组的回测配置和按日期归档的回测报告，支持参数化批量回测。"
+        "完整回测引擎：含 metrics、portfolio 和 data_fetcher 模块，支持港股和 A 股回测。",
+        "测试与 CI：186 个测试用例，91% 覆盖率，GitHub Actions 自动运行，成功率约 60%。",
+        "批量回测报告：按策略分组配置、按日期归档报告，支持参数化批量回测。"
       ],
       highlightsEn: [
         "10 strategy modules: Dual MA, Chan, VGRSI (arXiv 2605.01300), Gap (arXiv 2605.04004), Trend strength (arXiv 2605.02326), MRP multifactor, and more.",
-        "Full backtest engine with metrics, portfolio, and data_fetcher modules for HK and A-share runs.",
-        "186 tests, 91% coverage, GitHub Actions CI, ~60% pass rate on the tracked suite.",
-        "Strategy-grouped backtest configs and date-archived reports for parameterized batch runs."
+        "Backtest engine: metrics, portfolio, and data_fetcher modules for HK and A-share runs.",
+        "Tests & CI: 186 tests, 91% coverage, GitHub Actions, ~60% pass rate on the tracked suite.",
+        "Batch reports: strategy-grouped configs and date-archived reports for parameterized runs."
       ],
       outputs: ["Strategy modules", "Backtest engine", "CI test suite", "Batch backtest reports"],
       relatedNotes: ["why-agents-matter", "prototype-first"]
@@ -223,16 +223,16 @@ window.siteData = {
       highlights: [
         "完整交付链：idea → grill-with-docs/wayfinder → prototype → to-spec → to-tickets（带 blocking edges）→ tdd → 实现 → Trellis check + code-review → commit gate。",
         "多平台同一套约定：Codex `$codex-issue-flow`、Claude Code `/issue-delivery-flow`、Grok Build 与 DeepSeek Harness 各自入口，共享 .agents/skills/ 技能主体。",
-        "内置 Matt Pocock 技能集 14+ 个（grilling、grill-with-docs、wayfinder、prototype、to-spec、to-tickets、tdd、implement、code-review、triage、domain-modeling 等），MIT 许可并附来源与许可文件。",
+        "Matt Pocock 技能集：内置 14+ 个（grilling、grill-with-docs、wayfinder、prototype、to-spec、to-tickets、tdd、implement、code-review、triage、domain-modeling 等），MIT 许可并附来源与许可文件。",
         "Trellis 集成：docs/agents/trellis.md 明确初始化前置条件，一张实现 ticket 对应一个新 Codex task + Trellis task；Trellis 运行时不在仓库内复制。",
-        "Tracker 优先 GitHub Issues，gh 未认证自动降级为 .scratch/ 本地 Markdown ticket，远程修改需显式授权；附自检脚本 scripts/check-codex-issue-flow.py 验证接线完整性。"
+        "Issue Tracker：优先 GitHub Issues，gh 未认证自动降级为 .scratch/ 本地 Markdown ticket，远程修改需显式授权；附自检脚本 scripts/check-codex-issue-flow.py 验证接线完整性。"
       ],
       highlightsEn: [
         "Full delivery chain: idea → grill-with-docs/wayfinder → prototype → to-spec → to-tickets (with blocking edges) → tdd → implement → Trellis check + code-review → commit gate.",
         "One contract across platforms: Codex `$codex-issue-flow`, Claude Code `/issue-delivery-flow`, plus Grok Build and DeepSeek Harness entrypoints sharing `.agents/skills/`.",
-        "Bundled Matt Pocock skill set (14+): grilling, grill-with-docs, wayfinder, prototype, to-spec, to-tickets, tdd, implement, code-review, triage, domain-modeling, and more — MIT with attribution.",
+        "Matt Pocock skill set (14+): grilling, grill-with-docs, wayfinder, prototype, to-spec, to-tickets, tdd, implement, code-review, triage, domain-modeling, and more — MIT with attribution.",
         "Trellis integration: docs/agents/trellis.md states the init prerequisites; one implement ticket maps to one new Codex task + Trellis task without vendoring the Trellis runtime.",
-        "Tracker prefers GitHub Issues; without `gh` auth it falls back to `.scratch/` Markdown tickets, and remote edits need explicit approval — plus `scripts/check-codex-issue-flow.py` for wiring checks."
+        "Issue tracker: prefers GitHub Issues; without `gh` auth it falls back to `.scratch/` Markdown tickets, and remote edits need explicit approval — plus `scripts/check-codex-issue-flow.py` for wiring checks."
       ],
       outputs: ["Delivery chain", "Multi-platform skills", "Matt Pocock skill set", "Trellis integration", "Issue tracker fallback"],
       relatedNotes: ["skills-devoured-tools-fortified", "evolve-in-loop"]
