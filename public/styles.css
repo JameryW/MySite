@@ -2440,7 +2440,7 @@ body[data-page="home"] .note-card .card-actions {
   }
 }
 
-/* ── Notes language toggle ── */
+/* ── Site language toggle ── */
 .lang-toggle {
   display: inline-flex;
   flex-shrink: 0;
@@ -2476,6 +2476,20 @@ body[data-page="home"] .note-card .card-actions {
   box-shadow: 0 4px 16px rgba(108, 242, 255, 0.25);
 }
 
+.lang-toggle-compact {
+  align-self: center;
+  padding: 3px;
+}
+
+.lang-toggle-compact button {
+  padding: 6px 10px;
+  font-size: 0.72rem;
+}
+
+.topbar-actions .lang-toggle {
+  align-self: center;
+}
+
 .section-head-top:has(.lang-toggle) {
   flex-wrap: wrap;
   row-gap: 14px;
@@ -2487,6 +2501,10 @@ body[data-page="home"] .note-card .card-actions {
 
 [data-theme="light"] .lang-toggle {
   background: rgba(255, 255, 255, 0.5);
+}
+
+[data-lang="en"] .title-en[hidden] {
+  display: none;
 }
 
 /* ── Note detail: single-column hero + one facts strip ──

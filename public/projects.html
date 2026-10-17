@@ -26,7 +26,7 @@
     <meta name="twitter:description" content="AI 实验、自动化工具和前端原型 — 从公开构建到代表作品。" />
     <meta name="theme-color" content="#050816" />
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-BvFjesuXUeZq6FHJaT9kdP/c6ice0i0dRoaYYDO3DM0=' https://stats.jameryw.dev; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://stats.jameryw.dev;" />
-    <script>try{if(localStorage.getItem("theme")==="light"){document.documentElement.setAttribute("data-theme","light");var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content","#f0f2f8")}}catch(e){}setTimeout(function(){var el=document.querySelector(".page-loader");if(el&&!el.classList.contains("loaded"))el.classList.add("is-slow")},480);setTimeout(function(){var el=document.querySelector(".page-loader");if(el)el.classList.add("loaded")},2400);</script>
+    <script>try{if(localStorage.getItem("theme")==="light"){document.documentElement.setAttribute("data-theme","light");var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content","#f0f2f8")}}catch(e){}try{var L=localStorage.getItem("site-lang")||localStorage.getItem("notes-lang");if(L==="en"||L==="zh"){document.documentElement.setAttribute("data-lang",L);document.documentElement.lang=L==="en"?"en":"zh-CN"}}catch(e){}setTimeout(function(){var el=document.querySelector(".page-loader");if(el&&!el.classList.contains("loaded"))el.classList.add("is-slow")},480);setTimeout(function(){var el=document.querySelector(".page-loader");if(el)el.classList.add("loaded")},2400);</script>
     <link rel="manifest" href="./manifest.json">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -34,7 +34,7 @@
     <link rel="preconnect" href="https://stats.jameryw.dev" />
     <link rel="dns-prefetch" href="https://github.com" />
     <link rel="preload" href="./fonts/syne-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="./styles.css?v=88" />
+    <link rel="stylesheet" href="./styles.css?v=89" />
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -63,7 +63,7 @@
     </svg>
     <div class="page-loader" aria-hidden="true"><div class="loader-ring"></div></div>
     <div class="cursor-glow" aria-hidden="true"></div>
-    <a class="skip-link" href="#main-content">跳到主要内容</a>
+    <a class="skip-link" href="#main-content" data-i18n="aria.skip">跳到主要内容</a>
     <div class="scroll-progress" aria-hidden="true">
       <span class="scroll-progress-bar" data-scroll-progress></span>
     </div>
@@ -78,21 +78,25 @@
           <span class="brand-mark" aria-hidden="true"></span>
           <span>Jamery Wang</span>
         </a>
-        <button class="menu-toggle" type="button" aria-label="菜单" aria-expanded="false" aria-controls="topbar-meta"><span></span></button>
+        <button class="menu-toggle" type="button" aria-label="菜单" data-i18n-aria="aria.menu" aria-expanded="false" aria-controls="topbar-meta"><span></span></button>
         <div class="topbar-meta" id="topbar-meta">
           <nav class="nav" aria-label="Primary">
-            <a href="./index.html">Home</a>
-            <a href="./projects.html">Projects</a>
-            <a href="./showcase.html">Showcase</a>
-            <a href="./notes.html">Notes</a>
-            <a href="./about.html">About</a>
+            <a href="./index.html" data-i18n="nav.home">Home</a>
+            <a href="./projects.html" data-i18n="nav.projects">Projects</a>
+            <a href="./showcase.html" data-i18n="nav.showcase">Showcase</a>
+            <a href="./notes.html" data-i18n="nav.notes">Notes</a>
+            <a href="./about.html" data-i18n="nav.about">About</a>
           </nav>
           <div class="topbar-actions">
-            <button class="palette-hint" type="button" aria-label="搜索" data-palette-trigger>
+            <div class="lang-toggle lang-toggle-compact" role="group" aria-label="语言切换 Language" data-i18n-aria="aria.lang">
+              <button type="button" data-lang-toggle="zh" class="active" aria-pressed="true">中文</button>
+              <button type="button" data-lang-toggle="en" aria-pressed="false">EN</button>
+            </div>
+            <button class="palette-hint" type="button" aria-label="搜索" data-palette-trigger data-i18n-aria="aria.search">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
               <kbd>⌘K</kbd>
             </button>
-            <button class="theme-toggle" type="button" aria-label="切换主题">
+            <button class="theme-toggle" type="button" aria-label="切换主题" data-i18n-aria="aria.theme">
               <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
               <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
             </button>
@@ -119,17 +123,18 @@
             Projects
             <span>Agent · Kernel · Quant</span>
           </h1>
-          <p class="page-lead">增长 Agent、分布式编程、量化引擎，以及复用型交付工作流。</p>
+          <p class="page-lead" data-i18n="projects.lead">增长 Agent、分布式编程、量化引擎，以及复用型交付工作流。</p>
           <div class="page-actions">
             <a
               class="button primary"
               href="https://github.com/jameryw?tab=repositories"
               target="_blank"
               rel="noreferrer"
+              data-i18n="cta.repos"
             >
               仓库列表
             </a>
-            <a class="button secondary" href="./showcase.html">在线作品</a>
+            <a class="button secondary" href="./showcase.html" data-i18n="cta.showcase">在线作品</a>
           </div>
           <aside class="page-hero-panel reveal" aria-label="Projects signal panel">
             <p class="stack-label">Build Signal</p>
@@ -157,8 +162,8 @@
         <section class="section">
           <div class="section-head reveal">
             <p class="section-kicker">Library</p>
-            <h2>全部项目</h2>
-            <p class="section-summary">直接进入详情，少讲概念，多看执行痕迹。</p>
+            <h2 data-i18n="projects.libraryTitle">全部项目</h2>
+            <p class="section-summary" data-i18n="projects.librarySummary">直接进入详情，少讲概念，多看执行痕迹。</p>
           </div>
           <div class="project-page-grid" data-project-library></div>
         </section>
@@ -184,20 +189,20 @@
       </footer>
     </div>
 
-    <button class="back-to-top" type="button" aria-label="Back to top" data-back-to-top>
+    <button class="back-to-top" type="button" aria-label="Back to top" data-i18n-aria="aria.backTop" data-back-to-top>
       <span>Top</span>
     </button>
 
-<script src="./data.js?v=35" defer></script>
+<script src="./data.js?v=36" defer></script>
 <script src="./umami-config.js" defer></script>
-<script src="./app.js?v=53" defer></script>
+<script src="./app.js?v=54" defer></script>
 
     <!-- Command Palette -->
     <div class="palette-overlay" data-palette-overlay></div>
     <div class="palette" data-palette>
       <div class="palette-input-wrap">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input class="palette-input" type="text" placeholder="搜索项目、笔记或页面..." data-palette-input autocomplete="off" />
+        <input class="palette-input" type="text" placeholder="搜索项目、笔记或页面..." data-i18n-placeholder="palette.placeholder" data-palette-input autocomplete="off" />
         <span class="palette-kbd">ESC</span>
       </div>
       <div class="palette-results" data-palette-results></div>

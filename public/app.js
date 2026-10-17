@@ -260,42 +260,287 @@ const detailCanonicalHref = (kind, slug) =>
 const projectBySlug = new Map(siteData.projects.map((project) => [project.slug, project]));
 const noteBySlug = new Map(siteData.notes.map((note) => [note.slug, note]));
 
-/* ── Notes bilingual (zh / en) ──
-   The toggle switches every note content field; preference persists. */
-const NOTES_LANG_KEY = "notes-lang";
-let notesLang = "zh";
+/* ── Site bilingual (zh / en) ──
+   One preference drives notes, projects, and chrome. Technical keywords
+   (Agent, Kernel, DAG, Showcase, Replay, hy-memory, …) stay English in both. */
+const SITE_LANG_KEY = "site-lang";
+const LEGACY_NOTES_LANG_KEY = "notes-lang";
+let siteLang = "zh";
 try {
-  const savedNotesLang = localStorage.getItem(NOTES_LANG_KEY);
-  if (savedNotesLang === "en" || savedNotesLang === "zh") notesLang = savedNotesLang;
+  const savedLang = localStorage.getItem(SITE_LANG_KEY) || localStorage.getItem(LEGACY_NOTES_LANG_KEY);
+  if (savedLang === "en" || savedLang === "zh") siteLang = savedLang;
 } catch (langLoadErr) {}
+const notesLang = () => siteLang;
+
+const I18N = {
+  zh: {
+    "nav.home": "首页",
+    "nav.projects": "项目",
+    "nav.showcase": "Showcase",
+    "nav.notes": "笔记",
+    "nav.about": "关于",
+    "aria.search": "搜索",
+    "aria.theme": "切换主题",
+    "aria.menu": "菜单",
+    "aria.lang": "语言切换 Language",
+    "aria.backTop": "Back to top",
+    "cta.projects": "项目方向",
+    "cta.showcase": "在线作品",
+    "cta.work": "核心项目",
+    "cta.notes": "最新笔记",
+    "cta.demos": "进入演示",
+    "cta.allProjects": "全部项目",
+    "cta.viewSource": "查看源码",
+    "cta.openDetail": "查看详情",
+    "cta.tryDemo": "在线体验",
+    "cta.backProjects": "返回项目",
+    "cta.backNotes": "返回笔记",
+    "cta.readNote": "阅读全文",
+    "cta.all": "全部",
+    "cta.repos": "仓库列表",
+    "cta.home": "首页",
+    "cta.thinkNotes": "思考笔记",
+    "filter.all": "全部",
+    "home.tagline": "终端是第二个大脑，LLM 是第三个。跑通原型比写文档勤；debug Agent 比 debug 自己勤。",
+    "home.lead": "扎根杭州，专注 Agent 内核、分层记忆与可观测执行面；量化策略与 Code-as-Policy 也在同一条验证链上——原型跑通才叫验证。",
+    "home.workSummary": "当前主线上的增长 Agent、分布式编程与量化系统。",
+    "home.notesSummary": "判断、失败和构建方法，沉淀成还能继续改的笔记。",
+    "home.focus1Title": "执行优于解释",
+    "home.focus2Title": "内核优于技巧",
+    "home.focus3Title": "信号优于声明",
+    "home.focus1": "把工具、记忆和多步执行串成可恢复的闭环，比把单轮回答写漂亮更重要。",
+    "home.focus2": "上限由状态、上下文编译、调度和发布边界决定，不靠临时技巧。",
+    "home.focus3": "让别人从运行结果里读到能力，而不是从简历声明里读到。",
+    "about.lead": "终端是第二个大脑，LLM 是第三个。现在把精力放在内核、记忆和可观测执行面上——先跑通，再谈结构。",
+    "about.nowSummary": "两条主线并行：增长 Agent 内核化，编程系统可观测化。",
+    "about.nowTitle": "最新进展",
+    "about.profileSummary": "工具偏好、构建方法和公开信号，压成一套可扫描的说明。",
+    "about.profileTitle": "工作方式",
+    "about.bias": "边搭边想，优先跑通。想法要落到可恢复的系统，而不是一次性演示。",
+    "about.method": "用 Agent 原型验证假设；公开迭代留下可核对的执行痕迹。",
+    "about.lens": "上限由状态、上下文编译、调度和发布边界决定，而不是单次技巧。",
+    "about.homeBase": "GitHub 放源码，站点整理进展，邮箱收灵感。",
+    "about.entryTitle": "从这里进入",
+    "about.entrySummary": "源码在 GitHub，判断在站点，灵感在邮箱。",
+    "about.openProjects": "打开项目",
+    "about.openNotes": "打开笔记",
+    "projects.lead": "增长 Agent、分布式编程、量化引擎，以及复用型交付工作流。",
+    "projects.libraryTitle": "全部项目",
+    "projects.librarySummary": "直接进入详情，少讲概念，多看执行痕迹。",
+    "showcase.lead": "可直接打开的运行面：Showcase、Replay，以及量化系统演示。",
+    "showcase.demosTitle": "在线演示",
+    "showcase.demosSummary": "先看运行结果，再按需打开源码。",
+    "showcase.badge": "在线演示",
+    "notes.lead": "关于 Agent、构建方法和界面判断的短笔记。",
+    "notes.libraryTitle": "最新思考",
+    "notes.librarySummary": "先留下判断，再让项目和后续复盘继续验证。",
+    "notes.signalMode": "短笔记 → 深挖",
+    "notes.signalPublished": "篇在线",
+    "section.work": "Core Builds",
+    "section.notes": "Working Notes",
+    "section.now": "最新进展",
+    "detail.highlights": "关键设计",
+    "detail.highlightLabel": "要点",
+    "detail.highlightsSummary": "核心设计选择和技术亮点。",
+    "detail.relatedNotes": "相关笔记",
+    "detail.relatedNotesSummary": "从项目继续跳到相关判断和方法论。",
+    "detail.relatedProjects": "相关项目",
+    "detail.relatedProjectsSummary": "从判断跳回对应的项目入口，让想法和构建产物互相解释。",
+    "detail.keyPoints": "关键要点",
+    "detail.overview": "概览",
+    "detail.lens": "视角",
+    "detail.prev": "上一条",
+    "detail.next": "下一条",
+    "detail.prevMeta": "返回上一条",
+    "detail.nextMeta": "继续阅读",
+    "detail.openProject": "打开项目详情",
+    "detail.notFoundProject": "这个项目还不存在，或者 slug 不正确。",
+    "detail.notFoundNote": "这篇笔记还不存在，或者 slug 不正确。",
+    "meta.status": "状态",
+    "meta.focus": "焦点",
+    "meta.period": "周期",
+    "meta.points": "要点",
+    "meta.read": "阅读",
+    "meta.builds": "关联",
+    "meta.min": "分钟",
+    "card.relatedBuilds": "关联项目",
+    "card.openDetail": "open detail",
+    "card.openDemo": "open demo",
+    "palette.placeholder": "搜索项目、笔记或页面...",
+    "aria.skip": "跳到主要内容",
+    "shipping": "Shipping"
+  },
+  en: {
+    "nav.home": "Home",
+    "nav.projects": "Projects",
+    "nav.showcase": "Showcase",
+    "nav.notes": "Notes",
+    "nav.about": "About",
+    "aria.search": "Search",
+    "aria.theme": "Toggle theme",
+    "aria.menu": "Menu",
+    "aria.lang": "Language",
+    "aria.backTop": "Back to top",
+    "cta.projects": "Projects",
+    "cta.showcase": "Live work",
+    "cta.work": "Core builds",
+    "cta.notes": "Latest notes",
+    "cta.demos": "Open demos",
+    "cta.allProjects": "All projects",
+    "cta.viewSource": "view source",
+    "cta.openDetail": "Open detail",
+    "cta.tryDemo": "Try demo",
+    "cta.backProjects": "Back to projects",
+    "cta.backNotes": "Back to notes",
+    "cta.readNote": "read note",
+    "cta.all": "All",
+    "cta.repos": "Repositories",
+    "cta.home": "Home",
+    "cta.thinkNotes": "Notes",
+    "filter.all": "All",
+    "home.tagline": "The terminal is my second brain, the LLM the third. Ship prototypes more than docs; debug Agents more than myself.",
+    "home.lead": "Based in Hangzhou, focused on Agent kernels, layered memory, and observable execution — with quant strategies and Code-as-Policy on the same verification loop. A prototype only counts once it runs.",
+    "home.workSummary": "Growth Agents, distributed coding systems, and quant builds on the current main line.",
+    "home.notesSummary": "Judgment, failure, and build method — kept as notes you can still revise.",
+    "home.focus1Title": "Execution Over Explanation",
+    "home.focus2Title": "Kernel Over Tricks",
+    "home.focus3Title": "Signal Over Claims",
+    "home.focus1": "A recoverable loop of tools, memory, and multi-step execution beats a polished single-turn answer.",
+    "home.focus2": "The ceiling is set by state, context compilation, scheduling, and publish boundaries — not one-off tricks.",
+    "home.focus3": "Let people read ability from running results, not from resume claims.",
+    "about.lead": "The terminal is the second brain, the LLM the third. Focus now sits on Kernel, memory, and observable execution — ship the loop, then refine structure.",
+    "about.nowSummary": "Two tracks in parallel: Kernel-izing the growth Agent, and making the coding system observable.",
+    "about.nowTitle": "Now building",
+    "about.profileSummary": "Tool bias, build method, and public signal — compressed into a scannable profile.",
+    "about.profileTitle": "Working profile",
+    "about.bias": "Build while thinking. Prefer a recoverable system over a one-shot demo.",
+    "about.method": "Validate hypotheses with Agent prototypes; leave checkable execution traces in public.",
+    "about.lens": "The ceiling is state, context compilation, scheduling, and publish boundaries — not a single trick.",
+    "about.homeBase": "GitHub holds source, the site holds progress, email holds sparks.",
+    "about.entryTitle": "Entry points",
+    "about.entrySummary": "Source on GitHub, judgment on the site, sparks in the inbox.",
+    "about.openProjects": "Open projects",
+    "about.openNotes": "Open notes",
+    "projects.lead": "Growth Agents, distributed coding, quant engines, and reusable delivery workflows.",
+    "projects.libraryTitle": "All projects",
+    "projects.librarySummary": "Jump into details. Less concept talk, more execution traces.",
+    "showcase.lead": "Live surfaces you can open now: Showcase, Replay, and quant demos.",
+    "showcase.demosTitle": "Live demos",
+    "showcase.demosSummary": "Inspect the running result first, then open the source if you want.",
+    "showcase.badge": "Live demo",
+    "notes.lead": "Short notes on Agents, build method, and interface judgment.",
+    "notes.libraryTitle": "Latest thinking",
+    "notes.librarySummary": "Leave the judgment first, then let projects and later reviews keep testing it.",
+    "notes.signalMode": "Short notes → deep dives",
+    "notes.signalPublished": "notes live",
+    "section.work": "Core Builds",
+    "section.notes": "Working Notes",
+    "section.now": "Now building",
+    "detail.highlights": "Key design",
+    "detail.highlightLabel": "Point",
+    "detail.highlightsSummary": "Key design choices and technical highlights.",
+    "detail.relatedNotes": "Related notes",
+    "detail.relatedNotesSummary": "Jump from the project into matching judgments and methods.",
+    "detail.relatedProjects": "Related projects",
+    "detail.relatedProjectsSummary": "Jump from the judgment back to the matching builds.",
+    "detail.keyPoints": "Key points",
+    "detail.overview": "Overview",
+    "detail.lens": "Lens",
+    "detail.prev": "Previous",
+    "detail.next": "Next",
+    "detail.prevMeta": "go back one",
+    "detail.nextMeta": "keep reading",
+    "detail.openProject": "open project detail",
+    "detail.notFoundProject": "This project doesn't exist yet, or the slug is wrong.",
+    "detail.notFoundNote": "This note doesn't exist yet, or the slug is wrong.",
+    "meta.status": "Status",
+    "meta.focus": "Focus",
+    "meta.period": "Period",
+    "meta.points": "Points",
+    "meta.read": "Read",
+    "meta.builds": "Builds",
+    "meta.min": "min",
+    "card.relatedBuilds": "builds",
+    "card.openDetail": "open detail",
+    "card.openDemo": "open demo",
+    "palette.placeholder": "Search projects, notes, or pages...",
+    "aria.skip": "Skip to main content",
+    "shipping": "Shipping"
+  }
+};
+
+const t = (key) => (I18N[siteLang] && I18N[siteLang][key]) || (I18N.zh && I18N.zh[key]) || key;
 
 const noteText = (note, base) => {
-  if (notesLang === "en" && note[`${base}En`]) return note[`${base}En`];
+  if (siteLang === "en" && note[`${base}En`]) return note[`${base}En`];
   return note[base];
 };
-const noteTitle = (note) => (notesLang === "en" ? note.titleEn || note.title : note.title);
-const noteTitleSub = (note) => (notesLang === "en" ? "" : note.titleEn || "");
-const noteDetailTitle = (note) => (notesLang === "en" ? note.detailTitleEn || note.detailTitle : note.detailTitle);
-const noteDetailTitleSub = (note) => (notesLang === "en" ? "" : note.detailTitleEn || "");
+const noteTitle = (note) => (siteLang === "en" ? note.titleEn || note.title : note.title);
+const noteTitleSub = (note) => (siteLang === "en" ? "" : note.titleEn || "");
+const noteDetailTitle = (note) => (siteLang === "en" ? note.detailTitleEn || note.detailTitle : note.detailTitle);
+const noteDetailTitleSub = (note) => (siteLang === "en" ? "" : note.detailTitleEn || "");
 /* EN mirror of the whole heading (title + detail title) as one small caption
    line — keeps the h1 down to two clear weights instead of three. */
 const noteHeadingEn = (note) => [noteTitleSub(note), noteDetailTitleSub(note)].filter(Boolean).join(" — ");
-const noteBullets = (note) => (notesLang === "en" && Array.isArray(note.bulletsEn) ? note.bulletsEn : note.bullets);
-const noteLens = (note) => (notesLang === "zh" ? note.lensZh || note.lens : note.lens);
+const noteBullets = (note) => (siteLang === "en" && Array.isArray(note.bulletsEn) ? note.bulletsEn : note.bullets);
+const noteLens = (note) => (siteLang === "zh" ? note.lensZh || note.lens : note.lens);
+const projectText = (project, base) => {
+  if (siteLang === "en" && project[`${base}En`]) return project[`${base}En`];
+  return project[base];
+};
+const projectHighlights = (project) =>
+  siteLang === "en" && Array.isArray(project.highlightsEn) ? project.highlightsEn : project.highlights;
 /* note.meta is authored as "Focus: xxx" — the facts strip already labels the
    cell, so drop the inline prefix to avoid printing the word twice. */
 const noteFocusValue = (note) => (note.meta || "").replace(/^\s*focus\s*[:：]\s*/i, "").trim();
-const langToggleMarkup = () => `
-  <div class="lang-toggle" role="group" aria-label="语言切换 Language">
-    <button type="button" data-lang-toggle="zh" class="${notesLang === "zh" ? "active" : ""}" aria-pressed="${notesLang === "zh"}">中文</button>
-    <button type="button" data-lang-toggle="en" class="${notesLang === "en" ? "active" : ""}" aria-pressed="${notesLang === "en"}">EN</button>
+const langToggleMarkup = (compact = false) => `
+  <div class="lang-toggle${compact ? " lang-toggle-compact" : ""}" role="group" aria-label="${t("aria.lang")}">
+    <button type="button" data-lang-toggle="zh" class="${siteLang === "zh" ? "active" : ""}" aria-pressed="${siteLang === "zh"}">中文</button>
+    <button type="button" data-lang-toggle="en" class="${siteLang === "en" ? "active" : ""}" aria-pressed="${siteLang === "en"}">EN</button>
   </div>
 `;
 const updateLangToggleUI = () => {
   document.querySelectorAll("[data-lang-toggle]").forEach((btn) => {
-    const active = btn.getAttribute("data-lang-toggle") === notesLang;
+    const active = btn.getAttribute("data-lang-toggle") === siteLang;
     btn.classList.toggle("active", active);
     btn.setAttribute("aria-pressed", String(active));
+  });
+  document.querySelectorAll(".lang-toggle").forEach((group) => {
+    group.setAttribute("aria-label", t("aria.lang"));
+  });
+};
+const applyChromeI18n = () => {
+  document.documentElement.lang = siteLang === "en" ? "en" : "zh-CN";
+  document.documentElement.setAttribute("data-lang", siteLang);
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const key = el.getAttribute("data-i18n");
+    const value = t(key);
+    if (value) el.textContent = value;
+  });
+  document.querySelectorAll("[data-i18n-aria]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-aria");
+    const value = t(key);
+    if (value) el.setAttribute("aria-label", value);
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    const value = t(key);
+    if (value) el.setAttribute("placeholder", value);
+  });
+  const profileTitle = siteData.profile && (siteLang === "en" ? siteData.profile.titleEn : siteData.profile.title);
+  document.querySelectorAll("[data-profile-title]").forEach((el) => {
+    if (profileTitle) el.textContent = profileTitle;
+  });
+  document.querySelectorAll("[data-i18n-en-hint]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-en-hint");
+    const enValue = (I18N.en && I18N.en[key]) || "";
+    if (siteLang === "en" || !enValue) {
+      el.hidden = true;
+      el.textContent = "";
+    } else {
+      el.hidden = false;
+      el.textContent = enValue;
+    }
   });
 };
 const applyStoredFilter = (container) => {
@@ -407,9 +652,9 @@ const relatedProjectMarkup = (project) => `
   <a class="track-card reveal related-card" href="${projectDetailHref(project)}">
     <p class="stack-label">${project.label}</p>
     <h3>${project.title}</h3>
-    <p>${project.summary}</p>
+    <p>${projectText(project, "summary")}</p>
     <div class="card-actions">
-      <span class="repo-meta">open project detail</span>
+      <span class="repo-meta">${t("detail.openProject")}</span>
       <span class="card-inline-link">${project.status}</span>
     </div>
   </a>
@@ -421,11 +666,13 @@ const relatedNoteMarkup = (note) => `
     <h3>${noteTitle(note)}</h3>
     <p>${noteText(note, "summary")}</p>
     <div class="card-actions">
-      <span class="repo-meta">${note.timeframe || "open note detail"}</span>
-      <span class="card-inline-link">${notesLang === "en" ? "read note" : "阅读全文"} <span aria-hidden="true">→</span></span>
+      <span class="repo-meta">${note.timeframe || t("cta.readNote")}</span>
+      <span class="card-inline-link">${t("cta.readNote")} <span aria-hidden="true">→</span></span>
     </div>
   </a>
 `;
+
+const entryDisplayTitle = (entry) => (entry && entry.titleEn ? noteTitle(entry) : entry?.title || "");
 
 const detailPagerMarkup = (options) => {
   const { previous, next, previousHref, nextHref, previousLabel, nextLabel } = options;
@@ -441,10 +688,10 @@ const detailPagerMarkup = (options) => {
           previous
             ? `
               <a class="track-card reveal related-card pager-card" href="${previousHref(previous)}">
-                <p class="stack-label">上一条</p>
-                <h3>${noteTitle(previous)}</h3>
+                <p class="stack-label">${t("detail.prev")}</p>
+                <h3>${entryDisplayTitle(previous)}</h3>
                 <p>${previousLabel(previous)}</p>
-                <span class="repo-meta">返回上一条</span>
+                <span class="repo-meta">${t("detail.prevMeta")}</span>
               </a>
             `
             : '<div class="pager-spacer" aria-hidden="true"></div>'
@@ -453,10 +700,10 @@ const detailPagerMarkup = (options) => {
           next
             ? `
               <a class="track-card reveal related-card pager-card" href="${nextHref(next)}">
-                <p class="stack-label">下一条</p>
-                <h3>${noteTitle(next)}</h3>
+                <p class="stack-label">${t("detail.next")}</p>
+                <h3>${entryDisplayTitle(next)}</h3>
                 <p>${nextLabel(next)}</p>
-                <span class="repo-meta">继续阅读</span>
+                <span class="repo-meta">${t("detail.nextMeta")}</span>
               </a>
             `
             : '<div class="pager-spacer" aria-hidden="true"></div>'
@@ -467,6 +714,8 @@ const detailPagerMarkup = (options) => {
 };
 
 const projectCardMarkup = (project, variant) => {
+  const summary = projectText(project, "summary");
+  const viewSource = t("cta.viewSource");
   if (variant === "home") {
     return `
       <a class="work-card reveal" href="${projectDetailHref(project)}">
@@ -478,11 +727,11 @@ const projectCardMarkup = (project, variant) => {
             <span class="work-status-pill">${project.status}</span>
           </p>
           <h3>${project.title}</h3>
-          <p class="work-summary">${project.summary}</p>
+          <p class="work-summary">${summary}</p>
           <div class="card-tags">${createTagList(project.stack)}</div>
           <div class="card-actions">
-            <span class="work-link">open detail <span class="work-arrow" aria-hidden="true">→</span></span>
-            <span class="card-inline-link">${project.cta}</span>
+            <span class="work-link">${t("card.openDetail")} <span class="work-arrow" aria-hidden="true">→</span></span>
+            <span class="card-inline-link">${viewSource}</span>
           </div>
         </div>
       </a>
@@ -496,14 +745,14 @@ const projectCardMarkup = (project, variant) => {
         <span class="card-status-dot ${project.status.toLowerCase().includes('active') || project.status.toLowerCase().includes('production') || project.status.toLowerCase().includes('live') ? 'live' : 'dev'}" aria-hidden="true"></span>
       </p>
       <h3>${project.title}</h3>
-      <p>${project.summary}</p>
+      <p>${summary}</p>
       <div class="project-entry-meta">
         <span class="project-entry-status">${project.status}</span>
         <div class="card-tags">${createTagList(project.stack)}</div>
       </div>
       <div class="card-actions">
         <span class="repo-meta">${project.timeframe}</span>
-        <span class="card-inline-link">${project.cta}</span>
+        <span class="card-inline-link">${viewSource}</span>
       </div>
     </a>
   `;
@@ -525,8 +774,8 @@ const noteCardMarkup = (note) => {
   const teaser = noteText(note, "summary") || noteText(note, "overview") || "";
   const title = noteTitle(note);
   const titleSub = noteTitleSub(note);
-  const buildWord = notesLang === "en" ? (buildCount === 1 ? "build" : "builds") : "关联项目";
-  const readWord = notesLang === "en" ? "read note" : "阅读全文";
+  const buildWord = siteLang === "en" ? (buildCount === 1 ? "build" : t("card.relatedBuilds")) : t("card.relatedBuilds");
+  const readWord = t("cta.readNote");
   const statusLabel = noteStatusLabel(note.status);
   const statusKind = noteStatusKind(note.status);
   /* Skip universal bullet counts — every note ships 4 points, so the
@@ -584,67 +833,6 @@ if (projectLibraryNode) {
 
 renderNoteLibraries();
 
-if (showcaseNode) {
-  const demoProjects = siteData.projects.filter((project) => project.demoUrl);
-  showcaseNode.innerHTML = demoProjects.map((project) => {
-    return `
-      <a class="showcase-card reveal" href="${project.demoUrl}" target="_blank" rel="noreferrer">
-        <div class="showcase-card-header">
-          <p class="card-topline">
-            ${project.label}
-            <span class="card-status-dot live" aria-hidden="true"></span>
-          </p>
-          <div class="showcase-demo-badge">在线演示</div>
-        </div>
-        <h3>${project.title}</h3>
-        <p>${project.summary}</p>
-        <div class="card-tags">${createTagList(project.stack)}</div>
-        <div class="showcase-url">${project.demoUrl}</div>
-        <div class="card-actions">
-          <span class="work-link">open demo</span>
-          <span class="card-inline-link">${project.status}</span>
-        </div>
-      </a>
-    `;
-  }).join("");
-}
-
-if (nowBuildingNode) {
-  const nowItems = Array.isArray(siteData.profile?.now) ? siteData.profile.now : [];
-  nowBuildingNode.innerHTML = nowItems
-    .map((item, index) => {
-      const project = projectBySlug.get(item.slug);
-      const href = project ? projectDetailHref(project) : "./projects.html";
-      const demoHref = project?.demoUrl || "";
-      const order = String(index + 1).padStart(2, "0");
-      const label = project?.label || item.code || "Now";
-      return `
-        <article class="about-now-card reveal">
-          <div class="about-now-card-top">
-            <p class="card-topline">
-              <span class="about-now-index">${order}</span>
-              <span>${label}</span>
-              <span class="card-status-dot live" aria-hidden="true"></span>
-              <span class="work-status-pill">Shipping</span>
-            </p>
-            ${item.when ? `<span class="about-now-when">${item.when}</span>` : ""}
-          </div>
-          <h3>${item.title}</h3>
-          <p>${item.beat}</p>
-          <div class="card-actions">
-            <a class="card-inline-link" href="${href}">查看详情 <span aria-hidden="true">→</span></a>
-            ${
-              demoHref
-                ? `<a class="card-inline-link" href="${demoHref}" target="_blank" rel="noreferrer">在线体验</a>`
-                : ""
-            }
-          </div>
-        </article>
-      `;
-    })
-    .join("");
-}
-
 if (projectCountNodes.length > 0) {
   projectCountNodes.forEach((node) => {
     node.textContent = siteData.projects.length;
@@ -690,7 +878,7 @@ function setupFilter(container, items, onFilter) {
 
   const allPill = document.createElement("button");
   allPill.className = "filter-pill active";
-  allPill.textContent = `全部 (${items.length})`;
+  allPill.textContent = `${t("filter.all")} (${items.length})`;
   allPill.setAttribute("aria-pressed", "true");
   filterBar.appendChild(allPill);
 
@@ -729,8 +917,8 @@ if (noteLibraryNode) {
   setupFilter(noteLibraryNode, siteData.notes, (label, visible) => updateNoteCount(visible));
 }
 
-/* ── Activity Feed ── */
-if (projectDetailNode) {
+const renderProjectDetail = (instant = false) => {
+  if (!projectDetailNode) return;
   const params = new URLSearchParams(window.location.search);
   const slug = params.get("slug");
   const project = projectBySlug.get(slug);
@@ -747,17 +935,20 @@ if (projectDetailNode) {
           Project Not Found
           <span>404</span>
         </h1>
-        <p class="page-lead">这个项目还不存在，或者 slug 不正确。</p>
+        <p class="page-lead">${t("detail.notFoundProject")}</p>
         <div class="page-actions">
-          <a class="button primary" href="./projects.html">返回项目</a>
-          <a class="button secondary" href="./index.html">首页</a>
+          <a class="button primary" href="./projects.html">${t("cta.backProjects")}</a>
+          <a class="button secondary" href="./index.html">${t("cta.home")}</a>
+          ${langToggleMarkup()}
         </div>
       </section>
     `;
   } else {
+    const overview = projectText(project, "overview");
+    const highlights = projectHighlights(project) || [];
     setDetailMeta({
       title: project.title,
-      description: project.overview,
+      description: overview,
       canonical: detailCanonicalHref("project", project.slug)
     });
     projectDetailNode.setAttribute("aria-busy", "true");
@@ -768,13 +959,14 @@ if (projectDetailNode) {
           ${project.title}
           <span>${project.detailTitle}</span>
         </h1>
-        <p class="page-lead">${project.overview}</p>
+        <p class="page-lead">${overview}</p>
         <div class="page-actions">
           <a class="button primary" href="${project.href}" target="_blank" rel="noreferrer">
             <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="vertical-align:-3px;margin-right:6px;"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-            查看源码
+            ${t("cta.viewSource")}
           </a>
-          <a class="button secondary" href="./projects.html">返回项目</a>
+          <a class="button secondary" href="./projects.html">${t("cta.backProjects")}</a>
+          ${langToggleMarkup()}
         </div>
         ${pageHeroPanelMarkup("Project Signal", [
           { label: "Status", value: project.status },
@@ -784,20 +976,19 @@ if (projectDetailNode) {
       </section>
 
       <section class="section">
-        <section class="section">
         <div class="section-head reveal">
           <p class="section-kicker">Highlights</p>
-          <h2>关键设计</h2>
-          <p class="section-summary">${project.title} 的核心设计选择和技术亮点。</p>
+          <h2>${t("detail.highlights")}</h2>
+          <p class="section-summary">${project.title} — ${t("detail.highlightsSummary")}</p>
         </div>
         <div class="build-track-grid">
-          ${project.highlights
+          ${highlights
             .map((item, index) => {
               const highlight = detailItemParts(item);
 
               return `
                 <article class="track-card reveal">
-                  <p class="stack-label">要点 0${index + 1}</p>
+                  <p class="stack-label">${t("detail.highlightLabel")} 0${index + 1}</p>
                   <h3>${highlight.title}</h3>
                   <p>${highlight.body}</p>
                   <span class="repo-meta">${project.outputs[index] || project.stack[index] || project.status}</span>
@@ -812,8 +1003,8 @@ if (projectDetailNode) {
       <section class="section">
         <div class="section-head reveal">
           <p class="section-kicker">Related Notes</p>
-          <h2>相关笔记</h2>
-          <p class="section-summary">从项目继续跳到相关判断和方法论。</p>
+          <h2>${t("detail.relatedNotes")}</h2>
+          <p class="section-summary">${t("detail.relatedNotesSummary")}</p>
         </div>
         <div class="build-track-grid related-track-grid">
           ${relatedNotes.map((note) => relatedNoteMarkup(note)).join("")}
@@ -831,10 +1022,17 @@ if (projectDetailNode) {
        })}
     `;
     projectDetailNode.setAttribute("aria-busy", "false");
-    const mainContent = document.getElementById("main-content");
-    if (mainContent) mainContent.focus({ preventScroll: true });
+    if (!instant) {
+      const mainContent = document.getElementById("main-content");
+      if (mainContent) mainContent.focus({ preventScroll: true });
+    }
   }
-}
+  updateLangToggleUI();
+  if (instant) {
+    projectDetailNode.querySelectorAll(".reveal").forEach((node) => node.classList.add("visible"));
+  }
+};
+renderProjectDetail();
 
 const renderNoteDetail = (instant = false) => {
   if (!noteDetailNode) return;
@@ -854,10 +1052,11 @@ const renderNoteDetail = (instant = false) => {
           Note Not Found
           <span>404</span>
         </h1>
-        <p class="page-lead">这篇笔记还不存在，或者 slug 不正确。</p>
+        <p class="page-lead">${t("detail.notFoundNote")}</p>
         <div class="page-actions">
-          <a class="button primary" href="./notes.html">返回笔记</a>
-          <a class="button secondary" href="./index.html">首页</a>
+          <a class="button primary" href="./notes.html">${t("cta.backNotes")}</a>
+          <a class="button secondary" href="./index.html">${t("cta.home")}</a>
+          ${langToggleMarkup()}
         </div>
       </section>
     `;
@@ -878,12 +1077,12 @@ const renderNoteDetail = (instant = false) => {
         ${noteHeadingEn(note) ? `<p class="note-detail-en">${noteHeadingEn(note)}</p>` : ""}
         <ul class="note-facts reveal">
           ${[
-            { label: notesLang === "en" ? "Status" : "状态", value: note.status },
-            { label: notesLang === "en" ? "Focus" : "焦点", value: noteFocusValue(note) },
-            { label: notesLang === "en" ? "Period" : "周期", value: note.timeframe },
-            { label: notesLang === "en" ? "Points" : "要点", value: String(noteBullets(note).length) },
-            { label: notesLang === "en" ? "Read" : "阅读", value: notesLang === "en" ? `${noteReadMinutes(note)} min` : `${noteReadMinutes(note)} 分钟` },
-            { label: notesLang === "en" ? "Builds" : "关联", value: String(relatedProjects.length) }
+            { label: t("meta.status"), value: note.status },
+            { label: t("meta.focus"), value: noteFocusValue(note) },
+            { label: t("meta.period"), value: note.timeframe },
+            { label: t("meta.points"), value: String(noteBullets(note).length) },
+            { label: t("meta.read"), value: `${noteReadMinutes(note)} ${t("meta.min")}` },
+            { label: t("meta.builds"), value: String(relatedProjects.length) }
           ]
             .filter((fact) => fact.value)
             .map(
@@ -897,27 +1096,27 @@ const renderNoteDetail = (instant = false) => {
             .join("")}
         </ul>
         <div class="page-actions">
-          <a class="button primary" href="./notes.html">返回笔记</a>
-          <a class="button secondary" href="${relatedProjects.length > 0 ? "#linked-builds" : "./projects.html"}">相关项目</a>
+          <a class="button primary" href="./notes.html">${t("cta.backNotes")}</a>
+          <a class="button secondary" href="${relatedProjects.length > 0 ? "#linked-builds" : "./projects.html"}">${t("detail.relatedProjects")}</a>
           ${langToggleMarkup()}
         </div>
       </section>
 
       <section class="section note-overview-section">
         <blockquote class="note-lens reveal">
-          <span class="note-lens-label">${notesLang === "en" ? "Lens" : "视角"}</span>
+          <span class="note-lens-label">${t("detail.lens")}</span>
           <p>${noteLens(note)}</p>
         </blockquote>
         <div class="note-overview-card reveal">
-          <p class="note-overview-label">${notesLang === "en" ? "Overview" : "概览"}</p>
+          <p class="note-overview-label">${t("detail.overview")}</p>
           <p class="note-overview-text">${noteText(note, "overview")}</p>
         </div>
       </section>
 
       <section class="section note-detail-body">
         <div class="section-head reveal">
-          <p class="section-kicker">${notesLang === "en" ? "Breakdown" : "Breakdown"}</p>
-          <h2>${notesLang === "en" ? "Key Points" : "关键要点"}</h2>
+          <p class="section-kicker">Breakdown</p>
+          <h2>${t("detail.keyPoints")}</h2>
         </div>
         <ol class="note-points">
           ${noteBullets(note)
@@ -935,8 +1134,8 @@ const renderNoteDetail = (instant = false) => {
       <section class="section" id="linked-builds">
         <div class="section-head reveal">
           <p class="section-kicker">Related Projects</p>
-          <h2>${notesLang === "en" ? "Linked Builds" : "相关项目"}</h2>
-          <p class="section-summary">${notesLang === "en" ? "Jump from the judgment back to the matching builds." : "从判断跳回对应的项目入口，让想法和构建产物互相解释。"}</p>
+          <h2>${t("detail.relatedProjects")}</h2>
+          <p class="section-summary">${t("detail.relatedProjectsSummary")}</p>
         </div>
         <div class="build-track-grid related-track-grid">
           ${relatedProjects.map((project) => relatedProjectMarkup(project)).join("")}
@@ -964,18 +1163,115 @@ const renderNoteDetail = (instant = false) => {
 };
 renderNoteDetail();
 
+const renderProjectSurfaces = (instant = false) => {
+  if (homeProjectsNode) {
+    const featuredProjects = siteData.projects.filter((project) => project.featured);
+    homeProjectsNode.innerHTML = featuredProjects.map((project) => projectCardMarkup(project, "home")).join("");
+  }
+  if (projectLibraryNode) {
+    projectLibraryNode.innerHTML = siteData.projects.map((project) => projectCardMarkup(project, "library")).join("");
+  }
+  if (showcaseNode) {
+    const demoProjects = siteData.projects.filter((project) => project.demoUrl);
+    showcaseNode.innerHTML = demoProjects.map((project) => {
+      return `
+      <a class="showcase-card reveal" href="${project.demoUrl}" target="_blank" rel="noreferrer">
+        <div class="showcase-card-header">
+          <p class="card-topline">
+            ${project.label}
+            <span class="card-status-dot live" aria-hidden="true"></span>
+          </p>
+          <div class="showcase-demo-badge">${t("showcase.badge")}</div>
+        </div>
+        <h3>${project.title}</h3>
+        <p>${projectText(project, "summary")}</p>
+        <div class="card-tags">${createTagList(project.stack)}</div>
+        <div class="showcase-url">${project.demoUrl}</div>
+        <div class="card-actions">
+          <span class="work-link">${t("cta.tryDemo")}</span>
+          <span class="card-inline-link">${project.status}</span>
+        </div>
+      </a>
+    `;
+    }).join("");
+  }
+  if (nowBuildingNode) {
+    const nowItems = Array.isArray(siteData.profile?.now) ? siteData.profile.now : [];
+    nowBuildingNode.innerHTML = nowItems
+      .map((item, index) => {
+        const project = projectBySlug.get(item.slug);
+        const href = project ? projectDetailHref(project) : "./projects.html";
+        const demoHref = project?.demoUrl || "";
+        const order = String(index + 1).padStart(2, "0");
+        const label = project?.label || item.code || "Now";
+        const beat = siteLang === "en" ? item.beatEn || item.beat : item.beat;
+        return `
+        <article class="about-now-card reveal">
+          <div class="about-now-card-top">
+            <p class="card-topline">
+              <span class="about-now-index">${order}</span>
+              <span>${label}</span>
+              <span class="card-status-dot live" aria-hidden="true"></span>
+              <span class="work-status-pill">${t("shipping")}</span>
+            </p>
+            ${item.when ? `<span class="about-now-when">${item.when}</span>` : ""}
+          </div>
+          <h3>${item.title}</h3>
+          <p>${beat}</p>
+          <div class="card-actions">
+            <a class="card-inline-link" href="${href}">${t("cta.openDetail")} <span aria-hidden="true">→</span></a>
+            ${
+              demoHref
+                ? `<a class="card-inline-link" href="${demoHref}" target="_blank" rel="noreferrer">${t("cta.tryDemo")}</a>`
+                : ""
+            }
+          </div>
+        </article>
+      `;
+      })
+      .join("");
+  }
+  if (projectLibraryNode) applyStoredFilter(projectLibraryNode);
+  if (instant) {
+    [homeProjectsNode, projectLibraryNode, showcaseNode, nowBuildingNode].forEach((node) => {
+      if (node) node.querySelectorAll(".reveal").forEach((card) => card.classList.add("visible"));
+    });
+  }
+};
+
+const setSiteLang = (lang, instant = false) => {
+  if ((lang !== "en" && lang !== "zh") || lang === siteLang) return;
+  siteLang = lang;
+  try {
+    localStorage.setItem(SITE_LANG_KEY, lang);
+    localStorage.setItem(LEGACY_NOTES_LANG_KEY, lang);
+  } catch (persistErr) {}
+  applyChromeI18n();
+  updateLangToggleUI();
+  renderNoteLibraries(instant);
+  renderNoteDetail(instant);
+  renderProjectSurfaces(instant);
+  renderProjectDetail(instant);
+  // Refresh filter "全部" label if present
+  document.querySelectorAll(".filter-bar .filter-pill").forEach((pill) => {
+    if (!pill.dataset.filterLabel) {
+      const countMatch = pill.textContent.match(/\((\d+)\)/);
+      const count = countMatch ? countMatch[1] : "";
+      pill.textContent = count ? `${t("filter.all")} (${count})` : t("filter.all");
+    }
+  });
+};
+
 document.addEventListener("click", (event) => {
   const toggle = event.target.closest("[data-lang-toggle]");
   if (!toggle) return;
   const lang = toggle.getAttribute("data-lang-toggle");
-  if ((lang !== "en" && lang !== "zh") || lang === notesLang) return;
-  notesLang = lang;
-  try {
-    localStorage.setItem(NOTES_LANG_KEY, lang);
-  } catch (persistErr) {}
-  renderNoteLibraries(true);
-  renderNoteDetail(true);
+  setSiteLang(lang, true);
 });
+
+applyChromeI18n();
+updateLangToggleUI();
+renderProjectSurfaces();
 
 const revealNodes = document.querySelectorAll(".reveal");
 const emphasisNodes = document.querySelectorAll(".work-card, .command-list p, .ops-command-list p");
