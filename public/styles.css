@@ -643,7 +643,7 @@ a {
 
 .nav {
   display: flex;
-  gap: 20px;
+  gap: 28px;
   color: var(--muted);
 }
 
@@ -1484,9 +1484,10 @@ body[data-page="about"] .section + .section {
 
 .section-head-top {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-end;
-  justify-content: space-between;
-  gap: 16px;
+  justify-content: flex-start;
+  gap: 12px 28px;
 }
 
 .section-head-titles {
@@ -1495,7 +1496,8 @@ body[data-page="about"] .section + .section {
 
 .section-view-all {
   flex-shrink: 0;
-  padding-bottom: 8px;
+  margin-left: 0;
+  padding-bottom: 6px;
   color: var(--cyan);
   font-size: 0.85rem;
   font-weight: 700;
@@ -2772,7 +2774,7 @@ body[data-page="home"] .note-card .card-actions {
 body[data-page="about"] .page-hero,
 body[data-page="about"] .about-hero {
   display: block;
-  padding: 54px 0 28px;
+  padding: 48px 0 20px;
 }
 
 body[data-page="about"] .about-hero-copy {
@@ -2883,7 +2885,21 @@ body[data-page="about"] .about-section-head .section-summary {
 }
 
 body[data-page="about"] .about-now-section {
-  padding-top: 18px;
+  padding-top: 10px;
+}
+
+body[data-page="home"] .home-hero {
+  padding-bottom: 8px;
+}
+
+body[data-page="home"] #work.section {
+  padding-top: 28px;
+}
+
+body[data-page="projects"] .project-entry-card h3 {
+  font-size: clamp(1.2rem, 2.2vw, 1.55rem);
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 body[data-page="projects"] .page-title {

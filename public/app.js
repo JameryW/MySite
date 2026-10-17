@@ -510,20 +510,18 @@ const projectCardMarkup = (project, variant) => {
 };
 
 const noteCardMarkup = (note) => {
-  const pointCount = Array.isArray(note.bullets) ? note.bullets.length : 0;
   const buildCount = Array.isArray(note.relatedProjects) ? note.relatedProjects.length : 0;
   const teaser = noteText(note, "summary") || noteText(note, "overview") || "";
   const title = noteTitle(note);
   const titleSub = noteTitleSub(note);
-  const pointWord = notesLang === "en" ? "points" : "要点";
-  const buildWord = notesLang === "en" ? "builds" : "关联项目";
+  const buildWord = notesLang === "en" ? (buildCount === 1 ? "build" : "builds") : "关联项目";
   const readWord = notesLang === "en" ? "read note" : "阅读全文";
-  const counts = [
-    pointCount > 0 ? `${pointCount} ${pointWord}` : "",
+  /* Skip universal bullet counts — every note ships 4 points, so the
+     number is noise. Related-project counts still vary and stay useful. */
+  const metaBits = [
+    note.status || "",
     buildCount > 0 ? `${buildCount} ${buildWord}` : ""
-  ]
-    .filter(Boolean)
-    .join(" · ");
+  ].filter(Boolean);
   return `
   <a class="note-card reveal note-entry-card" href="${noteDetailHref(note)}">
     <div class="note-card-head">
@@ -538,8 +536,8 @@ const noteCardMarkup = (note) => {
     <p class="note-summary">${teaser}</p>
     <div class="card-actions">
       <span class="note-meta-inline">
-        ${note.status ? `<span class="note-status-pill">${note.status}</span>` : ""}
-        ${counts ? `<span class="repo-meta">${counts}</span>` : ""}
+        ${metaBits[0] ? `<span class="note-status-pill">${metaBits[0]}</span>` : ""}
+        ${metaBits[1] ? `<span class="repo-meta">${metaBits[1]}</span>` : ""}
       </span>
       <span class="card-inline-link">${readWord} <span aria-hidden="true">→</span></span>
     </div>

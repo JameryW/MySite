@@ -12,7 +12,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Rebuild About page as a brand-first single-column hero with a Now Building section
 - Remove redundant Profile Pulse / dual taglines; align home copy away from prompt-native conflict
 - Tighten projects / showcase section wording and Now Building card hierarchy
-- Cache bump: `styles.css?v=86`, `app.js?v=51`, `data.js?v=34`, Service Worker `mysite-v109`
+- Deduplicate About working profile, shorten home focus copy, and make note-card meta less repetitive
+- Tighten nav gap, section-head view-all grouping, and hero-to-section rhythm
+- Cache bump: `styles.css?v=87`, `app.js?v=52`, `data.js?v=34`, Service Worker `mysite-v110`
 
 ## [1.0.0] - 2026-05-31
 
