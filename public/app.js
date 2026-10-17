@@ -369,12 +369,19 @@ const I18N = {
     "detail.notFoundProject": "这个项目还不存在，或者 slug 不正确。",
     "detail.notFoundNote": "这篇笔记还不存在，或者 slug 不正确。",
     "meta.status": "状态",
+    "meta.role": "角色",
+    "meta.output": "产出",
     "meta.focus": "焦点",
     "meta.period": "周期",
     "meta.points": "要点",
     "meta.read": "阅读",
     "meta.builds": "关联",
     "meta.min": "分钟",
+    "detail.signal": "项目信号",
+    "detail.highlightsKicker": "Highlights",
+    "detail.relatedNotesKicker": "Related Notes",
+    "detail.breakdownKicker": "Breakdown",
+    "detail.relatedProjectsKicker": "Related Projects",
     "card.relatedBuilds": "关联项目",
     "card.openDetail": "查看详情",
     "card.openDemo": "打开演示",
@@ -479,12 +486,19 @@ const I18N = {
     "detail.notFoundProject": "This project doesn't exist yet, or the slug is wrong.",
     "detail.notFoundNote": "This note doesn't exist yet, or the slug is wrong.",
     "meta.status": "Status",
+    "meta.role": "Role",
+    "meta.output": "Output",
     "meta.focus": "Focus",
     "meta.period": "Period",
     "meta.points": "Points",
     "meta.read": "Read",
     "meta.builds": "Builds",
     "meta.min": "min",
+    "detail.signal": "Project Signal",
+    "detail.highlightsKicker": "Highlights",
+    "detail.relatedNotesKicker": "Related Notes",
+    "detail.breakdownKicker": "Breakdown",
+    "detail.relatedProjectsKicker": "Related Projects",
     "card.relatedBuilds": "builds",
     "card.openDetail": "Open detail",
     "card.openDemo": "Open demo",
@@ -620,13 +634,20 @@ const getSiblingEntries = (entries, currentSlug) => {
   };
 };
 
+const capitalizeSentenceStart = (text) => {
+  if (!text) return text;
+  // Keep intentional lowercase product/code tokens (hy-memory, `$codex-…`, paths).
+  if (/^(hy-|oh-|xai |\$|`|\.|\/)/i.test(text)) return text;
+  return text.replace(/^([a-z])/, (ch) => ch.toUpperCase());
+};
+
 const detailItemParts = (item, fallbackTitle) => {
   const text = item.trim();
   const labeledMatch = text.match(/^(.{2,42}?)(?:\s+[—-]\s+|[:：]\s*)(.+)$/);
   if (labeledMatch) {
     return {
       title: labeledMatch[1].trim(),
-      body: labeledMatch[2].trim()
+      body: capitalizeSentenceStart(labeledMatch[2].trim())
     };
   }
 
@@ -634,7 +655,7 @@ const detailItemParts = (item, fallbackTitle) => {
   if (sentenceMatch) {
     return {
       title: sentenceMatch[1].trim(),
-      body: sentenceMatch[2].trim()
+      body: capitalizeSentenceStart(sentenceMatch[2].trim())
     };
   }
 
@@ -993,16 +1014,16 @@ const renderProjectDetail = (instant = false) => {
           </a>
           <a class="button secondary" href="./projects.html">${t("cta.backProjects")}</a>
         </div>
-        ${pageHeroPanelMarkup("Project Signal", [
-          { label: "Status", value: project.status },
-          { label: "Role", value: project.role },
-          { label: "Output", value: project.outputs.slice(0, 2).join(" / ") }
+        ${pageHeroPanelMarkup(t("detail.signal"), [
+          { label: t("meta.status"), value: project.status },
+          { label: t("meta.role"), value: project.role },
+          { label: t("meta.output"), value: project.outputs.slice(0, 2).join(" / ") }
         ])}
       </section>
 
       <section class="section">
         <div class="section-head reveal">
-          <p class="section-kicker">Highlights</p>
+          <p class="section-kicker">${t("detail.highlightsKicker")}</p>
           <h2>${t("detail.highlights")}</h2>
           <p class="section-summary">${project.title} — ${t("detail.highlightsSummary")}</p>
         </div>
@@ -1027,7 +1048,7 @@ const renderProjectDetail = (instant = false) => {
       ${relatedNotes.length > 0 ? `
       <section class="section">
         <div class="section-head reveal">
-          <p class="section-kicker">Related Notes</p>
+          <p class="section-kicker">${t("detail.relatedNotesKicker")}</p>
           <h2>${t("detail.relatedNotes")}</h2>
           <p class="section-summary">${t("detail.relatedNotesSummary")}</p>
         </div>
@@ -1138,7 +1159,7 @@ const renderNoteDetail = (instant = false) => {
 
       <section class="section note-detail-body">
         <div class="section-head reveal">
-          <p class="section-kicker">Breakdown</p>
+          <p class="section-kicker">${t("detail.breakdownKicker")}</p>
           <h2>${t("detail.keyPoints")}</h2>
         </div>
         <ol class="note-points">
@@ -1156,7 +1177,7 @@ const renderNoteDetail = (instant = false) => {
       ${relatedProjects.length > 0 ? `
       <section class="section" id="linked-builds">
         <div class="section-head reveal">
-          <p class="section-kicker">Related Projects</p>
+          <p class="section-kicker">${t("detail.relatedProjectsKicker")}</p>
           <h2>${t("detail.relatedProjects")}</h2>
           <p class="section-summary">${t("detail.relatedProjectsSummary")}</p>
         </div>

@@ -22,7 +22,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Drop duplicate in-page lang toggles; bilingualize ⌘K group labels and projects indexed count
 - Fix ZH card chrome (`查看详情` / `打开演示`); bilingual 404 with shared site-lang
 - Platform-aware palette shortcut (Ctrl+K / ⌘K); cluster mobile lang+socials; unify EN CTA casing
-- Cache bump: `styles.css?v=94`, `app.js?v=58`, `data.js?v=38`, Service Worker `mysite-v117`
+- Align project/note `outputs[]` 1:1 with highlights/bullets so detail highlight footers stay on-topic
+- Localize project detail signal panel + section kickers; capitalize EN highlight bodies after colon split
+- Cache bump: `styles.css?v=94`, `app.js?v=59`, `data.js?v=39`, Service Worker `mysite-v118`
 
 ## [1.0.0] - 2026-05-31
 

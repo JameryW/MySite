@@ -61,7 +61,7 @@ window.siteData = {
         "Optional memory: hy-memory stays off by default and can retain cross-session preferences as searchable assets.",
         "Multi-surface reuse: the same workflow runs from Web UI, CLI, API, or terminal extensions, with resume and safe takeover."
       ],
-      outputs: ["Kernel runtime", "Human-gated publishing", "Showcase / Replay", "Memory-ready workflow"],
+      outputs: ["Kernel layers", "Showcase / Replay", "Signed-in workspace", "Optional hy-memory", "Multi-surface reuse"],
       relatedNotes: ["why-agents-matter", "prompt-engineering-evolution", "evolve-in-loop"]
     },
     {
@@ -96,7 +96,7 @@ window.siteData = {
         "Tests as memory — old capability hardens into regression tests so updates don't erase what already worked.",
         "Three-stage policy pipeline: generate → validate → shadow promote, with Bandit arm stats and a health-check loop."
       ],
-      outputs: ["Heuristic agent framework", "Code-as-policy engine", "Bandit decision system"],
+      outputs: ["Code-as-policy", "Iteration as learning", "Tests as memory", "Bandit pipeline"],
       relatedNotes: ["why-agents-matter", "prototype-first"]
     },
     {
@@ -129,7 +129,7 @@ window.siteData = {
         "Futu broker adapter with dry-run and live modes, risk controls, and daemon operation.",
         "Full toolchain: trade safety checks, indicator math, credential handling, and service monitoring."
       ],
-      outputs: ["Trading engine", "Modular strategy library", "Broker adapter"],
+      outputs: ["Modular strategy stack", "MRP v3 primary", "Futu broker adapter", "Trading toolchain"],
       relatedNotes: ["why-agents-matter", "prototype-first"]
     },
     {
@@ -162,7 +162,7 @@ window.siteData = {
         "186 tests, 91% coverage, GitHub Actions CI, ~60% pass rate on the tracked suite.",
         "Strategy-grouped backtest configs and date-archived reports for parameterized batch runs."
       ],
-      outputs: ["Strategy prototypes", "Backtest engine", "Research-to-code pipeline"],
+      outputs: ["Strategy modules", "Backtest engine", "CI test suite", "Batch backtest reports"],
       relatedNotes: ["why-agents-matter", "prototype-first"]
     },
     {
@@ -198,7 +198,7 @@ window.siteData = {
         "Layered memory: short-term / long-term semantic / structured metadata on TiKV, Qdrant, PostgreSQL, with in-memory fallback.",
         "Flexible deploy: local OMP, Docker Gateway, Compose app, or multi-Worker clusters on the same product surface."
       ],
-      outputs: ["DAG orchestration", "Ops dashboard", "Hybrid retrieval", "Layered memory"],
+      outputs: ["DAG orchestration", "Ops dashboard", "Hybrid retrieval", "Layered memory", "Flexible deploy"],
       relatedNotes: ["why-agents-matter", "prompt-engineering-evolution", "skills-devoured-tools-fortified"]
     },
     {
@@ -234,7 +234,7 @@ window.siteData = {
         "Trellis integration: docs/agents/trellis.md states the init prerequisites; one implement ticket maps to one new Codex task + Trellis task without vendoring the Trellis runtime.",
         "Tracker prefers GitHub Issues; without `gh` auth it falls back to `.scratch/` Markdown tickets, and remote edits need explicit approval — plus `scripts/check-codex-issue-flow.py` for wiring checks."
       ],
-      outputs: ["Reusable agent workflow", "Multi-platform skill packs", "Issue-driven delivery pipeline"],
+      outputs: ["Delivery chain", "Multi-platform skills", "Matt Pocock skill set", "Trellis integration", "Issue tracker fallback"],
       relatedNotes: ["skills-devoured-tools-fortified", "evolve-in-loop"]
     }
   ],
@@ -304,7 +304,7 @@ window.siteData = {
         "Prototypes aren't an excuse for sloppiness but a sharper judgment tool. What matters is learning from results, not deducing from concepts.",
         "This site is itself the product of prototype-first thinking: ship first, then iterate from real usage.",
       ],
-      outputs: ["Prototype bias", "Faster decisions", "Concrete iteration loop"],
+      outputs: ["Prototype bias", "Faster decisions", "Concrete iteration loop", "Site as prototype"],
       relatedProjects: ["xhs-growth-agent", "quant-agent", "real-quant-engine", "quant-strategy-prototypes"]
     },
     {
@@ -338,7 +338,7 @@ window.siteData = {
         "A personal site without an interface attitude leaves no impression. The problem with template sites is they say nothing.",
         "The dark-console aesthetic isn't decoration — it's a signal delivered in seconds: this person runs technical experiments.",
       ],
-      outputs: ["Visible taste", "UI intent", "Signal-driven presentation"],
+      outputs: ["Visible taste", "UI intent", "Signal-driven presentation", "Console aesthetic signal"],
       relatedProjects: ["xhs-growth-agent"]
     },
     {
@@ -372,7 +372,7 @@ window.siteData = {
         "Larger context windows and better memory mean the finesse of a single prompt is no longer the bottleneck.",
         "You still need to understand model limits, but the focus shifts from how to say it to what to do and how to do it.",
       ],
-      outputs: ["Prompt evolution thesis", "System design lens", "Tool-first perspective"],
+      outputs: ["Prompt evolution thesis", "System design lens", "Tool-first perspective", "What-to-do focus"],
       relatedProjects: ["xhs-growth-agent", "quant-agent", "real-quant-engine", "quant-strategy-prototypes"]
     },
     {
@@ -407,7 +407,7 @@ window.siteData = {
         "This site is itself an exercise in building in public: starting from placeholder content, continuously filling in real projects.",
         "Publicness isn't the goal — verifiability is. If others can't directly see your trail of work, you're still relying on claims.",
       ],
-      outputs: ["Build-in-public thesis", "Verifiable signal", "Process as evidence"],
+      outputs: ["Build-in-public thesis", "Verifiable signal", "Process as evidence", "Verifiable trail"],
       relatedProjects: ["xhs-growth-agent", "quant-agent", "real-quant-engine", "quant-strategy-prototypes"]
     },
     {
@@ -442,7 +442,7 @@ window.siteData = {
         "The biggest organizational risk of the AI era isn't lagging technology, but managing information-age productive forces with industrial-era bureaucracy. The efficiency gap isn't linear — it's structural.",
         "Organizations that get eliminated often did nothing wrong — in the face of new productive forces, the old organizational form simply lost its reason to exist.",
       ],
-      outputs: ["Productivity-relations thesis", "Organizational evolution lens", "Structural disruption insight"],
+      outputs: ["Productivity-relations thesis", "Organizational evolution lens", "Structural disruption insight", "Org form obsolescence"],
       relatedProjects: ["xhs-growth-agent", "quant-agent"]
     },
     {
@@ -477,7 +477,7 @@ window.siteData = {
         "Each loop doesn't need to be big, but it must be complete. Tiny closed loops accumulate into qualitative leaps.",
         "Refusing to close loops is refusing to evolve. A loop abandoned halfway might as well never have happened.",
       ],
-      outputs: ["Loop evolution thesis", "Feedback-driven growth", "Compound improvement insight"],
+      outputs: ["Loop evolution thesis", "Feedback-driven growth", "Compound improvement insight", "Refuse half-loops"],
       relatedProjects: ["xhs-growth-agent", "quant-agent", "real-quant-engine", "quant-strategy-prototypes"]
     },
     {
@@ -512,7 +512,7 @@ window.siteData = {
         "Accumulation isn't piling up volume, but sustained high-density, high-signal output. Accumulating garbage data only produces garbage strategies.",
         "The real moat isn't any single strategy but the capacity to keep producing strategies — the flywheel's own speed and stability.",
       ],
-      outputs: ["Data-strategy flywheel thesis", "Alpha compounding insight", "Quality reinforcement loop"],
+      outputs: ["Data-strategy flywheel thesis", "Alpha compounding insight", "Quality reinforcement loop", "Flywheel as moat"],
       relatedProjects: ["quant-agent", "real-quant-engine", "quant-strategy-prototypes"]
     },
     {
@@ -547,7 +547,7 @@ window.siteData = {
         "Basics let you draw architecture diagrams, but they won't survive that scale of traffic. What survives is judgment: where to add redundancy, where to degrade, where to sacrifice consistency.",
         "The most valuable AI-era skill is using experience to ask the right questions and verify AI's answers. Knowledge is free — but knowing which answer to trust costs more than ever.",
       ],
-      outputs: ["AI-era value shift thesis", "Experience-as-scarcity insight", "Judgment over knowledge argument"],
+      outputs: ["AI-era value shift thesis", "Experience-as-scarcity insight", "Judgment over knowledge argument", "Ask-and-verify skill"],
       relatedProjects: ["real-quant-engine", "quant-agent"]
     },
     {
@@ -582,7 +582,7 @@ window.siteData = {
         "The moat lives in the feedback loop: tools wired to real environments capture data models can't get — physical states, failure scenes, edge cases. That's the hard-to-replicate part.",
         "Conclusion: the skills layer keeps depreciating while the tools layer keeps appreciating. Investing in tools that touch the physical world is more inflation-proof than optimizing skills that can be devoured.",
       ],
-      outputs: ["Skills-as-LLM-API thesis", "Physical-friction moat insight", "Tools-over-skills argument"],
+      outputs: ["Skills-as-LLM-API thesis", "Physical-friction moat insight", "Tools-over-skills argument", "Tools over skills"],
       relatedProjects: ["real-quant-engine", "quant-agent"]
     },
     {
@@ -617,7 +617,7 @@ window.siteData = {
         "The premium comes from real data loops: physical states, failure scenes, and edge cases are scarce inputs models can't synthesize. Own the loop, own the pricing power.",
         "Conclusion: bet less on the internalizable pure-software layer, more on the physically connected software-hardware layer — value migrates from code itself to real-world loops.",
       ],
-      outputs: ["Pure-software devaluation thesis", "Physical-connected premium insight", "Software-hardware integration argument"],
+      outputs: ["Pure-software devaluation thesis", "Physical-connected premium insight", "Software-hardware integration argument", "Physical-connected premium"],
       relatedProjects: ["real-quant-engine", "quant-agent"]
     }
   ]
