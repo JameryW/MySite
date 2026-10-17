@@ -2516,6 +2516,23 @@ body[data-page="home"] .note-card .card-actions {
   background: rgba(255, 255, 255, 0.5);
 }
 
+/* 404 (and any static dual-locale chrome) — no app.js required */
+.lang-en {
+  display: none;
+}
+
+[data-lang="en"] .lang-zh {
+  display: none;
+}
+
+[data-lang="en"] .lang-en {
+  display: inline;
+}
+
+[data-lang="en"] a > .lang-en {
+  display: inline;
+}
+
 /* ── Note detail: single-column hero + one facts strip ──
    The old layout printed the same three facts twice (meta row + Note
    Signal panel) and stacked three equal-weight title lines. */
@@ -4826,6 +4843,14 @@ html.page-hidden *::after {
   .pager-card:first-child:hover,
   .pager-card:last-child:hover {
     transform: none;
+  }
+
+  .lang-toggle button:hover {
+    color: var(--muted);
+  }
+
+  .lang-toggle button.active:hover {
+    color: #02040d;
   }
 
   body[data-page="home"] .work-card:hover {
