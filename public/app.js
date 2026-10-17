@@ -606,17 +606,18 @@ if (nowBuildingNode) {
       const href = project ? projectDetailHref(project) : "./projects.html";
       const demoHref = project?.demoUrl || "";
       const order = String(index + 1).padStart(2, "0");
+      const label = project?.label || item.code || "Now";
       return `
         <article class="about-now-card reveal">
           <div class="about-now-card-top">
-            <span class="about-now-index">${order}</span>
-            <span class="about-now-when">${item.when || ""}</span>
+            <p class="card-topline">
+              <span class="about-now-index">${order}</span>
+              <span>${label}</span>
+              <span class="card-status-dot live" aria-hidden="true"></span>
+              <span class="work-status-pill">Shipping</span>
+            </p>
+            ${item.when ? `<span class="about-now-when">${item.when}</span>` : ""}
           </div>
-          <p class="card-topline">
-            ${item.code || project?.code || "NOW"}
-            <span class="card-status-dot live" aria-hidden="true"></span>
-            <span class="work-status-pill">Shipping</span>
-          </p>
           <h3>${item.title}</h3>
           <p>${item.beat}</p>
           <div class="card-actions">

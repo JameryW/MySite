@@ -9,9 +9,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 
 - Refresh XhsGrowthAgent and UltimateCoders project copy to match current Kernel / DAG / memory progress
-- Rebuild About page hero around the brand name, add a Now Building progress section, and tighten profile signals
-- Update homepage focus wording toward kernel, memory, and observable execution surfaces
-- Cache bump: `styles.css?v=84`, `app.js?v=50`, `data.js?v=33`, Service Worker `mysite-v107`
+- Rebuild About page as a brand-first single-column hero with a Now Building section
+- Remove redundant Profile Pulse / dual taglines; align home copy away from prompt-native conflict
+- Tighten projects / showcase section wording and Now Building card hierarchy
+- Cache bump: `styles.css?v=86`, `app.js?v=51`, `data.js?v=34`, Service Worker `mysite-v109`
 
 ## [1.0.0] - 2026-05-31
 

@@ -11,14 +11,14 @@ window.siteData = {
         slug: "xhs-growth-agent",
         code: "A1",
         title: "XhsGrowthAgent",
-        beat: "Kernel-centric 运行时落地；可选 hy-memory 长期记忆；公开 Showcase 与 Workflow Replay。",
+        beat: "内核运行时已落地；公开 Showcase / Replay；可选接入 hy-memory。",
         when: "2026-10"
       },
       {
         slug: "ultimate-coders",
         code: "E5",
         title: "UltimateCoders",
-        beat: "DAG 编排 + Web Dashboard + 多适配 Worker；分层记忆与 Text/Semantic/AST 混合检索持续推进。",
+        beat: "DAG 编排与 Dashboard 可观测；分层记忆和混合检索持续推进。",
         when: "2026-10"
       }
     ]
@@ -30,7 +30,7 @@ window.siteData = {
       label: "Growth Agent",
       title: "XhsGrowthAgent",
       featured: true,
-      summary: "Kernel-centric 多智能体运行时：把小红书增长 Brief 变成可恢复、可审核、可发布的内容工作流。",
+      summary: "小红书增长工作台：确定性内核承载状态与调度，LangGraph 只跑任务图，发布前保留人工确认。",
       href: "https://github.com/JameryW/XhsGrowthAgent",
       demoUrl: "https://xhs.jameryw.dev",
       cta: "view source",
@@ -40,12 +40,12 @@ window.siteData = {
       role: "Architect / Builder",
       detailTitle: "Kernel-Centric Content Growth Runtime",
       overview:
-        "面向小红书的 AI 内容运营工作台。LangGraph 只负责执行任务图；状态、上下文、工具、调度和决策由下方确定性内核层承担。从趋势发现到可审核笔记包，证据链全程可见；发布前保留人工确认边界。公开部署提供 Showcase 与 Workflow Replay，登录后进入按账号隔离的创作与分析工作区。",
+        "面向小红书的 AI 内容运营工作台。LangGraph 只负责执行任务图；状态、上下文、工具、调度和决策由下方确定性内核层承担。从趋势发现到可审核笔记包，证据链全程可见；发布前保留人工确认。公开部署提供 Showcase 与 Workflow Replay，登录后进入按账号隔离的创作与分析工作区。",
       highlights: [
-        "Kernel layers：RuntimeState / Artifact / Event、Context Compiler、Tool Runtime、Durable Scheduler、Decision/Action Gate。",
+        "内核分层：RuntimeState / Artifact / Event、Context Compiler、Tool Runtime、Durable Scheduler、Decision/Action Gate。",
         "公开产品面：Showcase 浏览已授权案例；Workflow Replay 逐步回放从趋势发现到内容审核的证据链。",
         "登录工作区：趋势发现 / 商单 Brief / 自由创作三条路径，配套 analytics、草稿闭环与按账号隔离。",
-        "可选 hy-memory 长期记忆引擎（默认关闭），把跨会话偏好与运营经验沉淀为可检索资产。",
+        "可选 hy-memory 长期记忆（默认关闭），把跨会话偏好与运营经验沉淀为可检索资产。",
         "同一套工作流可从 Web UI、CLI、API 或终端扩展复用，支持断点续跑与安全 takeover。"
       ],
       outputs: ["Kernel runtime", "Human-gated publishing", "Showcase / Replay", "Memory-ready workflow"],
@@ -131,7 +131,7 @@ window.siteData = {
       label: "Distributed AI",
       title: "UltimateCoders",
       featured: true,
-      summary: "分布式 AI 编程系统 — DAG 编排、Web Dashboard、Rust Gateway 与多适配 Worker，共享分层记忆与混合检索。",
+      summary: "分布式 AI 编程平台：DAG 编排、可观测 Dashboard、多适配 Worker，共享分层记忆与混合检索。",
       href: "https://github.com/JameryW/UltimateCoders",
       cta: "view source",
       status: "Active",
@@ -143,7 +143,7 @@ window.siteData = {
         "把终端里的 AI 编程变成可观测、可调度的执行平台。默认 Docker 应用由 Web Dashboard、Rust Gateway、NATS 与 Python Worker 组成；自然语言任务拆成 DAG 节点，依赖就绪后派发并推送生命周期事件。Worker 默认走 xAI Grok Build，也可切换 Claude Code、Codex、OpenCode、oh-my-pi、MiMo Code 或本地 harness。",
       highlights: [
         "DAG 编排：规划器拆解任务，Rust Gateway 按依赖派发，Dashboard 与 gRPC TaskService 共享同一份任务状态。",
-        "产品面：`/` 展示能力与执行链，`#/dashboard` 提供任务、Worker、事件、调度与检索运营视图。",
+        "产品面：首页讲清能力与执行链，Dashboard 提供任务、Worker、事件、调度与检索视图。",
         "跨仓库混合检索：一次查询组合 Text、Semantic 与 AST，覆盖多个已索引 Git 仓库。",
         "分层记忆：短期 / 长期语义 / 结构化元数据分别落 TiKV、Qdrant、PostgreSQL，依赖不可用时退回内存；持续接入 hy-memory。",
         "灵活部署：本机 OMP、Docker Gateway、Compose 应用或多 Worker 集群，同一产品面平滑扩展。"

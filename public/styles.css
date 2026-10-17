@@ -2768,16 +2768,15 @@ body[data-page="home"] .note-card .card-actions {
   transform: translateX(6px);
 }
 
-/* About page hierarchy: fewer nested surfaces, clearer reading order. */
+/* About page hierarchy: single-column hero, one signal strip, clearer cards. */
 body[data-page="about"] .page-hero,
 body[data-page="about"] .about-hero {
-  row-gap: 16px;
-  column-gap: clamp(32px, 5vw, 72px);
-  align-items: start;
-  padding: 54px 0 36px;
+  display: block;
+  padding: 54px 0 28px;
 }
 
 body[data-page="about"] .about-hero-copy {
+  max-width: 46rem;
   min-width: 0;
 }
 
@@ -2791,7 +2790,7 @@ body[data-page="about"] .about-hero .page-title span {
 }
 
 body[data-page="about"] .about-hero .page-lead {
-  max-width: 36rem;
+  max-width: 38rem;
   margin-top: 14px;
 }
 
@@ -2801,51 +2800,8 @@ body[data-page="about"] .page-hero::after {
   opacity: 0.55;
 }
 
-body[data-page="about"] .page-hero-panel {
-  align-self: start;
-  min-height: 100%;
-  padding: 8px 0 8px 28px;
-  border: 0;
-  border-left: 1px solid rgba(108, 242, 255, 0.32);
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-}
-
-body[data-page="about"] .page-hero-panel::before,
-body[data-page="about"] .page-hero-panel::after {
-  display: none;
-}
-
-body[data-page="about"] .page-hero-panel-grid {
-  grid-template-columns: 1fr;
-  gap: 0;
-}
-
-body[data-page="about"] .page-hero-panel-grid div {
-  padding: 14px 0;
-  border: 0;
-  border-bottom: 1px solid var(--line);
-  border-radius: 0;
-  background: transparent;
-}
-
-body[data-page="about"] .page-hero-panel-grid div:last-child {
-  grid-column: auto;
-  border-bottom: 0;
-}
-
-body[data-page="about"] .page-hero-panel-grid div > span {
-  margin-bottom: 6px;
-  font-size: 0.68rem;
-}
-
-body[data-page="about"] .page-hero-panel-grid strong {
-  font-size: 0.92rem;
-}
-
 body[data-page="about"] .page-actions {
-  margin-top: 20px;
+  margin-top: 22px;
 }
 
 body[data-page="about"] .about-page-actions {
@@ -2855,18 +2811,18 @@ body[data-page="about"] .about-page-actions {
 }
 
 body[data-page="about"] .about-page-actions .button {
-  flex: 1 1 150px;
-  min-width: 0;
-  padding-right: 16px;
-  padding-left: 16px;
+  flex: 0 1 auto;
+  min-width: 132px;
+  padding-right: 18px;
+  padding-left: 18px;
   white-space: nowrap;
 }
 
 body[data-page="about"] .about-signal-strip {
   display: grid;
-  grid-template-columns: 1.35fr repeat(2, 0.7fr) 1fr;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
-  margin: 0 0 18px;
+  margin: 0 0 10px;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
@@ -2927,7 +2883,17 @@ body[data-page="about"] .about-section-head .section-summary {
 }
 
 body[data-page="about"] .about-now-section {
-  padding-top: 8px;
+  padding-top: 18px;
+}
+
+body[data-page="projects"] .page-title {
+  max-width: 18ch;
+}
+
+body[data-page="projects"] .page-title span {
+  max-width: none;
+  font-size: 0.42em;
+  letter-spacing: 0.04em;
 }
 
 body[data-page="about"] .about-now-grid {
@@ -2990,10 +2956,11 @@ body[data-page="about"] .about-now-index {
   font-family: var(--font-display);
   font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
 }
 
 body[data-page="about"] .about-now-when {
+  flex: 0 0 auto;
   color: var(--muted);
   font-size: 0.72rem;
   letter-spacing: 0.12em;
@@ -3002,9 +2969,11 @@ body[data-page="about"] .about-now-when {
 
 body[data-page="about"] .about-now-card .card-topline {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
   margin: 0;
+  min-width: 0;
 }
 
 body[data-page="about"] .about-now-card h3 {
@@ -3979,17 +3948,8 @@ body[data-page="about"] .contact-links a:nth-child(3) {
 
   body[data-page="about"] .page-hero,
   body[data-page="about"] .about-hero {
-    row-gap: 20px;
-    column-gap: 24px;
     padding-top: 36px;
-  }
-
-  body[data-page="about"] .page-hero-panel {
-    min-height: 0;
-    margin-top: 4px;
-    padding: 20px 0 0;
-    border-top: 1px solid rgba(108, 242, 255, 0.32);
-    border-left: 0;
+    padding-bottom: 24px;
   }
 
   body[data-page="about"] .about-now-grid {
@@ -3999,7 +3959,7 @@ body[data-page="about"] .contact-links a:nth-child(3) {
 
   body[data-page="about"] .about-signal-strip {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    margin-bottom: 20px;
+    margin-bottom: 8px;
   }
 
   body[data-page="about"] .about-signal:nth-child(2n) {
@@ -4100,17 +4060,17 @@ body[data-page="about"] .contact-links a:nth-child(3) {
 
   body[data-page="about"] .about-page-actions {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
     margin-top: 16px;
   }
 
   body[data-page="about"] .about-page-actions .button {
     min-height: 42px;
-    padding: 10px 8px;
-    font-size: 0.78rem;
+    padding: 10px 12px;
+    font-size: 0.82rem;
     line-height: 1.25;
-    white-space: normal;
+    white-space: nowrap;
   }
 
   /* 首页 hero 移动端 — 紧凑堆叠 */

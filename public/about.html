@@ -34,7 +34,7 @@
     <link rel="preconnect" href="https://stats.jameryw.dev" />
     <link rel="dns-prefetch" href="https://github.com" />
     <link rel="preload" href="./fonts/syne-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="./styles.css?v=84" />
+    <link rel="stylesheet" href="./styles.css?v=86" />
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -120,51 +120,29 @@
               Jamery Wang
               <span>AI 时代原住民</span>
             </h1>
-            <p class="page-lead">终端是第二个大脑，LLM 是第三个。当前在推 Kernel runtime、分层记忆与可观测的 Agent 执行面——想法先用代码跑通。</p>
+            <p class="page-lead">终端是第二个大脑，LLM 是第三个。现在把精力放在内核、记忆和可观测执行面上——先跑通，再谈结构。</p>
             <div class="page-actions about-page-actions">
-              <a class="button primary" href="#now-building">最新进展</a>
-              <a class="button secondary" href="./projects.html">项目方向</a>
+              <a class="button primary" href="./projects.html">项目方向</a>
               <a class="button secondary" href="./showcase.html">在线作品</a>
             </div>
           </div>
-          <aside class="page-hero-panel reveal" aria-label="About signal panel">
-            <p class="stack-label">Profile Pulse</p>
-            <div class="page-hero-panel-grid">
-              <div>
-                <span>Base</span>
-                <strong>Hangzhou / Online</strong>
-              </div>
-              <div>
-                <span>Status</span>
-                <strong>Shipping memory-aware agent systems</strong>
-              </div>
-              <div>
-                <span>Focus</span>
-                <strong>Agents · Memory · Kernel · DAG Coding</strong>
-              </div>
-              <div>
-                <span>Bias</span>
-                <strong>Prototype first — 跑通再谈结构</strong>
-              </div>
-            </div>
-          </aside>
         </section>
 
         <div class="about-signal-strip reveal" id="profile-signal" aria-label="Profile snapshot">
           <div class="about-signal">
-            <span class="about-signal-value">AI-NATIVE</span>
-            <span class="about-signal-label">Working mode</span>
+            <span class="about-signal-value">HANGZHOU</span>
+            <span class="about-signal-label">Base / online</span>
           </div>
           <div class="about-signal">
             <strong data-project-count>0</strong>
-            <span class="about-signal-label">Projects shipped</span>
+            <span class="about-signal-label">Projects</span>
           </div>
           <div class="about-signal">
             <strong data-note-count>0</strong>
-            <span class="about-signal-label">Working notes</span>
+            <span class="about-signal-label">Notes</span>
           </div>
           <div class="about-signal">
-            <span class="about-signal-value">MEMORY</span>
+            <span class="about-signal-value">KERNEL</span>
             <span class="about-signal-label">Current lens</span>
           </div>
         </div>
@@ -178,7 +156,7 @@
               </div>
               <a class="section-view-all" href="./projects.html">全部项目 <span aria-hidden="true">→</span></a>
             </div>
-            <p class="section-summary">公开主线上正在推进的两件事：增长 Agent 的内核化，以及分布式编程系统的可观测执行面。</p>
+            <p class="section-summary">两条主线并行：增长 Agent 内核化，编程系统可观测化。</p>
           </div>
           <div class="about-now-grid" data-now-building></div>
         </section>
@@ -187,7 +165,7 @@
           <div class="section-head about-section-head reveal">
             <p class="section-kicker">Working Profile</p>
             <h2>工作方式</h2>
-            <p class="section-summary">从终端习惯、工具选择到构建方法，把个人工作方式整理成可扫描的信号。</p>
+            <p class="section-summary">工具偏好、构建方法和公开信号，压成一套可扫描的说明。</p>
           </div>
           <div class="about-page-grid">
             <article class="glass-card statement terminal-statement reveal">
@@ -197,20 +175,19 @@
               </div>
               <div class="terminal-body">
                 <p class="terminal-cmd"><span class="prompt">$</span> whoami</p>
-                <p class="terminal-out">jameryw — AI-native / prototyper / terminal native. Hangzhou.</p>
+                <p class="terminal-out">jameryw — AI-native / prototyper / Hangzhou</p>
 
                 <p class="terminal-cmd"><span class="prompt">$</span> cat ~/.ai-stack</p>
-                <p class="terminal-out"><span class="terminal-key">model</span>   → Claude · Grok Build · self-hosted LLMs</p>
                 <p class="terminal-out"><span class="terminal-key">runtime</span> → Kernel layers · LangGraph · Rust/Python DAG</p>
                 <p class="terminal-out"><span class="terminal-key">memory</span>  → hy-memory · TiKV / Qdrant / Postgres</p>
                 <p class="terminal-out"><span class="terminal-key">surface</span> → Showcase · Replay · Ops Dashboard</p>
+                <p class="terminal-out"><span class="terminal-key">bias</span>    → prototype first · ship the loop</p>
 
                 <p class="terminal-cmd"><span class="prompt">$</span> curl -s jameryw.dev/.profile</p>
                 <p class="terminal-out">{</p>
                 <p class="terminal-out indent">"agent_first": true,</p>
                 <p class="terminal-out indent">"kernel_over_prompts": true,</p>
                 <p class="terminal-out indent">"memory_as_asset": true,</p>
-                <p class="terminal-out indent">"llm_role": "copilot_not_autopilot",</p>
                 <p class="terminal-out indent">"outputs": [<span data-project-count>0</span>_projects, <span data-note-count>0</span>_notes]</p>
                 <p class="terminal-out">}</p>
 
@@ -220,20 +197,20 @@
             <article class="glass-card detail reveal">
               <p class="detail-heading">Build Signals</p>
               <div>
-                <span>Identity</span>
-                <p>Jamery Wang，AI 时代原住民，偏爱极客表达和快速原型，坐标杭州。</p>
-              </div>
-              <div>
-                <span>Philosophy</span>
-                <p>边搭边想，优先跑通。关注内核、记忆和执行面——让想法落到可恢复的系统，而不是一次性演示。</p>
+                <span>Bias</span>
+                <p>边搭边想，优先跑通。想法要落到可恢复的系统，而不是一次性演示。</p>
               </div>
               <div>
                 <span>Method</span>
-                <p>启发式学习驱动理解，Agent 原型验证假设，公开 Showcase / Replay / Dashboard 暴露判断力。</p>
+                <p>用 Agent 原型验证假设，用 Showcase / Replay / Dashboard 暴露判断力。</p>
+              </div>
+              <div>
+                <span>Lens</span>
+                <p>关注状态、上下文编译、调度和发布边界——内核设计决定上限。</p>
               </div>
               <div>
                 <span>Home Base</span>
-                <p>GitHub 是当前最主要的公开入口；站点负责把进展和信号整理成可读的界面。</p>
+                <p>GitHub 放源码，站点整理进展与信号，邮箱收灵感。</p>
               </div>
             </article>
           </div>
@@ -243,8 +220,8 @@
           <div class="contact-card reveal">
             <div class="contact-copy">
               <p class="section-kicker">Entry Points</p>
-              <h2>cd ~ / access</h2>
-              <p class="section-summary">源码在 GitHub，判断在站点，灵感在邮箱里。</p>
+              <h2>从这里进入</h2>
+              <p class="section-summary">源码在 GitHub，判断在站点，灵感在邮箱。</p>
             </div>
             <div class="contact-links">
               <a class="platform-link" href="https://github.com/jameryw" target="_blank" rel="noreferrer"><svg class="platform-icon" aria-hidden="true"><use href="#platform-icon-github"></use></svg><span>github.com/jameryw</span></a>
@@ -262,7 +239,7 @@
         <div class="footer-grid">
           <div class="footer-copy">
             <p class="footer-kicker">About / AI Geek Profile</p>
-            <p>把兴趣、偏好和构建方式整理成足够清楚的公开说明。</p>
+            <p>兴趣、偏好和构建方法，整理成可读的公开说明。</p>
           </div>
           <div class="footer-links">
             <a href="./index.html">Home</a>
@@ -284,9 +261,9 @@
       <span>Top</span>
     </button>
 
-<script src="./data.js?v=33" defer></script>
+<script src="./data.js?v=34" defer></script>
 <script src="./umami-config.js" defer></script>
-<script src="./app.js?v=50" defer></script>
+<script src="./app.js?v=51" defer></script>
 
     <!-- Command Palette -->
     <div class="palette-overlay" data-palette-overlay></div>
