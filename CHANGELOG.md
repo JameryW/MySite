@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.1.2] - 2026-10-17
+
+### Changed
+
+- Refresh XhsGrowthAgent and UltimateCoders project copy to match current Kernel / DAG / memory progress
+- Rebuild About page hero around the brand name, add a Now Building progress section, and tighten profile signals
+- Update homepage focus wording toward kernel, memory, and observable execution surfaces
+- Cache bump: `styles.css?v=84`, `app.js?v=50`, `data.js?v=33`, Service Worker `mysite-v107`
+
 ## [1.0.0] - 2026-05-31
 
 ### Added

@@ -3,9 +3,25 @@ window.siteData = {
     name: "Jamery Wang",
     title: "AI 时代原住民",
     base: "Hangzhou / Online",
-    status: "Exploring AI-first builds",
+    status: "Shipping memory-aware agent systems",
     github: "https://github.com/jameryw",
-    focus: ["LLM", "Agents", "Quant", "LangGraph", "Code-as-Policy"]
+    focus: ["Agents", "Memory", "Kernel Runtime", "DAG Coding", "Quant"],
+    now: [
+      {
+        slug: "xhs-growth-agent",
+        code: "A1",
+        title: "XhsGrowthAgent",
+        beat: "Kernel-centric 运行时落地；可选 hy-memory 长期记忆；公开 Showcase 与 Workflow Replay。",
+        when: "2026-10"
+      },
+      {
+        slug: "ultimate-coders",
+        code: "E5",
+        title: "UltimateCoders",
+        beat: "DAG 编排 + Web Dashboard + 多适配 Worker；分层记忆与 Text/Semantic/AST 混合检索持续推进。",
+        when: "2026-10"
+      }
+    ]
   },
   projects: [
     {
@@ -14,25 +30,26 @@ window.siteData = {
       label: "Growth Agent",
       title: "XhsGrowthAgent",
       featured: true,
-      summary: "LangGraph 多 Agent 工作流，自动化小红书内容生命周期：选品→策略→文案→视觉→审核→发布→分析。",
+      summary: "Kernel-centric 多智能体运行时：把小红书增长 Brief 变成可恢复、可审核、可发布的内容工作流。",
       href: "https://github.com/JameryW/XhsGrowthAgent",
       demoUrl: "https://xhs.jameryw.dev",
       cta: "view source",
       status: "Active",
-      stack: ["LangGraph", "Python", "Multi-Agent", "Vue 3", "Playwright"],
+      stack: ["LangGraph", "Kernel Runtime", "Python", "Vue 3", "hy-memory"],
       timeframe: "2025–now",
       role: "Architect / Builder",
-      detailTitle: "Multi-Agent Content Growth Engine",
+      detailTitle: "Kernel-Centric Content Growth Runtime",
       overview:
-        "基于 LangGraph 的多 Agent 编排系统，把小红书内容运营从选题到发布到复盘的全流程自动化。8 个专业 Agent 分工协作，通过 Human Review Gate 保留人工审核环节，兼顾效率和质量控制。前端用 Vue 3 + Tailwind CSS 构建赛博朋克风格的审核面板。",
+        "面向小红书的 AI 内容运营工作台。LangGraph 只负责执行任务图；状态、上下文、工具、调度和决策由下方确定性内核层承担。从趋势发现到可审核笔记包，证据链全程可见；发布前保留人工确认边界。公开部署提供 Showcase 与 Workflow Replay，登录后进入按账号隔离的创作与分析工作区。",
       highlights: [
-        "8 个专业 Agent 分工：趋势侦察、内容策略、文案生成、视觉设计、人工审核、发布、数据分析、互动管理。",
-        "智能模型路由：DeepSeek 做路由、Claude 做策略与文案、GPT-4o 做视觉与分析，按任务特性分配模型。",
-        "Harness 驱动 + Loop 工程化：结构化工作流编排，支持断点续跑和状态持久化，Human Review Gate 保障发布质量。",
-        "Vue 3 前端仪表盘 + CLI 双模式运行，支持 dry-run 验证和 Playwright 浏览器自动化。"
+        "Kernel layers：RuntimeState / Artifact / Event、Context Compiler、Tool Runtime、Durable Scheduler、Decision/Action Gate。",
+        "公开产品面：Showcase 浏览已授权案例；Workflow Replay 逐步回放从趋势发现到内容审核的证据链。",
+        "登录工作区：趋势发现 / 商单 Brief / 自由创作三条路径，配套 analytics、草稿闭环与按账号隔离。",
+        "可选 hy-memory 长期记忆引擎（默认关闭），把跨会话偏好与运营经验沉淀为可检索资产。",
+        "同一套工作流可从 Web UI、CLI、API 或终端扩展复用，支持断点续跑与安全 takeover。"
       ],
-      outputs: ["Multi-agent workflow", "Content automation", "Analytics pipeline"],
-      relatedNotes: ["why-agents-matter", "prompt-engineering-evolution"]
+      outputs: ["Kernel runtime", "Human-gated publishing", "Showcase / Replay", "Memory-ready workflow"],
+      relatedNotes: ["why-agents-matter", "prompt-engineering-evolution", "evolve-in-loop"]
     },
     {
       slug: "quant-agent",
@@ -114,25 +131,25 @@ window.siteData = {
       label: "Distributed AI",
       title: "UltimateCoders",
       featured: true,
-      summary: "分布式 AI 编码系统 — Rust 核心处理索引、搜索、记忆与调度，Python 层负责 LLM 交互，支持 PyO3/gRPC 双模式。",
+      summary: "分布式 AI 编程系统 — DAG 编排、Web Dashboard、Rust Gateway 与多适配 Worker，共享分层记忆与混合检索。",
       href: "https://github.com/JameryW/UltimateCoders",
       cta: "view source",
       status: "Active",
-      stack: ["Rust", "Python", "PyO3", "gRPC", "Multi-Agent", "TiKV", "Qdrant"],
+      stack: ["Rust", "Python", "DAG", "NATS", "gRPC", "Grok Build", "Qdrant"],
       timeframe: "2025–now",
       role: "Architect / Builder",
-      detailTitle: "Distributed AI Coding System",
+      detailTitle: "Observable Distributed Coding Platform",
       overview:
-        "基于 Orchestrator-Worker 模式的分布式 AI 编码系统。Rust 核心负责索引、搜索、记忆和调度，Python 层处理 LLM 任务分解与代码生成。支持 PyO3 FFI 本地运行或 gRPC 分布式部署，运行时切换。存储后端支持 TiKV、Qdrant、PostgreSQL，NATS 消息总线。",
+        "把终端里的 AI 编程变成可观测、可调度的执行平台。默认 Docker 应用由 Web Dashboard、Rust Gateway、NATS 与 Python Worker 组成；自然语言任务拆成 DAG 节点，依赖就绪后派发并推送生命周期事件。Worker 默认走 xAI Grok Build，也可切换 Claude Code、Codex、OpenCode、oh-my-pi、MiMo Code 或本地 harness。",
       highlights: [
-        "Orchestrator-Worker 多 Agent 协作模式，任务分解与执行分离。",
-        "Rust 核心引擎：索引、搜索、记忆、调度，高性能基础设施。",
-        "Python LLM 层：任务分解、代码生成，灵活的模型接入。",
-        "双通信模式：PyO3 FFI 本地高性能，gRPC 分布式扩展，运行时切换。",
-        "多存储后端：TiKV 键值、Qdrant 向量、PostgreSQL 关系、NATS 消息队列。"
+        "DAG 编排：规划器拆解任务，Rust Gateway 按依赖派发，Dashboard 与 gRPC TaskService 共享同一份任务状态。",
+        "产品面：`/` 展示能力与执行链，`#/dashboard` 提供任务、Worker、事件、调度与检索运营视图。",
+        "跨仓库混合检索：一次查询组合 Text、Semantic 与 AST，覆盖多个已索引 Git 仓库。",
+        "分层记忆：短期 / 长期语义 / 结构化元数据分别落 TiKV、Qdrant、PostgreSQL，依赖不可用时退回内存；持续接入 hy-memory。",
+        "灵活部署：本机 OMP、Docker Gateway、Compose 应用或多 Worker 集群，同一产品面平滑扩展。"
       ],
-      outputs: ["Distributed AI system", "Rust-Python bridge", "Multi-agent orchestration"],
-      relatedNotes: ["why-agents-matter", "prompt-engineering-evolution"]
+      outputs: ["DAG orchestration", "Ops dashboard", "Hybrid retrieval", "Layered memory"],
+      relatedNotes: ["why-agents-matter", "prompt-engineering-evolution", "skills-devoured-tools-fortified"]
     },
     {
       slug: "awesome-workflows",

@@ -2769,11 +2769,30 @@ body[data-page="home"] .note-card .card-actions {
 }
 
 /* About page hierarchy: fewer nested surfaces, clearer reading order. */
-body[data-page="about"] .page-hero {
+body[data-page="about"] .page-hero,
+body[data-page="about"] .about-hero {
   row-gap: 16px;
   column-gap: clamp(32px, 5vw, 72px);
   align-items: start;
   padding: 54px 0 36px;
+}
+
+body[data-page="about"] .about-hero-copy {
+  min-width: 0;
+}
+
+body[data-page="about"] .about-hero .page-title {
+  max-width: 14ch;
+  line-height: 1.12;
+}
+
+body[data-page="about"] .about-hero .page-title span {
+  max-width: none;
+}
+
+body[data-page="about"] .about-hero .page-lead {
+  max-width: 36rem;
+  margin-top: 14px;
 }
 
 body[data-page="about"] .page-hero::after {
@@ -2905,6 +2924,117 @@ body[data-page="about"] .about-section-head {
 
 body[data-page="about"] .about-section-head .section-summary {
   margin-top: 0;
+}
+
+body[data-page="about"] .about-now-section {
+  padding-top: 8px;
+}
+
+body[data-page="about"] .about-now-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+body[data-page="about"] .about-now-card {
+  position: relative;
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  padding: 22px 22px 20px;
+  border: 1px solid rgba(108, 242, 255, 0.18);
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(108, 242, 255, 0.06), transparent 42%),
+    linear-gradient(180deg, rgba(18, 26, 52, 0.72), rgba(7, 11, 27, 0.9));
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+  overflow: hidden;
+  transition: border-color 180ms ease, transform 180ms ease, background 180ms ease;
+}
+
+body[data-page="about"] .about-now-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--cyan), var(--pink));
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+body[data-page="about"] .about-now-card:hover {
+  border-color: rgba(108, 242, 255, 0.36);
+  transform: translateY(-2px);
+}
+
+[data-theme="light"] body[data-page="about"] .about-now-card {
+  background:
+    linear-gradient(135deg, rgba(14, 165, 186, 0.06), transparent 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(236, 240, 250, 0.94));
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08);
+}
+
+[data-theme="light"] body[data-page="about"] .about-now-card:hover {
+  border-color: rgba(14, 165, 186, 0.34);
+}
+
+body[data-page="about"] .about-now-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+body[data-page="about"] .about-now-index {
+  color: var(--cyan);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+body[data-page="about"] .about-now-when {
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+body[data-page="about"] .about-now-card .card-topline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+body[data-page="about"] .about-now-card h3 {
+  margin: 0;
+  font-size: clamp(1.2rem, 2vw, 1.45rem);
+  line-height: 1.15;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+body[data-page="about"] .about-now-card > p:not(.card-topline) {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+body[data-page="about"] .about-now-card .card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  margin-top: 4px;
+}
+
+body[data-page="about"] .about-now-card .card-inline-link {
+  color: var(--cyan);
+  text-decoration: none;
+}
+
+body[data-page="about"] .about-now-card .card-inline-link:hover {
+  color: var(--pink);
 }
 
 body[data-page="about"] .terminal-statement {
@@ -3847,7 +3977,8 @@ body[data-page="about"] .contact-links a:nth-child(3) {
     grid-template-columns: 1fr;
   }
 
-  body[data-page="about"] .page-hero {
+  body[data-page="about"] .page-hero,
+  body[data-page="about"] .about-hero {
     row-gap: 20px;
     column-gap: 24px;
     padding-top: 36px;
@@ -3859,6 +3990,11 @@ body[data-page="about"] .contact-links a:nth-child(3) {
     padding: 20px 0 0;
     border-top: 1px solid rgba(108, 242, 255, 0.32);
     border-left: 0;
+  }
+
+  body[data-page="about"] .about-now-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
   }
 
   body[data-page="about"] .about-signal-strip {
@@ -4613,6 +4749,15 @@ html.page-hidden *::after {
 
   body[data-page="home"] .work-card:hover {
     transform: none;
+  }
+
+  body[data-page="about"] .about-now-card:hover {
+    transform: none;
+    border-color: rgba(108, 242, 255, 0.18);
+  }
+
+  [data-theme="light"] body[data-page="about"] .about-now-card:hover {
+    border-color: rgba(14, 165, 186, 0.18);
   }
 
   /* Home Round 2: same-specificity touch resets for the richer hover */

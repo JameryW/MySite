@@ -34,7 +34,7 @@
     <link rel="preconnect" href="https://stats.jameryw.dev" />
     <link rel="dns-prefetch" href="https://github.com" />
     <link rel="preload" href="./fonts/syne-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="./styles.css?v=83" />
+    <link rel="stylesheet" href="./styles.css?v=84" />
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -113,40 +113,38 @@
       </header>
 
       <main id="main-content">
-        <section class="page-hero reveal">
-          <p class="eyebrow">About / AI-Native Profile</p>
-          <h1 class="page-title">
-            About
-            <span>AI-Native Profile</span>
-          </h1>
-          <p class="page-lead">终端是我的第二个大脑，LLM 是第三个。专注 Agent 原型构建和启发式学习，把想法用代码跑通。</p>
-          <div class="page-actions about-page-actions">
-            <a class="button primary" href="./projects.html">项目方向</a>
-            <a class="button secondary" href="./showcase.html">个人作品</a>
-            <a class="button secondary" href="./notes.html">思考笔记</a>
+        <section class="page-hero about-hero reveal">
+          <div class="about-hero-copy">
+            <p class="eyebrow">About / AI-Native Profile</p>
+            <h1 class="page-title">
+              Jamery Wang
+              <span>AI 时代原住民</span>
+            </h1>
+            <p class="page-lead">终端是第二个大脑，LLM 是第三个。当前在推 Kernel runtime、分层记忆与可观测的 Agent 执行面——想法先用代码跑通。</p>
+            <div class="page-actions about-page-actions">
+              <a class="button primary" href="#now-building">最新进展</a>
+              <a class="button secondary" href="./projects.html">项目方向</a>
+              <a class="button secondary" href="./showcase.html">在线作品</a>
+            </div>
           </div>
           <aside class="page-hero-panel reveal" aria-label="About signal panel">
-            <p class="stack-label">Profile Signal</p>
+            <p class="stack-label">Profile Pulse</p>
             <div class="page-hero-panel-grid">
               <div>
                 <span>Base</span>
                 <strong>Hangzhou / Online</strong>
               </div>
               <div>
-                <span>Bias</span>
-                <strong>Prototype first — 跑通再谈结构和品味</strong>
+                <span>Status</span>
+                <strong>Shipping memory-aware agent systems</strong>
               </div>
               <div>
                 <span>Focus</span>
-                <strong>Agent Prototyping · Heuristic Learning · Quant · LangGraph</strong>
+                <strong>Agents · Memory · Kernel · DAG Coding</strong>
               </div>
               <div>
-                <span>Stack</span>
-                <strong>Python · TypeScript · LangGraph · Code-as-Policy</strong>
-              </div>
-              <div>
-                <span>Email</span>
-                <strong><a href="mailto:jameryw@gmail.com">jameryw@gmail.com</a></strong>
+                <span>Bias</span>
+                <strong>Prototype first — 跑通再谈结构</strong>
               </div>
             </div>
           </aside>
@@ -166,14 +164,29 @@
             <span class="about-signal-label">Working notes</span>
           </div>
           <div class="about-signal">
-            <span class="about-signal-value">HANGZHOU</span>
-            <span class="about-signal-label">Base / online</span>
+            <span class="about-signal-value">MEMORY</span>
+            <span class="about-signal-label">Current lens</span>
           </div>
         </div>
+
+        <section class="section about-now-section" id="now-building" aria-label="Now building">
+          <div class="section-head about-section-head reveal">
+            <div class="section-head-top">
+              <div class="section-head-titles">
+                <p class="section-kicker">Now Building</p>
+                <h2>最新进展</h2>
+              </div>
+              <a class="section-view-all" href="./projects.html">全部项目 <span aria-hidden="true">→</span></a>
+            </div>
+            <p class="section-summary">公开主线上正在推进的两件事：增长 Agent 的内核化，以及分布式编程系统的可观测执行面。</p>
+          </div>
+          <div class="about-now-grid" data-now-building></div>
+        </section>
 
         <section class="section" id="working-profile">
           <div class="section-head about-section-head reveal">
             <p class="section-kicker">Working Profile</p>
+            <h2>工作方式</h2>
             <p class="section-summary">从终端习惯、工具选择到构建方法，把个人工作方式整理成可扫描的信号。</p>
           </div>
           <div class="about-page-grid">
@@ -187,22 +200,17 @@
                 <p class="terminal-out">jameryw — AI-native / prototyper / terminal native. Hangzhou.</p>
 
                 <p class="terminal-cmd"><span class="prompt">$</span> cat ~/.ai-stack</p>
-                <p class="terminal-out"><span class="terminal-key">model</span>   → Claude · self-hosted LLMs · RAG · embeddings</p>
-                <p class="terminal-out"><span class="terminal-key">runtime</span> → Python · TypeScript · LangGraph · Code-as-Policy</p>
-                <p class="terminal-out"><span class="terminal-key">editor</span>  → keyboard-native · vim bindings · CLI-first</p>
-                <p class="terminal-out"><span class="terminal-key">os</span>      → macOS + LLM coprocessor · zsh + custom AI plugins</p>
-
-                <p class="terminal-cmd"><span class="prompt">$</span> cat ~/.keybindings</p>
-                <p class="terminal-out"><span class="terminal-key">⌘K</span> → command palette (universal entry point)</p>
-                <p class="terminal-out"><span class="terminal-key">⌘J</span> → terminal toggle (always one keystroke away)</p>
-                <p class="terminal-out">mouse → reduced; trackpad → gestures_only; everything → keyboard_reachable</p>
+                <p class="terminal-out"><span class="terminal-key">model</span>   → Claude · Grok Build · self-hosted LLMs</p>
+                <p class="terminal-out"><span class="terminal-key">runtime</span> → Kernel layers · LangGraph · Rust/Python DAG</p>
+                <p class="terminal-out"><span class="terminal-key">memory</span>  → hy-memory · TiKV / Qdrant / Postgres</p>
+                <p class="terminal-out"><span class="terminal-key">surface</span> → Showcase · Replay · Ops Dashboard</p>
 
                 <p class="terminal-cmd"><span class="prompt">$</span> curl -s jameryw.dev/.profile</p>
                 <p class="terminal-out">{</p>
                 <p class="terminal-out indent">"agent_first": true,</p>
-                <p class="terminal-out indent">"prototype_over_docs": true,</p>
+                <p class="terminal-out indent">"kernel_over_prompts": true,</p>
+                <p class="terminal-out indent">"memory_as_asset": true,</p>
                 <p class="terminal-out indent">"llm_role": "copilot_not_autopilot",</p>
-                <p class="terminal-out indent">"learning": "heuristic_by_building",</p>
                 <p class="terminal-out indent">"outputs": [<span data-project-count>0</span>_projects, <span data-note-count>0</span>_notes]</p>
                 <p class="terminal-out">}</p>
 
@@ -217,15 +225,15 @@
               </div>
               <div>
                 <span>Philosophy</span>
-                <p>边搭边想，优先跑通。关注调用、连接和执行——让想法最终落到代码和界面。</p>
+                <p>边搭边想，优先跑通。关注内核、记忆和执行面——让想法落到可恢复的系统，而不是一次性演示。</p>
               </div>
               <div>
                 <span>Method</span>
-                <p>启发式学习驱动理解，Agent 原型验证假设，GitHub 记录每一次迭代。</p>
+                <p>启发式学习驱动理解，Agent 原型验证假设，公开 Showcase / Replay / Dashboard 暴露判断力。</p>
               </div>
               <div>
                 <span>Home Base</span>
-                <p>GitHub 是当前最主要的公开入口，也是项目增长的起点。</p>
+                <p>GitHub 是当前最主要的公开入口；站点负责把进展和信号整理成可读的界面。</p>
               </div>
             </article>
           </div>
@@ -276,9 +284,9 @@
       <span>Top</span>
     </button>
 
-<script src="./data.js?v=32" defer></script>
+<script src="./data.js?v=33" defer></script>
 <script src="./umami-config.js" defer></script>
-<script src="./app.js?v=49" defer></script>
+<script src="./app.js?v=50" defer></script>
 
     <!-- Command Palette -->
     <div class="palette-overlay" data-palette-overlay></div>

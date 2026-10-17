@@ -23,11 +23,12 @@ const homeNotesNode = document.querySelector("[data-home-notes]");
 const projectLibraryNode = document.querySelector("[data-project-library]");
 const noteLibraryNode = document.querySelector("[data-note-library]");
 const showcaseNode = document.querySelector("[data-showcase]");
+const nowBuildingNode = document.querySelector("[data-now-building]");
 const projectCountNodes = document.querySelectorAll("[data-project-count]");
 const noteCountNodes = document.querySelectorAll("[data-note-count]");
 const projectDetailNode = document.querySelector("[data-project-detail]");
 const noteDetailNode = document.querySelector("[data-note-detail]");
-const siteData = window.siteData || { projects: [], notes: [] };
+const siteData = window.siteData || { profile: {}, projects: [], notes: [] };
 const cursorGlow = document.querySelector(".cursor-glow");
 if (cursorGlow && reduceMotion) cursorGlow.style.display = "none";
 
@@ -595,6 +596,41 @@ if (showcaseNode) {
       </a>
     `;
   }).join("");
+}
+
+if (nowBuildingNode) {
+  const nowItems = Array.isArray(siteData.profile?.now) ? siteData.profile.now : [];
+  nowBuildingNode.innerHTML = nowItems
+    .map((item, index) => {
+      const project = projectBySlug.get(item.slug);
+      const href = project ? projectDetailHref(project) : "./projects.html";
+      const demoHref = project?.demoUrl || "";
+      const order = String(index + 1).padStart(2, "0");
+      return `
+        <article class="about-now-card reveal">
+          <div class="about-now-card-top">
+            <span class="about-now-index">${order}</span>
+            <span class="about-now-when">${item.when || ""}</span>
+          </div>
+          <p class="card-topline">
+            ${item.code || project?.code || "NOW"}
+            <span class="card-status-dot live" aria-hidden="true"></span>
+            <span class="work-status-pill">Shipping</span>
+          </p>
+          <h3>${item.title}</h3>
+          <p>${item.beat}</p>
+          <div class="card-actions">
+            <a class="card-inline-link" href="${href}">查看详情 <span aria-hidden="true">→</span></a>
+            ${
+              demoHref
+                ? `<a class="card-inline-link" href="${demoHref}" target="_blank" rel="noreferrer">在线体验</a>`
+                : ""
+            }
+          </div>
+        </article>
+      `;
+    })
+    .join("");
 }
 
 if (projectCountNodes.length > 0) {
