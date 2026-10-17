@@ -1124,8 +1124,13 @@ body[data-page="home"] .hero-copy h1 span {
 
 .hero-tagline {
   margin: 18px 0 0;
-  max-width: 44ch;
+  max-width: 46ch;
   line-height: 1.85;
+  text-wrap: pretty;
+}
+
+.hero-copy .lead {
+  text-wrap: pretty;
 }
 
 .tagline-ch {
@@ -1765,6 +1770,24 @@ body[data-page="about"] .section + .section {
   border-top: 2px solid rgba(108, 242, 255, 0.12);
 }
 
+.build-track-grid > .track-card h3 {
+  min-height: 2.4em;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+[data-project-detail] .page-hero,
+[data-note-detail] .page-hero {
+  padding-bottom: 36px;
+}
+
+[data-project-detail] .page-hero + .section,
+[data-note-detail] .page-hero + .section,
+[data-note-detail] .note-overview-section {
+  padding-top: 36px;
+}
+
 .related-track-grid > .track-card {
   flex: initial;
   min-width: 0;
@@ -2362,6 +2385,29 @@ body[data-page="home"] .note-card .card-actions {
   white-space: nowrap;
 }
 
+.note-status-pill[data-kind="research"],
+.note-status-pill[data-kind="observation"],
+.note-status-pill[data-kind="judgment"] {
+  border-color: rgba(108, 242, 255, 0.32);
+  background: rgba(108, 242, 255, 0.08);
+  color: var(--cyan);
+}
+
+.note-status-pill[data-kind="build"],
+.note-status-pill[data-kind="interface"] {
+  border-color: rgba(255, 79, 216, 0.32);
+  background: rgba(255, 79, 216, 0.08);
+  color: var(--pink);
+}
+
+.note-status-pill[data-kind="philosophy"],
+.note-status-pill[data-kind="moat"],
+.note-status-pill[data-kind="value"] {
+  border-color: rgba(216, 255, 98, 0.34);
+  background: rgba(216, 255, 98, 0.08);
+  color: var(--lime);
+}
+
 .note-timeframe {
   color: var(--muted);
   font-size: 0.78rem;
@@ -2674,6 +2720,29 @@ body[data-page="home"] .note-card .card-actions {
 [data-theme="light"] .note-status-pill {
   border-color: rgba(90, 138, 0, 0.35);
   background: rgba(90, 138, 0, 0.08);
+}
+
+[data-theme="light"] .note-status-pill[data-kind="research"],
+[data-theme="light"] .note-status-pill[data-kind="observation"],
+[data-theme="light"] .note-status-pill[data-kind="judgment"] {
+  border-color: rgba(8, 145, 178, 0.35);
+  background: rgba(8, 145, 178, 0.08);
+  color: var(--cyan);
+}
+
+[data-theme="light"] .note-status-pill[data-kind="build"],
+[data-theme="light"] .note-status-pill[data-kind="interface"] {
+  border-color: rgba(192, 38, 160, 0.32);
+  background: rgba(192, 38, 160, 0.07);
+  color: var(--pink);
+}
+
+[data-theme="light"] .note-status-pill[data-kind="philosophy"],
+[data-theme="light"] .note-status-pill[data-kind="moat"],
+[data-theme="light"] .note-status-pill[data-kind="value"] {
+  border-color: rgba(90, 138, 0, 0.35);
+  background: rgba(90, 138, 0, 0.08);
+  color: var(--lime);
 }
 
 [data-theme="light"] .note-lens {

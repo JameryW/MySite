@@ -441,10 +441,10 @@ const detailPagerMarkup = (options) => {
           previous
             ? `
               <a class="track-card reveal related-card pager-card" href="${previousHref(previous)}">
-                <p class="stack-label">Previous</p>
+                <p class="stack-label">上一条</p>
                 <h3>${noteTitle(previous)}</h3>
                 <p>${previousLabel(previous)}</p>
-                <span class="repo-meta">go back one</span>
+                <span class="repo-meta">返回上一条</span>
               </a>
             `
             : '<div class="pager-spacer" aria-hidden="true"></div>'
@@ -453,10 +453,10 @@ const detailPagerMarkup = (options) => {
           next
             ? `
               <a class="track-card reveal related-card pager-card" href="${nextHref(next)}">
-                <p class="stack-label">Next</p>
+                <p class="stack-label">下一条</p>
                 <h3>${noteTitle(next)}</h3>
                 <p>${nextLabel(next)}</p>
-                <span class="repo-meta">keep reading</span>
+                <span class="repo-meta">继续阅读</span>
               </a>
             `
             : '<div class="pager-spacer" aria-hidden="true"></div>'
@@ -509,6 +509,17 @@ const projectCardMarkup = (project, variant) => {
   `;
 };
 
+const noteStatusKind = (status) =>
+  String(status || "")
+    .toLowerCase()
+    .replace(/\s+note$/i, "")
+    .trim()
+    .replace(/\s+/g, "-");
+const noteStatusLabel = (status) =>
+  String(status || "")
+    .replace(/\s+note$/i, "")
+    .trim();
+
 const noteCardMarkup = (note) => {
   const buildCount = Array.isArray(note.relatedProjects) ? note.relatedProjects.length : 0;
   const teaser = noteText(note, "summary") || noteText(note, "overview") || "";
@@ -516,12 +527,10 @@ const noteCardMarkup = (note) => {
   const titleSub = noteTitleSub(note);
   const buildWord = notesLang === "en" ? (buildCount === 1 ? "build" : "builds") : "关联项目";
   const readWord = notesLang === "en" ? "read note" : "阅读全文";
+  const statusLabel = noteStatusLabel(note.status);
+  const statusKind = noteStatusKind(note.status);
   /* Skip universal bullet counts — every note ships 4 points, so the
      number is noise. Related-project counts still vary and stay useful. */
-  const metaBits = [
-    note.status || "",
-    buildCount > 0 ? `${buildCount} ${buildWord}` : ""
-  ].filter(Boolean);
   return `
   <a class="note-card reveal note-entry-card" href="${noteDetailHref(note)}">
     <div class="note-card-head">
@@ -536,8 +545,12 @@ const noteCardMarkup = (note) => {
     <p class="note-summary">${teaser}</p>
     <div class="card-actions">
       <span class="note-meta-inline">
-        ${metaBits[0] ? `<span class="note-status-pill">${metaBits[0]}</span>` : ""}
-        ${metaBits[1] ? `<span class="repo-meta">${metaBits[1]}</span>` : ""}
+        ${
+          statusLabel
+            ? `<span class="note-status-pill" data-kind="${statusKind}">${statusLabel}</span>`
+            : ""
+        }
+        ${buildCount > 0 ? `<span class="repo-meta">${buildCount} ${buildWord}</span>` : ""}
       </span>
       <span class="card-inline-link">${readWord} <span aria-hidden="true">→</span></span>
     </div>
@@ -581,7 +594,7 @@ if (showcaseNode) {
             ${project.label}
             <span class="card-status-dot live" aria-hidden="true"></span>
           </p>
-          <div class="showcase-demo-badge">Live Demo</div>
+          <div class="showcase-demo-badge">在线演示</div>
         </div>
         <h3>${project.title}</h3>
         <p>${project.summary}</p>
@@ -677,7 +690,7 @@ function setupFilter(container, items, onFilter) {
 
   const allPill = document.createElement("button");
   allPill.className = "filter-pill active";
-  allPill.textContent = `All (${items.length})`;
+  allPill.textContent = `全部 (${items.length})`;
   allPill.setAttribute("aria-pressed", "true");
   filterBar.appendChild(allPill);
 
@@ -771,9 +784,10 @@ if (projectDetailNode) {
       </section>
 
       <section class="section">
+        <section class="section">
         <div class="section-head reveal">
           <p class="section-kicker">Highlights</p>
-          <h2>Key Design Decisions</h2>
+          <h2>关键设计</h2>
           <p class="section-summary">${project.title} 的核心设计选择和技术亮点。</p>
         </div>
         <div class="build-track-grid">
@@ -783,7 +797,7 @@ if (projectDetailNode) {
 
               return `
                 <article class="track-card reveal">
-                  <p class="stack-label">Highlight 0${index + 1}</p>
+                  <p class="stack-label">要点 0${index + 1}</p>
                   <h3>${highlight.title}</h3>
                   <p>${highlight.body}</p>
                   <span class="repo-meta">${project.outputs[index] || project.stack[index] || project.status}</span>
@@ -798,7 +812,7 @@ if (projectDetailNode) {
       <section class="section">
         <div class="section-head reveal">
           <p class="section-kicker">Related Notes</p>
-          <h2>Linked Thinking</h2>
+          <h2>相关笔记</h2>
           <p class="section-summary">从项目继续跳到相关判断和方法论。</p>
         </div>
         <div class="build-track-grid related-track-grid">
@@ -864,12 +878,12 @@ const renderNoteDetail = (instant = false) => {
         ${noteHeadingEn(note) ? `<p class="note-detail-en">${noteHeadingEn(note)}</p>` : ""}
         <ul class="note-facts reveal">
           ${[
-            { label: "Status", value: note.status },
-            { label: "Focus", value: noteFocusValue(note) },
-            { label: "Period", value: note.timeframe },
-            { label: "Points", value: String(noteBullets(note).length) },
-            { label: "Read", value: `${noteReadMinutes(note)} min` },
-            { label: "Builds", value: String(relatedProjects.length) }
+            { label: notesLang === "en" ? "Status" : "状态", value: note.status },
+            { label: notesLang === "en" ? "Focus" : "焦点", value: noteFocusValue(note) },
+            { label: notesLang === "en" ? "Period" : "周期", value: note.timeframe },
+            { label: notesLang === "en" ? "Points" : "要点", value: String(noteBullets(note).length) },
+            { label: notesLang === "en" ? "Read" : "阅读", value: notesLang === "en" ? `${noteReadMinutes(note)} min` : `${noteReadMinutes(note)} 分钟` },
+            { label: notesLang === "en" ? "Builds" : "关联", value: String(relatedProjects.length) }
           ]
             .filter((fact) => fact.value)
             .map(
@@ -891,19 +905,19 @@ const renderNoteDetail = (instant = false) => {
 
       <section class="section note-overview-section">
         <blockquote class="note-lens reveal">
-          <span class="note-lens-label">Lens</span>
+          <span class="note-lens-label">${notesLang === "en" ? "Lens" : "视角"}</span>
           <p>${noteLens(note)}</p>
         </blockquote>
         <div class="note-overview-card reveal">
-          <p class="note-overview-label">Overview</p>
+          <p class="note-overview-label">${notesLang === "en" ? "Overview" : "概览"}</p>
           <p class="note-overview-text">${noteText(note, "overview")}</p>
         </div>
       </section>
 
       <section class="section note-detail-body">
         <div class="section-head reveal">
-          <p class="section-kicker">Breakdown</p>
-          <h2>Key Points</h2>
+          <p class="section-kicker">${notesLang === "en" ? "Breakdown" : "Breakdown"}</p>
+          <h2>${notesLang === "en" ? "Key Points" : "关键要点"}</h2>
         </div>
         <ol class="note-points">
           ${noteBullets(note)
@@ -921,8 +935,8 @@ const renderNoteDetail = (instant = false) => {
       <section class="section" id="linked-builds">
         <div class="section-head reveal">
           <p class="section-kicker">Related Projects</p>
-          <h2>Linked Builds</h2>
-          <p class="section-summary">从判断跳回对应的项目入口，让想法和构建产物互相解释。</p>
+          <h2>${notesLang === "en" ? "Linked Builds" : "相关项目"}</h2>
+          <p class="section-summary">${notesLang === "en" ? "Jump from the judgment back to the matching builds." : "从判断跳回对应的项目入口，让想法和构建产物互相解释。"}</p>
         </div>
         <div class="build-track-grid related-track-grid">
           ${relatedProjects.map((project) => relatedProjectMarkup(project)).join("")}

@@ -14,7 +14,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Tighten projects / showcase section wording and Now Building card hierarchy
 - Deduplicate About working profile, shorten home focus copy, and make note-card meta less repetitive
 - Tighten nav gap, section-head view-all grouping, and hero-to-section rhythm
-- Cache bump: `styles.css?v=87`, `app.js?v=52`, `data.js?v=34`, Service Worker `mysite-v110`
+- Localize notes/project detail chrome, shorten highlight titles, and color note status pills by kind
+- Improve hero text wrapping and detail-page section rhythm
+- Cache bump: `styles.css?v=88`, `app.js?v=53`, `data.js?v=35`, Service Worker `mysite-v111`
 
 ## [1.0.0] - 2026-05-31
 
