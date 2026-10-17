@@ -327,6 +327,11 @@ const I18N = {
     "projects.lead": "增长 Agent、分布式编程、量化引擎，以及复用型交付工作流。",
     "projects.libraryTitle": "全部项目",
     "projects.librarySummary": "直接进入详情，少讲概念，多看执行痕迹。",
+    "projects.indexed": "个项目",
+    "palette.page": "页面",
+    "palette.external": "外部",
+    "palette.project": "项目",
+    "palette.note": "笔记",
     "showcase.lead": "可直接打开的运行面：Showcase、Replay，以及量化系统演示。",
     "showcase.demosTitle": "在线演示",
     "showcase.demosSummary": "先看运行结果，再按需打开源码。",
@@ -432,6 +437,11 @@ const I18N = {
     "projects.lead": "Growth Agents, distributed coding, quant engines, and reusable delivery workflows.",
     "projects.libraryTitle": "All projects",
     "projects.librarySummary": "Jump into details. Less concept talk, more execution traces.",
+    "projects.indexed": "projects indexed",
+    "palette.page": "Page",
+    "palette.external": "External",
+    "palette.project": "Project",
+    "palette.note": "Note",
     "showcase.lead": "Live surfaces you can open now: Showcase, Replay, and quant demos.",
     "showcase.demosTitle": "Live demos",
     "showcase.demosSummary": "Inspect the running result first, then open the source if you want.",
@@ -509,12 +519,6 @@ const projectHighlights = (project) =>
 /* note.meta is authored as "Focus: xxx" — the facts strip already labels the
    cell, so drop the inline prefix to avoid printing the word twice. */
 const noteFocusValue = (note) => (note.meta || "").replace(/^\s*focus\s*[:：]\s*/i, "").trim();
-const langToggleMarkup = (compact = false) => `
-  <div class="lang-toggle${compact ? " lang-toggle-compact" : ""}" role="group" aria-label="${t("aria.lang")}">
-    <button type="button" data-lang-toggle="zh" class="${siteLang === "zh" ? "active" : ""}" aria-pressed="${siteLang === "zh"}">中文</button>
-    <button type="button" data-lang-toggle="en" class="${siteLang === "en" ? "active" : ""}" aria-pressed="${siteLang === "en"}">EN</button>
-  </div>
-`;
 const updateLangToggleUI = () => {
   document.querySelectorAll("[data-lang-toggle]").forEach((btn) => {
     const active = btn.getAttribute("data-lang-toggle") === siteLang;
@@ -955,7 +959,6 @@ const renderProjectDetail = (instant = false) => {
         <div class="page-actions">
           <a class="button primary" href="./projects.html">${t("cta.backProjects")}</a>
           <a class="button secondary" href="./index.html">${t("cta.home")}</a>
-          ${langToggleMarkup()}
         </div>
       </section>
     `;
@@ -982,7 +985,6 @@ const renderProjectDetail = (instant = false) => {
             ${t("cta.viewSource")}
           </a>
           <a class="button secondary" href="./projects.html">${t("cta.backProjects")}</a>
-          ${langToggleMarkup()}
         </div>
         ${pageHeroPanelMarkup("Project Signal", [
           { label: "Status", value: project.status },
@@ -1072,7 +1074,6 @@ const renderNoteDetail = (instant = false) => {
         <div class="page-actions">
           <a class="button primary" href="./notes.html">${t("cta.backNotes")}</a>
           <a class="button secondary" href="./index.html">${t("cta.home")}</a>
-          ${langToggleMarkup()}
         </div>
       </section>
     `;
@@ -1114,7 +1115,6 @@ const renderNoteDetail = (instant = false) => {
         <div class="page-actions">
           <a class="button primary" href="./notes.html">${t("cta.backNotes")}</a>
           <a class="button secondary" href="${relatedProjects.length > 0 ? "#linked-builds" : "./projects.html"}">${t("detail.relatedProjects")}</a>
-          ${langToggleMarkup()}
         </div>
       </section>
 
@@ -1278,6 +1278,7 @@ const setSiteLang = (lang, instant = false) => {
   });
   const paletteEmpty = document.querySelector(".palette-empty");
   if (paletteEmpty) paletteEmpty.textContent = t("palette.empty");
+  if (typeof window.__refreshPaletteLang === "function") window.__refreshPaletteLang();
 };
 
 document.addEventListener("click", (event) => {
@@ -1412,13 +1413,13 @@ if (palette && paletteInput) {
   let currentResults = [];
   let paletteTriggerEl = null;
 
-  const pages = [
-    { title: "Home", label: "Page", href: "./index.html" },
-    { title: "Projects", label: "Page", href: "./projects.html" },
-    { title: "Showcase", label: "Page", href: "./showcase.html" },
-    { title: "Notes", label: "Page", href: "./notes.html" },
-    { title: "About", label: "Page", href: "./about.html" },
-    { title: "GitHub Profile", label: "External", href: "https://github.com/jameryw" }
+  const pages = () => [
+    { title: t("nav.home"), label: t("palette.page"), href: "./index.html" },
+    { title: t("nav.projects"), label: t("palette.page"), href: "./projects.html" },
+    { title: t("nav.showcase"), label: t("palette.page"), href: "./showcase.html" },
+    { title: t("nav.notes"), label: t("palette.page"), href: "./notes.html" },
+    { title: t("nav.about"), label: t("palette.page"), href: "./about.html" },
+    { title: "GitHub Profile", label: t("palette.external"), href: "https://github.com/jameryw" }
   ];
 
   function openPalette() {
@@ -1429,6 +1430,11 @@ if (palette && paletteInput) {
     paletteInput.focus();
     renderResults("");
   }
+
+  window.__refreshPaletteLang = () => {
+    if (!palette.classList.contains("open")) return;
+    renderResults(paletteInput.value || "");
+  };
 
   function closePalette() {
     palette.classList.remove("open");
@@ -1445,7 +1451,7 @@ if (palette && paletteInput) {
     const items = [];
 
     /* Pages */
-    pages.forEach((p) => {
+    pages().forEach((p) => {
       if (!q || p.title.toLowerCase().includes(q)) {
         items.push({ title: p.title, label: p.label, href: p.href });
       }
@@ -1458,7 +1464,7 @@ if (palette && paletteInput) {
         .join(" ")
         .toLowerCase();
       if (!q || hay.includes(q)) {
-        items.push({ title: p.title, label: "Project", href: projectDetailHref(p) });
+        items.push({ title: p.title, label: t("palette.project"), href: projectDetailHref(p) });
       }
     });
 
@@ -1469,7 +1475,7 @@ if (palette && paletteInput) {
         .join(" ")
         .toLowerCase();
       if (!q || hay.includes(q)) {
-        items.push({ title: noteTitle(n), label: "Note", href: noteDetailHref(n) });
+        items.push({ title: noteTitle(n), label: t("palette.note"), href: noteDetailHref(n) });
       }
     });
 

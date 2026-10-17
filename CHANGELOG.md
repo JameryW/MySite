@@ -19,7 +19,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Ship site-wide ZH/EN bilingual switching (`site-lang`); keep product keywords in English
 - Add project `summaryEn` / `overviewEn` / `highlightsEn` mirrors and chrome `data-i18n` coverage
 - Keep language toggle outside the mobile hamburger; translate footers; search both locales in ⌘K
-- Cache bump: `styles.css?v=90`, `app.js?v=55`, `data.js?v=37`, Service Worker `mysite-v113`
+- Drop duplicate in-page lang toggles; bilingualize ⌘K group labels and projects indexed count
+- Cache bump: `styles.css?v=91`, `app.js?v=56`, `data.js?v=38`, Service Worker `mysite-v114`
 
 ## [1.0.0] - 2026-05-31
 
