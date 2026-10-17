@@ -21,7 +21,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Keep language toggle outside the mobile hamburger; translate footers; search both locales in ⌘K
 - Drop duplicate in-page lang toggles; bilingualize ⌘K group labels and projects indexed count
 - Fix ZH card chrome (`查看详情` / `打开演示`); bilingual 404 with shared site-lang
-- Cache bump: `styles.css?v=92`, `app.js?v=57`, `data.js?v=38`, Service Worker `mysite-v115`
+- Platform-aware palette shortcut (Ctrl+K / ⌘K); cluster mobile lang+socials; unify EN CTA casing
+- Cache bump: `styles.css?v=94`, `app.js?v=58`, `data.js?v=38`, Service Worker `mysite-v117`
 
 ## [1.0.0] - 2026-05-31
 

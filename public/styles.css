@@ -2488,6 +2488,14 @@ body[data-page="home"] .note-card .card-actions {
   font-size: 0.72rem;
 }
 
+.topbar-end {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  margin-left: 0;
+}
+
 .topbar-lang {
   flex-shrink: 0;
   margin-left: 0;
@@ -4510,7 +4518,7 @@ body[data-page="about"] .contact-links a:nth-child(3) {
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     padding: 16px 0 12px;
   }
 
@@ -4519,11 +4527,33 @@ body[data-page="about"] .contact-links a:nth-child(3) {
     flex: 0 0 40px;
   }
 
-  /* Keep language switch outside the hamburger — same rule as .topbar-socials */
-  .topbar-lang {
+  /* Keep language + socials outside the hamburger as one right cluster */
+  .topbar-end {
     order: 2;
     margin-left: auto;
-    margin-right: 4px;
+    gap: 4px;
+  }
+
+  .topbar-lang {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .brand {
+    gap: 8px;
+    letter-spacing: 0.04em;
+    font-size: 0.82rem;
+    min-width: 0;
+  }
+
+  .brand-mark {
+    width: 10px;
+    height: 10px;
+  }
+
+  .topbar-lang.lang-toggle-compact button {
+    padding: 5px 8px;
+    font-size: 0.68rem;
   }
 
   .topbar-meta {
@@ -4636,14 +4666,14 @@ body[data-page="about"] .contact-links a:nth-child(3) {
     justify-content: center;
     flex: 0 0 auto;
     margin-left: 0;
-    order: 3;
+    gap: 2px;
   }
 
   .topbar-socials .topbar-link.platform-icon-only {
-    width: 44px;
-    min-width: 44px;
-    height: 44px;
-    flex: 0 0 44px;
+    width: 36px;
+    min-width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
     text-align: center;
   }
 

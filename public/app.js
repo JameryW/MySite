@@ -146,6 +146,13 @@ if (themeToggle) {
   });
 }
 
+/* Palette hint: ⌘K on Apple platforms, Ctrl+K elsewhere (Linux/Windows). */
+const isApplePlatform = /Mac|iPhone|iPad|iPod/i.test(navigator.platform || "") ||
+  (/Mac/i.test(navigator.userAgent || "") && navigator.maxTouchPoints > 0);
+document.querySelectorAll(".palette-hint kbd").forEach((kbd) => {
+  kbd.textContent = isApplePlatform ? "⌘K" : "Ctrl+K";
+});
+
 /* ── Terminal Command / Output Stagger ── */
 document.querySelectorAll(".terminal-body").forEach((terminal) => {
   const children = Array.from(terminal.children);
@@ -400,16 +407,16 @@ const I18N = {
     "cta.notes": "Latest notes",
     "cta.demos": "Open demos",
     "cta.allProjects": "All projects",
-    "cta.viewSource": "view source",
+    "cta.viewSource": "View source",
     "cta.openDetail": "Open detail",
     "cta.tryDemo": "Try demo",
     "cta.backProjects": "Back to projects",
     "cta.backNotes": "Back to notes",
-    "cta.readNote": "read note",
+    "cta.readNote": "Read note",
     "cta.all": "All",
     "cta.repos": "Repositories",
     "cta.home": "Home",
-    "cta.thinkNotes": "Notes",
+    "cta.thinkNotes": "Browse notes",
     "filter.all": "All",
     "home.tagline": "The terminal is my second brain, the LLM the third. Ship prototypes more than docs; debug Agents more than myself.",
     "home.lead": "Based in Hangzhou, focused on Agent kernels, layered memory, and observable execution — with quant strategies and Code-as-Policy on the same verification loop. A prototype only counts once it runs.",
@@ -479,8 +486,8 @@ const I18N = {
     "meta.builds": "Builds",
     "meta.min": "min",
     "card.relatedBuilds": "builds",
-    "card.openDetail": "open detail",
-    "card.openDemo": "open demo",
+    "card.openDetail": "Open detail",
+    "card.openDemo": "Open demo",
     "palette.placeholder": "Search projects, notes, or pages...",
     "palette.empty": "No matches",
     "footer.home": "Iterating on AI, automation, prototypes, and building in public.",
