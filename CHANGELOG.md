@@ -28,7 +28,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Keep project detail titles wrapping inside the hero column so they no longer cover the signal panel
 - Scale long detail titles and soft-break CamelCase at token boundaries instead of mid-word wraps
 - Fit long detail titles to one line beside the signal panel; use muted subtitle instead of outline stroke
-- Cache bump: `styles.css?v=99`, `app.js?v=62`, `data.js?v=40`, Service Worker `mysite-v124`
+- Raise hamburger topbar to 980px and keep nav/brand/status on one line to stop Chinese labels stacking
+- Cache bump: `styles.css?v=100`, `app.js?v=62`, `data.js?v=40`, Service Worker `mysite-v125`
 
 ## [1.0.0] - 2026-05-31
 
