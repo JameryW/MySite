@@ -30,7 +30,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Fit long detail titles to one line beside the signal panel; use muted subtitle instead of outline stroke
 - Raise hamburger topbar to 980px and keep nav/brand/status on one line to stop Chinese labels stacking
 - Rebalance desktop topbar so nav sits after the brand; keep home/about name on one line
-- Cache bump: `styles.css?v=101`, `app.js?v=63`, `data.js?v=40`, Service Worker `mysite-v127`
+- Keep note-card `N# / Label` on one line; bilingualize listing signal chrome; ease Notes/Showcase hero wraps
+- Cache bump: `styles.css?v=102`, `app.js?v=64`, `data.js?v=40`, Service Worker `mysite-v128`
 
 ## [1.0.0] - 2026-05-31
 

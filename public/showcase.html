@@ -34,7 +34,7 @@
     <link rel="preconnect" href="https://stats.jameryw.dev" />
     <link rel="dns-prefetch" href="https://github.com" />
     <link rel="preload" href="./fonts/syne-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="./styles.css?v=101" />
+    <link rel="stylesheet" href="./styles.css?v=102" />
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -120,34 +120,34 @@
 
       <main id="main-content">
         <section class="page-hero reveal">
-          <p class="eyebrow">Showcase / Live Demos</p>
+          <p class="eyebrow" data-i18n="showcase.eyebrow">Showcase / Live Demos</p>
           <h1 class="page-title">
             Showcase
-            <span>Live Demos</span>
+            <span data-i18n="showcase.titleSub">Live Demos</span>
           </h1>
           <p class="page-lead" data-i18n="showcase.lead">可直接打开的运行面：Showcase、Replay，以及量化系统演示。</p>
           <div class="page-actions">
             <a class="button primary" href="#demos" data-i18n="cta.demos">进入演示</a>
             <a class="button secondary" href="./projects.html" data-i18n="cta.allProjects">全部项目</a>
           </div>
-          <aside class="page-hero-panel reveal" aria-label="Showcase signal panel">
-            <p class="stack-label">Demo Signal</p>
+          <aside class="page-hero-panel reveal" aria-label="Showcase 信号面板" data-i18n-aria="showcase.signalAria">
+            <p class="stack-label" data-i18n="showcase.signalLabel">Demo Signal</p>
             <div class="page-hero-panel-grid">
               <div>
-                <span>Surface</span>
-                <strong>Live systems on jameryw.dev</strong>
+                <span data-i18n="showcase.signalSurface">界面</span>
+                <strong data-i18n="showcase.signalSurfaceValue">jameryw.dev 上的 Live 系统</strong>
               </div>
               <div>
-                <span>Access</span>
-                <strong>Public read surfaces first</strong>
+                <span data-i18n="showcase.signalAccess">访问</span>
+                <strong data-i18n="showcase.signalAccessValue">公开只读面优先</strong>
               </div>
               <div>
-                <span>Focus</span>
-                <strong>Growth agent · Quant demos</strong>
+                <span data-i18n="showcase.signalFocus">焦点</span>
+                <strong data-i18n="showcase.signalFocusValue">Growth Agent · Quant demos</strong>
               </div>
               <div>
-                <span>Next</span>
-                <strong>Inspect output, then open source</strong>
+                <span data-i18n="showcase.signalNext">下一步</span>
+                <strong data-i18n="showcase.signalNextValue">先看输出，再打开源码</strong>
               </div>
             </div>
           </aside>
@@ -155,7 +155,7 @@
 
         <section class="section" id="demos">
           <div class="section-head reveal">
-            <p class="section-kicker">Live Products</p>
+            <p class="section-kicker" data-i18n="showcase.demosKicker">Live Products</p>
             <h2 data-i18n="showcase.demosTitle">在线演示</h2>
             <p class="section-summary" data-i18n="showcase.demosSummary">先看运行结果，再按需打开源码。</p>
           </div>
@@ -166,7 +166,7 @@
       <footer class="footer reveal">
         <div class="footer-grid">
           <div class="footer-copy">
-            <p class="footer-kicker">Showcase / Ship Then Show</p>
+            <p class="footer-kicker" data-i18n="showcase.footerKicker">Showcase / Ship Then Show</p>
             <p data-i18n="footer.showcase">从代码到可运行系统，把原型变成可验证的在线体验。</p>
           </div>
           <div class="footer-links">
@@ -190,7 +190,7 @@
 
 <script src="./data.js?v=40" defer></script>
 <script src="./umami-config.js" defer></script>
-  <script src="./app.js?v=63" defer></script>
+  <script src="./app.js?v=64" defer></script>
 
     <!-- Command Palette -->
     <div class="palette-overlay" data-palette-overlay></div>

@@ -2393,6 +2393,8 @@ body[data-page="home"] .note-card .card-actions {
 
 .note-card-head .stack-label {
   margin-bottom: 0;
+  min-width: 0;
+  white-space: nowrap;
 }
 
 .note-card-head .note-timeframe {
@@ -3098,6 +3100,21 @@ body[data-page="projects"]:not(:has([data-project-detail])) .page-title {
 
 body[data-page="projects"]:not(:has([data-project-detail])) .page-title span {
   max-width: none;
+  font-size: 0.42em;
+  letter-spacing: 0.04em;
+}
+
+/* Notes / Showcase listing heroes: keep brand + outline subtitle on two
+   clean lines instead of forcing "Working Thoughts" into a third wrap. */
+body[data-page="notes"] .page-title,
+body[data-page="showcase"] .page-title {
+  max-width: 14ch;
+}
+
+body[data-page="notes"] .page-title span,
+body[data-page="showcase"] .page-title span {
+  max-width: none;
+  white-space: nowrap;
   font-size: 0.42em;
   letter-spacing: 0.04em;
 }
