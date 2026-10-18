@@ -27,7 +27,7 @@
     <meta name="twitter:description" content="AI 时代原住民的极客风个人信号站。" />
     <meta name="theme-color" content="#050816" />
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-BvFjesuXUeZq6FHJaT9kdP/c6ice0i0dRoaYYDO3DM0=' https://stats.jameryw.dev; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://stats.jameryw.dev;" />
-    <script>try{if(localStorage.getItem("theme")==="light"){document.documentElement.setAttribute("data-theme","light");var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content","#f0f2f8")}}catch(e){}setTimeout(function(){var el=document.querySelector(".page-loader");if(el&&!el.classList.contains("loaded"))el.classList.add("is-slow")},480);setTimeout(function(){var el=document.querySelector(".page-loader");if(el)el.classList.add("loaded")},2400);</script>
+    <script>try{if(localStorage.getItem("theme")==="light"){document.documentElement.setAttribute("data-theme","light");var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content","#f0f2f8")}}catch(e){}try{var L=localStorage.getItem("site-lang")||localStorage.getItem("notes-lang");if(L==="en"||L==="zh"){document.documentElement.setAttribute("data-lang",L);document.documentElement.lang=L==="en"?"en":"zh-CN"}}catch(e){}setTimeout(function(){var el=document.querySelector(".page-loader");if(el&&!el.classList.contains("loaded"))el.classList.add("is-slow")},480);setTimeout(function(){var el=document.querySelector(".page-loader");if(el)el.classList.add("loaded")},2400);</script>
     <link rel="manifest" href="./manifest.json">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -35,7 +35,7 @@
     <link rel="preconnect" href="https://stats.jameryw.dev" />
     <link rel="dns-prefetch" href="https://github.com" />
     <link rel="preload" href="./fonts/syne-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="./styles.css?v=83" />
+    <link rel="stylesheet" href="./styles.css?v=103" />
     <script type="application/ld+json">
     [
       {
@@ -73,7 +73,7 @@
     </svg>
     <div class="page-loader" aria-hidden="true"><div class="loader-ring"></div></div>
     <div class="cursor-glow" aria-hidden="true"></div>
-    <a class="skip-link" href="#main-content">跳到主要内容</a>
+    <a class="skip-link" href="#main-content" data-i18n="aria.skip">跳到主要内容</a>
     <div class="scroll-progress" aria-hidden="true">
       <span class="scroll-progress-bar" data-scroll-progress></span>
     </div>
@@ -88,78 +88,83 @@
           <span class="brand-mark" aria-hidden="true"></span>
           <span>Jamery Wang</span>
         </a>
-        <button class="menu-toggle" type="button" aria-label="菜单" aria-expanded="false" aria-controls="topbar-meta"><span></span></button>
+        <button class="menu-toggle" type="button" aria-label="菜单" data-i18n-aria="aria.menu" aria-expanded="false" aria-controls="topbar-meta"><span></span></button>
         <div class="topbar-meta" id="topbar-meta">
           <nav class="nav" aria-label="Primary">
-            <a href="./index.html">Home</a>
-            <a href="./projects.html">Projects</a>
-            <a href="./showcase.html">Showcase</a>
-            <a href="./notes.html">Notes</a>
-            <a href="./about.html">About</a>
+            <a href="./index.html" data-i18n="nav.home">Home</a>
+            <a href="./projects.html" data-i18n="nav.projects">Projects</a>
+            <a href="./showcase.html" data-i18n="nav.showcase">Showcase</a>
+            <a href="./notes.html" data-i18n="nav.notes">Notes</a>
+            <a href="./about.html" data-i18n="nav.about">About</a>
           </nav>
           <div class="topbar-actions">
-            <button class="palette-hint" type="button" aria-label="搜索" data-palette-trigger>
+            <button class="palette-hint" type="button" aria-label="搜索" data-palette-trigger data-i18n-aria="aria.search">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
               <kbd>⌘K</kbd>
             </button>
-            <button class="theme-toggle" type="button" aria-label="切换主题">
+            <button class="theme-toggle" type="button" aria-label="切换主题" data-i18n-aria="aria.theme">
               <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
               <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
             </button>
-            <p class="topbar-status">Hangzhou / Online</p>
+            <p class="topbar-status" data-i18n="home.topbarStatus">杭州 / 在线</p>
           </div>
         </div>
-        <div class="topbar-socials" role="group" aria-label="Social profiles">
-          <a class="topbar-link platform-link platform-icon-only" href="https://github.com/jameryw" target="_blank" rel="noreferrer" aria-label="GitHub Profile" title="GitHub">
-            <svg class="platform-icon" aria-hidden="true"><use href="#platform-icon-github"></use></svg>
-          </a>
-          <a class="topbar-link platform-link platform-icon-only" href="https://x.com/JameryWang" target="_blank" rel="noreferrer" aria-label="X Profile" title="X">
-            <svg class="platform-icon" aria-hidden="true"><use href="#platform-icon-x"></use></svg>
-          </a>
-          <a class="topbar-link platform-link platform-icon-only" href="https://xhslink.com/m/5WfdZrtFi4K" target="_blank" rel="noreferrer" aria-label="小红书" title="小红书">
-            <img class="platform-icon platform-icon-xiaohongshu" src="./xiaohongshu-logo.png" alt="" />
-          </a>
+        <div class="topbar-end">
+          <div class="lang-toggle lang-toggle-compact topbar-lang" role="group" aria-label="语言切换 Language" data-i18n-aria="aria.lang">
+            <button type="button" data-lang-toggle="zh" class="active" aria-pressed="true">中文</button>
+            <button type="button" data-lang-toggle="en" aria-pressed="false">EN</button>
+          </div>
+          <div class="topbar-socials" role="group" aria-label="Social profiles">
+            <a class="topbar-link platform-link platform-icon-only" href="https://github.com/jameryw" target="_blank" rel="noreferrer" aria-label="GitHub Profile" title="GitHub">
+              <svg class="platform-icon" aria-hidden="true"><use href="#platform-icon-github"></use></svg>
+            </a>
+            <a class="topbar-link platform-link platform-icon-only" href="https://x.com/JameryWang" target="_blank" rel="noreferrer" aria-label="X Profile" title="X">
+              <svg class="platform-icon" aria-hidden="true"><use href="#platform-icon-x"></use></svg>
+            </a>
+            <a class="topbar-link platform-link platform-icon-only" href="https://xhslink.com/m/5WfdZrtFi4K" target="_blank" rel="noreferrer" aria-label="小红书" title="小红书">
+              <img class="platform-icon platform-icon-xiaohongshu" src="./xiaohongshu-logo.png" alt="" />
+            </a>
+          </div>
         </div>
       </header>
 
       <main id="main-content">
         <section class="hero home-hero" id="hero">
           <div class="hero-copy reveal">
-            <p class="eyebrow">AI Builder / Agents / Quant Systems</p>
+            <p class="eyebrow" data-i18n="home.eyebrow">AI Builder / Agents / Quant Systems</p>
             <h1>
               Jamery Wang
-              <span>AI 时代原住民</span>
+              <span data-profile-title>AI 时代原住民</span>
             </h1>
             <p class="hero-tagline">
-              <span class="tagline-ch">终端是我的第二个大脑，LLM 是第三个。写 prompt 比写 PPT 多，debug Agent 比 debug 自己勤。</span>
-              <span class="tagline-en">Prompt-native · Agent-first · Ship before sleep</span>
+              <span class="tagline-ch" data-i18n="home.tagline">终端是第二个大脑，LLM 是第三个。跑通原型比写文档勤；debug Agent 比 debug 自己勤。</span>
+              <span class="tagline-en">Agent-first · Kernel-aware · Ship before sleep</span>
             </p>
-            <p class="lead">扎根杭州，专注 Agent 原型构建与启发式学习，同时折腾量化策略、Harness、Loop 工程和 Code-as-Policy——原型跑通才叫验证。</p>
-            <p class="home-hero-meta">Hangzhou / Online · Prototype first · GitHub first</p>
+            <p class="lead" data-i18n="home.lead">扎根杭州，专注 Agent 内核、分层记忆与可观测执行面；量化策略与 Code-as-Policy 也在同一条验证链上——原型跑通才叫验证。</p>
             <div class="hero-actions">
-              <a class="button primary" href="#work">核心项目</a>
-              <a class="button secondary" href="./showcase.html">作品展示</a>
-              <a class="button secondary" href="#notes">最新笔记</a>
+              <a class="button primary" href="#work" data-i18n="cta.work">核心项目</a>
+              <a class="button secondary" href="./showcase.html" data-i18n="cta.showcase">作品展示</a>
+              <a class="button secondary" href="#notes" data-i18n="cta.notes">最新笔记</a>
             </div>
           </div>
 
           <aside class="hero-focus-panel reveal" aria-label="Current focus">
-            <p class="stack-label">Current Focus</p>
+            <p class="stack-label" data-i18n="home.focusLabel">Current Focus</p>
             <div class="focus-list">
               <div>
                 <span>01</span>
-                <strong>执行优于解释 <span class="title-en">Execution Over Explanation</span></strong>
-                <p>单轮回答再漂亮也只是在解释世界；把工具、记忆和多步执行串起来，才是在改变世界。</p>
+                <strong><span data-i18n="home.focus1Title">执行优于解释</span> <span class="title-en" data-i18n-en-hint="home.focus1Title">Execution Over Explanation</span></strong>
+                <p data-i18n="home.focus1">把工具、记忆和多步执行串成可恢复的闭环，比把单轮回答写漂亮更重要。</p>
               </div>
               <div>
                 <span>02</span>
-                <strong>结构优于技巧 <span class="title-en">Structure Over Tricks</span></strong>
-                <p>当模型能力足够强时，手工写 prompt 的价值在下降，真正决定上限的是工具接口、状态管理和编排流程的设计。</p>
+                <strong><span data-i18n="home.focus2Title">内核优于技巧</span> <span class="title-en" data-i18n-en-hint="home.focus2Title">Kernel Over Tricks</span></strong>
+                <p data-i18n="home.focus2">上限由状态、上下文编译、调度和发布边界决定，不靠临时技巧。</p>
               </div>
               <div>
                 <span>03</span>
-                <strong>信号优于声明 <span class="title-en">Signal Over Claims</span></strong>
-                <p>界面选择暴露判断力，公开迭代暴露执行力。让别人从结果里读到你的能力，而不是从简历里读到你的声明。</p>
+                <strong><span data-i18n="home.focus3Title">信号优于声明</span> <span class="title-en" data-i18n-en-hint="home.focus3Title">Signal Over Claims</span></strong>
+                <p data-i18n="home.focus3">让别人从运行结果里读到能力，而不是从简历声明里读到。</p>
               </div>
             </div>
           </aside>
@@ -168,12 +173,12 @@
           <div class="section-head reveal">
             <div class="section-head-top">
               <div class="section-head-titles">
-                <p class="section-kicker">Selected Work</p>
-                <h2>Core Builds</h2>
+                <p class="section-kicker" data-i18n="section.workKicker">Selected Work</p>
+                <h2 data-i18n="section.work">Core Builds</h2>
               </div>
-              <a class="section-view-all" href="./projects.html">View all <span aria-hidden="true">→</span></a>
+              <a class="section-view-all" href="./projects.html"><span data-i18n="cta.all">全部</span> <span aria-hidden="true">→</span></a>
             </div>
-            <p class="section-summary">最能代表当前方向的 Agent 与量化系统。</p>
+            <p class="section-summary" data-i18n="home.workSummary">当前主线上的增长 Agent、分布式编程与量化系统。</p>
           </div>
           <div class="work-list" data-home-projects></div>
         </section>
@@ -182,18 +187,14 @@
           <div class="section-head reveal">
             <div class="section-head-top">
               <div class="section-head-titles">
-                <p class="section-kicker">Latest Notes</p>
-                <h2>Working Notes</h2>
+                <p class="section-kicker" data-i18n="section.notesKicker">Latest Notes</p>
+                <h2 data-i18n="section.notes">Working Notes</h2>
               </div>
               <div class="section-head-side">
-                <div class="lang-toggle" role="group" aria-label="语言切换 Language">
-                  <button type="button" data-lang-toggle="zh" class="active" aria-pressed="true">中文</button>
-                  <button type="button" data-lang-toggle="en" aria-pressed="false">EN</button>
-                </div>
-                <a class="section-view-all" href="./notes.html">View all <span aria-hidden="true">→</span></a>
+                <a class="section-view-all" href="./notes.html"><span data-i18n="cta.all">全部</span> <span aria-hidden="true">→</span></a>
               </div>
             </div>
-            <p class="section-summary">把判断、失败和构建方法沉淀成可继续迭代的笔记。</p>
+            <p class="section-summary" data-i18n="home.notesSummary">判断、失败和构建方法，沉淀成还能继续改的笔记。</p>
           </div>
           <div class="notes-grid" data-home-notes></div>
         </section>
@@ -203,39 +204,39 @@
       <footer class="footer reveal">
         <div class="footer-grid">
           <div class="footer-copy">
-            <p class="footer-kicker">Jamery Wang / Personal Signal Site</p>
-            <p>围绕 AI、自动化、原型和公开构建过程持续迭代。</p>
+            <p class="footer-kicker" data-i18n="home.footerKicker">Jamery Wang / Personal Signal Site</p>
+            <p data-i18n="footer.home">围绕 AI、自动化、原型和公开构建过程持续迭代。</p>
           </div>
           <div class="footer-links">
-            <a href="./projects.html">Projects</a>
-            <a href="./notes.html">Notes</a>
-            <a href="./about.html">About</a>
+            <a href="./projects.html" data-i18n="nav.projects">项目</a>
+            <a href="./notes.html" data-i18n="nav.notes">笔记</a>
+            <a href="./about.html" data-i18n="nav.about">关于</a>
             <a class="platform-link" href="https://xhslink.com/m/5WfdZrtFi4K" target="_blank" rel="noreferrer"><img class="platform-icon platform-icon-xiaohongshu" src="./xiaohongshu-logo.png" alt="" /><span>小红书</span></a>
             <a class="platform-link" href="https://x.com/JameryWang" target="_blank" rel="noreferrer"><svg class="platform-icon" aria-hidden="true"><use href="#platform-icon-x"></use></svg><span>X</span></a>
             <a class="platform-link" href="https://github.com/jameryw" target="_blank" rel="noreferrer"><svg class="platform-icon" aria-hidden="true"><use href="#platform-icon-github"></use></svg><span>GitHub</span></a>
           </div>
         </div>
         <div class="footer-meta">
-          <p>Geek mode enabled</p>
-          <p><span data-year></span> / Hangzhou / Online</p>
+          <p data-i18n="home.metaTag">极客模式开启</p>
+          <p><span data-year></span><span data-i18n="home.metaSuffix"> / 杭州 / 在线</span></p>
         </div>
       </footer>
     </div>
 
-    <button class="back-to-top" type="button" aria-label="返回顶部" data-back-to-top>
-      <span>Top</span>
+    <button class="back-to-top" type="button" aria-label="Back to top" data-i18n-aria="aria.backTop" data-back-to-top>
+      <span data-i18n="cta.top">顶部</span>
     </button>
 
-    <script src="./data.js?v=32" defer></script>
+    <script src="./data.js?v=40" defer></script>
     <script src="./umami-config.js" defer></script>
-    <script src="./app.js?v=49" defer></script>
+    <script src="./app.js?v=65" defer></script>
 
     <!-- Command Palette -->
     <div class="palette-overlay" data-palette-overlay></div>
     <div class="palette" data-palette>
       <div class="palette-input-wrap">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input class="palette-input" type="text" placeholder="搜索项目、笔记或页面..." data-palette-input autocomplete="off" />
+        <input class="palette-input" type="text" placeholder="搜索项目、笔记或页面..." data-i18n-placeholder="palette.placeholder" data-palette-input autocomplete="off" />
         <span class="palette-kbd">ESC</span>
       </div>
       <div class="palette-results" data-palette-results></div>

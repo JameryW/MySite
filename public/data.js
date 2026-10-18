@@ -2,10 +2,29 @@ window.siteData = {
   profile: {
     name: "Jamery Wang",
     title: "AI 时代原住民",
+    titleEn: "AI-Native Builder",
     base: "Hangzhou / Online",
-    status: "Exploring AI-first builds",
+    status: "Shipping memory-aware agent systems",
     github: "https://github.com/jameryw",
-    focus: ["LLM", "Agents", "Quant", "LangGraph", "Code-as-Policy"]
+    focus: ["Agents", "Memory", "Kernel Runtime", "DAG Coding", "Quant"],
+    now: [
+      {
+        slug: "xhs-growth-agent",
+        code: "A1",
+        title: "XhsGrowthAgent",
+        beat: "内核运行时已落地；公开 Showcase / Replay；可选接入 hy-memory。",
+        beatEn: "Kernel runtime is live; public Showcase / Replay; optional hy-memory.",
+        when: "2026-10"
+      },
+      {
+        slug: "ultimate-coders",
+        code: "E5",
+        title: "UltimateCoders",
+        beat: "DAG 编排与 Dashboard 可观测；分层记忆和混合检索持续推进。",
+        beatEn: "DAG orchestration and an observable Dashboard; layered memory and hybrid retrieval keep moving.",
+        when: "2026-10"
+      }
+    ]
   },
   projects: [
     {
@@ -14,25 +33,36 @@ window.siteData = {
       label: "Growth Agent",
       title: "XhsGrowthAgent",
       featured: true,
-      summary: "LangGraph 多 Agent 工作流，自动化小红书内容生命周期：选品→策略→文案→视觉→审核→发布→分析。",
+      summary: "小红书增长工作台：确定性内核承载状态与调度，LangGraph 只跑任务图，发布前保留人工确认。",
+      summaryEn: "Xiaohongshu growth workbench: a deterministic Kernel owns state and scheduling, LangGraph only runs the task graph, and publishing stays human-gated.",
       href: "https://github.com/JameryW/XhsGrowthAgent",
       demoUrl: "https://xhs.jameryw.dev",
-      cta: "view source",
+      cta: "查看源码",
       status: "Active",
-      stack: ["LangGraph", "Python", "Multi-Agent", "Vue 3", "Playwright"],
+      stack: ["LangGraph", "Kernel Runtime", "Python", "Vue 3", "hy-memory"],
       timeframe: "2025–now",
       role: "Architect / Builder",
-      detailTitle: "Multi-Agent Content Growth Engine",
+      detailTitle: "Kernel-Centric Content Growth Runtime",
       overview:
-        "基于 LangGraph 的多 Agent 编排系统，把小红书内容运营从选题到发布到复盘的全流程自动化。8 个专业 Agent 分工协作，通过 Human Review Gate 保留人工审核环节，兼顾效率和质量控制。前端用 Vue 3 + Tailwind CSS 构建赛博朋克风格的审核面板。",
+        "面向小红书的 AI 内容运营工作台。LangGraph 只负责执行任务图；状态、上下文、工具、调度和决策由下方确定性内核层承担。从趋势发现到可审核笔记包，证据链全程可见；发布前保留人工确认。公开部署提供 Showcase 与 Workflow Replay，登录后进入按账号隔离的创作与分析工作区。",
+      overviewEn:
+        "An AI content-ops workbench for Xiaohongshu. LangGraph only executes the task graph; state, context, tools, scheduling, and decisions live in deterministic Kernel layers underneath. From trend discovery to a reviewable note package, the evidence chain stays visible, and publishing keeps a human confirmation boundary. The public deploy offers Showcase and Workflow Replay; after login you get account-scoped create and analytics workspaces.",
       highlights: [
-        "8 个专业 Agent 分工：趋势侦察、内容策略、文案生成、视觉设计、人工审核、发布、数据分析、互动管理。",
-        "智能模型路由：DeepSeek 做路由、Claude 做策略与文案、GPT-4o 做视觉与分析，按任务特性分配模型。",
-        "Harness 驱动 + Loop 工程化：结构化工作流编排，支持断点续跑和状态持久化，Human Review Gate 保障发布质量。",
-        "Vue 3 前端仪表盘 + CLI 双模式运行，支持 dry-run 验证和 Playwright 浏览器自动化。"
+        "内核分层：RuntimeState / Artifact / Event、Context Compiler、Tool Runtime、Durable Scheduler、Decision/Action Gate。",
+        "公开产品面：Showcase 浏览已授权案例；Workflow Replay 逐步回放从趋势发现到内容审核的证据链。",
+        "登录工作区：趋势发现 / 商单 Brief / 自由创作三条路径，配套 analytics、草稿闭环与按账号隔离。",
+        "可选记忆：hy-memory 默认关闭，把跨会话偏好与运营经验沉淀为可检索资产。",
+        "多端复用：同一套工作流可从 Web UI、CLI、API 或终端扩展复用，支持断点续跑与安全 takeover。"
       ],
-      outputs: ["Multi-agent workflow", "Content automation", "Analytics pipeline"],
-      relatedNotes: ["why-agents-matter", "prompt-engineering-evolution"]
+      highlightsEn: [
+        "Kernel layers: RuntimeState / Artifact / Event, Context Compiler, Tool Runtime, Durable Scheduler, Decision/Action Gate.",
+        "Public surface: Showcase browses approved cases; Workflow Replay steps through the evidence chain from trend discovery to review.",
+        "Signed-in workspace: trend discovery / brief / free-create paths, with analytics, draft loops, and account isolation.",
+        "Optional memory: hy-memory stays off by default and can retain cross-session preferences as searchable assets.",
+        "Multi-surface reuse: the same workflow runs from Web UI, CLI, API, or terminal extensions, with resume and safe takeover."
+      ],
+      outputs: ["Kernel layers", "Showcase / Replay", "Signed-in workspace", "Optional hy-memory", "Multi-surface reuse"],
+      relatedNotes: ["why-agents-matter", "prompt-engineering-evolution", "evolve-in-loop"]
     },
     {
       slug: "quant-agent",
@@ -41,9 +71,10 @@ window.siteData = {
       title: "QuantAgent",
       featured: true,
       summary: "代码即策略的启发式代理框架 — 用可执行代码替代神经网络权重作为策略载体，迭代即学习，测试即记忆。",
+      summaryEn: "A heuristic agent framework where executable code is the policy — not neural weights — so iteration is learning and tests are memory.",
       href: "https://github.com/JameryW/QuantAgent",
       demoUrl: "https://quant.jameryw.dev",
-      cta: "view source",
+      cta: "查看源码",
       status: "Active research",
       stack: ["Python", "LLM", "Code-as-Policy", "SQLite", "Bandit"],
       timeframe: "2025–now",
@@ -51,13 +82,21 @@ window.siteData = {
       detailTitle: "Code as Policy, Not Weights as Policy",
       overview:
         "传统强化学习用神经网络权重表达策略，本框架用可执行代码。策略是可读的、可验证的、可调试的。每次有效更新直接跳转到新策略，旧能力固化为回归测试防止遗忘，历史补丁折叠为简洁表示。",
+      overviewEn:
+        "Classic RL stores policy in neural weights. This framework stores policy as executable code: readable, checkable, and debuggable. Each valid update jumps straight to a new strategy; old capability hardens into regression tests so it isn't forgotten; historical patches fold into a compact representation.",
       highlights: [
         "代码即策略 — 策略是可读代码，不是黑盒权重，可解释、可验证、可调试。",
         "迭代即学习 — 一次有效更新直接跳转到新策略，无需梯度下降的漫长训练。",
         "测试即记忆 — 旧能力固化为回归测试，防止策略更新导致能力遗忘。",
         "三层策略生成管线：生成→验证→shadow 晋升，含 Bandit 臂统计和健康检查闭环。"
       ],
-      outputs: ["Heuristic agent framework", "Code-as-policy engine", "Bandit decision system"],
+      highlightsEn: [
+        "Code as policy — strategies are readable code, not black-box weights: explainable, verifiable, debuggable.",
+        "Iteration as learning — one valid update jumps to a new strategy without long gradient training.",
+        "Tests as memory — old capability hardens into regression tests so updates don't erase what already worked.",
+        "Three-stage policy pipeline: generate → validate → shadow promote, with Bandit arm stats and a health-check loop."
+      ],
+      outputs: ["Code-as-policy", "Iteration as learning", "Tests as memory", "Bandit pipeline"],
       relatedNotes: ["why-agents-matter", "prototype-first"]
     },
     {
@@ -66,8 +105,9 @@ window.siteData = {
       label: "Quant Engine",
       title: "RealQuantEngine",
       summary: "模块化量化策略库 — 多策略编排、券商适配和风控管理的交易引擎，支持 Futu 实盘与 dry-run。",
+      summaryEn: "A modular quant strategy library — multi-strategy orchestration, broker adapters, and risk controls, with Futu live trading and dry-run.",
       href: "https://github.com/JameryW/RealQuantEngine",
-      cta: "view source",
+      cta: "查看源码",
       status: "Active",
       stack: ["Python", "Trading", "Futu", "Risk Management", "Modular Strategy"],
       timeframe: "2025–now",
@@ -75,13 +115,21 @@ window.siteData = {
       detailTitle: "Modular Quant Trading Engine",
       overview:
         "基于模块化架构的量化交易策略库，支持主策略（MRP、Chan）、辅助策略（MACD、DualMA）、市场状态检测（Bollinger、RSI）和过滤器的多层组合。通过券商适配器对接 Futu 实盘，含风控管理、状态管理和守护进程模式。",
+      overviewEn:
+        "A modular quant trading library that combines primary strategies (MRP, Chan), auxiliary signals (MACD, DualMA), regime detectors (Bollinger, RSI), and filters. A broker adapter talks to Futu for live and dry-run modes, with risk control, state management, and a daemon path.",
       highlights: [
         "模块化策略架构 — Primary 主策略生成信号，Auxiliary 辅助策略提供参考，Regime 检测市场状态，Filter 决定执行。",
-        "MRP v3 主策略含 4 个子策略：Trend、MeanRevert、VolBreakout、Defensive，自适应参与系数。",
-        "券商适配器对接 Futu，支持 dry-run 和实盘双模式，含风控管理与守护进程。",
+        "MRP v3 主策略：含 Trend、MeanRevert、VolBreakout、Defensive 四个子策略，自适应参与系数。",
+        "券商适配器：对接 Futu，支持 dry-run 和实盘双模式，含风控管理与守护进程。",
         "完整工具链：交易安全检查、指标计算、凭证管理和服务监控。"
       ],
-      outputs: ["Trading engine", "Modular strategy library", "Broker adapter"],
+      highlightsEn: [
+        "Modular strategy stack — Primary emits signals, Auxiliary adds context, Regime reads market state, Filter decides execution.",
+        "MRP v3 primary: four sub-strategies — Trend, MeanRevert, VolBreakout, Defensive — plus adaptive participation.",
+        "Futu broker adapter: dry-run and live modes, risk controls, and daemon operation.",
+        "Full toolchain: trade safety checks, indicator math, credential handling, and service monitoring."
+      ],
+      outputs: ["Modular strategy stack", "MRP v3 primary", "Futu broker adapter", "Trading toolchain"],
       relatedNotes: ["why-agents-matter", "prototype-first"]
     },
     {
@@ -90,8 +138,9 @@ window.siteData = {
       label: "Strategy Lab",
       title: "QuantStrategyPrototypes",
       summary: "基于 arXiv 论文研究的量化策略原型集合 — 含回测引擎、10 个策略模块和 91% 测试覆盖率。",
+      summaryEn: "Quant strategy prototypes grounded in arXiv research — backtest engine, 10 strategy modules, and 91% test coverage.",
       href: "https://github.com/JameryW/QuantStrategyPrototypes",
-      cta: "view source",
+      cta: "查看源码",
       status: "Active",
       stack: ["Python", "Backtest", "arXiv Research", "CI/CD", "Strategy Prototyping"],
       timeframe: "2025–now",
@@ -99,13 +148,21 @@ window.siteData = {
       detailTitle: "Quantitative Strategy Prototypes from Paper Research",
       overview:
         "基于 arXiv 论文研究的量化策略原型集合，包含 10 个策略模块（Dual MA、Chan 缠论、VGRSI、Gap 缺口、Trend 强度、MRP 多因子等），配有完整回测引擎、186 个测试用例（91% 覆盖率）和 CI Pipeline。",
+      overviewEn:
+        "A research-to-code set of quant strategy prototypes from arXiv papers: 10 modules (Dual MA, Chan, VGRSI, Gap, Trend strength, MRP multifactor, and more), a full backtest engine, 186 tests at 91% coverage, and a CI pipeline.",
       highlights: [
         "10 个策略模块：Dual MA、Chan 缠论、VGRSI (arXiv 2605.01300)、Gap 缺口 (arXiv 2605.04004)、Trend 强度 (arXiv 2605.02326)、MRP 多因子等。",
-        "完整回测引擎含 metrics、portfolio 和 data_fetcher 模块，支持港股和 A 股回测。",
-        "186 个测试用例，91% 覆盖率，GitHub Actions CI 自动运行，阈值 60%。",
-        "按策略分组的回测配置和按日期归档的回测报告，支持参数化批量回测。"
+        "完整回测引擎：含 metrics、portfolio 和 data_fetcher 模块，支持港股和 A 股回测。",
+        "测试与 CI：186 个测试用例，91% 覆盖率，GitHub Actions 自动运行，成功率约 60%。",
+        "批量回测报告：按策略分组配置、按日期归档报告，支持参数化批量回测。"
       ],
-      outputs: ["Strategy prototypes", "Backtest engine", "Research-to-code pipeline"],
+      highlightsEn: [
+        "10 strategy modules: Dual MA, Chan, VGRSI (arXiv 2605.01300), Gap (arXiv 2605.04004), Trend strength (arXiv 2605.02326), MRP multifactor, and more.",
+        "Backtest engine: metrics, portfolio, and data_fetcher modules for HK and A-share runs.",
+        "Tests & CI: 186 tests, 91% coverage, GitHub Actions, ~60% pass rate on the tracked suite.",
+        "Batch reports: strategy-grouped configs and date-archived reports for parameterized runs."
+      ],
+      outputs: ["Strategy modules", "Backtest engine", "CI test suite", "Batch backtest reports"],
       relatedNotes: ["why-agents-matter", "prototype-first"]
     },
     {
@@ -114,25 +171,35 @@ window.siteData = {
       label: "Distributed AI",
       title: "UltimateCoders",
       featured: true,
-      summary: "分布式 AI 编码系统 — Rust 核心处理索引、搜索、记忆与调度，Python 层负责 LLM 交互，支持 PyO3/gRPC 双模式。",
+      summary: "分布式 AI 编程平台：DAG 编排、可观测 Dashboard、多适配 Worker，共享分层记忆与混合检索。",
+      summaryEn: "Distributed AI coding platform: DAG orchestration, observable Dashboard, multi-adapter Workers, shared layered memory and hybrid retrieval.",
       href: "https://github.com/JameryW/UltimateCoders",
-      cta: "view source",
+      cta: "查看源码",
       status: "Active",
-      stack: ["Rust", "Python", "PyO3", "gRPC", "Multi-Agent", "TiKV", "Qdrant"],
+      stack: ["Rust", "Python", "DAG", "NATS", "gRPC", "Grok Build", "Qdrant"],
       timeframe: "2025–now",
       role: "Architect / Builder",
-      detailTitle: "Distributed AI Coding System",
+      detailTitle: "Observable Distributed Coding Platform",
       overview:
-        "基于 Orchestrator-Worker 模式的分布式 AI 编码系统。Rust 核心负责索引、搜索、记忆和调度，Python 层处理 LLM 任务分解与代码生成。支持 PyO3 FFI 本地运行或 gRPC 分布式部署，运行时切换。存储后端支持 TiKV、Qdrant、PostgreSQL，NATS 消息总线。",
+        "把终端里的 AI 编程变成可观测、可调度的执行平台。默认 Docker 应用由 Web Dashboard、Rust Gateway、NATS 与 Python Worker 组成；自然语言任务拆成 DAG 节点，依赖就绪后派发并推送生命周期事件。Worker 默认走 xAI Grok Build，也可切换 Claude Code、Codex、OpenCode、oh-my-pi、MiMo Code 或本地 harness。",
+      overviewEn:
+        "Turns terminal AI coding into an observable, schedulable execution platform. The default Docker app pairs Web Dashboard, Rust Gateway, NATS, and Python Workers; natural-language tasks become DAG nodes that dispatch when dependencies clear and stream lifecycle events. Workers default to xAI Grok Build and can switch to Claude Code, Codex, OpenCode, oh-my-pi, MiMo Code, or a local harness.",
       highlights: [
-        "Orchestrator-Worker 多 Agent 协作模式，任务分解与执行分离。",
-        "Rust 核心引擎：索引、搜索、记忆、调度，高性能基础设施。",
-        "Python LLM 层：任务分解、代码生成，灵活的模型接入。",
-        "双通信模式：PyO3 FFI 本地高性能，gRPC 分布式扩展，运行时切换。",
-        "多存储后端：TiKV 键值、Qdrant 向量、PostgreSQL 关系、NATS 消息队列。"
+        "DAG 编排：规划器拆解任务，Rust Gateway 按依赖派发，Dashboard 与 gRPC TaskService 共享同一份任务状态。",
+        "产品面：首页讲清能力与执行链，Dashboard 提供任务、Worker、事件、调度与检索视图。",
+        "混合检索：一次查询组合 Text、Semantic 与 AST，覆盖多个已索引 Git 仓库。",
+        "分层记忆：短期 / 长期语义 / 结构化元数据分别落 TiKV、Qdrant、PostgreSQL，依赖不可用时退回内存。",
+        "灵活部署：本机 OMP、Docker Gateway、Compose 应用或多 Worker 集群，同一产品面平滑扩展。"
       ],
-      outputs: ["Distributed AI system", "Rust-Python bridge", "Multi-agent orchestration"],
-      relatedNotes: ["why-agents-matter", "prompt-engineering-evolution"]
+      highlightsEn: [
+        "DAG orchestration: planners split work, the Rust Gateway dispatches ready nodes, Dashboard and gRPC TaskService share one task state.",
+        "Product surface: the home page explains capability and the execution path; Dashboard covers tasks, Workers, events, scheduling, and retrieval.",
+        "Hybrid retrieval: one query mixes Text, Semantic, and AST across indexed Git repos.",
+        "Layered memory: short-term / long-term semantic / structured metadata on TiKV, Qdrant, PostgreSQL, with in-memory fallback.",
+        "Flexible deploy: local OMP, Docker Gateway, Compose app, or multi-Worker clusters on the same product surface."
+      ],
+      outputs: ["DAG orchestration", "Ops dashboard", "Hybrid retrieval", "Layered memory", "Flexible deploy"],
+      relatedNotes: ["why-agents-matter", "prompt-engineering-evolution", "skills-devoured-tools-fortified"]
     },
     {
       slug: "awesome-workflows",
@@ -141,8 +208,9 @@ window.siteData = {
       title: "AwesomeWorkflows",
       featured: false,
       summary: "可在 Codex / Claude Code / Grok Build / DeepSeek Harness 复用的 Issue 驱动交付工作流 — 整合 Matt Pocock 工程技能与 Trellis 任务生命周期。",
+      summaryEn: "Issue-driven delivery workflows reusable across Codex / Claude Code / Grok Build / DeepSeek Harness — Matt Pocock engineering skills plus the Trellis task lifecycle.",
       href: "https://github.com/JameryW/AwesomeWorkflows",
-      cta: "view source",
+      cta: "查看源码",
       status: "Active",
       stack: ["Agent Skills", "Trellis", "Codex", "Claude Code", "GitHub Issues"],
       timeframe: "2026-08–now",
@@ -150,14 +218,23 @@ window.siteData = {
       detailTitle: "Reusable Issue-Driven Delivery Workflow for AI Agents",
       overview:
         "一套以 Issue 为中心的交付工作流，把 Matt Pocock 的工程技能与 Trellis 任务生命周期组合起来：从澄清需求（grill-with-docs/wayfinder）、原型与规格（prototype/to-spec），到带阻塞依赖的垂直切片 Tickets（to-tickets），再到隔离的实现、验证与提交。Codex、Claude Code、Grok Build、DeepSeek Harness 四个平台通过各自的 skills 目录共享同一套交付约定；GitHub 是优先 Issue tracker，未认证时自动降级为 .scratch/ 本地 Markdown ticket。",
+      overviewEn:
+        "An Issue-centered delivery workflow that combines Matt Pocock's engineering skills with the Trellis task lifecycle: clarify (grill-with-docs/wayfinder), prototype and spec (prototype/to-spec), vertically sliced tickets with blocking edges (to-tickets), then isolated implement / verify / commit. Codex, Claude Code, Grok Build, and DeepSeek Harness share one delivery contract through their skills directories. GitHub Issues are preferred; without auth it falls back to local Markdown tickets under .scratch/.",
       highlights: [
         "完整交付链：idea → grill-with-docs/wayfinder → prototype → to-spec → to-tickets（带 blocking edges）→ tdd → 实现 → Trellis check + code-review → commit gate。",
         "多平台同一套约定：Codex `$codex-issue-flow`、Claude Code `/issue-delivery-flow`、Grok Build 与 DeepSeek Harness 各自入口，共享 .agents/skills/ 技能主体。",
-        "内置 Matt Pocock 技能集 14+ 个（grilling、grill-with-docs、wayfinder、prototype、to-spec、to-tickets、tdd、implement、code-review、triage、domain-modeling 等），MIT 许可并附来源与许可文件。",
+        "Matt Pocock 技能集：内置 14+ 个（grilling、grill-with-docs、wayfinder、prototype、to-spec、to-tickets、tdd、implement、code-review、triage、domain-modeling 等），MIT 许可并附来源与许可文件。",
         "Trellis 集成：docs/agents/trellis.md 明确初始化前置条件，一张实现 ticket 对应一个新 Codex task + Trellis task；Trellis 运行时不在仓库内复制。",
-        "Tracker 优先 GitHub Issues，gh 未认证自动降级为 .scratch/ 本地 Markdown ticket，远程修改需显式授权；附自检脚本 scripts/check-codex-issue-flow.py 验证接线完整性。"
+        "Issue Tracker：优先 GitHub Issues，gh 未认证自动降级为 .scratch/ 本地 Markdown ticket，远程修改需显式授权；附自检脚本 scripts/check-codex-issue-flow.py 验证接线完整性。"
       ],
-      outputs: ["Reusable agent workflow", "Multi-platform skill packs", "Issue-driven delivery pipeline"],
+      highlightsEn: [
+        "Full delivery chain: idea → grill-with-docs/wayfinder → prototype → to-spec → to-tickets (with blocking edges) → tdd → implement → Trellis check + code-review → commit gate.",
+        "One contract across platforms: Codex `$codex-issue-flow`, Claude Code `/issue-delivery-flow`, plus Grok Build and DeepSeek Harness entrypoints sharing `.agents/skills/`.",
+        "Matt Pocock skill set (14+): grilling, grill-with-docs, wayfinder, prototype, to-spec, to-tickets, tdd, implement, code-review, triage, domain-modeling, and more — MIT with attribution.",
+        "Trellis integration: docs/agents/trellis.md states the init prerequisites; one implement ticket maps to one new Codex task + Trellis task without vendoring the Trellis runtime.",
+        "Issue tracker: prefers GitHub Issues; without `gh` auth it falls back to `.scratch/` Markdown tickets, and remote edits need explicit approval — plus `scripts/check-codex-issue-flow.py` for wiring checks."
+      ],
+      outputs: ["Delivery chain", "Multi-platform skills", "Matt Pocock skill set", "Trellis integration", "Issue tracker fallback"],
       relatedNotes: ["skills-devoured-tools-fortified", "evolve-in-loop"]
     }
   ],
@@ -227,7 +304,7 @@ window.siteData = {
         "Prototypes aren't an excuse for sloppiness but a sharper judgment tool. What matters is learning from results, not deducing from concepts.",
         "This site is itself the product of prototype-first thinking: ship first, then iterate from real usage.",
       ],
-      outputs: ["Prototype bias", "Faster decisions", "Concrete iteration loop"],
+      outputs: ["Prototype bias", "Faster decisions", "Concrete iteration loop", "Site as prototype"],
       relatedProjects: ["xhs-growth-agent", "quant-agent", "real-quant-engine", "quant-strategy-prototypes"]
     },
     {
@@ -261,7 +338,7 @@ window.siteData = {
         "A personal site without an interface attitude leaves no impression. The problem with template sites is they say nothing.",
         "The dark-console aesthetic isn't decoration — it's a signal delivered in seconds: this person runs technical experiments.",
       ],
-      outputs: ["Visible taste", "UI intent", "Signal-driven presentation"],
+      outputs: ["Visible taste", "UI intent", "Signal-driven presentation", "Console aesthetic signal"],
       relatedProjects: ["xhs-growth-agent"]
     },
     {
@@ -295,7 +372,7 @@ window.siteData = {
         "Larger context windows and better memory mean the finesse of a single prompt is no longer the bottleneck.",
         "You still need to understand model limits, but the focus shifts from how to say it to what to do and how to do it.",
       ],
-      outputs: ["Prompt evolution thesis", "System design lens", "Tool-first perspective"],
+      outputs: ["Prompt evolution thesis", "System design lens", "Tool-first perspective", "What-to-do focus"],
       relatedProjects: ["xhs-growth-agent", "quant-agent", "real-quant-engine", "quant-strategy-prototypes"]
     },
     {
@@ -330,7 +407,7 @@ window.siteData = {
         "This site is itself an exercise in building in public: starting from placeholder content, continuously filling in real projects.",
         "Publicness isn't the goal — verifiability is. If others can't directly see your trail of work, you're still relying on claims.",
       ],
-      outputs: ["Build-in-public thesis", "Verifiable signal", "Process as evidence"],
+      outputs: ["Build-in-public thesis", "Verifiable signal", "Process as evidence", "Verifiable trail"],
       relatedProjects: ["xhs-growth-agent", "quant-agent", "real-quant-engine", "quant-strategy-prototypes"]
     },
     {
@@ -365,7 +442,7 @@ window.siteData = {
         "The biggest organizational risk of the AI era isn't lagging technology, but managing information-age productive forces with industrial-era bureaucracy. The efficiency gap isn't linear — it's structural.",
         "Organizations that get eliminated often did nothing wrong — in the face of new productive forces, the old organizational form simply lost its reason to exist.",
       ],
-      outputs: ["Productivity-relations thesis", "Organizational evolution lens", "Structural disruption insight"],
+      outputs: ["Productivity-relations thesis", "Organizational evolution lens", "Structural disruption insight", "Org form obsolescence"],
       relatedProjects: ["xhs-growth-agent", "quant-agent"]
     },
     {
@@ -400,7 +477,7 @@ window.siteData = {
         "Each loop doesn't need to be big, but it must be complete. Tiny closed loops accumulate into qualitative leaps.",
         "Refusing to close loops is refusing to evolve. A loop abandoned halfway might as well never have happened.",
       ],
-      outputs: ["Loop evolution thesis", "Feedback-driven growth", "Compound improvement insight"],
+      outputs: ["Loop evolution thesis", "Feedback-driven growth", "Compound improvement insight", "Refuse half-loops"],
       relatedProjects: ["xhs-growth-agent", "quant-agent", "real-quant-engine", "quant-strategy-prototypes"]
     },
     {
@@ -435,7 +512,7 @@ window.siteData = {
         "Accumulation isn't piling up volume, but sustained high-density, high-signal output. Accumulating garbage data only produces garbage strategies.",
         "The real moat isn't any single strategy but the capacity to keep producing strategies — the flywheel's own speed and stability.",
       ],
-      outputs: ["Data-strategy flywheel thesis", "Alpha compounding insight", "Quality reinforcement loop"],
+      outputs: ["Data-strategy flywheel thesis", "Alpha compounding insight", "Quality reinforcement loop", "Flywheel as moat"],
       relatedProjects: ["quant-agent", "real-quant-engine", "quant-strategy-prototypes"]
     },
     {
@@ -470,7 +547,7 @@ window.siteData = {
         "Basics let you draw architecture diagrams, but they won't survive that scale of traffic. What survives is judgment: where to add redundancy, where to degrade, where to sacrifice consistency.",
         "The most valuable AI-era skill is using experience to ask the right questions and verify AI's answers. Knowledge is free — but knowing which answer to trust costs more than ever.",
       ],
-      outputs: ["AI-era value shift thesis", "Experience-as-scarcity insight", "Judgment over knowledge argument"],
+      outputs: ["AI-era value shift thesis", "Experience-as-scarcity insight", "Judgment over knowledge argument", "Ask-and-verify skill"],
       relatedProjects: ["real-quant-engine", "quant-agent"]
     },
     {
@@ -505,7 +582,7 @@ window.siteData = {
         "The moat lives in the feedback loop: tools wired to real environments capture data models can't get — physical states, failure scenes, edge cases. That's the hard-to-replicate part.",
         "Conclusion: the skills layer keeps depreciating while the tools layer keeps appreciating. Investing in tools that touch the physical world is more inflation-proof than optimizing skills that can be devoured.",
       ],
-      outputs: ["Skills-as-LLM-API thesis", "Physical-friction moat insight", "Tools-over-skills argument"],
+      outputs: ["Skills-as-LLM-API thesis", "Physical-friction moat insight", "Tools-over-skills argument", "Tools over skills"],
       relatedProjects: ["real-quant-engine", "quant-agent"]
     },
     {
@@ -540,7 +617,7 @@ window.siteData = {
         "The premium comes from real data loops: physical states, failure scenes, and edge cases are scarce inputs models can't synthesize. Own the loop, own the pricing power.",
         "Conclusion: bet less on the internalizable pure-software layer, more on the physically connected software-hardware layer — value migrates from code itself to real-world loops.",
       ],
-      outputs: ["Pure-software devaluation thesis", "Physical-connected premium insight", "Software-hardware integration argument"],
+      outputs: ["Pure-software devaluation thesis", "Physical-connected premium insight", "Software-hardware integration argument", "Physical-connected premium"],
       relatedProjects: ["real-quant-engine", "quant-agent"]
     }
   ]

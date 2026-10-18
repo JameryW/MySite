@@ -51,15 +51,22 @@ Root config: `package.json`, `CLAUDE.md`, `.editorconfig`, `.gitignore`
 
 Edit `data.js` — add an entry to `projects[]` or `notes[]`. No HTML changes needed.
 
-### Notes bilingual contract
+### Site-wide bilingual contract
 
-Every `notes[]` entry must ship mirror fields, otherwise the EN toggle renders blanks:
+Language is site-wide (`localStorage` key `site-lang`, legacy `notes-lang` still read). Chrome strings use `data-i18n` / `data-i18n-aria` / `data-i18n-placeholder` plus `I18N` in `app.js`. Keep product keywords in English in both locales (Agent, Kernel, DAG, Showcase, Replay, hy-memory, LangGraph, etc.).
+
+**Projects** — every `projects[]` entry needs:
+- `summaryEn`, `overviewEn`, `highlightsEn[]` (same length as `highlights[]`)
+- `title`, `label`, `status`, `stack`, `detailTitle`, `role`, `outputs` stay English-only
+- Profile `now[]` items need `beatEn`; profile needs `titleEn`
+
+**Notes** — every `notes[]` entry needs:
 - `titleEn`, `detailTitleEn` (EN titles; `title` / `detailTitle` stay Chinese)
 - `summaryEn`, `overviewEn`, `bulletsEn[]` (same length as `bullets[]`)
 - `lensZh` (`lens` stays English)
-- `label`, `status`, `timeframe`, `meta`, `outputs` stay English-only; page chrome stays mixed
+- `label`, `status`, `timeframe`, `meta`, `outputs` stay English-only
 - Tone: direct, contracted forms (`isn't`, `don't`, `can't` — never `is not`, `cannot`); shared terms: `closed loop`, `flywheel`, `moat`, `hundred-million-scale`, `build in public`
-- After editing, toggle EN on the notes list and one detail page and check for blanks or `undefined`
+- After editing, toggle EN on home / projects / notes / one detail page and check for blanks or `undefined`
 
 ## Security
 

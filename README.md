@@ -44,10 +44,10 @@ public/
 ├── project.html        # project detail shell (JS-rendered from ?slug=)
 ├── note.html           # note detail shell (JS-rendered from ?slug=)
 ├── 404.html            # custom 404 page
-├── data.js             # all content data (window.siteData = {profile, projects[5], notes[10]})
+├── data.js             # all content data (window.siteData = {profile, projects[6], notes[11]})
 ├── app.js              # rendering, interactions, nav, animations
 ├── styles.css          # single shared stylesheet
-├── sw.js               # service worker (cache-first, CACHE = 'mysite-v77')
+├── sw.js               # service worker (network-first navigations, CACHE = 'mysite-v107')
 ├── manifest.json       # PWA manifest
 ├── umami-config.js     # Umami analytics configuration
 ├── favicon.svg         # site icon
@@ -57,19 +57,19 @@ public/
 
 ## Architecture
 
-**Zero-build static site + PWA.** All files live in `public/`. Content is data-driven via `data.js`, which sets `window.siteData = { profile, projects[5], notes[10] }`. `app.js` reads `data-*` DOM attributes to render per-page content. Detail pages (`project.html`, `note.html`) are empty shells filled by JS from the `?slug=` query param. Cross-referencing between entries uses `relatedNotes[]` / `relatedProjects[]` slug arrays.
+**Zero-build static site + PWA.** All files live in `public/`. Content is data-driven via `data.js`, which sets `window.siteData = { profile, projects[6], notes[11] }`. `app.js` reads `data-*` DOM attributes to render per-page content. Detail pages (`project.html`, `note.html`) are empty shells filled by JS from the `?slug=` query param. Cross-referencing between entries uses `relatedNotes[]` / `relatedProjects[]` slug arrays.
 
 **7 HTML pages** plus 404: `index`, `projects`, `showcase`, `notes`, `about`, `project` (detail shell), `note` (detail shell).
 
 **Shared chrome:** topbar nav (Home / Projects / Showcase / Notes / About), decorative overlays (noise, particle-bg canvas, parallax orbs, cursor-glow, scroll-progress), ⌘K command palette, dark/light theme, glass-morphism.
 
-**PWA:** `manifest.json` + `sw.js` (cache-first, `CACHE = 'mysite-v77'`).
+**PWA:** `manifest.json` + `sw.js` (network-first navigations, cache-first versioned statics, `CACHE = 'mysite-v107'`).
 
 **SEO:** JSON-LD, Open Graph tags, `sitemap.xml`, `robots.txt`.
 
 **Fonts:** Space Grotesk + Syne (self-hosted latin woff2) + system CJK stack (PingFang SC / Microsoft YaHei) — no webfont requests for Chinese.
 
-The 5 projects map 1:1 to other `~/aiworks` repos.
+The 6 projects map to the corresponding public and private builds under active development.
 
 ## Adding Content
 

@@ -52,7 +52,8 @@ All pages share the same header/nav structure, `data.js`, `app.js`, and `styles.
 ## Coding Conventions
 
 - 2-space indentation for HTML, CSS, JS, and JSON
-- Content is bilingual: Chinese primary, English secondary
+- Content is bilingual: Chinese primary, English secondary; site-wide `site-lang` toggle
+- Keep product keywords in English in both locales (Agent, Kernel, DAG, Showcase, Replay, hy-memory)
 - CSS custom properties for theming (`--bg`, `--cyan`, `--pink`, `--lime`, `--text`, `--muted`, `--line`)
 - Fonts: self-hosted latin variable woff2 under `public/fonts/` (Space Grotesk body + Syne headings) + system CJK stack (PingFang SC / Microsoft YaHei) — no Google Fonts requests anywhere
 - Responsive breakpoints: 980px and 760px
@@ -61,7 +62,7 @@ All pages share the same header/nav structure, `data.js`, `app.js`, and `styles.
 
 ## Adding Content
 
-To add a new project or note, edit `data.js` — add an entry to the `projects` or `notes` array with all required fields (slug, code, label, title, summary, etc.). Notes additionally require bilingual mirror fields (`titleEn`, `detailTitleEn`, `summaryEn`, `overviewEn`, `bulletsEn[]` matching `bullets[]`, `lensZh`) — see the notes bilingual contract in `AGENTS.md`. The rendering and detail pages update automatically. No HTML changes needed for new entries.
+To add a new project or note, edit `data.js` — add an entry to the `projects` or `notes` array with all required fields (slug, code, label, title, summary, etc.). Projects need `summaryEn` / `overviewEn` / `highlightsEn[]`; notes need bilingual mirror fields (`titleEn`, `detailTitleEn`, `summaryEn`, `overviewEn`, `bulletsEn[]`, `lensZh`) — see the site-wide bilingual contract in `AGENTS.md`. The rendering and detail pages update automatically. No HTML changes needed for new entries.
 
 ## Design Notes
 

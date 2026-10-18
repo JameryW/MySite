@@ -23,11 +23,12 @@ const homeNotesNode = document.querySelector("[data-home-notes]");
 const projectLibraryNode = document.querySelector("[data-project-library]");
 const noteLibraryNode = document.querySelector("[data-note-library]");
 const showcaseNode = document.querySelector("[data-showcase]");
+const nowBuildingNode = document.querySelector("[data-now-building]");
 const projectCountNodes = document.querySelectorAll("[data-project-count]");
 const noteCountNodes = document.querySelectorAll("[data-note-count]");
 const projectDetailNode = document.querySelector("[data-project-detail]");
 const noteDetailNode = document.querySelector("[data-note-detail]");
-const siteData = window.siteData || { projects: [], notes: [] };
+const siteData = window.siteData || { profile: {}, projects: [], notes: [] };
 const cursorGlow = document.querySelector(".cursor-glow");
 if (cursorGlow && reduceMotion) cursorGlow.style.display = "none";
 
@@ -145,6 +146,13 @@ if (themeToggle) {
   });
 }
 
+/* Palette hint: ⌘K on Apple platforms, Ctrl+K elsewhere (Linux/Windows). */
+const isApplePlatform = /Mac|iPhone|iPad|iPod/i.test(navigator.platform || "") ||
+  (/Mac/i.test(navigator.userAgent || "") && navigator.maxTouchPoints > 0);
+document.querySelectorAll(".palette-hint kbd").forEach((kbd) => {
+  kbd.textContent = isApplePlatform ? "⌘K" : "Ctrl+K";
+});
+
 /* ── Terminal Command / Output Stagger ── */
 document.querySelectorAll(".terminal-body").forEach((terminal) => {
   const children = Array.from(terminal.children);
@@ -234,6 +242,65 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
 const createTagList = (items) =>
   items.map((item) => `<span>${item}</span>`).join("");
 
+/* Soft-break CamelCase product names at token boundaries
+   (Awesome<wbr>Workflows) so wraps stay intentional, not mid-glyph. */
+const escapeHtml = (value) =>
+  String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+
+const softBreakCamelTitle = (title) =>
+  escapeHtml(title).replace(/([a-z0-9])([A-Z])/g, "$1<wbr>$2");
+
+const projectHeroTitleClass = (title) => {
+  const len = String(title || "").length;
+  if (len > 18) return "page-title is-long";
+  if (len > 12) return "page-title is-medium";
+  return "page-title";
+};
+
+/* When the signal panel sits beside the hero, keep the product name on
+   one line by easing font-size down. Soft <wbr> breaks remain for the
+   stacked mobile layout. */
+const fitProjectHeroTitle = (root) => {
+  const hero = root && root.querySelector(".page-hero");
+  const title = root && root.querySelector(".page-title");
+  const panel = root && root.querySelector(".page-hero-panel");
+  if (!hero || !title || !panel) return;
+
+  title.style.fontSize = "";
+  title.style.whiteSpace = "";
+
+  const columns = getComputedStyle(hero).gridTemplateColumns.trim().split(/\s+/);
+  if (columns.length < 2) return;
+
+  const span = title.querySelector("span");
+  const available = title.clientWidth;
+  if (available <= 0) return;
+
+  let low = 28;
+  let high = parseFloat(getComputedStyle(title).fontSize) || 64;
+  const gutter = 28;
+  title.style.whiteSpace = "nowrap";
+
+  for (let i = 0; i < 14; i += 1) {
+    const mid = (low + high) / 2;
+    title.style.fontSize = `${mid}px`;
+    const range = document.createRange();
+    range.setStart(title, 0);
+    if (span) range.setEndBefore(span);
+    else range.selectNodeContents(title);
+    const width = range.getBoundingClientRect().width;
+    if (width <= available - gutter) low = mid;
+    else high = mid;
+  }
+
+  title.style.fontSize = `${low}px`;
+  title.style.whiteSpace = "";
+};
+
 const pageHeroPanelMarkup = (title, items) => `
   <aside class="page-hero-panel reveal" aria-label="${title}">
     <p class="stack-label">${title}</p>
@@ -259,42 +326,497 @@ const detailCanonicalHref = (kind, slug) =>
 const projectBySlug = new Map(siteData.projects.map((project) => [project.slug, project]));
 const noteBySlug = new Map(siteData.notes.map((note) => [note.slug, note]));
 
-/* ── Notes bilingual (zh / en) ──
-   The toggle switches every note content field; preference persists. */
-const NOTES_LANG_KEY = "notes-lang";
-let notesLang = "zh";
+/* ── Site bilingual (zh / en) ──
+   One preference drives notes, projects, and chrome. Technical keywords
+   (Agent, Kernel, DAG, Showcase, Replay, hy-memory, …) stay English in both. */
+const SITE_LANG_KEY = "site-lang";
+const LEGACY_NOTES_LANG_KEY = "notes-lang";
+let siteLang = "zh";
 try {
-  const savedNotesLang = localStorage.getItem(NOTES_LANG_KEY);
-  if (savedNotesLang === "en" || savedNotesLang === "zh") notesLang = savedNotesLang;
+  const savedLang = localStorage.getItem(SITE_LANG_KEY) || localStorage.getItem(LEGACY_NOTES_LANG_KEY);
+  if (savedLang === "en" || savedLang === "zh") siteLang = savedLang;
 } catch (langLoadErr) {}
+const notesLang = () => siteLang;
+
+const I18N = {
+  zh: {
+    "nav.home": "首页",
+    "nav.projects": "项目",
+    "nav.showcase": "Showcase",
+    "nav.notes": "笔记",
+    "nav.about": "关于",
+    "nav.repos": "仓库",
+    "nav.allNotes": "全部笔记",
+    "aria.search": "搜索",
+    "aria.theme": "切换主题",
+    "aria.menu": "菜单",
+    "aria.lang": "语言切换 Language",
+    "aria.backTop": "回到顶部",
+    "cta.projects": "项目方向",
+    "cta.showcase": "在线作品",
+    "cta.work": "核心项目",
+    "cta.notes": "最新笔记",
+    "cta.demos": "进入演示",
+    "cta.allProjects": "全部项目",
+    "cta.viewSource": "查看源码",
+    "cta.openDetail": "查看详情",
+    "cta.tryDemo": "在线体验",
+    "cta.backProjects": "返回项目",
+    "cta.backNotes": "返回笔记",
+    "cta.readNote": "阅读全文",
+    "cta.all": "全部",
+    "cta.repos": "仓库列表",
+    "cta.home": "首页",
+    "cta.thinkNotes": "思考笔记",
+    "cta.top": "顶部",
+    "filter.all": "全部",
+    "home.tagline": "终端是第二个大脑，LLM 是第三个。跑通原型比写文档勤；debug Agent 比 debug 自己勤。",
+    "home.lead": "扎根杭州，专注 Agent 内核、分层记忆与可观测执行面；量化策略与 Code-as-Policy 也在同一条验证链上——原型跑通才叫验证。",
+    "home.workSummary": "当前主线上的增长 Agent、分布式编程与量化系统。",
+    "home.notesSummary": "判断、失败和构建方法，沉淀成还能继续改的笔记。",
+    "home.focus1Title": "执行优于解释",
+    "home.focus2Title": "内核优于技巧",
+    "home.focus3Title": "信号优于声明",
+    "home.focus1": "把工具、记忆和多步执行串成可恢复的闭环，比把单轮回答写漂亮更重要。",
+    "home.focus2": "上限由状态、上下文编译、调度和发布边界决定，不靠临时技巧。",
+    "home.focus3": "让别人从运行结果里读到能力，而不是从简历声明里读到。",
+    "about.lead": "终端是第二个大脑，LLM 是第三个。现在把精力放在内核、记忆和可观测执行面上——先跑通，再谈结构。",
+    "about.nowSummary": "两条主线并行：增长 Agent 内核化，编程系统可观测化。",
+    "about.nowTitle": "最新进展",
+    "about.profileSummary": "工具偏好、构建方法和公开信号，压成一套可扫描的说明。",
+    "about.profileTitle": "工作方式",
+    "about.bias": "边搭边想，优先跑通。想法要落到可恢复的系统，而不是一次性演示。",
+    "about.method": "用 Agent 原型验证假设；公开迭代留下可核对的执行痕迹。",
+    "about.lens": "上限由状态、上下文编译、调度和发布边界决定，而不是单次技巧。",
+    "about.homeBase": "GitHub 放源码，站点整理进展，邮箱收灵感。",
+    "about.entryTitle": "从这里进入",
+    "about.entrySummary": "源码在 GitHub，判断在站点，灵感在邮箱。",
+    "about.openProjects": "打开项目",
+    "about.openNotes": "打开笔记",
+    "projects.eyebrow": "Portfolio / Active Builds",
+    "projects.titleSub": "Agent · Kernel · Quant",
+    "projects.lead": "增长 Agent、分布式编程、量化引擎，以及复用型交付工作流。",
+    "projects.libraryTitle": "全部项目",
+    "projects.librarySummary": "直接进入详情，少讲概念，多看执行痕迹。",
+    "projects.libraryKicker": "Library",
+    "projects.indexed": "个项目",
+    "projects.signalLabel": "Build Signal",
+    "projects.signalOnSite": "站内",
+    "projects.signalFocus": "焦点",
+    "projects.signalSurface": "入口",
+    "projects.signalBias": "偏好",
+    "projects.signalFocusValue": "Kernel runtimes · DAG coding · Quant",
+    "projects.signalSurfaceValue": "GitHub 源码 + Showcase",
+    "projects.signalBiasValue": "先跑通闭环，再打磨结构",
+    "projects.footerKicker": "Projects / Open Build Loop",
+    "projects.signalAria": "项目信号面板",
+    "palette.page": "页面",
+    "palette.external": "外部",
+    "palette.project": "项目",
+    "palette.note": "笔记",
+    "showcase.eyebrow": "Showcase / Live Demos",
+    "showcase.titleSub": "Live Demos",
+    "showcase.lead": "可直接打开的运行面：Showcase、Replay，以及量化系统演示。",
+    "showcase.demosTitle": "在线演示",
+    "showcase.demosSummary": "先看运行结果，再按需打开源码。",
+    "showcase.demosKicker": "Live Products",
+    "showcase.badge": "在线演示",
+    "showcase.signalLabel": "Demo Signal",
+    "showcase.signalSurface": "界面",
+    "showcase.signalAccess": "访问",
+    "showcase.signalFocus": "焦点",
+    "showcase.signalNext": "下一步",
+    "showcase.signalSurfaceValue": "jameryw.dev 上的 Live 系统",
+    "showcase.signalAccessValue": "公开只读面优先",
+    "showcase.signalFocusValue": "Growth Agent · Quant demos",
+    "showcase.signalNextValue": "先看输出，再打开源码",
+    "showcase.footerKicker": "Showcase / Ship Then Show",
+    "showcase.signalAria": "Showcase 信号面板",
+    "notes.eyebrow": "Notes / Working Thoughts",
+    "notes.titleSub": "Working Thoughts",
+    "notes.topbarStatus": "工作笔记",
+    "notes.metaTag": "公开思考",
+    "notes.metaSuffix": " / 笔记更新中",
+    "notes.lead": "关于 Agent、构建方法和界面判断的短笔记。",
+    "notes.libraryTitle": "最新思考",
+    "notes.librarySummary": "先留下判断，再让项目和后续复盘继续验证。",
+    "notes.libraryKicker": "All Notes",
+    "notes.signalLabel": "Notes Signal",
+    "notes.signalModeLabel": "模式",
+    "notes.signalPublishedLabel": "发布",
+    "notes.signalScopeLabel": "范围",
+    "notes.signalMode": "短笔记 → 深挖",
+    "notes.signalPublished": "篇在线",
+    "notes.signalScopeValue": "Agents · tools · failures · UI",
+    "notes.footerKicker": "Notes / Think In Public",
+    "notes.signalAria": "笔记信号面板",
+    "section.work": "Core Builds",
+    "section.workKicker": "Selected Work",
+    "section.notes": "Working Notes",
+    "section.notesKicker": "Latest Notes",
+    "section.now": "最新进展",
+    "home.eyebrow": "AI Builder / Agents / Quant Systems",
+    "home.focusLabel": "Current Focus",
+    "home.footerKicker": "Jamery Wang / Personal Signal Site",
+    "home.topbarStatus": "杭州 / 在线",
+    "home.metaTag": "极客模式开启",
+    "home.metaSuffix": " / 杭州 / 在线",
+    "about.topbarStatus": "AI-Native 偏好",
+    "about.footerKicker": "About / AI Geek Profile",
+    "about.metaTag": "AI geek 画像",
+    "about.metaSuffix": " / 杭州 / 在线",
+    "projects.topbarStatus": "项目主线",
+    "projects.metaTag": "开放构建循环",
+    "projects.metaSuffix": " / GitHub 优先",
+    "showcase.topbarStatus": "Live Demos",
+    "showcase.metaTag": "先交付再展示",
+    "showcase.metaSuffix": " / 杭州 / 在线",
+    "detail.projectTopbar": "项目详情",
+    "detail.noteTopbar": "笔记详情",
+    "detail.projectFooterKicker": "Project Detail / Internal Case Layer",
+    "detail.noteFooterKicker": "Note Detail / Internal Thinking Layer",
+    "detail.projectMetaTag": "案例页",
+    "detail.projectMetaSuffix": " / 进行中",
+    "detail.noteMetaTag": "思考层",
+    "detail.noteMetaSuffix": " / 笔记更新中",
+    "detail.highlights": "关键设计",
+    "detail.highlightLabel": "要点",
+    "detail.highlightsSummary": "核心设计选择和技术亮点。",
+    "detail.relatedNotes": "相关笔记",
+    "detail.relatedNotesSummary": "从项目继续跳到相关判断和方法论。",
+    "detail.relatedProjects": "相关项目",
+    "detail.relatedProjectsSummary": "从判断跳回对应的项目入口，让想法和构建产物互相解释。",
+    "detail.keyPoints": "关键要点",
+    "detail.overview": "概览",
+    "detail.lens": "视角",
+    "detail.prev": "上一条",
+    "detail.next": "下一条",
+    "detail.prevMeta": "返回上一条",
+    "detail.nextMeta": "继续阅读",
+    "detail.openProject": "打开项目详情",
+    "detail.notFoundProject": "这个项目还不存在，或者 slug 不正确。",
+    "detail.notFoundNote": "这篇笔记还不存在，或者 slug 不正确。",
+    "detail.notFoundProjectTitle": "未找到项目",
+    "detail.notFoundNoteTitle": "未找到笔记",
+    "detail.notFoundProjectEyebrow": "Error 404 / Projects",
+    "detail.notFoundNoteEyebrow": "Error 404 / Notes",
+    "meta.status": "状态",
+    "meta.role": "角色",
+    "meta.output": "产出",
+    "meta.focus": "焦点",
+    "meta.period": "周期",
+    "meta.points": "要点",
+    "meta.read": "阅读",
+    "meta.builds": "关联",
+    "meta.min": "分钟",
+    "detail.signal": "项目信号",
+    "detail.highlightsKicker": "Highlights",
+    "detail.relatedNotesKicker": "Related Notes",
+    "detail.breakdownKicker": "Breakdown",
+    "detail.relatedProjectsKicker": "Related Projects",
+    "about.eyebrow": "About / AI-Native Profile",
+    "about.nowKicker": "Now Building",
+    "about.profileKicker": "Working Profile",
+    "about.signalBase": "基地 / 在线",
+    "about.signalProjects": "项目",
+    "about.signalNotes": "笔记",
+    "about.signalLens": "当前透镜",
+    "about.signalAria": "个人快照",
+    "about.nowAria": "最新进展",
+    "about.entryKicker": "Entry Points",
+    "about.signalsHeading": "Build Signals",
+    "about.signalBias": "Bias",
+    "about.signalMethod": "Method",
+    "about.signalLensLabel": "Lens",
+    "about.signalHomeBase": "Home Base",
+    "card.relatedBuilds": "关联项目",
+    "card.openDetail": "查看详情",
+    "card.openDemo": "打开演示",
+    "palette.placeholder": "搜索项目、笔记或页面...",
+    "palette.empty": "没有匹配结果",
+    "footer.home": "围绕 AI、自动化、原型和公开构建过程持续迭代。",
+    "footer.about": "兴趣、偏好和构建方法，整理成可读的公开说明。",
+    "footer.projects": "从核心项目直接进入代码、设计选择和相关笔记。",
+    "footer.showcase": "从代码到可运行系统，把原型变成可验证的在线体验。",
+    "footer.notes": "把观察、失败和工作流判断留在公开轨迹里，方便继续迭代。",
+    "footer.projectDetail": "把外部链接转换成站内可阅读的项目说明，逐步积累成更完整的作品资料。",
+    "footer.noteDetail": "把短观察扩成站内可持续阅读的笔记条目，为后续长文和项目复盘打底。",
+    "aria.skip": "跳到主要内容",
+    "shipping": "Shipping"
+  },
+  en: {
+    "nav.home": "Home",
+    "nav.projects": "Projects",
+    "nav.showcase": "Showcase",
+    "nav.notes": "Notes",
+    "nav.about": "About",
+    "nav.repos": "Repos",
+    "nav.allNotes": "All Notes",
+    "aria.search": "Search",
+    "aria.theme": "Toggle theme",
+    "aria.menu": "Menu",
+    "aria.lang": "Language",
+    "aria.backTop": "Back to top",
+    "cta.projects": "Projects",
+    "cta.showcase": "Live work",
+    "cta.work": "Core builds",
+    "cta.notes": "Latest notes",
+    "cta.demos": "Open demos",
+    "cta.allProjects": "All projects",
+    "cta.viewSource": "View source",
+    "cta.openDetail": "Open detail",
+    "cta.tryDemo": "Try demo",
+    "cta.backProjects": "Back to projects",
+    "cta.backNotes": "Back to notes",
+    "cta.readNote": "Read note",
+    "cta.all": "All",
+    "cta.repos": "Repositories",
+    "cta.home": "Home",
+    "cta.thinkNotes": "Browse notes",
+    "cta.top": "Top",
+    "filter.all": "All",
+    "home.tagline": "The terminal is my second brain, the LLM the third. Ship prototypes more than docs; debug Agents more than myself.",
+    "home.lead": "Based in Hangzhou, focused on Agent kernels, layered memory, and observable execution — with quant strategies and Code-as-Policy on the same verification loop. A prototype only counts once it runs.",
+    "home.workSummary": "Growth Agents, distributed coding systems, and quant builds on the current main line.",
+    "home.notesSummary": "Judgment, failure, and build method — kept as notes you can still revise.",
+    "home.focus1Title": "Execution Over Explanation",
+    "home.focus2Title": "Kernel Over Tricks",
+    "home.focus3Title": "Signal Over Claims",
+    "home.focus1": "A recoverable loop of tools, memory, and multi-step execution beats a polished single-turn answer.",
+    "home.focus2": "The ceiling is set by state, context compilation, scheduling, and publish boundaries — not one-off tricks.",
+    "home.focus3": "Let people read ability from running results, not from resume claims.",
+    "about.lead": "The terminal is the second brain, the LLM the third. Focus now sits on Kernel, memory, and observable execution — ship the loop, then refine structure.",
+    "about.nowSummary": "Two tracks in parallel: Kernel-izing the growth Agent, and making the coding system observable.",
+    "about.nowTitle": "Now building",
+    "about.profileSummary": "Tool bias, build method, and public signal — compressed into a scannable profile.",
+    "about.profileTitle": "Working profile",
+    "about.bias": "Build while thinking. Prefer a recoverable system over a one-shot demo.",
+    "about.method": "Validate hypotheses with Agent prototypes; leave checkable execution traces in public.",
+    "about.lens": "The ceiling is state, context compilation, scheduling, and publish boundaries — not a single trick.",
+    "about.homeBase": "GitHub holds source, the site holds progress, email holds sparks.",
+    "about.entryTitle": "Entry points",
+    "about.entrySummary": "Source on GitHub, judgment on the site, sparks in the inbox.",
+    "about.openProjects": "Open projects",
+    "about.openNotes": "Open notes",
+    "projects.eyebrow": "Portfolio / Active Builds",
+    "projects.titleSub": "Agent · Kernel · Quant",
+    "projects.lead": "Growth Agents, distributed coding, quant engines, and reusable delivery workflows.",
+    "projects.libraryTitle": "All projects",
+    "projects.librarySummary": "Jump into details. Less concept talk, more execution traces.",
+    "projects.libraryKicker": "Library",
+    "projects.indexed": "projects indexed",
+    "projects.signalLabel": "Build Signal",
+    "projects.signalOnSite": "On-site",
+    "projects.signalFocus": "Focus",
+    "projects.signalSurface": "Surface",
+    "projects.signalBias": "Bias",
+    "projects.signalFocusValue": "Kernel runtimes · DAG coding · Quant",
+    "projects.signalSurfaceValue": "GitHub source + live Showcase",
+    "projects.signalBiasValue": "Ship the loop, then refine structure",
+    "projects.footerKicker": "Projects / Open Build Loop",
+    "projects.signalAria": "Projects signal panel",
+    "palette.page": "Page",
+    "palette.external": "External",
+    "palette.project": "Project",
+    "palette.note": "Note",
+    "showcase.eyebrow": "Showcase / Live Demos",
+    "showcase.titleSub": "Live Demos",
+    "showcase.lead": "Live surfaces you can open now: Showcase, Replay, and quant demos.",
+    "showcase.demosTitle": "Live demos",
+    "showcase.demosSummary": "Inspect the running result first, then open the source if you want.",
+    "showcase.demosKicker": "Live Products",
+    "showcase.badge": "Live demo",
+    "showcase.signalLabel": "Demo Signal",
+    "showcase.signalSurface": "Surface",
+    "showcase.signalAccess": "Access",
+    "showcase.signalFocus": "Focus",
+    "showcase.signalNext": "Next",
+    "showcase.signalSurfaceValue": "Live systems on jameryw.dev",
+    "showcase.signalAccessValue": "Public read surfaces first",
+    "showcase.signalFocusValue": "Growth Agent · Quant demos",
+    "showcase.signalNextValue": "Inspect output, then open source",
+    "showcase.footerKicker": "Showcase / Ship Then Show",
+    "showcase.signalAria": "Showcase signal panel",
+    "notes.eyebrow": "Notes / Working Thoughts",
+    "notes.titleSub": "Working Thoughts",
+    "notes.topbarStatus": "Working Notes",
+    "notes.metaTag": "Think in public",
+    "notes.metaSuffix": " / Notes in progress",
+    "notes.lead": "Short notes on Agents, build method, and interface judgment.",
+    "notes.libraryTitle": "Latest thinking",
+    "notes.librarySummary": "Leave the judgment first, then let projects and later reviews keep testing it.",
+    "notes.libraryKicker": "All Notes",
+    "notes.signalLabel": "Notes Signal",
+    "notes.signalModeLabel": "Mode",
+    "notes.signalPublishedLabel": "Published",
+    "notes.signalScopeLabel": "Scope",
+    "notes.signalMode": "Short notes → deep dives",
+    "notes.signalPublished": "notes live",
+    "notes.signalScopeValue": "Agents · tools · failures · UI",
+    "notes.footerKicker": "Notes / Think In Public",
+    "notes.signalAria": "Notes signal panel",
+    "section.work": "Core Builds",
+    "section.workKicker": "Selected Work",
+    "section.notes": "Working Notes",
+    "section.notesKicker": "Latest Notes",
+    "section.now": "Now building",
+    "home.eyebrow": "AI Builder / Agents / Quant Systems",
+    "home.focusLabel": "Current Focus",
+    "home.footerKicker": "Jamery Wang / Personal Signal Site",
+    "home.topbarStatus": "Hangzhou / Online",
+    "home.metaTag": "Geek mode enabled",
+    "home.metaSuffix": " / Hangzhou / Online",
+    "about.topbarStatus": "AI-Native Bias",
+    "about.footerKicker": "About / AI Geek Profile",
+    "about.metaTag": "AI geek profile",
+    "about.metaSuffix": " / Hangzhou / Online",
+    "projects.topbarStatus": "Project Surface",
+    "projects.metaTag": "Open build loop",
+    "projects.metaSuffix": " / GitHub first",
+    "showcase.topbarStatus": "Live Demos",
+    "showcase.metaTag": "Ship then show",
+    "showcase.metaSuffix": " / Hangzhou / Online",
+    "detail.projectTopbar": "Project Detail",
+    "detail.noteTopbar": "Note Detail",
+    "detail.projectFooterKicker": "Project Detail / Internal Case Layer",
+    "detail.noteFooterKicker": "Note Detail / Internal Thinking Layer",
+    "detail.projectMetaTag": "Case page",
+    "detail.projectMetaSuffix": " / Work in progress",
+    "detail.noteMetaTag": "Thinking layer",
+    "detail.noteMetaSuffix": " / Notes in progress",
+    "detail.highlights": "Key design",
+    "detail.highlightLabel": "Point",
+    "detail.highlightsSummary": "Key design choices and technical highlights.",
+    "detail.relatedNotes": "Related notes",
+    "detail.relatedNotesSummary": "Jump from the project into matching judgments and methods.",
+    "detail.relatedProjects": "Related projects",
+    "detail.relatedProjectsSummary": "Jump from the judgment back to the matching builds.",
+    "detail.keyPoints": "Key points",
+    "detail.overview": "Overview",
+    "detail.lens": "Lens",
+    "detail.prev": "Previous",
+    "detail.next": "Next",
+    "detail.prevMeta": "go back one",
+    "detail.nextMeta": "keep reading",
+    "detail.openProject": "open project detail",
+    "detail.notFoundProject": "This project doesn't exist yet, or the slug is wrong.",
+    "detail.notFoundNote": "This note doesn't exist yet, or the slug is wrong.",
+    "detail.notFoundProjectTitle": "Project Not Found",
+    "detail.notFoundNoteTitle": "Note Not Found",
+    "detail.notFoundProjectEyebrow": "Error 404 / Projects",
+    "detail.notFoundNoteEyebrow": "Error 404 / Notes",
+    "meta.status": "Status",
+    "meta.role": "Role",
+    "meta.output": "Output",
+    "meta.focus": "Focus",
+    "meta.period": "Period",
+    "meta.points": "Points",
+    "meta.read": "Read",
+    "meta.builds": "Builds",
+    "meta.min": "min",
+    "detail.signal": "Project Signal",
+    "detail.highlightsKicker": "Highlights",
+    "detail.relatedNotesKicker": "Related Notes",
+    "detail.breakdownKicker": "Breakdown",
+    "detail.relatedProjectsKicker": "Related Projects",
+    "about.eyebrow": "About / AI-Native Profile",
+    "about.nowKicker": "Now Building",
+    "about.profileKicker": "Working Profile",
+    "about.signalBase": "Base / online",
+    "about.signalProjects": "Projects",
+    "about.signalNotes": "Notes",
+    "about.signalLens": "Current lens",
+    "about.signalAria": "Profile snapshot",
+    "about.nowAria": "Now building",
+    "about.entryKicker": "Entry Points",
+    "about.signalsHeading": "Build Signals",
+    "about.signalBias": "Bias",
+    "about.signalMethod": "Method",
+    "about.signalLensLabel": "Lens",
+    "about.signalHomeBase": "Home Base",
+    "card.relatedBuilds": "builds",
+    "card.openDetail": "Open detail",
+    "card.openDemo": "Open demo",
+    "palette.placeholder": "Search projects, notes, or pages...",
+    "palette.empty": "No matches",
+    "footer.home": "Iterating on AI, automation, prototypes, and building in public.",
+    "footer.about": "Interests, bias, and build method — kept as a readable public profile.",
+    "footer.projects": "Jump from core builds into code, design choices, and related notes.",
+    "footer.showcase": "From code to a running system — prototypes you can verify online.",
+    "footer.notes": "Leave observations, failures, and workflow judgment in a public trail.",
+    "footer.projectDetail": "Turn external repos into readable on-site case notes that compound over time.",
+    "footer.noteDetail": "Expand short observations into lasting note entries for later reviews.",
+    "aria.skip": "Skip to main content",
+    "shipping": "Shipping"
+  }
+};
+
+const t = (key) => (I18N[siteLang] && I18N[siteLang][key]) || (I18N.zh && I18N.zh[key]) || key;
 
 const noteText = (note, base) => {
-  if (notesLang === "en" && note[`${base}En`]) return note[`${base}En`];
+  if (siteLang === "en" && note[`${base}En`]) return note[`${base}En`];
   return note[base];
 };
-const noteTitle = (note) => (notesLang === "en" ? note.titleEn || note.title : note.title);
-const noteTitleSub = (note) => (notesLang === "en" ? "" : note.titleEn || "");
-const noteDetailTitle = (note) => (notesLang === "en" ? note.detailTitleEn || note.detailTitle : note.detailTitle);
-const noteDetailTitleSub = (note) => (notesLang === "en" ? "" : note.detailTitleEn || "");
+const noteTitle = (note) => (siteLang === "en" ? note.titleEn || note.title : note.title);
+const noteTitleSub = (note) => (siteLang === "en" ? "" : note.titleEn || "");
+const noteDetailTitle = (note) => (siteLang === "en" ? note.detailTitleEn || note.detailTitle : note.detailTitle);
+const noteDetailTitleSub = (note) => (siteLang === "en" ? "" : note.detailTitleEn || "");
 /* EN mirror of the whole heading (title + detail title) as one small caption
    line — keeps the h1 down to two clear weights instead of three. */
 const noteHeadingEn = (note) => [noteTitleSub(note), noteDetailTitleSub(note)].filter(Boolean).join(" — ");
-const noteBullets = (note) => (notesLang === "en" && Array.isArray(note.bulletsEn) ? note.bulletsEn : note.bullets);
-const noteLens = (note) => (notesLang === "zh" ? note.lensZh || note.lens : note.lens);
+const noteBullets = (note) => (siteLang === "en" && Array.isArray(note.bulletsEn) ? note.bulletsEn : note.bullets);
+const noteLens = (note) => (siteLang === "zh" ? note.lensZh || note.lens : note.lens);
+const projectText = (project, base) => {
+  if (siteLang === "en" && project[`${base}En`]) return project[`${base}En`];
+  return project[base];
+};
+const projectHighlights = (project) =>
+  siteLang === "en" && Array.isArray(project.highlightsEn) ? project.highlightsEn : project.highlights;
 /* note.meta is authored as "Focus: xxx" — the facts strip already labels the
    cell, so drop the inline prefix to avoid printing the word twice. */
 const noteFocusValue = (note) => (note.meta || "").replace(/^\s*focus\s*[:：]\s*/i, "").trim();
-const langToggleMarkup = () => `
-  <div class="lang-toggle" role="group" aria-label="语言切换 Language">
-    <button type="button" data-lang-toggle="zh" class="${notesLang === "zh" ? "active" : ""}" aria-pressed="${notesLang === "zh"}">中文</button>
-    <button type="button" data-lang-toggle="en" class="${notesLang === "en" ? "active" : ""}" aria-pressed="${notesLang === "en"}">EN</button>
-  </div>
-`;
 const updateLangToggleUI = () => {
   document.querySelectorAll("[data-lang-toggle]").forEach((btn) => {
-    const active = btn.getAttribute("data-lang-toggle") === notesLang;
+    const active = btn.getAttribute("data-lang-toggle") === siteLang;
     btn.classList.toggle("active", active);
     btn.setAttribute("aria-pressed", String(active));
+  });
+  document.querySelectorAll(".lang-toggle").forEach((group) => {
+    group.setAttribute("aria-label", t("aria.lang"));
+  });
+};
+const applyChromeI18n = () => {
+  document.documentElement.lang = siteLang === "en" ? "en" : "zh-CN";
+  document.documentElement.setAttribute("data-lang", siteLang);
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const key = el.getAttribute("data-i18n");
+    const value = t(key);
+    if (value) el.textContent = value;
+  });
+  document.querySelectorAll("[data-i18n-aria]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-aria");
+    const value = t(key);
+    if (value) el.setAttribute("aria-label", value);
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    const value = t(key);
+    if (value) el.setAttribute("placeholder", value);
+  });
+  const profileTitle = siteData.profile && (siteLang === "en" ? siteData.profile.titleEn : siteData.profile.title);
+  document.querySelectorAll("[data-profile-title]").forEach((el) => {
+    if (profileTitle) el.textContent = profileTitle;
+  });
+  document.querySelectorAll("[data-i18n-en-hint]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-en-hint");
+    const enValue = (I18N.en && I18N.en[key]) || "";
+    if (siteLang === "en" || !enValue) {
+      el.hidden = true;
+      el.textContent = "";
+    } else {
+      el.hidden = false;
+      el.textContent = enValue;
+    }
   });
 };
 const applyStoredFilter = (container) => {
@@ -347,13 +869,20 @@ const getSiblingEntries = (entries, currentSlug) => {
   };
 };
 
+const capitalizeSentenceStart = (text) => {
+  if (!text) return text;
+  // Keep intentional lowercase product/code tokens (hy-memory, `$codex-…`, paths).
+  if (/^(hy-|oh-|xai |\$|`|\.|\/)/i.test(text)) return text;
+  return text.replace(/^([a-z])/, (ch) => ch.toUpperCase());
+};
+
 const detailItemParts = (item, fallbackTitle) => {
   const text = item.trim();
   const labeledMatch = text.match(/^(.{2,42}?)(?:\s+[—-]\s+|[:：]\s*)(.+)$/);
   if (labeledMatch) {
     return {
       title: labeledMatch[1].trim(),
-      body: labeledMatch[2].trim()
+      body: capitalizeSentenceStart(labeledMatch[2].trim())
     };
   }
 
@@ -361,7 +890,7 @@ const detailItemParts = (item, fallbackTitle) => {
   if (sentenceMatch) {
     return {
       title: sentenceMatch[1].trim(),
-      body: sentenceMatch[2].trim()
+      body: capitalizeSentenceStart(sentenceMatch[2].trim())
     };
   }
 
@@ -406,9 +935,9 @@ const relatedProjectMarkup = (project) => `
   <a class="track-card reveal related-card" href="${projectDetailHref(project)}">
     <p class="stack-label">${project.label}</p>
     <h3>${project.title}</h3>
-    <p>${project.summary}</p>
+    <p>${projectText(project, "summary")}</p>
     <div class="card-actions">
-      <span class="repo-meta">open project detail</span>
+      <span class="repo-meta">${t("detail.openProject")}</span>
       <span class="card-inline-link">${project.status}</span>
     </div>
   </a>
@@ -420,11 +949,13 @@ const relatedNoteMarkup = (note) => `
     <h3>${noteTitle(note)}</h3>
     <p>${noteText(note, "summary")}</p>
     <div class="card-actions">
-      <span class="repo-meta">${note.timeframe || "open note detail"}</span>
-      <span class="card-inline-link">${notesLang === "en" ? "read note" : "阅读全文"} <span aria-hidden="true">→</span></span>
+      <span class="repo-meta">${note.timeframe || t("cta.readNote")}</span>
+      <span class="card-inline-link">${t("cta.readNote")} <span aria-hidden="true">→</span></span>
     </div>
   </a>
 `;
+
+const entryDisplayTitle = (entry) => (entry && entry.titleEn ? noteTitle(entry) : entry?.title || "");
 
 const detailPagerMarkup = (options) => {
   const { previous, next, previousHref, nextHref, previousLabel, nextLabel } = options;
@@ -440,10 +971,10 @@ const detailPagerMarkup = (options) => {
           previous
             ? `
               <a class="track-card reveal related-card pager-card" href="${previousHref(previous)}">
-                <p class="stack-label">Previous</p>
-                <h3>${noteTitle(previous)}</h3>
+                <p class="stack-label">${t("detail.prev")}</p>
+                <h3>${entryDisplayTitle(previous)}</h3>
                 <p>${previousLabel(previous)}</p>
-                <span class="repo-meta">go back one</span>
+                <span class="repo-meta">${t("detail.prevMeta")}</span>
               </a>
             `
             : '<div class="pager-spacer" aria-hidden="true"></div>'
@@ -452,10 +983,10 @@ const detailPagerMarkup = (options) => {
           next
             ? `
               <a class="track-card reveal related-card pager-card" href="${nextHref(next)}">
-                <p class="stack-label">Next</p>
-                <h3>${noteTitle(next)}</h3>
+                <p class="stack-label">${t("detail.next")}</p>
+                <h3>${entryDisplayTitle(next)}</h3>
                 <p>${nextLabel(next)}</p>
-                <span class="repo-meta">keep reading</span>
+                <span class="repo-meta">${t("detail.nextMeta")}</span>
               </a>
             `
             : '<div class="pager-spacer" aria-hidden="true"></div>'
@@ -466,6 +997,8 @@ const detailPagerMarkup = (options) => {
 };
 
 const projectCardMarkup = (project, variant) => {
+  const summary = projectText(project, "summary");
+  const viewSource = t("cta.viewSource");
   if (variant === "home") {
     return `
       <a class="work-card reveal" href="${projectDetailHref(project)}">
@@ -477,11 +1010,11 @@ const projectCardMarkup = (project, variant) => {
             <span class="work-status-pill">${project.status}</span>
           </p>
           <h3>${project.title}</h3>
-          <p class="work-summary">${project.summary}</p>
+          <p class="work-summary">${summary}</p>
           <div class="card-tags">${createTagList(project.stack)}</div>
           <div class="card-actions">
-            <span class="work-link">open detail <span class="work-arrow" aria-hidden="true">→</span></span>
-            <span class="card-inline-link">${project.cta}</span>
+            <span class="work-link">${t("card.openDetail")} <span class="work-arrow" aria-hidden="true">→</span></span>
+            <span class="card-inline-link">${viewSource}</span>
           </div>
         </div>
       </a>
@@ -495,50 +1028,57 @@ const projectCardMarkup = (project, variant) => {
         <span class="card-status-dot ${project.status.toLowerCase().includes('active') || project.status.toLowerCase().includes('production') || project.status.toLowerCase().includes('live') ? 'live' : 'dev'}" aria-hidden="true"></span>
       </p>
       <h3>${project.title}</h3>
-      <p>${project.summary}</p>
+      <p>${summary}</p>
       <div class="project-entry-meta">
         <span class="project-entry-status">${project.status}</span>
         <div class="card-tags">${createTagList(project.stack)}</div>
       </div>
       <div class="card-actions">
         <span class="repo-meta">${project.timeframe}</span>
-        <span class="card-inline-link">${project.cta}</span>
+        <span class="card-inline-link">${viewSource}</span>
       </div>
     </a>
   `;
 };
 
+const noteStatusKind = (status) =>
+  String(status || "")
+    .toLowerCase()
+    .replace(/\s+note$/i, "")
+    .trim()
+    .replace(/\s+/g, "-");
+const noteStatusLabel = (status) =>
+  String(status || "")
+    .replace(/\s+note$/i, "")
+    .trim();
+
 const noteCardMarkup = (note) => {
-  const pointCount = Array.isArray(note.bullets) ? note.bullets.length : 0;
   const buildCount = Array.isArray(note.relatedProjects) ? note.relatedProjects.length : 0;
   const teaser = noteText(note, "summary") || noteText(note, "overview") || "";
   const title = noteTitle(note);
   const titleSub = noteTitleSub(note);
-  const pointWord = notesLang === "en" ? "points" : "要点";
-  const buildWord = notesLang === "en" ? "builds" : "关联项目";
-  const readWord = notesLang === "en" ? "read note" : "阅读全文";
-  const counts = [
-    pointCount > 0 ? `${pointCount} ${pointWord}` : "",
-    buildCount > 0 ? `${buildCount} ${buildWord}` : ""
-  ]
-    .filter(Boolean)
-    .join(" · ");
+  const buildWord = siteLang === "en" ? (buildCount === 1 ? "build" : t("card.relatedBuilds")) : t("card.relatedBuilds");
+  const readWord = t("cta.readNote");
+  const statusLabel = noteStatusLabel(note.status);
+  const statusKind = noteStatusKind(note.status);
+  /* Skip universal bullet counts — every note ships 4 points, so the
+     number is noise. Related-project counts still vary and stay useful. */
   return `
   <a class="note-card reveal note-entry-card" href="${noteDetailHref(note)}">
     <div class="note-card-head">
-      <p class="stack-label">
-        <span class="note-code">${note.code || "Note"}</span>
-        <span aria-hidden="true">/</span>
-        ${note.label || ""}
-      </p>
+      <p class="stack-label"><span class="note-code">${note.code || "Note"}</span> / ${note.label || ""}</p>
       ${note.timeframe ? `<span class="note-timeframe">${note.timeframe}</span>` : ""}
     </div>
     <h3>${title}${titleSub ? `<span class="title-en">${titleSub}</span>` : ""}</h3>
     <p class="note-summary">${teaser}</p>
     <div class="card-actions">
       <span class="note-meta-inline">
-        ${note.status ? `<span class="note-status-pill">${note.status}</span>` : ""}
-        ${counts ? `<span class="repo-meta">${counts}</span>` : ""}
+        ${
+          statusLabel
+            ? `<span class="note-status-pill" data-kind="${statusKind}">${statusLabel}</span>`
+            : ""
+        }
+        ${buildCount > 0 ? `<span class="repo-meta">${buildCount} ${buildWord}</span>` : ""}
       </span>
       <span class="card-inline-link">${readWord} <span aria-hidden="true">→</span></span>
     </div>
@@ -571,31 +1111,6 @@ if (projectLibraryNode) {
 }
 
 renderNoteLibraries();
-
-if (showcaseNode) {
-  const demoProjects = siteData.projects.filter((project) => project.demoUrl);
-  showcaseNode.innerHTML = demoProjects.map((project) => {
-    return `
-      <a class="showcase-card reveal" href="${project.demoUrl}" target="_blank" rel="noreferrer">
-        <div class="showcase-card-header">
-          <p class="card-topline">
-            ${project.label}
-            <span class="card-status-dot live" aria-hidden="true"></span>
-          </p>
-          <div class="showcase-demo-badge">Live Demo</div>
-        </div>
-        <h3>${project.title}</h3>
-        <p>${project.summary}</p>
-        <div class="card-tags">${createTagList(project.stack)}</div>
-        <div class="showcase-url">${project.demoUrl}</div>
-        <div class="card-actions">
-          <span class="work-link">open demo</span>
-          <span class="card-inline-link">${project.status}</span>
-        </div>
-      </a>
-    `;
-  }).join("");
-}
 
 if (projectCountNodes.length > 0) {
   projectCountNodes.forEach((node) => {
@@ -642,7 +1157,7 @@ function setupFilter(container, items, onFilter) {
 
   const allPill = document.createElement("button");
   allPill.className = "filter-pill active";
-  allPill.textContent = `All (${items.length})`;
+  allPill.textContent = `${t("filter.all")} (${items.length})`;
   allPill.setAttribute("aria-pressed", "true");
   filterBar.appendChild(allPill);
 
@@ -681,8 +1196,8 @@ if (noteLibraryNode) {
   setupFilter(noteLibraryNode, siteData.notes, (label, visible) => updateNoteCount(visible));
 }
 
-/* ── Activity Feed ── */
-if (projectDetailNode) {
+const renderProjectDetail = (instant = false) => {
+  if (!projectDetailNode) return;
   const params = new URLSearchParams(window.location.search);
   const slug = params.get("slug");
   const project = projectBySlug.get(slug);
@@ -694,61 +1209,63 @@ if (projectDetailNode) {
   if (!project) {
     projectDetailNode.innerHTML = `
       <section class="page-hero notfound-hero">
-        <p class="eyebrow">Error 404 / Projects</p>
+        <p class="eyebrow">${t("detail.notFoundProjectEyebrow")}</p>
         <h1 class="page-title">
-          Project Not Found
+          ${t("detail.notFoundProjectTitle")}
           <span>404</span>
         </h1>
-        <p class="page-lead">这个项目还不存在，或者 slug 不正确。</p>
+        <p class="page-lead">${t("detail.notFoundProject")}</p>
         <div class="page-actions">
-          <a class="button primary" href="./projects.html">返回项目</a>
-          <a class="button secondary" href="./index.html">首页</a>
+          <a class="button primary" href="./projects.html">${t("cta.backProjects")}</a>
+          <a class="button secondary" href="./index.html">${t("cta.home")}</a>
         </div>
       </section>
     `;
   } else {
+    const overview = projectText(project, "overview");
+    const highlights = projectHighlights(project) || [];
     setDetailMeta({
       title: project.title,
-      description: project.overview,
+      description: overview,
       canonical: detailCanonicalHref("project", project.slug)
     });
     projectDetailNode.setAttribute("aria-busy", "true");
     projectDetailNode.innerHTML = `
       <section class="page-hero reveal">
         <p class="eyebrow">${project.label} / ${project.timeframe} / ${project.status}</p>
-        <h1 class="page-title">
-          ${project.title}
-          <span>${project.detailTitle}</span>
+        <h1 class="${projectHeroTitleClass(project.title)}">
+          ${softBreakCamelTitle(project.title)}
+          <span>${escapeHtml(project.detailTitle)}</span>
         </h1>
-        <p class="page-lead">${project.overview}</p>
+        <p class="page-lead">${overview}</p>
         <div class="page-actions">
           <a class="button primary" href="${project.href}" target="_blank" rel="noreferrer">
             <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="vertical-align:-3px;margin-right:6px;"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-            查看源码
+            ${t("cta.viewSource")}
           </a>
-          <a class="button secondary" href="./projects.html">返回项目</a>
+          <a class="button secondary" href="./projects.html">${t("cta.backProjects")}</a>
         </div>
-        ${pageHeroPanelMarkup("Project Signal", [
-          { label: "Status", value: project.status },
-          { label: "Role", value: project.role },
-          { label: "Output", value: project.outputs.slice(0, 2).join(" / ") }
+        ${pageHeroPanelMarkup(t("detail.signal"), [
+          { label: t("meta.status"), value: project.status },
+          { label: t("meta.role"), value: project.role },
+          { label: t("meta.output"), value: project.outputs.slice(0, 2).join(" / ") }
         ])}
       </section>
 
       <section class="section">
         <div class="section-head reveal">
-          <p class="section-kicker">Highlights</p>
-          <h2>Key Design Decisions</h2>
-          <p class="section-summary">${project.title} 的核心设计选择和技术亮点。</p>
+          <p class="section-kicker">${t("detail.highlightsKicker")}</p>
+          <h2>${t("detail.highlights")}</h2>
+          <p class="section-summary">${project.title} — ${t("detail.highlightsSummary")}</p>
         </div>
         <div class="build-track-grid">
-          ${project.highlights
+          ${highlights
             .map((item, index) => {
               const highlight = detailItemParts(item);
 
               return `
                 <article class="track-card reveal">
-                  <p class="stack-label">Highlight 0${index + 1}</p>
+                  <p class="stack-label">${t("detail.highlightLabel")} 0${index + 1}</p>
                   <h3>${highlight.title}</h3>
                   <p>${highlight.body}</p>
                   <span class="repo-meta">${project.outputs[index] || project.stack[index] || project.status}</span>
@@ -762,9 +1279,9 @@ if (projectDetailNode) {
       ${relatedNotes.length > 0 ? `
       <section class="section">
         <div class="section-head reveal">
-          <p class="section-kicker">Related Notes</p>
-          <h2>Linked Thinking</h2>
-          <p class="section-summary">从项目继续跳到相关判断和方法论。</p>
+          <p class="section-kicker">${t("detail.relatedNotesKicker")}</p>
+          <h2>${t("detail.relatedNotes")}</h2>
+          <p class="section-summary">${t("detail.relatedNotesSummary")}</p>
         </div>
         <div class="build-track-grid related-track-grid">
           ${relatedNotes.map((note) => relatedNoteMarkup(note)).join("")}
@@ -782,10 +1299,25 @@ if (projectDetailNode) {
        })}
     `;
     projectDetailNode.setAttribute("aria-busy", "false");
-    const mainContent = document.getElementById("main-content");
-    if (mainContent) mainContent.focus({ preventScroll: true });
+    requestAnimationFrame(() => fitProjectHeroTitle(projectDetailNode));
+    if (!instant) {
+      const mainContent = document.getElementById("main-content");
+      if (mainContent) mainContent.focus({ preventScroll: true });
+    }
   }
-}
+  updateLangToggleUI();
+  if (instant) {
+    projectDetailNode.querySelectorAll(".reveal").forEach((node) => node.classList.add("visible"));
+  }
+};
+renderProjectDetail();
+
+let projectHeroFitTimer = 0;
+window.addEventListener("resize", () => {
+  if (!projectDetailNode) return;
+  clearTimeout(projectHeroFitTimer);
+  projectHeroFitTimer = window.setTimeout(() => fitProjectHeroTitle(projectDetailNode), 120);
+});
 
 const renderNoteDetail = (instant = false) => {
   if (!noteDetailNode) return;
@@ -800,15 +1332,15 @@ const renderNoteDetail = (instant = false) => {
   if (!note) {
     noteDetailNode.innerHTML = `
       <section class="page-hero notfound-hero">
-        <p class="eyebrow">Error 404 / Notes</p>
+        <p class="eyebrow">${t("detail.notFoundNoteEyebrow")}</p>
         <h1 class="page-title">
-          Note Not Found
+          ${t("detail.notFoundNoteTitle")}
           <span>404</span>
         </h1>
-        <p class="page-lead">这篇笔记还不存在，或者 slug 不正确。</p>
+        <p class="page-lead">${t("detail.notFoundNote")}</p>
         <div class="page-actions">
-          <a class="button primary" href="./notes.html">返回笔记</a>
-          <a class="button secondary" href="./index.html">首页</a>
+          <a class="button primary" href="./notes.html">${t("cta.backNotes")}</a>
+          <a class="button secondary" href="./index.html">${t("cta.home")}</a>
         </div>
       </section>
     `;
@@ -829,12 +1361,12 @@ const renderNoteDetail = (instant = false) => {
         ${noteHeadingEn(note) ? `<p class="note-detail-en">${noteHeadingEn(note)}</p>` : ""}
         <ul class="note-facts reveal">
           ${[
-            { label: "Status", value: note.status },
-            { label: "Focus", value: noteFocusValue(note) },
-            { label: "Period", value: note.timeframe },
-            { label: "Points", value: String(noteBullets(note).length) },
-            { label: "Read", value: `${noteReadMinutes(note)} min` },
-            { label: "Builds", value: String(relatedProjects.length) }
+            { label: t("meta.status"), value: note.status },
+            { label: t("meta.focus"), value: noteFocusValue(note) },
+            { label: t("meta.period"), value: note.timeframe },
+            { label: t("meta.points"), value: String(noteBullets(note).length) },
+            { label: t("meta.read"), value: `${noteReadMinutes(note)} ${t("meta.min")}` },
+            { label: t("meta.builds"), value: String(relatedProjects.length) }
           ]
             .filter((fact) => fact.value)
             .map(
@@ -848,27 +1380,26 @@ const renderNoteDetail = (instant = false) => {
             .join("")}
         </ul>
         <div class="page-actions">
-          <a class="button primary" href="./notes.html">返回笔记</a>
-          <a class="button secondary" href="${relatedProjects.length > 0 ? "#linked-builds" : "./projects.html"}">相关项目</a>
-          ${langToggleMarkup()}
+          <a class="button primary" href="./notes.html">${t("cta.backNotes")}</a>
+          <a class="button secondary" href="${relatedProjects.length > 0 ? "#linked-builds" : "./projects.html"}">${t("detail.relatedProjects")}</a>
         </div>
       </section>
 
       <section class="section note-overview-section">
         <blockquote class="note-lens reveal">
-          <span class="note-lens-label">Lens</span>
+          <span class="note-lens-label">${t("detail.lens")}</span>
           <p>${noteLens(note)}</p>
         </blockquote>
         <div class="note-overview-card reveal">
-          <p class="note-overview-label">Overview</p>
+          <p class="note-overview-label">${t("detail.overview")}</p>
           <p class="note-overview-text">${noteText(note, "overview")}</p>
         </div>
       </section>
 
       <section class="section note-detail-body">
         <div class="section-head reveal">
-          <p class="section-kicker">Breakdown</p>
-          <h2>Key Points</h2>
+          <p class="section-kicker">${t("detail.breakdownKicker")}</p>
+          <h2>${t("detail.keyPoints")}</h2>
         </div>
         <ol class="note-points">
           ${noteBullets(note)
@@ -885,9 +1416,9 @@ const renderNoteDetail = (instant = false) => {
       ${relatedProjects.length > 0 ? `
       <section class="section" id="linked-builds">
         <div class="section-head reveal">
-          <p class="section-kicker">Related Projects</p>
-          <h2>Linked Builds</h2>
-          <p class="section-summary">从判断跳回对应的项目入口，让想法和构建产物互相解释。</p>
+          <p class="section-kicker">${t("detail.relatedProjectsKicker")}</p>
+          <h2>${t("detail.relatedProjects")}</h2>
+          <p class="section-summary">${t("detail.relatedProjectsSummary")}</p>
         </div>
         <div class="build-track-grid related-track-grid">
           ${relatedProjects.map((project) => relatedProjectMarkup(project)).join("")}
@@ -915,18 +1446,118 @@ const renderNoteDetail = (instant = false) => {
 };
 renderNoteDetail();
 
+const renderProjectSurfaces = (instant = false) => {
+  if (homeProjectsNode) {
+    const featuredProjects = siteData.projects.filter((project) => project.featured);
+    homeProjectsNode.innerHTML = featuredProjects.map((project) => projectCardMarkup(project, "home")).join("");
+  }
+  if (projectLibraryNode) {
+    projectLibraryNode.innerHTML = siteData.projects.map((project) => projectCardMarkup(project, "library")).join("");
+  }
+  if (showcaseNode) {
+    const demoProjects = siteData.projects.filter((project) => project.demoUrl);
+    showcaseNode.innerHTML = demoProjects.map((project) => {
+      return `
+      <a class="showcase-card reveal" href="${project.demoUrl}" target="_blank" rel="noreferrer">
+        <div class="showcase-card-header">
+          <p class="card-topline">
+            ${project.label}
+            <span class="card-status-dot live" aria-hidden="true"></span>
+          </p>
+          <div class="showcase-demo-badge">${t("showcase.badge")}</div>
+        </div>
+        <h3>${project.title}</h3>
+        <p>${projectText(project, "summary")}</p>
+        <div class="card-tags">${createTagList(project.stack)}</div>
+        <div class="showcase-url">${project.demoUrl}</div>
+        <div class="card-actions">
+          <span class="work-link">${t("cta.tryDemo")}</span>
+          <span class="card-inline-link">${project.status}</span>
+        </div>
+      </a>
+    `;
+    }).join("");
+  }
+  if (nowBuildingNode) {
+    const nowItems = Array.isArray(siteData.profile?.now) ? siteData.profile.now : [];
+    nowBuildingNode.innerHTML = nowItems
+      .map((item, index) => {
+        const project = projectBySlug.get(item.slug);
+        const href = project ? projectDetailHref(project) : "./projects.html";
+        const demoHref = project?.demoUrl || "";
+        const order = String(index + 1).padStart(2, "0");
+        const label = project?.label || item.code || "Now";
+        const beat = siteLang === "en" ? item.beatEn || item.beat : item.beat;
+        return `
+        <article class="about-now-card reveal">
+          <div class="about-now-card-top">
+            <p class="card-topline">
+              <span class="about-now-index">${order}</span>
+              <span>${label}</span>
+              <span class="card-status-dot live" aria-hidden="true"></span>
+              <span class="work-status-pill">${t("shipping")}</span>
+            </p>
+            ${item.when ? `<span class="about-now-when">${item.when}</span>` : ""}
+          </div>
+          <h3>${item.title}</h3>
+          <p>${beat}</p>
+          <div class="card-actions">
+            <a class="card-inline-link" href="${href}">${t("cta.openDetail")} <span aria-hidden="true">→</span></a>
+            ${
+              demoHref
+                ? `<a class="card-inline-link" href="${demoHref}" target="_blank" rel="noreferrer">${t("cta.tryDemo")}</a>`
+                : ""
+            }
+          </div>
+        </article>
+      `;
+      })
+      .join("");
+  }
+  if (projectLibraryNode) applyStoredFilter(projectLibraryNode);
+  if (instant) {
+    [homeProjectsNode, projectLibraryNode, showcaseNode, nowBuildingNode].forEach((node) => {
+      if (node) node.querySelectorAll(".reveal").forEach((card) => card.classList.add("visible"));
+    });
+  }
+};
+
+const setSiteLang = (lang, instant = false) => {
+  if ((lang !== "en" && lang !== "zh") || lang === siteLang) return;
+  siteLang = lang;
+  try {
+    localStorage.setItem(SITE_LANG_KEY, lang);
+    localStorage.setItem(LEGACY_NOTES_LANG_KEY, lang);
+  } catch (persistErr) {}
+  applyChromeI18n();
+  updateLangToggleUI();
+  renderNoteLibraries(instant);
+  renderNoteDetail(instant);
+  renderProjectSurfaces(instant);
+  renderProjectDetail(instant);
+  // Refresh filter "全部" label if present
+  document.querySelectorAll(".filter-bar .filter-pill").forEach((pill) => {
+    if (!pill.dataset.filterLabel) {
+      const countMatch = pill.textContent.match(/\((\d+)\)/);
+      const count = countMatch ? countMatch[1] : "";
+      pill.textContent = count ? `${t("filter.all")} (${count})` : t("filter.all");
+    }
+  });
+  const paletteEmpty = document.querySelector(".palette-empty");
+  if (paletteEmpty) paletteEmpty.textContent = t("palette.empty");
+  if (typeof window.__refreshPaletteLang === "function") window.__refreshPaletteLang();
+};
+
 document.addEventListener("click", (event) => {
   const toggle = event.target.closest("[data-lang-toggle]");
   if (!toggle) return;
   const lang = toggle.getAttribute("data-lang-toggle");
-  if ((lang !== "en" && lang !== "zh") || lang === notesLang) return;
-  notesLang = lang;
-  try {
-    localStorage.setItem(NOTES_LANG_KEY, lang);
-  } catch (persistErr) {}
-  renderNoteLibraries(true);
-  renderNoteDetail(true);
+  setSiteLang(lang, true);
 });
+
+applyChromeI18n();
+updateLangToggleUI();
+renderProjectSurfaces();
 
 const revealNodes = document.querySelectorAll(".reveal");
 const emphasisNodes = document.querySelectorAll(".work-card, .command-list p, .ops-command-list p");
@@ -1049,13 +1680,13 @@ if (palette && paletteInput) {
   let currentResults = [];
   let paletteTriggerEl = null;
 
-  const pages = [
-    { title: "Home", label: "Page", href: "./index.html" },
-    { title: "Projects", label: "Page", href: "./projects.html" },
-    { title: "Showcase", label: "Page", href: "./showcase.html" },
-    { title: "Notes", label: "Page", href: "./notes.html" },
-    { title: "About", label: "Page", href: "./about.html" },
-    { title: "GitHub Profile", label: "External", href: "https://github.com/jameryw" }
+  const pages = () => [
+    { title: t("nav.home"), label: t("palette.page"), href: "./index.html" },
+    { title: t("nav.projects"), label: t("palette.page"), href: "./projects.html" },
+    { title: t("nav.showcase"), label: t("palette.page"), href: "./showcase.html" },
+    { title: t("nav.notes"), label: t("palette.page"), href: "./notes.html" },
+    { title: t("nav.about"), label: t("palette.page"), href: "./about.html" },
+    { title: "GitHub Profile", label: t("palette.external"), href: "https://github.com/jameryw" }
   ];
 
   function openPalette() {
@@ -1066,6 +1697,11 @@ if (palette && paletteInput) {
     paletteInput.focus();
     renderResults("");
   }
+
+  window.__refreshPaletteLang = () => {
+    if (!palette.classList.contains("open")) return;
+    renderResults(paletteInput.value || "");
+  };
 
   function closePalette() {
     palette.classList.remove("open");
@@ -1082,23 +1718,31 @@ if (palette && paletteInput) {
     const items = [];
 
     /* Pages */
-    pages.forEach((p) => {
+    pages().forEach((p) => {
       if (!q || p.title.toLowerCase().includes(q)) {
         items.push({ title: p.title, label: p.label, href: p.href });
       }
     });
 
-    /* Projects */
+    /* Projects — search both locales so EN queries hit summaryEn too */
     siteData.projects.forEach((p) => {
-      if (!q || p.title.toLowerCase().includes(q) || p.summary.toLowerCase().includes(q) || p.stack.join(" ").toLowerCase().includes(q)) {
-        items.push({ title: p.title, label: "Project", href: projectDetailHref(p) });
+      const hay = [p.title, p.summary, p.summaryEn, p.label, ...(p.stack || [])]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+      if (!q || hay.includes(q)) {
+        items.push({ title: p.title, label: t("palette.project"), href: projectDetailHref(p) });
       }
     });
 
-    /* Notes */
+    /* Notes — prefer the active-locale title in results */
     siteData.notes.forEach((n) => {
-      if (!q || n.title.toLowerCase().includes(q) || n.summary.toLowerCase().includes(q) || n.label.toLowerCase().includes(q)) {
-        items.push({ title: n.title, label: "Note", href: noteDetailHref(n) });
+      const hay = [n.title, n.titleEn, n.summary, n.summaryEn, n.label]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+      if (!q || hay.includes(q)) {
+        items.push({ title: noteTitle(n), label: t("palette.note"), href: noteDetailHref(n) });
       }
     });
 
@@ -1113,7 +1757,7 @@ if (palette && paletteInput) {
       paletteResults.textContent = "";
       const empty = document.createElement("div");
       empty.className = "palette-empty";
-      empty.textContent = "没有匹配结果";
+      empty.textContent = t("palette.empty");
       paletteResults.appendChild(empty);
       return;
     }

@@ -17,13 +17,13 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://www.jameryw.dev/og-image.png" />
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-BvFjesuXUeZq6FHJaT9kdP/c6ice0i0dRoaYYDO3DM0=' https://stats.jameryw.dev; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://stats.jameryw.dev;" />
-    <script>try{if(localStorage.getItem("theme")==="light"){document.documentElement.setAttribute("data-theme","light");var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content","#f0f2f8")}}catch(e){}setTimeout(function(){var el=document.querySelector(".page-loader");if(el&&!el.classList.contains("loaded"))el.classList.add("is-slow")},480);setTimeout(function(){var el=document.querySelector(".page-loader");if(el)el.classList.add("loaded")},2400);</script>
+    <script>try{if(localStorage.getItem("theme")==="light"){document.documentElement.setAttribute("data-theme","light");var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content","#f0f2f8")}}catch(e){}try{var L=localStorage.getItem("site-lang")||localStorage.getItem("notes-lang");if(L==="en"||L==="zh"){document.documentElement.setAttribute("data-lang",L);document.documentElement.lang=L==="en"?"en":"zh-CN"}}catch(e){}setTimeout(function(){var el=document.querySelector(".page-loader");if(el&&!el.classList.contains("loaded"))el.classList.add("is-slow")},480);setTimeout(function(){var el=document.querySelector(".page-loader");if(el)el.classList.add("loaded")},2400);</script>
     <link rel="manifest" href="./manifest.json">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Jamery Wang">
     <link rel="preload" href="./fonts/syne-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="./styles.css?v=83" />
+    <link rel="stylesheet" href="./styles.css?v=103" />
     <link rel="preconnect" href="https://stats.jameryw.dev" />
   </head>
   <body>
@@ -45,16 +45,22 @@
           <span class="brand-mark" aria-hidden="true"></span>
           <span>Jamery Wang</span>
         </a>
-        <div class="topbar-socials" role="group" aria-label="Social profiles">
-          <a class="topbar-link platform-link platform-icon-only" href="https://github.com/jameryw" target="_blank" rel="noreferrer" aria-label="GitHub Profile" title="GitHub">
-            <svg class="platform-icon" aria-hidden="true"><use href="#platform-icon-github"></use></svg>
-          </a>
-          <a class="topbar-link platform-link platform-icon-only" href="https://x.com/JameryWang" target="_blank" rel="noreferrer" aria-label="X Profile" title="X">
-            <svg class="platform-icon" aria-hidden="true"><use href="#platform-icon-x"></use></svg>
-          </a>
-          <a class="topbar-link platform-link platform-icon-only" href="https://xhslink.com/m/5WfdZrtFi4K" target="_blank" rel="noreferrer" aria-label="小红书" title="小红书">
-            <img class="platform-icon platform-icon-xiaohongshu" src="./xiaohongshu-logo.png" alt="" />
-          </a>
+        <div class="topbar-end">
+          <div class="lang-toggle lang-toggle-compact topbar-lang" role="group" aria-label="语言切换 Language">
+            <button type="button" data-lang-zh class="active" aria-pressed="true">中文</button>
+            <button type="button" data-lang-en aria-pressed="false">EN</button>
+          </div>
+          <div class="topbar-socials" role="group" aria-label="Social profiles">
+            <a class="topbar-link platform-link platform-icon-only" href="https://github.com/jameryw" target="_blank" rel="noreferrer" aria-label="GitHub Profile" title="GitHub">
+              <svg class="platform-icon" aria-hidden="true"><use href="#platform-icon-github"></use></svg>
+            </a>
+            <a class="topbar-link platform-link platform-icon-only" href="https://x.com/JameryWang" target="_blank" rel="noreferrer" aria-label="X Profile" title="X">
+              <svg class="platform-icon" aria-hidden="true"><use href="#platform-icon-x"></use></svg>
+            </a>
+            <a class="topbar-link platform-link platform-icon-only" href="https://xhslink.com/m/5WfdZrtFi4K" target="_blank" rel="noreferrer" aria-label="小红书" title="小红书">
+              <img class="platform-icon platform-icon-xiaohongshu" src="./xiaohongshu-logo.png" alt="" />
+            </a>
+          </div>
         </div>
       </header>
 
@@ -65,10 +71,19 @@
             Signal Lost
             <span>404</span>
           </h1>
-          <p class="page-lead">这个路径还不存在。也许是未来的一次实验，也许链接已经变了。</p>
+          <p class="page-lead">
+            <span class="lang-zh">这个路径还不存在。也许是未来的一次实验，也许链接已经变了。</span>
+            <span class="lang-en">This path isn't here yet — maybe a future experiment, or the link moved.</span>
+          </p>
           <div class="page-actions">
-            <a class="button primary" href="./index.html">回到首页</a>
-            <a class="button secondary" href="./projects.html">浏览项目</a>
+            <a class="button primary" href="./index.html">
+              <span class="lang-zh">回到首页</span>
+              <span class="lang-en">Back home</span>
+            </a>
+            <a class="button secondary" href="./projects.html">
+              <span class="lang-zh">浏览项目</span>
+              <span class="lang-en">Browse projects</span>
+            </a>
           </div>
         </section>
       </main>
@@ -81,5 +96,6 @@
       </footer>
     </div>
     <script src="./umami-config.js" defer></script>
+    <script src="./notfound.js" defer></script>
   </body>
 </html>
