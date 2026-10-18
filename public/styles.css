@@ -1810,20 +1810,25 @@ body[data-page="about"] .section + .section {
 }
 
 [data-project-detail] .page-title.is-long {
-  font-size: clamp(2.1rem, 4.2vw, 3.25rem);
+  font-size: clamp(1.95rem, 3.8vw, 2.95rem);
   letter-spacing: -0.025em;
 }
 
 [data-project-detail] .page-title span,
 [data-note-detail] .page-title span {
-  max-width: 100%;
-  margin-block: 0.12em 0;
-  padding-block: 0.02em;
+  max-width: 36ch;
+  margin-block: 0.14em 0;
+  padding-block: 0;
+  color: rgba(245, 247, 255, 0.58);
+  -webkit-text-stroke: 0;
+  text-shadow: none;
   overflow-wrap: break-word;
   word-break: normal;
-  font-size: 0.42em;
-  letter-spacing: 0.04em;
-  text-wrap: balance;
+  font-size: 0.38em;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+  text-wrap: pretty;
 }
 
 [data-project-detail] .page-hero-panel,

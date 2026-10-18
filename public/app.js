@@ -261,6 +261,45 @@ const projectHeroTitleClass = (title) => {
   return "page-title";
 };
 
+/* When the signal panel sits beside the hero, keep the product name on
+   one line by easing font-size down. Soft <wbr> breaks remain for the
+   stacked mobile layout. */
+const fitProjectHeroTitle = (root) => {
+  const hero = root && root.querySelector(".page-hero");
+  const title = root && root.querySelector(".page-title");
+  const panel = root && root.querySelector(".page-hero-panel");
+  if (!hero || !title || !panel) return;
+
+  title.style.fontSize = "";
+  title.style.whiteSpace = "";
+
+  const columns = getComputedStyle(hero).gridTemplateColumns.trim().split(/\s+/);
+  if (columns.length < 2) return;
+
+  const span = title.querySelector("span");
+  const available = title.clientWidth;
+  if (available <= 0) return;
+
+  let low = 28;
+  let high = parseFloat(getComputedStyle(title).fontSize) || 64;
+  title.style.whiteSpace = "nowrap";
+
+  for (let i = 0; i < 14; i += 1) {
+    const mid = (low + high) / 2;
+    title.style.fontSize = `${mid}px`;
+    const range = document.createRange();
+    range.setStart(title, 0);
+    if (span) range.setEndBefore(span);
+    else range.selectNodeContents(title);
+    const width = range.getBoundingClientRect().width;
+    if (width <= available - 2) low = mid;
+    else high = mid;
+  }
+
+  title.style.fontSize = `${low}px`;
+  title.style.whiteSpace = "";
+};
+
 const pageHeroPanelMarkup = (title, items) => `
   <aside class="page-hero-panel reveal" aria-label="${title}">
     <p class="stack-label">${title}</p>
@@ -1125,6 +1164,7 @@ const renderProjectDetail = (instant = false) => {
        })}
     `;
     projectDetailNode.setAttribute("aria-busy", "false");
+    requestAnimationFrame(() => fitProjectHeroTitle(projectDetailNode));
     if (!instant) {
       const mainContent = document.getElementById("main-content");
       if (mainContent) mainContent.focus({ preventScroll: true });
@@ -1136,6 +1176,13 @@ const renderProjectDetail = (instant = false) => {
   }
 };
 renderProjectDetail();
+
+let projectHeroFitTimer = 0;
+window.addEventListener("resize", () => {
+  if (!projectDetailNode) return;
+  clearTimeout(projectHeroFitTimer);
+  projectHeroFitTimer = window.setTimeout(() => fitProjectHeroTitle(projectDetailNode), 120);
+});
 
 const renderNoteDetail = (instant = false) => {
   if (!noteDetailNode) return;
