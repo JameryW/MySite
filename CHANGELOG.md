@@ -25,7 +25,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Align project/note `outputs[]` 1:1 with highlights/bullets so detail highlight footers stay on-topic
 - Localize project detail signal panel + section kickers; capitalize EN highlight bodies after colon split
 - Normalize highlight titles to labeled splits; bilingualize About signal strip and detail not-found titles
-- Cache bump: `styles.css?v=94`, `app.js?v=60`, `data.js?v=40`, Service Worker `mysite-v119`
+- Keep project detail titles wrapping inside the hero column so they no longer cover the signal panel
+- Cache bump: `styles.css?v=95`, `app.js?v=60`, `data.js?v=40`, Service Worker `mysite-v120`
 
 ## [1.0.0] - 2026-05-31
 

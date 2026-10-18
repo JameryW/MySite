@@ -1784,6 +1784,36 @@ body[data-page="about"] .section + .section {
   padding-bottom: 36px;
 }
 
+/* Long unbroken titles (AwesomeWorkflows, QuantStrategyPrototypes)
+   must wrap inside the left column — otherwise glyphs paint over the
+   signal panel. min-width:0 lets the grid track shrink below min-content. */
+[data-project-detail] .page-hero > :not(.page-hero-panel),
+[data-note-detail] .page-hero > :not(.page-hero-panel) {
+  min-width: 0;
+  max-width: 100%;
+}
+
+[data-project-detail] .page-title,
+[data-note-detail] .page-title {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+[data-project-detail] .page-title span,
+[data-note-detail] .page-title span {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  font-size: 0.42em;
+  letter-spacing: 0.04em;
+}
+
+[data-project-detail] .page-hero-panel,
+[data-note-detail] .page-hero-panel {
+  z-index: 1;
+}
+
 [data-project-detail] .page-hero + .section,
 [data-note-detail] .page-hero + .section,
 [data-note-detail] .note-overview-section {
@@ -3023,11 +3053,12 @@ body[data-page="projects"] .project-entry-card h3 {
   word-break: break-word;
 }
 
-body[data-page="projects"] .page-title {
+/* Listing hero only — detail pages opt out via [data-project-detail]. */
+body[data-page="projects"]:not(:has([data-project-detail])) .page-title {
   max-width: 18ch;
 }
 
-body[data-page="projects"] .page-title span {
+body[data-page="projects"]:not(:has([data-project-detail])) .page-title span {
   max-width: none;
   font-size: 0.42em;
   letter-spacing: 0.04em;
