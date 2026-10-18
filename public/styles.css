@@ -606,7 +606,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 14px;
+  gap: 18px;
   padding: 24px 0 18px;
   background: linear-gradient(180deg, rgba(5, 8, 22, 0.96), rgba(5, 8, 22, 0.5), transparent);
 }
@@ -617,13 +617,18 @@ a {
   align-items: center;
 }
 
+/* Brand | Nav .............. Actions | Lang+Socials */
 .topbar-meta {
+  flex: 1 1 auto;
   gap: 22px;
-  margin-left: auto;
+  min-width: 0;
+  margin-left: 4px;
 }
 
 .topbar-actions {
-  gap: 12px;
+  gap: 10px;
+  flex-shrink: 0;
+  margin-left: auto;
 }
 
 .brand {
@@ -862,16 +867,18 @@ body[data-page="about"] .nav a[href="./about.html"]::after {
 
 .page-hero-panel::after {
   position: absolute;
-  right: 22px;
-  bottom: 22px;
-  width: 82px;
-  height: 82px;
+  right: -18px;
+  bottom: -18px;
+  width: 96px;
+  height: 96px;
   content: "";
-  border: 1px solid rgba(108, 242, 255, 0.18);
+  pointer-events: none;
+  border: 1px solid rgba(108, 242, 255, 0.14);
   border-radius: 50%;
+  opacity: 0.55;
   box-shadow:
-    inset 0 0 28px rgba(108, 242, 255, 0.08),
-    0 0 32px rgba(108, 242, 255, 0.08);
+    inset 0 0 28px rgba(108, 242, 255, 0.06),
+    0 0 32px rgba(108, 242, 255, 0.06);
 }
 
 .page-hero-panel > * {
@@ -1121,11 +1128,13 @@ body[data-page="home"] .hero-copy {
 
 body[data-page="home"] .hero-copy h1 {
   max-width: none;
-  line-height: 1.16;
+  line-height: 1.12;
+  white-space: nowrap;
 }
 
 body[data-page="home"] .hero-copy h1 span {
-  margin-block: 0;
+  display: block;
+  margin-block: 0.08em 0;
   white-space: normal;
   text-wrap: balance;
 }
@@ -2551,7 +2560,7 @@ body[data-page="home"] .note-card .card-actions {
   align-items: center;
   gap: 8px;
   flex-shrink: 0;
-  margin-left: 0;
+  margin-left: 4px;
 }
 
 .topbar-lang {
@@ -2962,8 +2971,9 @@ body[data-page="about"] .about-hero-copy {
 }
 
 body[data-page="about"] .about-hero .page-title {
-  max-width: 14ch;
+  max-width: none;
   line-height: 1.12;
+  white-space: nowrap;
 }
 
 body[data-page="about"] .about-hero .page-title span {
@@ -4360,11 +4370,11 @@ body[data-page="about"] .contact-links a:nth-child(3) {
 /* Ease density before the hamburger takes over */
 @media (max-width: 1180px) and (min-width: 981px) {
   .topbar {
-    gap: 10px;
+    gap: 12px;
   }
 
   .nav {
-    gap: 18px;
+    gap: 16px;
   }
 
   .topbar-status {
@@ -4492,6 +4502,13 @@ body[data-page="about"] .contact-links a:nth-child(3) {
 
   body[data-page="home"] .hero-copy h1 span {
     white-space: normal;
+  }
+
+  @media (max-width: 420px) {
+    body[data-page="home"] .hero-copy h1,
+    body[data-page="about"] .about-hero .page-title {
+      white-space: normal;
+    }
   }
 
   /* eyebrow 移动端更小 */
