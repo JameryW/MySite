@@ -282,6 +282,7 @@ const fitProjectHeroTitle = (root) => {
 
   let low = 28;
   let high = parseFloat(getComputedStyle(title).fontSize) || 64;
+  const gutter = 28;
   title.style.whiteSpace = "nowrap";
 
   for (let i = 0; i < 14; i += 1) {
@@ -292,7 +293,7 @@ const fitProjectHeroTitle = (root) => {
     if (span) range.setEndBefore(span);
     else range.selectNodeContents(title);
     const width = range.getBoundingClientRect().width;
-    if (width <= available - 2) low = mid;
+    if (width <= available - gutter) low = mid;
     else high = mid;
   }
 
