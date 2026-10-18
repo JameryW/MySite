@@ -1784,9 +1784,9 @@ body[data-page="about"] .section + .section {
   padding-bottom: 36px;
 }
 
-/* Long unbroken titles (AwesomeWorkflows, QuantStrategyPrototypes)
-   must wrap inside the left column — otherwise glyphs paint over the
-   signal panel. min-width:0 lets the grid track shrink below min-content. */
+/* Detail hero titles: stay inside the left column without ugly
+   mid-word wraps. CamelCase soft breaks (<wbr>) come from app.js;
+   longer names scale down so most stay one line. */
 [data-project-detail] .page-hero > :not(.page-hero-panel),
 [data-note-detail] .page-hero > :not(.page-hero-panel) {
   min-width: 0;
@@ -1796,17 +1796,34 @@ body[data-page="about"] .section + .section {
 [data-project-detail] .page-title,
 [data-note-detail] .page-title {
   max-width: 100%;
-  overflow-wrap: anywhere;
-  word-break: break-word;
+  font-size: clamp(2.55rem, 5.4vw, 4.4rem);
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+  text-wrap: balance;
+}
+
+[data-project-detail] .page-title.is-medium {
+  font-size: clamp(2.35rem, 4.8vw, 3.85rem);
+}
+
+[data-project-detail] .page-title.is-long {
+  font-size: clamp(2.1rem, 4.2vw, 3.25rem);
+  letter-spacing: -0.025em;
 }
 
 [data-project-detail] .page-title span,
 [data-note-detail] .page-title span {
   max-width: 100%;
-  overflow-wrap: anywhere;
-  word-break: break-word;
+  margin-block: 0.12em 0;
+  padding-block: 0.02em;
+  overflow-wrap: break-word;
+  word-break: normal;
   font-size: 0.42em;
   letter-spacing: 0.04em;
+  text-wrap: balance;
 }
 
 [data-project-detail] .page-hero-panel,

@@ -242,6 +242,25 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
 const createTagList = (items) =>
   items.map((item) => `<span>${item}</span>`).join("");
 
+/* Soft-break CamelCase product names at token boundaries
+   (Awesome<wbr>Workflows) so wraps stay intentional, not mid-glyph. */
+const escapeHtml = (value) =>
+  String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+
+const softBreakCamelTitle = (title) =>
+  escapeHtml(title).replace(/([a-z0-9])([A-Z])/g, "$1<wbr>$2");
+
+const projectHeroTitleClass = (title) => {
+  const len = String(title || "").length;
+  if (len > 18) return "page-title is-long";
+  if (len > 12) return "page-title is-medium";
+  return "page-title";
+};
+
 const pageHeroPanelMarkup = (title, items) => `
   <aside class="page-hero-panel reveal" aria-label="${title}">
     <p class="stack-label">${title}</p>
@@ -1040,9 +1059,9 @@ const renderProjectDetail = (instant = false) => {
     projectDetailNode.innerHTML = `
       <section class="page-hero reveal">
         <p class="eyebrow">${project.label} / ${project.timeframe} / ${project.status}</p>
-        <h1 class="page-title">
-          ${project.title}
-          <span>${project.detailTitle}</span>
+        <h1 class="${projectHeroTitleClass(project.title)}">
+          ${softBreakCamelTitle(project.title)}
+          <span>${escapeHtml(project.detailTitle)}</span>
         </h1>
         <p class="page-lead">${overview}</p>
         <div class="page-actions">

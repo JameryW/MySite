@@ -26,7 +26,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Localize project detail signal panel + section kickers; capitalize EN highlight bodies after colon split
 - Normalize highlight titles to labeled splits; bilingualize About signal strip and detail not-found titles
 - Keep project detail titles wrapping inside the hero column so they no longer cover the signal panel
-- Cache bump: `styles.css?v=95`, `app.js?v=60`, `data.js?v=40`, Service Worker `mysite-v120`
+- Scale long detail titles and soft-break CamelCase at token boundaries instead of mid-word wraps
+- Cache bump: `styles.css?v=97`, `app.js?v=61`, `data.js?v=40`, Service Worker `mysite-v122`
 
 ## [1.0.0] - 2026-05-31
 
