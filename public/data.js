@@ -619,6 +619,43 @@ window.siteData = {
       ],
       outputs: ["Pure-software devaluation thesis", "Physical-connected premium insight", "Software-hardware integration argument", "Physical-connected premium"],
       relatedProjects: ["real-quant-engine", "quant-agent"]
+    },
+    {
+      slug: "ai-k-shaped-divergence",
+      code: "N12",
+      label: "Divergence",
+      title: "AI 时代的 K 型分化",
+      titleEn: "K-Shaped Divergence In The AI Era",
+      featured: true,
+      summary: "AI 把世界撕成两极：应用侧越来越文科化，审美与品格决定胜负；技术侧越来越硬核，绑定物理世界的硬件、真实环境的感知—行动—反馈，以及自我进化。",
+      summaryEn: "AI splits the world into a K: apps go liberal-arts — taste and character decide who wins; tech goes hardcore — hardware bound to the physical world, perception–action–feedback in real environments, and self-evolution.",
+      meta: "Focus: AI-era dual track",
+      status: "Divergence note",
+      timeframe: "2025 observation",
+      detailTitle: "应用文科化，技术硬核化",
+      detailTitleEn: "Apps Go Soft, Tech Goes Hard",
+      overview:
+        "AI 时代正在发生一场 K 型分化。上臂是应用：能力被模型抹平之后，差异不再来自功能清单，而来自审美、叙事、品味和品格——产品越来越像文科作品，用户为感觉和信任买单。下臂是技术：真正的壁垒下沉到物理世界——硬件接口、传感器与执行器、真实环境里的感知—行动—反馈闭环，以及能在现场里自我进化的系统。中间被掏空的，是那些既不够有品味、又不触碰物理摩擦的纯软件中间层。",
+      overviewEn:
+        "The AI era is splitting into a K. The upper arm is apps: once models flatten capability, differentiation stops coming from feature lists and starts coming from aesthetics, narrative, taste, and character — products read more like liberal-arts work, and users pay for feeling and trust. The lower arm is tech: the real moat sinks into the physical world — hardware interfaces, sensors and actuators, perception–action–feedback loops in real environments, and systems that can self-evolve on site. What's hollowed out in the middle is the pure-software layer that's neither tasteful enough nor physically frictional enough.",
+      lens: "Apps win on taste and character; tech wins on physical binding, real-environment feedback, and self-evolution — the soft middle gets squeezed.",
+      lensZh: "应用靠审美与品格取胜；技术靠绑定物理、真实反馈与自我进化取胜——中间的软层被挤空。",
+      bullets: [
+        "应用侧文科化：模型把「能做」拉平之后，胜负改由审美、叙事和品格决定。功能可复制，感觉和信任难复制。",
+        "用户为品味买单：界面气质、语气、价值观一致性，比多一个按钮更值钱。产品越像作品，越不像工具说明书。",
+        "技术侧硬核化：壁垒下沉到硬件、传感器、执行器，以及真实环境里的感知—行动—反馈。纸上闭环不算闭环。",
+        "自我进化才是终点：能在现场吃反馈、改策略、长能力的系统，才配得上「硬核」——静态交付会贬值，活的闭环会升值。",
+        "结论：站队要清晰——要么把应用做成有品格的文科作品，要么把技术钉进物理世界的进化闭环；卡在中间最危险。"
+      ],
+      bulletsEn: [
+        "Apps go liberal-arts: once models flatten \"can do,\" winning shifts to aesthetics, narrative, and character. Features copy easily; feeling and trust don't.",
+        "Users pay for taste: interface temperament, voice, and value consistency beat one more button. Products that feel like works outcompete products that read like tool manuals.",
+        "Tech goes hardcore: the moat sinks into hardware, sensors, actuators, and perception–action–feedback in real environments. A loop on paper isn't a loop.",
+        "Self-evolution is the endgame: systems that eat feedback, revise strategy, and grow capability on site earn the \"hardcore\" label — static deliveries depreciate; living loops appreciate.",
+        "Conclusion: pick a side clearly — either craft apps as liberal-arts works with character, or pin tech into physical-world evolution loops. The soft middle is the riskiest place to stand.",
+      ],
+      outputs: ["K-shaped divergence thesis", "Apps-as-liberal-arts insight", "Hardcore physical-tech argument", "Taste and character premium"],
+      relatedProjects: ["xhs-growth-agent", "real-quant-engine", "ultimate-coders"]
     }
   ]
 };
