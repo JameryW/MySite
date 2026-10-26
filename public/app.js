@@ -254,6 +254,13 @@ const escapeHtml = (value) =>
 const softBreakCamelTitle = (title) =>
   escapeHtml(title).replace(/([a-z0-9])([A-Z])/g, "$1<wbr>$2");
 
+/* Long delivery-chain / path copy wraps at arrows and slashes instead of
+   clipping mid-token inside highlight cards. */
+const softBreakFlowText = (text) =>
+  escapeHtml(text)
+    .replace(/→/g, "<wbr>→")
+    .replace(/\//g, "/<wbr>");
+
 const projectHeroTitleClass = (title) => {
   const len = String(title || "").length;
   if (len > 18) return "page-title is-long";
@@ -1266,9 +1273,9 @@ const renderProjectDetail = (instant = false) => {
               return `
                 <article class="track-card reveal">
                   <p class="stack-label">${t("detail.highlightLabel")} 0${index + 1}</p>
-                  <h3>${highlight.title}</h3>
-                  <p>${highlight.body}</p>
-                  <span class="repo-meta">${project.outputs[index] || project.stack[index] || project.status}</span>
+                  <h3>${escapeHtml(highlight.title)}</h3>
+                  <p>${softBreakFlowText(highlight.body)}</p>
+                  <span class="repo-meta">${escapeHtml(project.outputs[index] || project.stack[index] || project.status)}</span>
                 </article>
               `;
             })
