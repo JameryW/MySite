@@ -32,7 +32,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Rebalance desktop topbar so nav sits after the brand; keep home/about name on one line
 - Keep note-card `N# / Label` on one line; bilingualize listing signal chrome; ease Notes/Showcase hero wraps
 - Localize footer nav links, topbar status pills, footer meta lines, and back-to-top label
-- Cache bump: `styles.css?v=103`, `app.js?v=65`, `data.js?v=40`, Service Worker `mysite-v129`
+- Grid-align project highlight cards; soft-break arrow/path copy; even About Now cards; bilingual 404 chrome
+- Cache bump: `styles.css?v=104`, `app.js?v=66`, `data.js?v=40`, Service Worker `mysite-v130`
 
 ## [1.0.0] - 2026-05-31
 

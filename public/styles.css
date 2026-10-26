@@ -1442,7 +1442,7 @@ body[data-page="home"] .hero-copy .lead {
 }
 
 .section {
-  scroll-margin-top: 96px;
+  scroll-margin-top: 110px;
 }
 
 /* ── Global Spacing System (Desktop) ── */
@@ -1770,8 +1770,9 @@ body[data-page="about"] .section + .section {
 }
 
 .build-track-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  align-items: stretch;
   gap: 18px;
 }
 
@@ -1783,7 +1784,10 @@ body[data-page="about"] .section + .section {
 }
 
 .build-track-grid > .track-card {
+  display: flex;
+  flex-direction: column;
   min-width: 0;
+  height: 100%;
   border-top: 2px solid rgba(108, 242, 255, 0.12);
 }
 
@@ -1792,6 +1796,19 @@ body[data-page="about"] .section + .section {
   line-height: 1.2;
   overflow-wrap: anywhere;
   word-break: break-word;
+}
+
+.build-track-grid > .track-card > p:not(.stack-label) {
+  flex: 1 1 auto;
+  margin: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  line-height: 1.65;
+}
+
+.build-track-grid > .track-card > .repo-meta {
+  margin-top: auto;
+  padding-top: 12px;
 }
 
 [data-project-detail] .page-hero,
@@ -1885,7 +1902,7 @@ body[data-page="about"] .section + .section {
 }
 
 .track-card {
-  flex: 1 1 280px;
+  min-width: 0;
 }  .repo-card,
   .note-card,
   .track-card {
@@ -3127,9 +3144,11 @@ body[data-page="about"] .about-now-grid {
 
 body[data-page="about"] .about-now-card {
   position: relative;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 12px;
   min-width: 0;
+  height: 100%;
   padding: 22px 22px 20px;
   border: 1px solid rgba(108, 242, 255, 0.18);
   border-radius: 18px;
@@ -3217,7 +3236,8 @@ body[data-page="about"] .about-now-card .card-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 10px 16px;
-  margin-top: 4px;
+  margin-top: auto;
+  padding-top: 8px;
 }
 
 body[data-page="about"] .about-now-card .card-inline-link {
@@ -3329,6 +3349,29 @@ body[data-page="about"] .contact-links a:nth-child(3) {
 
 .notfound-hero .page-title {
   max-width: none;
+}
+
+/* Keep the bilingual main title solid; only the 404 code uses outline stroke.
+   Do not force display here — .lang-zh / .lang-en visibility must still win. */
+.notfound-hero .page-title .notfound-title-main {
+  color: var(--text);
+  -webkit-text-stroke: 0;
+  text-shadow: none;
+  margin-block: 0;
+  padding-block: 0.04em;
+}
+
+html:not([data-lang="en"]) .notfound-hero .page-title .lang-zh.notfound-title-main,
+[data-lang="zh"] .notfound-hero .page-title .lang-zh.notfound-title-main {
+  display: block;
+}
+
+[data-lang="en"] .notfound-hero .page-title .lang-en.notfound-title-main {
+  display: block;
+}
+
+.notfound-hero .page-title .notfound-title-code {
+  display: block;
 }
 
 .notfound-hero .page-lead {
@@ -3679,17 +3722,21 @@ body[data-page="about"] .contact-links a:nth-child(3) {
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 18px;
+  align-items: center;
+  gap: 8px 8px;
+  row-gap: 10px;
+  margin-bottom: 22px;
 }
 
 .filter-pill {
-  padding: 8px 14px;
+  padding: 7px 12px;
   border: 1px solid rgba(162, 176, 255, 0.16);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.03);
   color: var(--muted);
-  font-size: 0.84rem;
+  font-size: 0.8rem;
+  line-height: 1.2;
+  white-space: nowrap;
   cursor: pointer;
   transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
 }
