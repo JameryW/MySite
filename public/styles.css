@@ -912,6 +912,8 @@ body[data-page="about"] .nav a[href="./about.html"]::after {
   display: block;
   font-size: 1rem;
   line-height: 1.45;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .page-hero-panel-grid strong a {
@@ -1788,6 +1790,7 @@ body[data-page="about"] .section + .section {
   flex-direction: column;
   min-width: 0;
   height: 100%;
+  min-height: 280px;
   border-top: 2px solid rgba(108, 242, 255, 0.12);
 }
 
@@ -2577,7 +2580,7 @@ body[data-page="home"] .note-card .card-actions {
 .topbar-end {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   flex-shrink: 0;
   margin-left: 4px;
 }
@@ -3486,7 +3489,7 @@ html:not([data-lang="en"]) .notfound-hero .page-title .lang-zh.notfound-title-ma
   position: fixed;
   right: 22px;
   bottom: 22px;
-  z-index: 25;
+  z-index: 28;
   display: inline-flex;
   align-items: center;
   justify-content: center;

@@ -654,7 +654,13 @@ window.siteData = {
         "Self-evolution is the endgame: systems that eat feedback, revise strategy, and grow capability on site earn the \"hardcore\" label — static deliveries depreciate; living loops appreciate.",
         "Conclusion: pick a side clearly — either craft apps as liberal-arts works with character, or pin tech into physical-world evolution loops. The soft middle is the riskiest place to stand.",
       ],
-      outputs: ["K-shaped divergence thesis", "Apps-as-liberal-arts insight", "Hardcore physical-tech argument", "Taste and character premium"],
+      outputs: [
+        "K-shaped divergence thesis",
+        "Apps-as-liberal-arts insight",
+        "Hardcore physical-tech argument",
+        "Self-evolution endgame",
+        "Pick a side — avoid the soft middle"
+      ],
       relatedProjects: ["xhs-growth-agent", "real-quant-engine", "ultimate-coders"]
     }
   ]
