@@ -1353,7 +1353,7 @@ const renderNoteDetail = (instant = false) => {
     `;
   } else {
     setDetailMeta({
-      title: note.title,
+      title: noteTitle(note),
       description: noteText(note, "overview"),
       canonical: detailCanonicalHref("note", note.slug)
     });
