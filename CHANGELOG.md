@@ -34,7 +34,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Localize footer nav links, topbar status pills, footer meta lines, and back-to-top label
 - Grid-align project highlight cards; soft-break arrow/path copy; even About Now cards; bilingual 404 chrome
 - Align N12 `outputs[]` 1:1 with bullets; use localized note titles in document meta; ease signal-panel wraps and topbar-end spacing
-- Cache bump: `styles.css?v=105`, `app.js?v=67`, `data.js?v=42`, Service Worker `mysite-v132`
+- Soften light-theme label glow; harden note-card `N# / Label` ellipsis
+- Clean note-facts borders at 2-col / 1-col breakpoints; horizontal-scroll filter pills on narrow screens
+- Cache bump: `styles.css?v=106`, `app.js?v=68`, `data.js?v=42`, Service Worker `mysite-v133`
 
 ## [1.0.0] - 2026-05-31
 

@@ -148,9 +148,8 @@
 [data-theme="light"] .eyebrow,
 [data-theme="light"] .section-kicker,
 [data-theme="light"] .stack-label {
-  text-shadow:
-    0 0 6px rgba(90, 138, 0, 0.14),
-    0 0 12px rgba(90, 138, 0, 0.06);
+  /* Light surfaces read cleaner without neon glow. */
+  text-shadow: none;
 }
 
 [data-theme="light"] .work-index {
@@ -2412,9 +2411,19 @@ body[data-page="home"] .note-card .card-actions {
 }
 
 .note-card-head .stack-label {
+  display: block;
+  flex: 1 1 auto;
   margin-bottom: 0;
   min-width: 0;
+  max-width: 100%;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.note-card-head .stack-label .note-code,
+.note-card-head .stack-label .note-label-rest {
+  display: inline;
 }
 
 .note-card-head .note-timeframe {
@@ -2746,13 +2755,12 @@ body[data-page="home"] .note-card .card-actions {
     padding: 12px 14px;
   }
 
-  .note-fact:nth-child(3n) {
-    padding-right: 14px;
-    border-right: 1px solid var(--line);
-  }
-
+  /* 2-col rules — replace the desktop 3n borders instead of layering on them. */
+  .note-fact:nth-child(3n),
   .note-fact:nth-child(3n + 1) {
     padding-left: 14px;
+    padding-right: 14px;
+    border-right: 1px solid var(--line);
   }
 
   .note-fact:nth-child(2n) {
@@ -2771,6 +2779,22 @@ body[data-page="home"] .note-card .card-actions {
   .note-overview-card {
     padding: 20px;
     border-radius: 18px;
+  }
+}
+
+@media (max-width: 420px) {
+  .note-facts {
+    grid-template-columns: 1fr;
+  }
+
+  .note-fact,
+  .note-fact:nth-child(n) {
+    padding: 12px 0;
+    border-right: 0;
+  }
+
+  .note-fact:nth-child(n + 2) {
+    border-top: 1px solid var(--line);
   }
 }
 
@@ -3742,6 +3766,28 @@ html:not([data-lang="en"]) .notfound-hero .page-title .lang-zh.notfound-title-ma
   white-space: nowrap;
   cursor: pointer;
   transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+}
+
+/* Narrow screens: keep pills on one scannable row instead of a ragged wrap. */
+@media (max-width: 760px) {
+  .filter-bar {
+    flex-wrap: nowrap;
+    gap: 8px;
+    margin-bottom: 18px;
+    padding-bottom: 2px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .filter-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-pill {
+    flex: 0 0 auto;
+  }
 }
 
 .filter-pill:hover,
