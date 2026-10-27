@@ -1073,7 +1073,7 @@ const noteCardMarkup = (note) => {
   return `
   <a class="note-card reveal note-entry-card" href="${noteDetailHref(note)}">
     <div class="note-card-head">
-      <p class="stack-label"><span class="note-code">${note.code || "Note"}</span> / ${note.label || ""}</p>
+      <p class="stack-label"><span class="note-code">${note.code || "Note"}</span><span class="note-label-rest"> / ${note.label || ""}</span></p>
       ${note.timeframe ? `<span class="note-timeframe">${note.timeframe}</span>` : ""}
     </div>
     <h3>${title}${titleSub ? `<span class="title-en">${titleSub}</span>` : ""}</h3>
