@@ -36,7 +36,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Align N12 `outputs[]` 1:1 with bullets; use localized note titles in document meta; ease signal-panel wraps and topbar-end spacing
 - Soften light-theme label glow; harden note-card `N# / Label` ellipsis
 - Clean note-facts borders at 2-col / 1-col breakpoints; horizontal-scroll filter pills on narrow screens
-- Cache bump: `styles.css?v=106`, `app.js?v=68`, `data.js?v=42`, Service Worker `mysite-v133`
+- Light-theme hamburger drawer, filter-pill active, and palette hover/kbd contrast
+- Drop detail pager empty spacer; flex-align related/pager footers; About Now stays 2-col until 760
+- Replace dead listing “view source” chrome with open-detail; localize palette GitHub row
+- Cache bump: `styles.css?v=107`, `app.js?v=69`, `data.js?v=42`, Service Worker `mysite-v134`
 
 ## [1.0.0] - 2026-05-31
 
