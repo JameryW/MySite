@@ -1,4 +1,4 @@
-const CACHE = 'mysite-v134';
+const CACHE = 'mysite-v136';
 /* Precache keys must exactly match the URLs pages request, otherwise
    caches.match() never hits (query params are part of the cache key).
    Bump styles.css?v= / app.js?v= / data.js?v= in every HTML head together
@@ -13,11 +13,11 @@ const SHELL = [
   './project.html',
   './note.html',
   './404.html',
-  './styles.css?v=107',
+  './styles.css?v=109',
   './fonts/syne-latin-var-v1.woff2',
   './fonts/space-grotesk-latin-var-v1.woff2',
   './xiaohongshu-logo.png',
-  './app.js?v=69',
+  './app.js?v=70',
   './data.js?v=42',
   './notfound.js',
   './favicon.svg',

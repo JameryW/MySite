@@ -359,6 +359,14 @@ const I18N = {
     "aria.menu": "菜单",
     "aria.lang": "语言切换 Language",
     "aria.backTop": "回到顶部",
+    "aria.primary": "主导航",
+    "aria.socials": "社交主页",
+    "aria.github": "GitHub 主页",
+    "aria.x": "X 主页",
+    "aria.xhs": "小红书",
+    "aria.focus": "当前焦点",
+    "aria.work": "精选项目",
+    "aria.latestNotes": "最新笔记",
     "cta.projects": "项目方向",
     "cta.showcase": "在线作品",
     "cta.work": "核心项目",
@@ -565,6 +573,14 @@ const I18N = {
     "aria.menu": "Menu",
     "aria.lang": "Language",
     "aria.backTop": "Back to top",
+    "aria.primary": "Primary",
+    "aria.socials": "Social profiles",
+    "aria.github": "GitHub Profile",
+    "aria.x": "X Profile",
+    "aria.xhs": "Xiaohongshu",
+    "aria.focus": "Current focus",
+    "aria.work": "Selected work",
+    "aria.latestNotes": "Latest notes",
     "cta.projects": "Projects",
     "cta.showcase": "Live work",
     "cta.work": "Core builds",
@@ -946,8 +962,8 @@ const relatedProjectMarkup = (project) => `
     <h3>${project.title}</h3>
     <p>${projectText(project, "summary")}</p>
     <div class="card-actions">
-      <span class="repo-meta">${t("detail.openProject")}</span>
-      <span class="card-inline-link">${project.status}</span>
+      <span class="repo-meta">${project.status}</span>
+      <span class="card-inline-link">${t("detail.openProject")} <span aria-hidden="true">→</span></span>
     </div>
   </a>
 `;
@@ -1481,8 +1497,8 @@ const renderProjectSurfaces = (instant = false) => {
         <div class="card-tags">${createTagList(project.stack)}</div>
         <div class="showcase-url">${project.demoUrl}</div>
         <div class="card-actions">
-          <span class="work-link">${t("cta.tryDemo")}</span>
-          <span class="card-inline-link">${project.status}</span>
+          <span class="repo-meta">${project.status}</span>
+          <span class="work-link">${t("cta.tryDemo")} <span aria-hidden="true">→</span></span>
         </div>
       </a>
     `;

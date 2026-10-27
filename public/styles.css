@@ -127,6 +127,37 @@
 
 [data-theme="light"] .back-to-top {
   background: rgba(240, 242, 248, 0.85);
+  border-color: rgba(80, 90, 140, 0.18);
+}
+
+[data-theme="light"] .scroll-progress {
+  background: rgba(80, 90, 140, 0.12);
+}
+
+[data-theme="light"] .page-hero-panel-grid div {
+  border-color: rgba(80, 90, 140, 0.14);
+  background: rgba(255, 255, 255, 0.45);
+}
+
+[data-theme="light"] .footer-meta {
+  border-top-color: rgba(80, 90, 140, 0.14);
+}
+
+[data-theme="light"] .note-entry-card .card-actions,
+[data-theme="light"] body[data-page="home"] .note-card .card-actions {
+  border-top-color: rgba(80, 90, 140, 0.14);
+}
+
+[data-theme="light"] .showcase-card:hover {
+  border-color: rgba(8, 145, 178, 0.35);
+}
+
+/* Detail subtitles stay solid muted ink on light (not near-white). */
+[data-theme="light"] [data-project-detail] .page-title span,
+[data-theme="light"] [data-note-detail] .page-title span {
+  color: var(--muted);
+  -webkit-text-stroke: 0;
+  text-shadow: none;
 }
 
 [data-theme="light"] .page-loader {
@@ -1772,7 +1803,8 @@ body[data-page="about"] .section + .section {
 
 .build-track-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  /* auto-fill keeps empty tracks so the last highlight doesn't stretch full-bleed. */
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   align-items: stretch;
   gap: 18px;
 }
@@ -2618,7 +2650,8 @@ body[data-page="home"] .note-card .card-actions {
 
 /* EN mode: drop ZH dual-caption clutter once the primary string is already English */
 [data-lang="en"] .title-en,
-[data-lang="en"] [data-i18n-en-hint] {
+[data-lang="en"] [data-i18n-en-hint],
+[data-lang="en"] .tagline-en {
   display: none;
 }
 
@@ -2992,12 +3025,15 @@ body[data-page="home"] .note-card .card-actions {
   padding-top: 12px;
 }
 
-.pager-card:first-child:hover {
-  transform: translateX(-6px);
-}
+/* Only nudge sideways when both prev + next sit in a 2-col pager. */
+@media (min-width: 761px) {
+  .detail-pager:not(.is-single-prev):not(.is-single-next) .pager-card:first-child:hover {
+    transform: translateX(-6px);
+  }
 
-.pager-card:last-child:hover {
-  transform: translateX(6px);
+  .detail-pager:not(.is-single-prev):not(.is-single-next) .pager-card:last-child:hover {
+    transform: translateX(6px);
+  }
 }
 
 .contact-copy h2 {
@@ -4791,8 +4827,18 @@ html[data-theme="light"] .filter-pill.active {
   .focus-list p {
     font-size: 0.88rem;
     line-height: 1.55;
-    max-height: 2.8em; /* 最多2行 */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
     overflow: hidden;
+  }
+
+  .build-track-grid > .track-card {
+    min-height: 0;
+  }
+
+  .build-track-grid > .track-card h3 {
+    min-height: 0;
   }
 
   /* stack-label 移动端更小 */

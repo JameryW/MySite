@@ -39,7 +39,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Light-theme hamburger drawer, filter-pill active, and palette hover/kbd contrast
 - Drop detail pager empty spacer; flex-align related/pager footers; About Now stays 2-col until 760
 - Replace dead listing “view source” chrome with open-detail; localize palette GitHub row
-- Cache bump: `styles.css?v=107`, `app.js?v=69`, `data.js?v=42`, Service Worker `mysite-v134`
+- Fix light-theme detail subtitles, scroll-progress track, panel/footer/back-to-top borders
+- Scope pager hover to dual-column desktop; auto-fill highlight grid; relax mobile highlight min-heights
+- Showcase/related status as meta (not fake CTA); unclip home focus to 3 lines; hide EN tagline duplicate
+- Wire topbar/section aria labels through site-lang; drop mobile focus max-height clip
+- Cache bump: `styles.css?v=109`, `app.js?v=70`, `data.js?v=42`, Service Worker `mysite-v136`
 
 ## [1.0.0] - 2026-05-31
 
