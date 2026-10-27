@@ -2517,11 +2517,24 @@ body[data-page="home"] .note-card .card-actions {
 }
 
 .note-entry-card .card-actions {
+  flex-wrap: nowrap;
   justify-content: space-between;
   gap: 10px;
   margin-top: 0;
   padding-top: 14px;
   border-top: 1px solid rgba(162, 176, 255, 0.12);
+}
+
+.note-entry-card .note-meta-inline {
+  flex-wrap: nowrap;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.note-entry-card .card-actions .card-inline-link {
+  flex-shrink: 0;
 }
 
 .section-head-side {
@@ -2928,8 +2941,28 @@ body[data-page="home"] .note-card .card-actions {
 }
 
 .related-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
   min-height: 220px;
+}
+
+.related-card > p:not(.stack-label) {
+  flex: 1 1 auto;
+}
+
+.related-card .card-actions {
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+.related-track-grid:has(> :only-child) {
+  grid-template-columns: 1fr;
+}
+
+.related-track-grid:has(> :nth-child(3):last-child) {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .detail-pager {
@@ -2938,9 +2971,25 @@ body[data-page="home"] .note-card .card-actions {
   gap: 18px;
 }
 
+.detail-pager.is-single-prev,
+.detail-pager.is-single-next {
+  grid-template-columns: 1fr;
+}
+
 .pager-card {
+  display: flex;
+  flex-direction: column;
   min-height: 200px;
   transition: transform 220ms ease, border-color 220ms ease;
+}
+
+.pager-card > p:not(.stack-label) {
+  flex: 1 1 auto;
+}
+
+.pager-card .repo-meta {
+  margin-top: auto;
+  padding-top: 12px;
 }
 
 .pager-card:first-child:hover {
@@ -2951,9 +3000,7 @@ body[data-page="home"] .note-card .card-actions {
   transform: translateX(6px);
 }
 
-.pager-spacer {
-  min-height: 1px;
-}  .contact-copy h2 {
+.contact-copy h2 {
   max-width: none;
   background: linear-gradient(135deg, var(--text), var(--cyan));
   -webkit-background-clip: text;
@@ -3799,7 +3846,21 @@ html:not([data-lang="en"]) .notfound-hero .page-title .lang-zh.notfound-title-ma
 
 .filter-pill.active {
   color: var(--cyan);
-}/* ── Status Badge ── */
+}
+
+/* Reassert light active/hover after the unscoped neon rule above. */
+html[data-theme="light"] .filter-pill:hover,
+html[data-theme="light"] .filter-pill.active {
+  border-color: rgba(8, 145, 178, 0.35);
+  background: rgba(8, 145, 178, 0.08);
+  color: var(--text);
+}
+
+html[data-theme="light"] .filter-pill.active {
+  color: var(--cyan);
+}
+
+/* ── Status Badge ── */
 
 /* ── Reading Progress ── */
 .reading-progress {
@@ -3957,6 +4018,11 @@ html:not([data-lang="en"]) .notfound-hero .page-title .lang-zh.notfound-title-ma
   letter-spacing: 0.08em;
 }
 
+[data-theme="light"] .palette-kbd {
+  background: rgba(8, 145, 178, 0.06);
+  border-color: rgba(80, 90, 140, 0.16);
+}
+
 .palette-results {
   max-height: 340px;
   overflow-y: auto;
@@ -3995,6 +4061,11 @@ html:not([data-lang="en"]) .notfound-hero .page-title .lang-zh.notfound-title-ma
 .palette-item:hover,
 .palette-item.active {
   background: rgba(108, 242, 255, 0.06);
+}
+
+[data-theme="light"] .palette-item:hover,
+[data-theme="light"] .palette-item.active {
+  background: rgba(8, 145, 178, 0.08);
 }
 
 .palette-item-title {
@@ -4271,8 +4342,8 @@ html:not([data-lang="en"]) .notfound-hero .page-title .lang-zh.notfound-title-ma
     padding-bottom: 24px;
   }
 
+  /* Keep Now as 2-col at tablet so it matches the signal strip rhythm. */
   body[data-page="about"] .about-now-grid {
-    grid-template-columns: 1fr;
     gap: 14px;
   }
 
@@ -4422,6 +4493,27 @@ html:not([data-lang="en"]) .notfound-hero .page-title .lang-zh.notfound-title-ma
   .topbar-meta.open .nav a:focus-visible {
     border-color: rgba(108, 242, 255, 0.42);
     background: rgba(108, 242, 255, 0.08);
+    color: var(--text);
+  }
+
+  [data-theme="light"] .topbar-meta.open {
+    border-color: rgba(80, 90, 140, 0.18);
+    background:
+      linear-gradient(135deg, rgba(8, 145, 178, 0.06), transparent 58%),
+      rgba(255, 255, 255, 0.94);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(8, 145, 178, 0.04);
+  }
+
+  [data-theme="light"] .topbar-meta.open .nav a {
+    border-color: rgba(80, 90, 140, 0.14);
+    background: rgba(255, 255, 255, 0.55);
+    color: var(--muted);
+  }
+
+  [data-theme="light"] .topbar-meta.open .nav a:hover,
+  [data-theme="light"] .topbar-meta.open .nav a:focus-visible {
+    border-color: rgba(8, 145, 178, 0.35);
+    background: rgba(8, 145, 178, 0.08);
     color: var(--text);
   }
 
@@ -4750,14 +4842,21 @@ html:not([data-lang="en"]) .notfound-hero .page-title .lang-zh.notfound-title-ma
     grid-template-columns: 1fr;
   }
 
-  /* detail pager 移动端单列，空位占位隐藏 */
-  .detail-pager {
+  /* detail pager 移动端单列 */
+  .detail-pager,
+  .detail-pager.is-single-prev,
+  .detail-pager.is-single-next {
     grid-template-columns: 1fr;
     gap: 12px;
   }
 
-  .pager-spacer {
-    display: none;
+  body[data-page="about"] .about-now-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .related-track-grid:has(> :nth-child(3):last-child) {
+    grid-template-columns: 1fr;
   }
 
   .showcase-grid {

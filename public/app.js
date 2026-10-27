@@ -419,6 +419,7 @@ const I18N = {
     "projects.signalAria": "项目信号面板",
     "palette.page": "页面",
     "palette.external": "外部",
+    "palette.github": "GitHub 主页",
     "palette.project": "项目",
     "palette.note": "笔记",
     "showcase.eyebrow": "Showcase / Live Demos",
@@ -624,6 +625,7 @@ const I18N = {
     "projects.signalAria": "Projects signal panel",
     "palette.page": "Page",
     "palette.external": "External",
+    "palette.github": "GitHub Profile",
     "palette.project": "Project",
     "palette.note": "Note",
     "showcase.eyebrow": "Showcase / Live Demos",
@@ -971,9 +973,11 @@ const detailPagerMarkup = (options) => {
     return "";
   }
 
+  const mode = previous && next ? "" : previous ? " is-single-prev" : " is-single-next";
+
   return `
     <section class="section">
-      <div class="detail-pager">
+      <div class="detail-pager${mode}">
         ${
           previous
             ? `
@@ -984,7 +988,7 @@ const detailPagerMarkup = (options) => {
                 <span class="repo-meta">${t("detail.prevMeta")}</span>
               </a>
             `
-            : '<div class="pager-spacer" aria-hidden="true"></div>'
+            : ""
         }
         ${
           next
@@ -996,7 +1000,7 @@ const detailPagerMarkup = (options) => {
                 <span class="repo-meta">${t("detail.nextMeta")}</span>
               </a>
             `
-            : '<div class="pager-spacer" aria-hidden="true"></div>'
+            : ""
         }
       </div>
     </section>
@@ -1005,7 +1009,7 @@ const detailPagerMarkup = (options) => {
 
 const projectCardMarkup = (project, variant) => {
   const summary = projectText(project, "summary");
-  const viewSource = t("cta.viewSource");
+  const openDetail = t("card.openDetail");
   if (variant === "home") {
     return `
       <a class="work-card reveal" href="${projectDetailHref(project)}">
@@ -1020,8 +1024,7 @@ const projectCardMarkup = (project, variant) => {
           <p class="work-summary">${summary}</p>
           <div class="card-tags">${createTagList(project.stack)}</div>
           <div class="card-actions">
-            <span class="work-link">${t("card.openDetail")} <span class="work-arrow" aria-hidden="true">→</span></span>
-            <span class="card-inline-link">${viewSource}</span>
+            <span class="work-link">${openDetail} <span class="work-arrow" aria-hidden="true">→</span></span>
           </div>
         </div>
       </a>
@@ -1042,7 +1045,7 @@ const projectCardMarkup = (project, variant) => {
       </div>
       <div class="card-actions">
         <span class="repo-meta">${project.timeframe}</span>
-        <span class="card-inline-link">${viewSource}</span>
+        <span class="card-inline-link">${openDetail} <span aria-hidden="true">→</span></span>
       </div>
     </a>
   `;
@@ -1693,7 +1696,7 @@ if (palette && paletteInput) {
     { title: t("nav.showcase"), label: t("palette.page"), href: "./showcase.html" },
     { title: t("nav.notes"), label: t("palette.page"), href: "./notes.html" },
     { title: t("nav.about"), label: t("palette.page"), href: "./about.html" },
-    { title: "GitHub Profile", label: t("palette.external"), href: "https://github.com/jameryw" }
+    { title: t("palette.github"), label: t("palette.external"), href: "https://github.com/jameryw" }
   ];
 
   function openPalette() {
