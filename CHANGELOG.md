@@ -43,7 +43,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Scope pager hover to dual-column desktop; auto-fill highlight grid; relax mobile highlight min-heights
 - Showcase/related status as meta (not fake CTA); unclip home focus to 3 lines; hide EN tagline duplicate
 - Wire topbar/section aria labels through site-lang; drop mobile focus max-height clip
-- Cache bump: `styles.css?v=109`, `app.js?v=70`, `data.js?v=42`, Service Worker `mysite-v136`
+- Drop duplicate detail reading-progress bar; compact signal panels site-wide on mobile
+- Soften About Now / related light borders; fix About contact overflow; tighten note overview rhythm
+- Compact project listing cards on mobile; palette uses safe-area + dvh on narrow screens
+- 404 gains theme toggle + aria i18n via notfound.js
+- Cache bump: `styles.css?v=110`, `app.js?v=71`, `data.js?v=42`, Service Worker `mysite-v137`
 
 ## [1.0.0] - 2026-05-31
 

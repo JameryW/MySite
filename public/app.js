@@ -1650,12 +1650,6 @@ const updateScrollUI = () => {
     scrollProgressNode.style.width = `${progress * 100}%`;
   }
 
-  /* Reading progress on detail pages */
-  const readingProgress = document.querySelector(".reading-progress");
-  if (readingProgress) {
-    readingProgress.style.width = `${progress * 100}%`;
-  }
-
   if (backToTopButton) {
     backToTopButton.classList.toggle("visible", scrollTop > 480);
   }
