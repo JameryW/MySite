@@ -1903,9 +1903,18 @@ body[data-page="about"] .section + .section {
 }
 
 [data-project-detail] .page-hero + .section,
-[data-note-detail] .page-hero + .section,
-[data-note-detail] .note-overview-section {
+[data-note-detail] .page-hero + .section {
   padding-top: 36px;
+}
+
+[data-note-detail] .note-overview-section {
+  padding-top: 20px;
+  padding-bottom: 8px;
+}
+
+[data-note-detail] .note-overview-section + .section {
+  margin-top: 10px;
+  padding-top: 28px;
 }
 
 .related-track-grid > .track-card {
@@ -3286,6 +3295,7 @@ body[data-page="about"] .about-now-card:hover {
 }
 
 [data-theme="light"] body[data-page="about"] .about-now-card {
+  border-color: rgba(8, 145, 178, 0.18);
   background:
     linear-gradient(135deg, rgba(14, 165, 186, 0.06), transparent 42%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(236, 240, 250, 0.94));
@@ -3294,6 +3304,10 @@ body[data-page="about"] .about-now-card:hover {
 
 [data-theme="light"] body[data-page="about"] .about-now-card:hover {
   border-color: rgba(14, 165, 186, 0.34);
+}
+
+[data-theme="light"] .related-track-grid > .track-card {
+  border-top-color: rgba(8, 145, 178, 0.16);
 }
 
 body[data-page="about"] .about-now-card-top {
@@ -3396,6 +3410,15 @@ body[data-page="about"] .contact-card {
   border-radius: 0;
   background: transparent;
   box-shadow: none;
+  overflow: visible;
+}
+
+body[data-page="about"] .contact-links .platform-link,
+body[data-page="about"] .contact-links a {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 body[data-page="about"] .contact-copy {
@@ -3898,17 +3921,6 @@ html[data-theme="light"] .filter-pill.active {
 
 /* ── Status Badge ── */
 
-/* ── Reading Progress ── */
-.reading-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 36;
-  height: 2px;
-  background: linear-gradient(90deg, var(--cyan), var(--pink));
-  transition: width 100ms linear;
-}
-
 /* ── Mobile Menu ── */
 .menu-toggle {
   display: none;
@@ -4063,6 +4075,27 @@ html[data-theme="light"] .filter-pill.active {
   max-height: 340px;
   overflow-y: auto;
   padding: 8px;
+}
+
+@media (max-width: 760px) {
+  .palette {
+    top: max(12px, env(safe-area-inset-top, 0px));
+    width: calc(100% - 24px);
+    border-radius: 16px;
+    transform: translateX(-50%) translateY(-8px);
+  }
+
+  .palette.open {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .palette-input-wrap {
+    padding: 14px 16px;
+  }
+
+  .palette-results {
+    max-height: min(340px, 62dvh);
+  }
 }
 
 .palette-results::-webkit-scrollbar {
@@ -4988,21 +5021,28 @@ html[data-theme="light"] .filter-pill.active {
     font-size: 0.86rem;
   }
 
-  body[data-page="showcase"] .page-hero-panel-grid {
+  /* Compact signal cells site-wide (projects / notes / detail / showcase). */
+  .page-hero-panel-grid {
     gap: 10px;
   }
 
-  body[data-page="showcase"] .page-hero-panel-grid div {
+  .page-hero-panel-grid div {
     padding: 12px 14px;
   }
 
-  body[data-page="showcase"] .page-hero-panel-grid div > span {
+  .page-hero-panel-grid div > span {
     font-size: 0.68rem;
     margin-bottom: 6px;
   }
 
-  body[data-page="showcase"] .page-hero-panel-grid strong {
+  .page-hero-panel-grid strong {
     font-size: 0.84rem;
+  }
+
+  .project-page-grid .project-entry-card,
+  .repo-card.project-entry-card {
+    padding: 18px;
+    border-radius: 20px;
   }
 
   .note-card {
