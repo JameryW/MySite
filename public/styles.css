@@ -241,6 +241,7 @@
 
 [data-theme="light"] .repo-card:hover,
 [data-theme="light"] .note-card:hover {
+  border-color: rgba(8, 145, 178, 0.4);
   box-shadow:
     0 14px 44px rgba(0, 0, 0, 0.07),
     0 0 20px rgba(8, 145, 178, 0.1),
@@ -385,6 +386,20 @@
 
 [data-theme="light"] .theme-toggle .icon-sun { display: none; }
 [data-theme="light"] .theme-toggle .icon-moon { display: block; }
+
+[data-theme="light"] .palette-hint,
+[data-theme="light"] .theme-toggle,
+[data-theme="light"] .menu-toggle {
+  border-color: rgba(80, 90, 140, 0.18);
+  background: rgba(255, 255, 255, 0.55);
+}
+
+[data-theme="light"] .palette-hint:hover,
+[data-theme="light"] .theme-toggle:hover {
+  border-color: rgba(8, 145, 178, 0.4);
+  background: rgba(8, 145, 178, 0.1);
+  color: var(--cyan);
+}
 
 * {
   box-sizing: border-box;
@@ -2587,6 +2602,17 @@ body[data-page="home"] .note-card .card-actions {
 }
 
 @media (max-width: 760px) {
+  .note-entry-card .card-actions,
+  .note-entry-card .note-meta-inline {
+    flex-wrap: wrap;
+  }
+
+  .note-entry-card .note-meta-inline {
+    overflow: visible;
+    text-overflow: unset;
+    white-space: normal;
+  }
+
   .section-head-side {
     width: 100%;
     justify-content: space-between;
@@ -3306,6 +3332,7 @@ body[data-page="about"] .about-now-card:hover {
   border-color: rgba(14, 165, 186, 0.34);
 }
 
+[data-theme="light"] .build-track-grid > .track-card,
 [data-theme="light"] .related-track-grid > .track-card {
   border-top-color: rgba(8, 145, 178, 0.16);
 }
@@ -4179,6 +4206,12 @@ html[data-theme="light"] .filter-pill.active {
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
+/* Reassert light hover border after the unscoped neon rule above. */
+html[data-theme="light"] .repo-card:hover,
+html[data-theme="light"] .note-card:hover {
+  border-color: rgba(8, 145, 178, 0.4);
+}
+
 .repo-card:active,
 .note-card:active {
   transform: translateY(-2px) scale(0.985);
@@ -4222,6 +4255,11 @@ html[data-theme="light"] .filter-pill.active {
 
 .track-card:hover {
   border-top-color: rgba(108, 242, 255, 0.55);
+}
+
+html[data-theme="light"] .build-track-grid > .track-card:hover,
+html[data-theme="light"] .related-track-grid > .track-card:hover {
+  border-top-color: rgba(8, 145, 178, 0.45);
 }
 
 /* Staggered reveal for grid children */
@@ -4347,6 +4385,19 @@ html[data-theme="light"] .filter-pill.active {
   .hero-copy .home-hero-meta,
   .hero-copy .hero-actions,
   .hero-focus-panel .focus-list div {
+    animation: none;
+  }
+
+  .repo-card:hover::before,
+  .note-card:hover::before,
+  .work-card:hover::before,
+  .showcase-card:hover::before {
+    animation: none;
+    opacity: 0;
+  }
+
+  .ripple {
+    display: none;
     animation: none;
   }
 }/* ── Animated Status Indicators ── */
@@ -5392,6 +5443,20 @@ html.page-hidden *::after {
   .repo-card:hover,
   .note-card:hover {
     border-color: var(--line);
+  }
+
+  .track-card:hover {
+    border-top-color: rgba(108, 242, 255, 0.12);
+  }
+
+  .ops-card:hover,
+  .stack-card:hover {
+    border-color: var(--line);
+  }
+
+  [data-theme="light"] .build-track-grid > .track-card:hover,
+  [data-theme="light"] .related-track-grid > .track-card:hover {
+    border-top-color: rgba(8, 145, 178, 0.16);
   }
 
   .repo-card:hover {
