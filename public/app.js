@@ -466,9 +466,9 @@ const I18N = {
     "notes.signalScopeValue": "Agents · tools · failures · UI",
     "notes.footerKicker": "Notes / Think In Public",
     "notes.signalAria": "笔记信号面板",
-    "section.work": "Core Builds",
+    "section.work": "核心构建",
     "section.workKicker": "Selected Work",
-    "section.notes": "Working Notes",
+    "section.notes": "工作笔记",
     "section.notesKicker": "Latest Notes",
     "section.now": "最新进展",
     "home.eyebrow": "AI Builder / Agents / Quant Systems",
@@ -540,11 +540,11 @@ const I18N = {
     "about.signalAria": "个人快照",
     "about.nowAria": "最新进展",
     "about.entryKicker": "Entry Points",
-    "about.signalsHeading": "Build Signals",
-    "about.signalBias": "Bias",
-    "about.signalMethod": "Method",
-    "about.signalLensLabel": "Lens",
-    "about.signalHomeBase": "Home Base",
+    "about.signalsHeading": "构建信号",
+    "about.signalBias": "偏好",
+    "about.signalMethod": "方法",
+    "about.signalLensLabel": "透镜",
+    "about.signalHomeBase": "主场",
     "card.relatedBuilds": "关联项目",
     "card.openDetail": "查看详情",
     "card.openDemo": "打开演示",
@@ -1047,12 +1047,21 @@ const projectCardMarkup = (project, variant) => {
     `;
   }
 
+  const liveDot =
+    project.status.toLowerCase().includes("active") ||
+    project.status.toLowerCase().includes("production") ||
+    project.status.toLowerCase().includes("live")
+      ? "live"
+      : "dev";
   return `
     <a class="repo-card reveal project-entry-card" href="${projectDetailHref(project)}">
-      <p class="stack-label">
-        ${project.label}
-        <span class="card-status-dot ${project.status.toLowerCase().includes('active') || project.status.toLowerCase().includes('production') || project.status.toLowerCase().includes('live') ? 'live' : 'dev'}" aria-hidden="true"></span>
-      </p>
+      <div class="project-entry-head">
+        <p class="stack-label">
+          ${project.label}
+          <span class="card-status-dot ${liveDot}" aria-hidden="true"></span>
+        </p>
+        ${project.demoUrl ? `<span class="showcase-demo-badge">${t("showcase.badge")}</span>` : ""}
+      </div>
       <h3>${project.title}</h3>
       <p>${summary}</p>
       <div class="project-entry-meta">
