@@ -484,7 +484,7 @@ const I18N = {
     "projects.topbarStatus": "项目主线",
     "projects.metaTag": "开放构建循环",
     "projects.metaSuffix": " / GitHub 优先",
-    "showcase.topbarStatus": "Live Demos",
+    "showcase.topbarStatus": "在线演示",
     "showcase.metaTag": "先交付再展示",
     "showcase.metaSuffix": " / 杭州 / 在线",
     "detail.projectTopbar": "项目详情",
@@ -1027,14 +1027,21 @@ const projectCardMarkup = (project, variant) => {
   const summary = projectText(project, "summary");
   const openDetail = t("card.openDetail");
   if (variant === "home") {
+    const homeLiveDot =
+      project.status.toLowerCase().includes("active") ||
+      project.status.toLowerCase().includes("production") ||
+      project.status.toLowerCase().includes("live")
+        ? "live"
+        : "dev";
     return `
       <a class="work-card reveal" href="${projectDetailHref(project)}">
         <div class="work-index">${project.code}</div>
         <div class="work-copy">
           <p class="card-topline">
             ${project.label}
-            <span class="card-status-dot ${project.status.toLowerCase().includes('active') || project.status.toLowerCase().includes('production') || project.status.toLowerCase().includes('live') ? 'live' : 'dev'}" aria-hidden="true"></span>
+            <span class="card-status-dot ${homeLiveDot}" aria-hidden="true"></span>
             <span class="work-status-pill">${project.status}</span>
+            ${project.demoUrl ? `<span class="showcase-demo-badge">${t("showcase.badge")}</span>` : ""}
           </p>
           <h3>${project.title}</h3>
           <p class="work-summary">${summary}</p>

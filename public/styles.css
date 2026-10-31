@@ -176,6 +176,13 @@
     0 0 28px rgba(8, 145, 178, 0.06);
 }
 
+[data-theme="light"] h1 .page-title-main,
+[data-theme="light"] .page-title .page-title-main {
+  color: var(--text);
+  -webkit-text-stroke: 0;
+  text-shadow: none;
+}
+
 [data-theme="light"] .eyebrow,
 [data-theme="light"] .section-kicker,
 [data-theme="light"] .stack-label {
@@ -1043,6 +1050,19 @@ h1 span {
   text-wrap: balance;
 }
 
+/* Solid primary line when listing H1s wrap the title for i18n. */
+h1 .page-title-main,
+.page-title .page-title-main {
+  color: var(--text);
+  -webkit-text-stroke: 0;
+  text-shadow: none;
+  font-size: inherit;
+  letter-spacing: inherit;
+  margin-block: 0;
+  max-width: none;
+  white-space: normal;
+}
+
 .page-title {
   max-width: 9ch;
   font-size: clamp(3rem, 7.2vw, 5.2rem);
@@ -1374,6 +1394,29 @@ body[data-page="home"] .hero-copy .lead {
   box-shadow:
     0 0 24px rgba(108, 242, 255, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+[data-theme="light"] .button.primary {
+  box-shadow:
+    0 12px 28px rgba(8, 145, 178, 0.18),
+    0 0 16px rgba(8, 145, 178, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+[data-theme="light"] .button.primary:hover {
+  box-shadow:
+    0 14px 34px rgba(8, 145, 178, 0.22),
+    0 0 24px rgba(8, 145, 178, 0.14),
+    0 0 36px rgba(90, 138, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="light"] .button.secondary:hover {
+  border-color: rgba(8, 145, 178, 0.4);
+  background: rgba(8, 145, 178, 0.08);
+  box-shadow:
+    0 0 18px rgba(8, 145, 178, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 .terminal-top {
@@ -2179,6 +2222,10 @@ body[data-page="home"] .hero-copy h1 {
   text-shadow: 0 0 34px rgba(108, 242, 255, 0.16);
 }
 
+[data-theme="light"] body[data-page="home"] .hero-copy h1 {
+  text-shadow: 0 0 28px rgba(8, 145, 178, 0.12);
+}
+
 /* Hero: tagline / lead contrast */
 body[data-page="home"] .hero-copy .lead {
   color: var(--text);
@@ -2195,6 +2242,14 @@ body[data-page="home"] .hero-actions .button.primary {
     0 0 28px rgba(108, 242, 255, 0.24),
     0 0 56px rgba(216, 255, 98, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+[data-theme="light"] body[data-page="home"] .hero-actions .button.primary {
+  box-shadow:
+    0 12px 30px rgba(8, 145, 178, 0.2),
+    0 0 20px rgba(8, 145, 178, 0.12),
+    0 0 36px rgba(90, 138, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 /* Hero: focus items with accent rails + hover */
@@ -2255,6 +2310,12 @@ body[data-page="home"] .work-status-pill {
 body[data-page="home"] .work-copy .card-topline {
   flex-wrap: wrap;
   row-gap: 6px;
+}
+
+body[data-page="home"] .work-copy .card-topline .showcase-demo-badge {
+  margin-left: auto;
+  padding: 4px 10px;
+  font-size: 0.66rem;
 }
 
 body[data-page="home"] .work-copy h3 {
@@ -3290,7 +3351,7 @@ body[data-page="projects"]:not(:has([data-project-detail])) .page-title {
   max-width: 18ch;
 }
 
-body[data-page="projects"]:not(:has([data-project-detail])) .page-title span {
+body[data-page="projects"]:not(:has([data-project-detail])) .page-title span:not(.page-title-main) {
   max-width: none;
   font-size: 0.42em;
   letter-spacing: 0.04em;
@@ -3303,8 +3364,8 @@ body[data-page="showcase"] .page-title {
   max-width: 14ch;
 }
 
-body[data-page="notes"] .page-title span,
-body[data-page="showcase"] .page-title span {
+body[data-page="notes"] .page-title span:not(.page-title-main),
+body[data-page="showcase"] .page-title span:not(.page-title-main) {
   max-width: none;
   white-space: nowrap;
   font-size: 0.42em;
@@ -4436,6 +4497,26 @@ html[data-theme="light"] .related-track-grid > .track-card:hover {
   .ripple {
     display: none;
     animation: none;
+  }
+
+  .button:hover,
+  .button.primary:hover,
+  .button.secondary:hover,
+  .work-card:hover,
+  .repo-card:hover,
+  .note-card:hover,
+  .showcase-card:hover,
+  .ops-card:hover,
+  .stack-card:hover,
+  .track-card:hover,
+  .topbar-link:hover,
+  .palette-hint:hover,
+  .theme-toggle:hover,
+  .back-to-top:hover,
+  .back-to-top.visible:hover,
+  .pager-card:hover,
+  body[data-page="about"] .about-now-card:hover {
+    transform: none;
   }
 }/* ── Animated Status Indicators ── */
 
@@ -5609,9 +5690,71 @@ html.page-hidden *::after {
     opacity: 0;
   }
 
+  .button:hover,
   .button.primary:hover,
   .button.secondary:hover {
+    transform: none;
     box-shadow: none;
+  }
+
+  .topbar-link:hover {
+    border-color: rgba(162, 176, 255, 0.16);
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  [data-theme="light"] .topbar-link:hover {
+    border-color: rgba(80, 90, 140, 0.18);
+    background: rgba(255, 255, 255, 0.55);
+  }
+
+  .palette-hint:hover,
+  .theme-toggle:hover {
+    border-color: rgba(162, 176, 255, 0.25);
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text);
+  }
+
+  [data-theme="light"] .palette-hint:hover,
+  [data-theme="light"] .theme-toggle:hover {
+    border-color: rgba(80, 90, 140, 0.18);
+    background: rgba(255, 255, 255, 0.55);
+    color: var(--text);
+  }
+
+  .back-to-top:hover {
+    border-color: rgba(162, 176, 255, 0.16);
+  }
+
+  [data-theme="light"] .back-to-top:hover {
+    border-color: rgba(80, 90, 140, 0.18);
+  }
+
+  .topbar-meta.open .nav a:hover,
+  .topbar-meta.open .nav a:focus-visible {
+    border-color: rgba(162, 176, 255, 0.16);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--muted);
+  }
+
+  [data-theme="light"] .topbar-meta.open .nav a:hover,
+  [data-theme="light"] .topbar-meta.open .nav a:focus-visible {
+    border-color: rgba(80, 90, 140, 0.14);
+    background: rgba(255, 255, 255, 0.55);
+    color: var(--muted);
+  }
+
+  .card-tags span:hover {
+    border-color: rgba(162, 176, 255, 0.14);
+    color: var(--muted);
+  }
+
+  [data-theme="light"] .card-tags span:hover {
+    border-color: rgba(80, 90, 140, 0.14);
+    color: var(--muted);
+  }
+
+  body[data-page="about"] .about-now-card .card-inline-link:hover {
+    color: var(--cyan);
   }
 }
 
