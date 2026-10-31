@@ -34,7 +34,7 @@
     <link rel="preconnect" href="https://stats.jameryw.dev" />
     <link rel="dns-prefetch" href="https://github.com" />
     <link rel="preload" href="./fonts/syne-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="./styles.css?v=118" />
+    <link rel="stylesheet" href="./styles.css?v=119" />
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -126,6 +126,13 @@
             <span data-i18n="projects.titleSub">Agent · Kernel · Quant</span>
           </h1>
           <p class="page-lead" data-i18n="projects.lead">增长 Agent、分布式编程、量化引擎，以及复用型交付工作流。</p>
+          <p class="listing-hero-meta" aria-label="项目信号面板" data-i18n-aria="projects.signalAria">
+            <span><strong data-project-count></strong> <span data-i18n="projects.indexed">个项目</span></span>
+            <span class="listing-hero-meta-sep" aria-hidden="true">·</span>
+            <span data-i18n="projects.signalFocusValue">Kernel runtimes · DAG coding · Quant</span>
+            <span class="listing-hero-meta-sep" aria-hidden="true">·</span>
+            <span data-i18n="projects.signalBiasValue">先跑通闭环，再打磨结构</span>
+          </p>
           <div class="page-actions">
             <a
               class="button primary"
@@ -138,27 +145,6 @@
             </a>
             <a class="button secondary" href="./showcase.html" data-i18n="cta.showcase">在线作品</a>
           </div>
-          <aside class="page-hero-panel reveal" aria-label="项目信号面板" data-i18n-aria="projects.signalAria">
-            <p class="stack-label" data-i18n="projects.signalLabel">Build Signal</p>
-            <div class="page-hero-panel-grid">
-              <div>
-                <span data-i18n="projects.signalOnSite">站内</span>
-                <strong><span data-project-count></span> <span data-i18n="projects.indexed">个项目</span></strong>
-              </div>
-              <div>
-                <span data-i18n="projects.signalFocus">焦点</span>
-                <strong data-i18n="projects.signalFocusValue">Kernel runtimes · DAG coding · Quant</strong>
-              </div>
-              <div>
-                <span data-i18n="projects.signalSurface">入口</span>
-                <strong data-i18n="projects.signalSurfaceValue">GitHub 源码 + Showcase</strong>
-              </div>
-              <div>
-                <span data-i18n="projects.signalBias">偏好</span>
-                <strong data-i18n="projects.signalBiasValue">先跑通闭环，再打磨结构</strong>
-              </div>
-            </div>
-          </aside>
         </section>
 
         <section class="section">
@@ -197,7 +183,7 @@
 
 <script src="./data.js?v=42" defer></script>
 <script src="./umami-config.js" defer></script>
-<script src="./app.js?v=76" defer></script>
+<script src="./app.js?v=77" defer></script>
 
     <!-- Command Palette -->
     <div class="palette-overlay" data-palette-overlay></div>

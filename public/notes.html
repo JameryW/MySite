@@ -34,7 +34,7 @@
     <link rel="preconnect" href="https://stats.jameryw.dev" />
     <link rel="dns-prefetch" href="https://github.com" />
     <link rel="preload" href="./fonts/syne-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="./styles.css?v=118" />
+    <link rel="stylesheet" href="./styles.css?v=119" />
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -126,27 +126,17 @@
             <span data-i18n="notes.titleSub">Working Thoughts</span>
           </h1>
           <p class="page-lead" data-i18n="notes.lead">关于 Agent、构建方法和界面判断的短笔记。</p>
+          <p class="listing-hero-meta" aria-label="笔记信号面板" data-i18n-aria="notes.signalAria">
+            <span><strong data-note-count></strong> <span data-i18n="notes.signalPublished">篇在线</span></span>
+            <span class="listing-hero-meta-sep" aria-hidden="true">·</span>
+            <span data-i18n="notes.signalMode">短笔记 → 深挖</span>
+            <span class="listing-hero-meta-sep" aria-hidden="true">·</span>
+            <span data-i18n="notes.signalScopeValue">Agents · tools · failures · UI</span>
+          </p>
           <div class="page-actions">
             <a class="button primary" href="#notes" data-i18n="cta.thinkNotes">思考笔记</a>
             <a class="button secondary" href="./projects.html" data-i18n="detail.relatedProjects">相关项目</a>
           </div>
-          <aside class="page-hero-panel reveal" aria-label="笔记信号面板" data-i18n-aria="notes.signalAria">
-            <p class="stack-label" data-i18n="notes.signalLabel">Notes Signal</p>
-            <div class="page-hero-panel-grid">
-              <div>
-                <span data-i18n="notes.signalModeLabel">模式</span>
-                <strong data-i18n="notes.signalMode">短笔记 → 深挖</strong>
-              </div>
-              <div>
-                <span data-i18n="notes.signalPublishedLabel">发布</span>
-                <strong><span data-note-count></span> <span data-i18n="notes.signalPublished">篇在线</span></strong>
-              </div>
-              <div>
-                <span data-i18n="notes.signalScopeLabel">范围</span>
-                <strong data-i18n="notes.signalScopeValue">Agents · tools · failures · UI</strong>
-              </div>
-            </div>
-          </aside>
         </section>
 
         <section class="section" id="notes">
@@ -189,7 +179,7 @@
 
 <script src="./data.js?v=42" defer></script>
 <script src="./umami-config.js" defer></script>
-<script src="./app.js?v=76" defer></script>
+<script src="./app.js?v=77" defer></script>
 
     <!-- Command Palette -->
     <div class="palette-overlay" data-palette-overlay></div>
