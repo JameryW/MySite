@@ -405,7 +405,7 @@ const I18N = {
     "about.lens": "上限由状态、上下文编译、调度和发布边界决定，而不是单次技巧。",
     "about.homeBase": "GitHub 放源码，站点整理进展，邮箱收灵感。",
     "about.entryTitle": "从这里进入",
-    "about.entrySummary": "源码在 GitHub，判断在站点，灵感在邮箱。",
+    "about.entrySummary": "源码、社交和邮箱——公开入口集中在这里。",
     "about.openProjects": "打开项目",
     "about.openNotes": "打开笔记",
     "projects.eyebrow": "Portfolio / Active Builds",
@@ -619,7 +619,7 @@ const I18N = {
     "about.lens": "The ceiling is state, context compilation, scheduling, and publish boundaries — not a single trick.",
     "about.homeBase": "GitHub holds source, the site holds progress, email holds sparks.",
     "about.entryTitle": "Entry points",
-    "about.entrySummary": "Source on GitHub, judgment on the site, sparks in the inbox.",
+    "about.entrySummary": "Source, socials, and email — the public doors in one place.",
     "about.openProjects": "Open projects",
     "about.openNotes": "Open notes",
     "projects.eyebrow": "Portfolio / Active Builds",
@@ -1539,25 +1539,29 @@ const renderProjectSurfaces = (instant = false) => {
         const label = project?.label || item.code || "Now";
         const beat = siteLang === "en" ? item.beatEn || item.beat : item.beat;
         return `
-        <article class="about-now-card reveal">
-          <div class="about-now-card-top">
-            <p class="card-topline">
-              <span class="about-now-index">${order}</span>
-              <span>${label}</span>
-              <span class="card-status-dot live" aria-hidden="true"></span>
-              <span class="work-status-pill">${t("shipping")}</span>
-            </p>
+        <article class="about-now-row reveal">
+          <div class="about-now-row-meta">
+            <span class="about-now-index">${order}</span>
             ${item.when ? `<span class="about-now-when">${item.when}</span>` : ""}
           </div>
-          <h3>${item.title}</h3>
-          <p>${beat}</p>
-          <div class="card-actions">
-            <a class="card-inline-link" href="${href}">${t("cta.openDetail")} <span aria-hidden="true">→</span></a>
-            ${
-              demoHref
-                ? `<a class="card-inline-link" href="${demoHref}" target="_blank" rel="noreferrer">${t("cta.tryDemo")}</a>`
-                : ""
-            }
+          <div class="about-now-row-body">
+            <div class="about-now-row-head">
+              <p class="about-now-label">
+                ${label}
+                <span class="card-status-dot live" aria-hidden="true"></span>
+                <span class="work-status-pill">${t("shipping")}</span>
+              </p>
+              <h3><a href="${href}">${item.title}</a></h3>
+            </div>
+            <p>${beat}</p>
+            <div class="about-now-row-actions">
+              <a class="card-inline-link" href="${href}">${t("cta.openDetail")} <span aria-hidden="true">→</span></a>
+              ${
+                demoHref
+                  ? `<a class="card-inline-link" href="${demoHref}" target="_blank" rel="noreferrer">${t("cta.tryDemo")}</a>`
+                  : ""
+              }
+            </div>
           </div>
         </article>
       `;
