@@ -5416,18 +5416,21 @@ html[data-theme="light"] .related-track-grid > .track-card:hover {
 
   body[data-page="home"] .hero-copy h1 {
     max-width: none;
-    font-size: clamp(2.4rem, 12vw, 3.6rem);
+    font-size: clamp(2.3rem, 11vw, 3.4rem);
+    white-space: normal;
   }
 
   body[data-page="home"] .hero-copy h1 span {
     white-space: normal;
   }
 
-  @media (max-width: 420px) {
-    body[data-page="home"] .hero-copy h1,
-    body[data-page="about"] .about-hero .page-title {
-      white-space: normal;
-    }
+  /* 421-760px used to keep the desktop `nowrap` name/subtitle: at ~421-488px
+     "Jamery Wang" and the long EN outline subtitle were wider than the frame
+     and pushed the page past the right edge (iPhone Pro Max is 428/430px).
+     Let both wrap as a safety net; the reduced type scale keeps them on one
+     line at common widths. */
+  body[data-page="about"] .about-hero .page-title {
+    white-space: normal;
   }
 
   /* eyebrow 移动端更小 */
