@@ -24,6 +24,8 @@ const projectLibraryNode = document.querySelector("[data-project-library]");
 const noteLibraryNode = document.querySelector("[data-note-library]");
 const showcaseNode = document.querySelector("[data-showcase]");
 const nowBuildingNode = document.querySelector("[data-now-building]");
+const profileFocusNodes = document.querySelectorAll("[data-profile-focus]");
+const clockNodes = document.querySelectorAll("[data-local-clock]");
 const projectCountNodes = document.querySelectorAll("[data-project-count]");
 const noteCountNodes = document.querySelectorAll("[data-note-count]");
 const projectDetailNode = document.querySelector("[data-project-detail]");
@@ -390,6 +392,10 @@ const I18N = {
     "about.entrySummary": "源码、社交和邮箱——公开入口集中在这里。",
     "about.openProjects": "打开项目",
     "about.openNotes": "打开笔记",
+    "about.idAria": "个人名片",
+    "about.idFocusLabel": "聚焦",
+    "about.idStatus": "构建记忆感知的 Agent 系统",
+    "about.idTimeLabel": "本地时间",
     "projects.eyebrow": "Portfolio / Active Builds",
     "projects.titleSub": "Agent · Kernel · Quant",
     "projects.lead": "增长 Agent、分布式编程、量化引擎，以及复用型交付工作流。",
@@ -604,6 +610,10 @@ const I18N = {
     "about.entrySummary": "Source, socials, and email — the public doors in one place.",
     "about.openProjects": "Open projects",
     "about.openNotes": "Open notes",
+    "about.idAria": "Profile card",
+    "about.idFocusLabel": "Focus",
+    "about.idStatus": "Shipping memory-aware agent systems",
+    "about.idTimeLabel": "Local time",
     "projects.eyebrow": "Portfolio / Active Builds",
     "projects.titleSub": "Agent · Kernel · Quant",
     "projects.lead": "Growth Agents, distributed coding, quant engines, and reusable delivery workflows.",
@@ -1549,6 +1559,12 @@ const renderProjectSurfaces = (instant = false) => {
       .join("");
   }
   if (projectLibraryNode) applyStoredFilter(projectLibraryNode);
+  if (profileFocusNodes.length > 0) {
+    const focusItems = Array.isArray(siteData.profile?.focus) ? siteData.profile.focus : [];
+    profileFocusNodes.forEach((node) => {
+      node.innerHTML = focusItems.map((item) => `<span>${item}</span>`).join("");
+    });
+  }
   if (instant) {
     [homeProjectsNode, projectLibraryNode, showcaseNode, nowBuildingNode].forEach((node) => {
       if (node) node.querySelectorAll(".reveal").forEach((card) => card.classList.add("visible"));
@@ -1646,6 +1662,33 @@ if (yearNodes.length > 0) {
   const year = new Date().getFullYear();
   yearNodes.forEach((node) => {
     node.textContent = year;
+  });
+}
+
+/* Local clock (About profile card). Compute once, then refresh when the
+   tab becomes visible again — no idle interval, matching the site's
+   no-background-work budget. */
+if (clockNodes.length > 0) {
+  const formatClock = () => {
+    let value;
+    try {
+      value = new Intl.DateTimeFormat("en-GB", {
+        timeZone: "Asia/Shanghai",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false
+      }).format(new Date());
+    } catch (clockErr) {
+      const now = new Date();
+      value = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
+    }
+    clockNodes.forEach((node) => {
+      node.textContent = value;
+    });
+  };
+  formatClock();
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) formatClock();
   });
 }
 

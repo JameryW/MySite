@@ -71,7 +71,9 @@ Language is site-wide (`localStorage` key `site-lang`, legacy `notes-lang` still
 ## Security
 
 - Do not commit secrets, API keys, or credentials
-- CSP is set in `index.html` — no external scripts allowed
+- CSP is declared in every page `<head>` — no external scripts allowed
+- `script-src` allows `'self'` plus the sha256 of the inline boot script. If you touch that inline script (theme/lang restore, loader timeouts), recompute the hash for all 8 pages or the browser silently blocks the boot script and light/EN users get a flash of the wrong theme/language:
+  `node -e 'const c=require("crypto"),s=require("fs").readFileSync("public/about.html","utf8").match(/<script>([\s\S]*?)<\/script>/)[1];console.log("sha256-"+c.createHash("sha256").update(s).digest("base64"))'`
 
 <!-- TRELLIS:START -->
 # Trellis Instructions
