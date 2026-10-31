@@ -1,0 +1,32 @@
+name: Checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: JS syntax
+        run: |
+          for file in public/app.js public/sw.js public/notfound.js public/data.js scripts/verify-site.mjs; do
+            node --check "$file"
+          done
+
+      - name: Site invariants
+        run: node scripts/verify-site.mjs
+
+      - name: Deploy scripts syntax
+        run: |
+          for file in scripts/deploy.sh scripts/deploy-nginx.sh; do
+            bash -n "$file"
+          done

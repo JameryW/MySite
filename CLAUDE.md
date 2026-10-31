@@ -9,11 +9,13 @@ Static personal website for Jamery Wang — a geek-themed, AI-focused personal s
 ## Development Commands
 
 - `npm run dev` — start local dev server at `http://localhost:4173` (Python HTTP server serving `public/`)
-- No test suite or linter is configured
+- `npm run check` — zero-dependency release checks (CSP hashes, cache versions, SW precache keys, refs, sitemap)
+- `npm run deploy` — rsync `public/` to the production VPS with backup + verification
+- No test suite, linter, or build step is configured
 
 ## Architecture
 
-All site files live in `public/`. There is no `src/` directory and no compilation step.
+All site files live in `public/`. There is no `src/` directory and no compilation step. Production is served by nginx on the `jwip` VPS — see the Deployment section in `AGENTS.md` and `deploy/nginx.conf`.
 
 ### Data-driven rendering
 

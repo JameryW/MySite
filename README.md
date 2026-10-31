@@ -13,7 +13,7 @@ A geek-themed, AI-focused personal website — zero dependencies, no build step,
 - **Command palette** — `⌘K` global search across projects, notes, and pages
 - **PWA support** — service worker + web app manifest for offline-capable install
 - **Self-hosted analytics** — Umami pageviews + session replays (15% sample), no third-party trackers
-- **Strict CSP** — `default-src 'self'; script-src 'self' https://stats.jameryw.dev` on every page
+- **Strict CSP** — `default-src 'self'` on every page, with the inline boot script pinned by sha256 and only Umami (`stats.jameryw.dev`) allowed
 - **Responsive** — breakpoints at 980px and 760px, mobile menu with hamburger toggle
 - **Accessible** — skip links, ARIA labels, `prefers-reduced-motion` support
 - **Social profile links** — GitHub, X, and Xiaohongshu (小红书) entries in topbar, about contact card, and footer with brand icons (inline SVG for GitHub/X, image for Xiaohongshu)
@@ -28,6 +28,12 @@ cd MySite
 # start dev server (Python 3)
 npm run dev
 # → http://localhost:4173
+
+# release checks (CSP hashes, cache versions, refs, sitemap)
+npm run check
+
+# deploy public/ to the production VPS (see Deployment)
+npm run deploy
 ```
 
 No install step. No dependencies. The `dev` script runs `python3 -m http.server 4173 --directory public`.
@@ -47,12 +53,17 @@ public/
 ├── data.js             # all content data (window.siteData = {profile, projects[6], notes[11]})
 ├── app.js              # rendering, interactions, nav, animations
 ├── styles.css          # single shared stylesheet
-├── sw.js               # service worker (network-first navigations, CACHE = 'mysite-v107')
+├── sw.js               # service worker (network-first navigations)
 ├── manifest.json       # PWA manifest
 ├── umami-config.js     # Umami analytics configuration
 ├── favicon.svg         # site icon
 ├── sitemap.xml         # SEO sitemap
 └── robots.txt          # crawler rules
+
+deploy/nginx.conf       # production nginx config for the VPS (source of truth)
+scripts/verify-site.mjs # zero-dependency release checks (run by CI)
+scripts/deploy.sh       # rsync deploy with server-side backup + verification
+scripts/deploy-nginx.sh # upload/validate/reload deploy/nginx.conf
 ```
 
 ## Architecture
@@ -63,7 +74,7 @@ public/
 
 **Shared chrome:** topbar nav (Home / Projects / Showcase / Notes / About), decorative overlays (noise, particle-bg canvas, parallax orbs, cursor-glow, scroll-progress), ⌘K command palette, dark/light theme, glass-morphism.
 
-**PWA:** `manifest.json` + `sw.js` (network-first navigations, cache-first versioned statics, `CACHE = 'mysite-v107'`).
+**PWA:** `manifest.json` + `sw.js` (network-first navigations, cache-first versioned statics; the `CACHE` name and `?v=` query versions are checked by `npm run check`).
 
 **SEO:** JSON-LD, Open Graph tags, `sitemap.xml`, `robots.txt`.
 
@@ -102,7 +113,19 @@ Self-hosted [Umami](https://umami.is/) at `stats.jameryw.dev`:
 
 ## Deployment
 
-GitHub Actions workflow (`.github/workflows/deploy.yml`) uploads `public/` to GitHub Pages on push. No build step — static files served as-is.
+Production is a single VPS (`jwip`, `142.93.21.26`): nginx serves `public/` from `/var/www/html`, and TLS certificates are issued/renewed by **acme.sh** (DNS-01 via Aliyun) into `/root/.acme.sh/jameryw.dev_ecc/`. GitHub Pages is **not** used.
+
+- `deploy/nginx.conf` is the source of truth for `/etc/nginx/nginx.conf` — HTTP→HTTPS redirect, apex→www canonical redirect, custom 404, gzip, cache headers, and the box's `/ws` / `/xray` reverse proxies.
+- `npm run deploy` runs `npm run check`, backs up the current web root on the server (`/root/deploy-backups/`), rsyncs `public/`, then verifies the deployed cache versions.
+- `npm run deploy -- --dry-run` shows the file diff without touching production.
+- `npm run deploy:nginx` uploads `deploy/nginx.conf`, validates it with `nginx -t`, backs up the previous config, installs it, and reloads nginx.
+- GitHub Actions (`.github/workflows/checks.yml`) runs the same checks on every PR/push: CSP hash ↔ inline script, cache version consistency, service-worker precache keys, broken local refs, external-script ban, and sitemap coverage.
+
+Rollback a bad deploy with the timestamped backup:
+
+```bash
+ssh jwip 'tar xzf /root/deploy-backups/mysite-html-<timestamp>.tgz -C /var/www'
+```
 
 ## Tech Stack
 
@@ -114,9 +137,10 @@ GitHub Actions workflow (`.github/workflows/deploy.yml`) uploads `public/` to Gi
 | Fonts | Space Grotesk + Syne (self-hosted latin) + system CJK stack |
 | PWA | Service Worker + Web App Manifest |
 | Analytics | Self-hosted Umami (pageviews + session replays) |
-| Security | Strict CSP per page |
-| Deploy | GitHub Actions → GitHub Pages |
-| Hosting | GitHub Pages |
+| Security | Strict CSP per page (sha256-pinned inline boot script) |
+| CI | GitHub Actions — `node scripts/verify-site.mjs` |
+| Deploy | `scripts/deploy.sh` (rsync) + `scripts/deploy-nginx.sh` |
+| Hosting | VPS (nginx) + acme.sh TLS |
 
 ## Browser Support
 
