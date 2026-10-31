@@ -1430,8 +1430,13 @@ const renderNoteDetail = (instant = false) => {
             .join("")}
         </ul>
         <div class="page-actions">
-          <a class="button primary" href="./notes.html">${t("cta.backNotes")}</a>
-          <a class="button secondary" href="${relatedProjects.length > 0 ? "#linked-builds" : "./projects.html"}">${t("detail.relatedProjects")}</a>
+          ${
+            relatedProjects.length > 0
+              ? `<a class="button secondary" href="./notes.html">${t("cta.backNotes")}</a>
+          <a class="button primary" href="#linked-builds">${t("detail.relatedProjects")}</a>`
+              : `<a class="button primary" href="./notes.html">${t("cta.backNotes")}</a>
+          <a class="button secondary" href="./projects.html">${t("detail.relatedProjects")}</a>`
+          }
         </div>
       </section>
 
