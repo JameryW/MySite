@@ -3276,9 +3276,9 @@ body[data-page="about"] .about-signal-strip {
 body[data-page="about"] .about-signal {
   display: grid;
   align-content: center;
-  gap: 8px;
-  min-height: 92px;
-  padding: 16px 18px;
+  gap: 6px;
+  min-height: 72px;
+  padding: 14px 18px;
   border-right: 1px solid var(--line);
 }
 
@@ -3316,20 +3316,23 @@ body[data-page="about"] .about-signal-label {
   text-transform: uppercase;
 }
 
-body[data-page="about"] .about-page-grid {
-  gap: 24px;
-}
-
 body[data-page="about"] .about-section-head {
-  margin-bottom: 22px;
+  margin-bottom: 18px;
 }
 
 body[data-page="about"] .about-section-head .section-summary {
   margin-top: 0;
+  max-width: 40rem;
 }
 
-body[data-page="about"] .about-now-section {
-  padding-top: 10px;
+body[data-page="about"] .about-now-section,
+body[data-page="about"] .about-profile-section {
+  padding-top: 18px;
+}
+
+body[data-page="about"] .about-contact-section {
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 body[data-page="home"] .home-hero {
@@ -3372,67 +3375,31 @@ body[data-page="showcase"] .page-title span:not(.page-title-main) {
   letter-spacing: 0.04em;
 }
 
-body[data-page="about"] .about-now-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-}
-
-body[data-page="about"] .about-now-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  min-width: 0;
-  height: 100%;
-  padding: 22px 22px 20px;
-  border: 1px solid rgba(108, 242, 255, 0.18);
-  border-radius: 18px;
-  background:
-    linear-gradient(135deg, rgba(108, 242, 255, 0.06), transparent 42%),
-    linear-gradient(180deg, rgba(18, 26, 52, 0.72), rgba(7, 11, 27, 0.9));
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
-  overflow: hidden;
-  transition: border-color 180ms ease, transform 180ms ease, background 180ms ease;
-}
-
-body[data-page="about"] .about-now-card::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 2px;
-  background: linear-gradient(180deg, var(--cyan), var(--pink));
-  opacity: 0.9;
-  pointer-events: none;
-}
-
-body[data-page="about"] .about-now-card:hover {
-  border-color: rgba(108, 242, 255, 0.36);
-  transform: translateY(-2px);
-}
-
-[data-theme="light"] body[data-page="about"] .about-now-card {
-  border-color: rgba(8, 145, 178, 0.18);
-  background:
-    linear-gradient(135deg, rgba(14, 165, 186, 0.06), transparent 42%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(236, 240, 250, 0.94));
-  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08);
-}
-
-[data-theme="light"] body[data-page="about"] .about-now-card:hover {
-  border-color: rgba(14, 165, 186, 0.34);
-}
-
 [data-theme="light"] .build-track-grid > .track-card,
 [data-theme="light"] .related-track-grid > .track-card {
   border-top-color: rgba(8, 145, 178, 0.16);
 }
 
-body[data-page="about"] .about-now-card-top {
+/* Compact Now list — progress beats without project-card duplication. */
+body[data-page="about"] .about-now-list {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+
+body[data-page="about"] .about-now-row {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  gap: 18px 24px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+body[data-page="about"] .about-now-row-meta {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 4px;
 }
 
 body[data-page="about"] .about-now-index {
@@ -3444,51 +3411,93 @@ body[data-page="about"] .about-now-index {
 }
 
 body[data-page="about"] .about-now-when {
-  flex: 0 0 auto;
   color: var(--muted);
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
-body[data-page="about"] .about-now-card .card-topline {
+body[data-page="about"] .about-now-row-body {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+body[data-page="about"] .about-now-row-head {
+  display: grid;
+  gap: 6px;
+}
+
+body[data-page="about"] .about-now-label {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 8px;
   margin: 0;
-  min-width: 0;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
-body[data-page="about"] .about-now-card h3 {
+body[data-page="about"] .about-now-row h3 {
   margin: 0;
-  font-size: clamp(1.2rem, 2vw, 1.45rem);
-  line-height: 1.15;
-  word-break: break-word;
-  overflow-wrap: anywhere;
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  line-height: 1.2;
 }
 
-body[data-page="about"] .about-now-card > p:not(.card-topline) {
+body[data-page="about"] .about-now-row h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+body[data-page="about"] .about-now-row h3 a:hover {
+  color: var(--cyan);
+}
+
+body[data-page="about"] .about-now-row-body > p {
   margin: 0;
+  max-width: 44rem;
   color: var(--muted);
   line-height: 1.65;
 }
 
-body[data-page="about"] .about-now-card .card-actions {
+body[data-page="about"] .about-now-row-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 10px 16px;
-  margin-top: auto;
-  padding-top: 8px;
+  margin-top: 2px;
 }
 
-body[data-page="about"] .about-now-card .card-inline-link {
+body[data-page="about"] .about-now-row .card-inline-link {
   color: var(--cyan);
   text-decoration: none;
 }
 
-body[data-page="about"] .about-now-card .card-inline-link:hover {
+body[data-page="about"] .about-now-row .card-inline-link:hover {
   color: var(--pink);
+}
+
+body[data-page="about"] .about-now-row .work-status-pill {
+  padding: 3px 9px;
+  border: 1px solid rgba(216, 255, 98, 0.34);
+  border-radius: 999px;
+  background: rgba(216, 255, 98, 0.08);
+  color: var(--lime);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+}
+
+[data-theme="light"] body[data-page="about"] .about-now-row .work-status-pill {
+  border-color: rgba(90, 138, 0, 0.28);
+  background: rgba(90, 138, 0, 0.08);
+}
+
+/* Profile: stack terminal then signals — no uneven 2-col squeeze. */
+body[data-page="about"] .about-profile-stack {
+  display: grid;
+  gap: 22px;
 }
 
 body[data-page="about"] .terminal-statement {
@@ -3497,16 +3506,12 @@ body[data-page="about"] .terminal-statement {
   box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
 }
 
-body[data-page="about"] .about-page-grid .detail {
-  padding: 14px 0 0 28px;
-  border: 0;
-  border-left: 1px solid rgba(216, 255, 98, 0.32);
-  border-radius: 0;
-  background: transparent;
+body[data-page="about"] .about-signals {
+  min-width: 0;
 }
 
 body[data-page="about"] .detail-heading {
-  margin: 0;
+  margin: 0 0 16px;
   color: var(--lime);
   font-size: 0.72rem;
   font-weight: 700;
@@ -3514,55 +3519,85 @@ body[data-page="about"] .detail-heading {
   text-transform: uppercase;
 }
 
-body[data-page="about"] .about-page-grid .detail div {
-  padding-bottom: 14px;
+body[data-page="about"] .about-signals-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 28px;
+  padding-top: 4px;
+  border-top: 1px solid rgba(216, 255, 98, 0.28);
 }
 
-body[data-page="about"] .contact-card {
-  align-items: start;
-  gap: 48px;
-  padding: 32px 0;
-  border: 0;
+body[data-page="about"] .about-signals-grid > div {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+body[data-page="about"] .about-signals-grid span {
+  color: var(--cyan);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+body[data-page="about"] .about-signals-grid p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+/* Contact: stacked copy + link grid, no wide empty gutter. */
+body[data-page="about"] .about-contact {
+  display: grid;
+  gap: 22px;
+  padding: 28px 0;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-  overflow: visible;
 }
 
-body[data-page="about"] .contact-links .platform-link,
-body[data-page="about"] .contact-links a {
+body[data-page="about"] .about-contact-copy {
+  max-width: 36rem;
+}
+
+body[data-page="about"] .about-contact-copy h2 {
+  max-width: none;
+}
+
+body[data-page="about"] .about-contact-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 18px;
+}
+
+body[data-page="about"] .about-contact-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   min-width: 0;
-  max-width: 100%;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  color: var(--text);
+  text-decoration: none;
   overflow-wrap: anywhere;
   word-break: break-word;
+  transition: border-color 180ms ease, color 180ms ease, background 180ms ease, transform 180ms ease;
 }
 
-body[data-page="about"] .contact-copy {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
-body[data-page="about"] .contact-links {
-  flex: 0 1 360px;
-  min-width: 280px;
-  padding-left: 24px;
-  border-left: 1px solid var(--line);
-}
-
-body[data-page="about"] .contact-links .platform-link {
-  color: var(--text);
-}
-
-body[data-page="about"] .contact-links .platform-link:hover {
+body[data-page="about"] .about-contact-links a:hover {
+  border-color: rgba(108, 242, 255, 0.35);
   color: var(--cyan);
+  transform: translateY(-1px);
 }
 
-body[data-page="about"] .contact-links a:nth-child(3) {
-  margin-bottom: 4px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--line);
+[data-theme="light"] body[data-page="about"] .about-contact-links a {
+  background: rgba(255, 255, 255, 0.45);
+}
+
+[data-theme="light"] body[data-page="about"] .about-contact-links a:hover {
+  border-color: rgba(8, 145, 178, 0.35);
 }
 
 .link-prefix {
@@ -4515,7 +4550,7 @@ html[data-theme="light"] .related-track-grid > .track-card:hover {
   .back-to-top:hover,
   .back-to-top.visible:hover,
   .pager-card:hover,
-  body[data-page="about"] .about-now-card:hover {
+  body[data-page="about"] .about-contact-links a:hover {
     transform: none;
   }
 }/* ── Animated Status Indicators ── */
@@ -4580,11 +4615,6 @@ html[data-theme="light"] .related-track-grid > .track-card:hover {
     padding-bottom: 24px;
   }
 
-  /* Keep Now as 2-col at tablet so it matches the signal strip rhythm. */
-  body[data-page="about"] .about-now-grid {
-    gap: 14px;
-  }
-
   body[data-page="about"] .about-signal-strip {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     margin-bottom: 8px;
@@ -4602,16 +4632,9 @@ html[data-theme="light"] .related-track-grid > .track-card:hover {
     padding-right: 18px;
   }
 
-  body[data-page="about"] .contact-card {
-    gap: 28px;
-  }
-
-  body[data-page="about"] .contact-links {
-    flex-basis: 100%;
-    padding-top: 20px;
-    padding-left: 0;
-    border-top: 1px solid var(--line);
-    border-left: 0;
+  body[data-page="about"] .about-now-row {
+    grid-template-columns: 72px minmax(0, 1fr);
+    gap: 14px 18px;
   }
 
   /* Hamburger topbar at tablet widths — avoid crushing Chinese nav
@@ -4900,14 +4923,13 @@ html[data-theme="light"] .related-track-grid > .track-card:hover {
     overflow-wrap: anywhere;
   }
 
-  body[data-page="about"] .contact-card {
-    gap: 18px;
-    padding: 24px 0;
+  body[data-page="about"] .about-contact {
+    gap: 16px;
+    padding: 22px 0;
   }
 
-  body[data-page="about"] .contact-links {
-    min-width: 0;
-    gap: 10px;
+  body[data-page="about"] .about-signal {
+    min-height: 64px;
   }
 
   body[data-page="about"] .about-page-actions {
@@ -5098,9 +5120,26 @@ html[data-theme="light"] .related-track-grid > .track-card:hover {
     gap: 12px;
   }
 
-  body[data-page="about"] .about-now-grid {
+  body[data-page="about"] .about-now-row {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 8px;
+    padding: 16px 0;
+  }
+
+  body[data-page="about"] .about-now-row-meta {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding-top: 0;
+  }
+
+  body[data-page="about"] .about-signals-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  body[data-page="about"] .about-contact-links {
+    grid-template-columns: 1fr;
   }
 
   .related-track-grid:has(> :nth-child(3):last-child) {
@@ -5502,13 +5541,15 @@ html.page-hidden *::after {
     transform: none;
   }
 
-  body[data-page="about"] .about-now-card:hover {
+  body[data-page="about"] .about-contact-links a:hover {
     transform: none;
-    border-color: rgba(108, 242, 255, 0.18);
+    border-color: var(--line);
+    color: var(--text);
   }
 
-  [data-theme="light"] body[data-page="about"] .about-now-card:hover {
-    border-color: rgba(14, 165, 186, 0.18);
+  [data-theme="light"] body[data-page="about"] .about-contact-links a:hover {
+    border-color: var(--line);
+    color: var(--text);
   }
 
   /* Home Round 2: same-specificity touch resets for the richer hover */
@@ -5753,7 +5794,7 @@ html.page-hidden *::after {
     color: var(--muted);
   }
 
-  body[data-page="about"] .about-now-card .card-inline-link:hover {
+  body[data-page="about"] .about-now-row .card-inline-link:hover {
     color: var(--cyan);
   }
 }
