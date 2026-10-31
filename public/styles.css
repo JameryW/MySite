@@ -1924,13 +1924,32 @@ body[data-page="about"] .section + .section {
   padding-bottom: 36px;
 }
 
-/* Detail hero titles: stay inside the left column without ugly
-   mid-word wraps. CamelCase soft breaks (<wbr>) come from app.js;
-   longer names scale down so most stay one line. */
+/* Detail heroes follow listing declutter: single column + inline meta. */
+[data-project-detail] .page-hero,
+[data-note-detail] .page-hero {
+  display: block;
+  padding-bottom: 28px;
+}
+
 [data-project-detail] .page-hero > :not(.page-hero-panel),
 [data-note-detail] .page-hero > :not(.page-hero-panel) {
   min-width: 0;
   max-width: 100%;
+}
+
+[data-project-detail] .page-lead,
+[data-note-detail] .page-lead {
+  max-width: 44rem;
+}
+
+[data-project-detail] .detail-hero-meta,
+[data-note-detail] .detail-hero-meta {
+  max-width: 46rem;
+}
+
+[data-project-detail] .page-actions,
+[data-note-detail] .page-actions {
+  margin-top: 20px;
 }
 
 [data-project-detail] .page-title,
@@ -5415,8 +5434,22 @@ html[data-theme="light"] .related-track-grid > .track-card:hover {
   }
 
   .page-actions {
-    flex-direction: column;
-  }  .hero-meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  /* 3+ actions: primary full-width, then a secondary pair. */
+  .page-actions:has(.button:nth-child(3)) .button.primary {
+    grid-column: 1 / -1;
+  }
+
+  .page-actions .button {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .hero-meta {
     grid-template-columns: 1fr;
   }
 

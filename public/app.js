@@ -308,24 +308,6 @@ const fitProjectHeroTitle = (root) => {
   title.style.whiteSpace = "";
 };
 
-const pageHeroPanelMarkup = (title, items) => `
-  <aside class="page-hero-panel reveal" aria-label="${title}">
-    <p class="stack-label">${title}</p>
-    <div class="page-hero-panel-grid">
-      ${items
-        .map(
-          (item) => `
-            <div>
-              <span>${item.label}</span>
-              <strong>${item.value}</strong>
-            </div>
-          `
-        )
-        .join("")}
-    </div>
-  </aside>
-`;
-
 const projectDetailHref = (project) => `./project.html?slug=${project.slug}`;
 const noteDetailHref = (note) => `./note.html?slug=${note.slug}`;
 const detailCanonicalHref = (kind, slug) =>
@@ -1280,6 +1262,11 @@ const renderProjectDetail = (instant = false) => {
           <span>${escapeHtml(project.detailTitle)}</span>
         </h1>
         <p class="page-lead">${overview}</p>
+        <p class="listing-hero-meta detail-hero-meta" aria-label="${t("detail.signal")}">
+          <span>${escapeHtml(project.role)}</span>
+          <span class="listing-hero-meta-sep" aria-hidden="true">·</span>
+          <span>${escapeHtml(project.outputs.slice(0, 2).join(" / "))}</span>
+        </p>
         <div class="page-actions">
           ${
             project.demoUrl
@@ -1295,11 +1282,6 @@ const renderProjectDetail = (instant = false) => {
           }
           <a class="button secondary" href="./projects.html">${t("cta.backProjects")}</a>
         </div>
-        ${pageHeroPanelMarkup(t("detail.signal"), [
-          { label: t("meta.status"), value: project.status },
-          { label: t("meta.role"), value: project.role },
-          { label: t("meta.output"), value: project.outputs.slice(0, 2).join(" / ") }
-        ])}
       </section>
 
       <section class="section">
@@ -1409,26 +1391,19 @@ const renderNoteDetail = (instant = false) => {
           <span>${noteDetailTitle(note)}</span>
         </h1>
         ${noteHeadingEn(note) ? `<p class="note-detail-en">${noteHeadingEn(note)}</p>` : ""}
-        <ul class="note-facts reveal">
+        <p class="listing-hero-meta detail-hero-meta note-detail-meta reveal">
           ${[
-            { label: t("meta.status"), value: note.status },
-            { label: t("meta.focus"), value: noteFocusValue(note) },
-            { label: t("meta.period"), value: note.timeframe },
-            { label: t("meta.points"), value: String(noteBullets(note).length) },
-            { label: t("meta.read"), value: `${noteReadMinutes(note)} ${t("meta.min")}` },
-            { label: t("meta.builds"), value: String(relatedProjects.length) }
+            note.status,
+            noteFocusValue(note),
+            note.timeframe,
+            `${noteBullets(note).length} ${t("meta.points")}`,
+            `${noteReadMinutes(note)} ${t("meta.min")}`,
+            relatedProjects.length ? `${relatedProjects.length} ${t("meta.builds")}` : ""
           ]
-            .filter((fact) => fact.value)
-            .map(
-              (fact) => `
-            <li class="note-fact">
-              <span class="note-fact-label">${fact.label}</span>
-              <strong class="note-fact-value">${fact.value}</strong>
-            </li>
-          `
-            )
-            .join("")}
-        </ul>
+            .filter(Boolean)
+            .map((value) => `<span>${escapeHtml(String(value))}</span>`)
+            .join('<span class="listing-hero-meta-sep" aria-hidden="true">·</span>')}
+        </p>
         <div class="page-actions">
           ${
             relatedProjects.length > 0
