@@ -1257,7 +1257,10 @@ body[data-page="home"] .hero-copy .lead {
 
 .hero-focus-panel {
   position: relative;
+  display: flex;
+  flex-direction: column;
   flex: 0 1 360px;
+  align-self: stretch;
   min-width: 0;
   overflow: hidden;
   padding: 26px;
@@ -1283,7 +1286,13 @@ body[data-page="home"] .hero-copy .lead {
 .focus-list {
   position: relative;
   display: grid;
-  gap: 18px;
+  flex: 1 1 auto;
+  gap: 14px;
+  align-content: stretch;
+}
+
+body[data-page="home"] .hero-focus-panel .focus-list {
+  grid-template-rows: repeat(3, minmax(0, 1fr));
 }
 
 .focus-list div {
@@ -3469,7 +3478,7 @@ body[data-page="about"] .about-now-row .work-status-pill {
 /* Profile: stack terminal then signals — denser terminal, quieter signals. */
 body[data-page="about"] .about-profile-stack {
   display: grid;
-  gap: 20px;
+  gap: 16px;
 }
 
 body[data-page="about"] .terminal-statement {
@@ -3519,8 +3528,8 @@ body[data-page="about"] .detail-heading {
 
 body[data-page="about"] .about-signals-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px 24px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px 22px;
   padding-top: 4px;
   border-top: 1px solid rgba(216, 255, 98, 0.22);
 }
@@ -3549,10 +3558,15 @@ body[data-page="about"] .about-signals-grid p {
 /* Contact: stacked copy + quiet text links (not oversized cards). */
 body[data-page="about"] .about-contact {
   display: grid;
-  gap: 16px;
-  padding: 8px 0 4px;
+  gap: 14px;
+  padding: 4px 0 0;
   border-top: 1px solid var(--line);
   border-bottom: 0;
+}
+
+/* About footer keeps page nav only — socials live in Entry Points + topbar. */
+body[data-page="about"] .footer-links {
+  grid-template-columns: repeat(2, minmax(0, max-content));
 }
 
 body[data-page="about"] .about-contact-copy {
@@ -5038,6 +5052,10 @@ html[data-theme="light"] .related-track-grid > .track-card:hover {
 
   .focus-list {
     gap: 12px;
+  }
+
+  body[data-page="home"] .hero-focus-panel .focus-list {
+    grid-template-rows: none;
   }
 
   .focus-list div {
