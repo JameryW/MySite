@@ -25,7 +25,7 @@
     <meta name="twitter:title" content="Jamery Wang | About" />
     <meta name="twitter:description" content="AI-native prototyper with a builder bias — 模型能力、工作流和快速界面原型。" />
     <meta name="theme-color" content="#050816" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-BvFjesuXUeZq6FHJaT9kdP/c6ice0i0dRoaYYDO3DM0=' https://stats.jameryw.dev; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://stats.jameryw.dev;" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-3aURg3fA3oi6eIRKnp6m/7vbZqwgXbcF4hrcIPlG1qE=' https://stats.jameryw.dev; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://stats.jameryw.dev;" />
     <script>try{if(localStorage.getItem("theme")==="light"){document.documentElement.setAttribute("data-theme","light");var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content","#f0f2f8")}}catch(e){}try{var L=localStorage.getItem("site-lang")||localStorage.getItem("notes-lang");if(L==="en"||L==="zh"){document.documentElement.setAttribute("data-lang",L);document.documentElement.lang=L==="en"?"en":"zh-CN"}}catch(e){}setTimeout(function(){var el=document.querySelector(".page-loader");if(el&&!el.classList.contains("loaded"))el.classList.add("is-slow")},480);setTimeout(function(){var el=document.querySelector(".page-loader");if(el)el.classList.add("loaded")},2400);</script>
     <link rel="manifest" href="./manifest.json">
     <meta name="mobile-web-app-capable" content="yes">
@@ -34,7 +34,7 @@
     <link rel="preconnect" href="https://stats.jameryw.dev" />
     <link rel="dns-prefetch" href="https://github.com" />
     <link rel="preload" href="./fonts/syne-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="./styles.css?v=120" />
+    <link rel="stylesheet" href="./styles.css?v=121" />
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -141,6 +141,29 @@
               <a class="button secondary" href="./showcase.html" data-i18n="cta.showcase">在线作品</a>
             </div>
           </div>
+          <aside class="about-id-card" aria-label="个人名片" data-i18n-aria="about.idAria">
+            <div class="about-id-head">
+              <span class="about-id-monogram" aria-hidden="true">JW</span>
+              <div class="about-id-identity">
+                <p class="about-id-name">Jamery Wang</p>
+                <p class="about-id-handle">@jameryw</p>
+              </div>
+            </div>
+            <div class="about-id-focus">
+              <p class="about-id-focus-label" data-i18n="about.idFocusLabel">聚焦</p>
+              <div class="about-id-chips" data-profile-focus></div>
+            </div>
+            <div class="about-id-foot">
+              <p class="about-id-status">
+                <span class="card-status-dot live" aria-hidden="true"></span>
+                <span data-i18n="about.idStatus">构建记忆感知的 Agent 系统</span>
+              </p>
+              <div class="about-id-clock">
+                <span class="about-id-time" data-local-clock>--:--</span>
+                <span class="about-id-tz"><span data-i18n="about.idTimeLabel">本地时间</span> · CST</span>
+              </div>
+            </div>
+          </aside>
         </section>
 
         <section class="section about-now-section" id="now-building" aria-label="最新进展" data-i18n-aria="about.nowAria">
@@ -176,7 +199,7 @@
                 <p class="terminal-out"><span class="terminal-key">runtime</span> → Kernel · LangGraph · DAG</p>
                 <p class="terminal-out"><span class="terminal-key">memory</span>  → hy-memory · TiKV / Qdrant</p>
                 <p class="terminal-out"><span class="terminal-key">surface</span> → Showcase · Replay</p>
-                <p class="terminal-out"><span class="terminal-key">editor</span>  → keyboard-native · CLI-first</p>
+                <p class="terminal-out"><span class="terminal-key">editor</span>  → keyboard-native · CLI&#8209;first</p>
                 <p class="terminal-cmd terminal-cmd-cursor"><span class="prompt"><span class="cursor-blink">█</span></span></p>
               </div>
             </article>
@@ -243,7 +266,7 @@
 
 <script src="./data.js?v=42" defer></script>
 <script src="./umami-config.js" defer></script>
-<script src="./app.js?v=78" defer></script>
+<script src="./app.js?v=79" defer></script>
 
     <!-- Command Palette -->
     <div class="palette-overlay" data-palette-overlay></div>

@@ -1868,13 +1868,6 @@ body[data-page="about"] .section + .section {
   min-width: 0;
 }
 
-.about-page-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.8fr);
-  align-items: start;
-  gap: 18px;
-}
-
 .build-track-grid {
   display: grid;
   /* auto-fill keeps empty tracks so the last highlight doesn't stretch full-bleed. */
@@ -2031,10 +2024,6 @@ body[data-page="about"] .section + .section {
   background:
     linear-gradient(135deg, rgba(255, 79, 216, 0.04), transparent 50%),
     linear-gradient(180deg, rgba(18, 26, 52, 0.72), rgba(7, 11, 27, 0.86));
-}
-
-.about-page-grid > * {
-  min-width: 0;
 }
 
 .track-card {
@@ -3241,16 +3230,35 @@ body[data-page="home"] .note-card .card-actions {
   transform: translateX(6px);
 }
 
-/* About page hierarchy: single-column hero + inline meta, even section rhythm. */
+/* ── About page: identity-card hero, progress timeline, two-column profile ── */
+
+/* Hero: copy on the left, a compact identity card as the page's visual anchor.
+   The card deliberately carries no Now Building / Entry Points data twice. */
 body[data-page="about"] .page-hero,
 body[data-page="about"] .about-hero {
-  display: block;
-  padding: 48px 0 28px;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 344px);
+  gap: 26px clamp(28px, 4vw, 56px);
+  align-items: center;
+  padding: 48px 0 30px;
 }
 
 body[data-page="about"] .about-hero-copy {
-  max-width: 46rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   min-width: 0;
+  max-width: 46rem;
+}
+
+body[data-page="about"] .about-hero-copy .eyebrow {
+  align-self: flex-start;
+}
+
+/* EN's longer outline subtitle needs a slightly wider copy column. */
+[data-lang="en"] body[data-page="about"] .about-hero-copy {
+  max-width: 48rem;
 }
 
 body[data-page="about"] .about-hero .page-title {
@@ -3266,6 +3274,211 @@ body[data-page="about"] .about-hero .page-title span {
 body[data-page="about"] .about-hero .page-lead {
   max-width: 38rem;
   margin-top: 14px;
+}
+
+body[data-page="about"] .about-id-card {
+  position: relative;
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 22px;
+  min-width: 0;
+  padding: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(108, 242, 255, 0.16);
+  border-radius: 24px;
+  background:
+    linear-gradient(150deg, rgba(108, 242, 255, 0.09), transparent 46%),
+    linear-gradient(180deg, rgba(18, 26, 52, 0.66), rgba(7, 11, 27, 0.92));
+  box-shadow:
+    inset 0 1px 0 rgba(108, 242, 255, 0.12),
+    0 26px 70px -38px rgba(0, 0, 0, 0.8);
+}
+
+body[data-page="about"] .about-id-card::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(108, 242, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(108, 242, 255, 0.06) 1px, transparent 1px);
+  background-size: 30px 30px;
+  mask-image: linear-gradient(135deg, transparent 6%, black 44%, transparent 92%);
+  opacity: 0.6;
+}
+
+body[data-page="about"] .about-id-card::after {
+  position: absolute;
+  right: -28px;
+  bottom: -28px;
+  width: 136px;
+  height: 136px;
+  content: "";
+  pointer-events: none;
+  border: 1px solid rgba(108, 242, 255, 0.14);
+  border-radius: 50%;
+  opacity: 0.7;
+  box-shadow:
+    inset 0 0 34px rgba(108, 242, 255, 0.08),
+    0 0 40px rgba(108, 242, 255, 0.05);
+}
+
+body[data-page="about"] .about-id-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+body[data-page="about"] .about-id-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+body[data-page="about"] .about-id-monogram {
+  display: grid;
+  flex: 0 0 54px;
+  width: 54px;
+  height: 54px;
+  place-items: center;
+  border: 1px solid rgba(108, 242, 255, 0.34);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(108, 242, 255, 0.28), transparent 62%),
+    linear-gradient(160deg, rgba(216, 255, 98, 0.16), rgba(255, 79, 216, 0.1));
+  box-shadow:
+    inset 0 0 20px rgba(108, 242, 255, 0.14),
+    0 14px 30px -18px rgba(108, 242, 255, 0.55);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+body[data-page="about"] .about-id-identity {
+  min-width: 0;
+}
+
+body[data-page="about"] .about-id-name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.06rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+body[data-page="about"] .about-id-handle {
+  margin: 3px 0 0;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.02em;
+}
+
+body[data-page="about"] .about-id-focus {
+  display: grid;
+  gap: 8px;
+}
+
+body[data-page="about"] .about-id-focus-label {
+  margin: 0;
+  color: var(--lime);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+body[data-page="about"] .about-id-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+body[data-page="about"] .about-id-chips span {
+  padding: 5px 9px;
+  border: 1px solid rgba(162, 176, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+body[data-page="about"] .about-id-foot {
+  display: grid;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(162, 176, 255, 0.12);
+}
+
+body[data-page="about"] .about-id-status {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0;
+  color: var(--text);
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+body[data-page="about"] .about-id-status .card-status-dot {
+  margin-top: 6px;
+  box-shadow:
+    0 0 0 4px rgba(216, 255, 98, 0.08),
+    0 0 10px rgba(216, 255, 98, 0.5);
+}
+
+body[data-page="about"] .about-id-clock {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+body[data-page="about"] .about-id-time {
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 1.7rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 18px rgba(108, 242, 255, 0.28);
+}
+
+body[data-page="about"] .about-id-tz {
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+[data-theme="light"] body[data-page="about"] .about-id-card {
+  border-color: rgba(80, 90, 140, 0.2);
+  background:
+    linear-gradient(150deg, rgba(8, 145, 178, 0.09), transparent 46%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(228, 233, 244, 0.94));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 26px 70px -44px rgba(20, 30, 60, 0.32);
+}
+
+[data-theme="light"] body[data-page="about"] .about-id-monogram {
+  border-color: rgba(8, 145, 178, 0.36);
+  background:
+    radial-gradient(circle at 30% 20%, rgba(8, 145, 178, 0.3), transparent 64%),
+    linear-gradient(160deg, rgba(90, 138, 0, 0.22), rgba(192, 38, 160, 0.12));
+  box-shadow: inset 0 0 18px rgba(8, 145, 178, 0.14);
+}
+
+[data-theme="light"] body[data-page="about"] .about-id-chips span {
+  border-color: rgba(80, 90, 140, 0.16);
+  background: rgba(255, 255, 255, 0.6);
 }
 
 body[data-page="about"] .about-hero-meta,
@@ -3403,19 +3616,54 @@ body[data-page="showcase"] .page-title span:not(.page-title-main) {
   border-top-color: rgba(8, 145, 178, 0.16);
 }
 
-/* Compact Now list — progress beats without project-card duplication. */
+/* Compact Now list — a progress timeline: rail + status dots on the left,
+   meta (index / date) and beat copy on the right. */
 body[data-page="about"] .about-now-list {
+  position: relative;
   display: grid;
   gap: 0;
+  padding-left: 28px;
   border-top: 1px solid var(--line);
 }
 
+body[data-page="about"] .about-now-list::before {
+  position: absolute;
+  top: 30px;
+  bottom: 30px;
+  left: 4px;
+  width: 1px;
+  content: "";
+  background: linear-gradient(180deg, rgba(108, 242, 255, 0.34), rgba(162, 176, 255, 0.14) 55%, transparent);
+}
+
 body[data-page="about"] .about-now-row {
+  position: relative;
   display: grid;
   grid-template-columns: 88px minmax(0, 1fr);
   gap: 18px 24px;
   padding: 18px 0;
   border-bottom: 1px solid var(--line);
+}
+
+body[data-page="about"] .about-now-row::before {
+  position: absolute;
+  top: 25px;
+  left: -28px;
+  width: 9px;
+  height: 9px;
+  content: "";
+  border: 1px solid rgba(108, 242, 255, 0.6);
+  border-radius: 50%;
+  background: var(--bg);
+  box-shadow: 0 0 0 3px rgba(108, 242, 255, 0.07);
+  transition: background-color 180ms ease, box-shadow 180ms ease;
+}
+
+body[data-page="about"] .about-now-row:hover::before {
+  background: var(--cyan);
+  box-shadow:
+    0 0 0 3px rgba(108, 242, 255, 0.14),
+    0 0 12px rgba(108, 242, 255, 0.5);
 }
 
 body[data-page="about"] .about-now-row-meta {
@@ -3473,6 +3721,7 @@ body[data-page="about"] .about-now-row h3 {
 body[data-page="about"] .about-now-row h3 a {
   color: inherit;
   text-decoration: none;
+  transition: color 180ms ease;
 }
 
 body[data-page="about"] .about-now-row h3 a:hover {
@@ -3516,11 +3765,39 @@ body[data-page="about"] .about-now-row .work-status-pill {
   border-color: rgba(90, 138, 0, 0.28);
   background: rgba(90, 138, 0, 0.08);
 }
+[data-theme="light"] body[data-page="about"] .about-now-list::before {
+  background: linear-gradient(180deg, rgba(8, 145, 178, 0.32), rgba(80, 90, 140, 0.16) 55%, transparent);
+}
 
-/* Profile: stack terminal then signals — denser terminal, quieter signals. */
+[data-theme="light"] body[data-page="about"] .about-now-row::before {
+  border-color: rgba(8, 145, 178, 0.55);
+  background: var(--bg);
+  box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.08);
+}
+
+[data-theme="light"] body[data-page="about"] .about-now-row:hover::before {
+  background: var(--cyan);
+  box-shadow:
+    0 0 0 3px rgba(8, 145, 178, 0.16),
+    0 0 12px rgba(8, 145, 178, 0.45);
+}
+
+/* Light theme micro accents: darker ink so 11-12px labels clear AA. */
+[data-theme="light"] body[data-page="about"] .about-id-focus-label,
+[data-theme="light"] body[data-page="about"] .about-now-row .work-status-pill {
+  color: #456b00;
+}
+
+[data-theme="light"] body[data-page="about"] .about-signals-grid span {
+  color: #0e7490;
+}
+
+/* Profile: terminal (wider) beside a stacked signal column. */
 body[data-page="about"] .about-profile-stack {
   display: grid;
-  gap: 16px;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  gap: 24px 36px;
+  align-items: start;
 }
 
 body[data-page="about"] .terminal-statement {
@@ -3557,6 +3834,7 @@ body[data-page="about"] .terminal-statement .terminal-out {
 
 body[data-page="about"] .about-signals {
   min-width: 0;
+  padding-top: 2px;
 }
 
 body[data-page="about"] .detail-heading {
@@ -3570,16 +3848,22 @@ body[data-page="about"] .detail-heading {
 
 body[data-page="about"] .about-signals-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px 22px;
-  padding-top: 4px;
-  border-top: 1px solid rgba(216, 255, 98, 0.22);
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  padding-top: 0;
+  border-top: 1px solid rgba(216, 255, 98, 0.18);
 }
 
 body[data-page="about"] .about-signals-grid > div {
   display: grid;
   gap: 6px;
   min-width: 0;
+  padding: 13px 0;
+  border-bottom: 1px solid rgba(162, 176, 255, 0.1);
+}
+
+body[data-page="about"] .about-signals-grid > div:last-child {
+  border-bottom: 0;
 }
 
 body[data-page="about"] .about-signals-grid span {
@@ -3597,18 +3881,17 @@ body[data-page="about"] .about-signals-grid p {
   font-size: 0.94rem;
 }
 
-/* Contact: denser strip — copy + quiet links, less vertical sprawl. */
+/* Entry Points: icon tiles instead of bare text links. */
 body[data-page="about"] .about-contact {
   display: grid;
-  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-  gap: 18px 36px;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 20px 36px;
   align-items: end;
   padding: 4px 0 0;
   border-top: 1px solid var(--line);
   border-bottom: 0;
 }
 
-/* About footer keeps page nav only — socials live in Entry Points + topbar. */
 body[data-page="about"] .footer-links {
   grid-template-columns: repeat(2, minmax(0, max-content));
 }
@@ -3629,53 +3912,53 @@ body[data-page="about"] .about-contact-copy .section-summary {
 body[data-page="about"] .about-contact-links {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 6px 28px;
+  gap: 10px;
 }
 
 body[data-page="about"] .about-contact-links a {
   position: relative;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   min-width: 0;
-  min-height: 36px;
-  padding: 6px 0;
-  border: 0;
-  border-radius: 0;
-  color: var(--muted);
-  text-decoration: none;
+  min-height: 50px;
+  padding: 11px 13px;
   overflow-wrap: anywhere;
   word-break: break-word;
-  transition: color 180ms ease, transform 180ms ease;
-}
-
-body[data-page="about"] .about-contact-links a::after {
-  position: absolute;
-  left: 0;
-  bottom: 4px;
-  width: 100%;
-  height: 1px;
-  content: "";
-  transform: scaleX(0);
-  transform-origin: left;
-  background: linear-gradient(90deg, var(--cyan), transparent);
-  transition: transform 180ms ease;
+  border: 1px solid rgba(162, 176, 255, 0.14);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.025);
+  color: var(--muted);
+  text-decoration: none;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
 }
 
 body[data-page="about"] .about-contact-links a:hover {
+  border-color: rgba(108, 242, 255, 0.4);
+  background: rgba(108, 242, 255, 0.06);
   color: var(--cyan);
-  transform: translateX(4px);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px -22px rgba(108, 242, 255, 0.6);
 }
 
-body[data-page="about"] .about-contact-links a:hover::after {
-  transform: scaleX(1);
+body[data-page="about"] .about-contact-links .platform-icon {
+  width: 18px;
+  height: 18px;
 }
 
 [data-theme="light"] body[data-page="about"] .about-contact-links a {
-  background: transparent;
+  border-color: rgba(80, 90, 140, 0.16);
+  background: rgba(255, 255, 255, 0.6);
 }
 
 [data-theme="light"] body[data-page="about"] .about-contact-links a:hover {
+  border-color: rgba(8, 145, 178, 0.42);
+  background: rgba(8, 145, 178, 0.07);
   color: var(--cyan);
 }
 
@@ -3686,6 +3969,7 @@ body[data-page="about"] .about-contact-links a:hover::after {
   font-family: var(--font-sans);
   font-weight: 700;
   font-size: 0.82em;
+  text-align: center;
 }
 
 /* ── 404 Page ── */
@@ -4684,14 +4968,82 @@ html[data-theme="light"] .related-track-grid > .track-card:hover {
     margin-top: 10px;
   }
 
-  .about-page-grid {
-    grid-template-columns: 1fr;
-  }
-
   body[data-page="about"] .page-hero,
   body[data-page="about"] .about-hero {
+    grid-template-columns: minmax(0, 1fr);
     padding-top: 36px;
     padding-bottom: 24px;
+  }
+
+  /* Tablet: identity card becomes a horizontal strip under the hero copy. */
+  body[data-page="about"] .about-id-card {
+    grid-column: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "head foot"
+      "focus focus";
+    align-items: center;
+    gap: 14px 24px;
+    padding: 18px 20px;
+  }
+
+  body[data-page="about"] .about-id-head {
+    grid-area: head;
+  }
+
+  body[data-page="about"] .about-id-focus {
+    grid-area: focus;
+    align-items: center;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  body[data-page="about"] .about-id-foot {
+    grid-area: foot;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  body[data-page="about"] .about-id-status {
+    max-width: 22rem;
+  }
+
+  body[data-page="about"] .about-id-clock {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+  }
+
+  body[data-page="about"] .about-profile-stack {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Tablet: full-width entry strip — two chip columns fit without wrapping. */
+  body[data-page="about"] .about-contact {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  body[data-page="about"] .about-contact-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body[data-page="about"] .about-contact-links a {
+    font-size: 0.92rem;
+  }
+
+  body[data-page="about"] .about-signals-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 22px;
+  }
+
+  body[data-page="about"] .about-signals-grid > div {
+    padding: 12px 0 0;
+    border-bottom: 0;
   }
 
   body[data-page="about"] .about-hero-meta,
@@ -4933,6 +5285,15 @@ html[data-theme="light"] .related-track-grid > .track-card:hover {
   .palette-hint kbd {
     display: none;
   }
+
+  /* Keep the About title + outline subtitle inside the narrower copy column. */
+  body[data-page="about"] .about-hero .page-title {
+    font-size: clamp(3rem, 6vw, 4.4rem);
+  }
+
+  body[data-page="about"] .about-id-card {
+    padding: 20px;
+  }
 }
 
 @media (max-width: 760px) {
@@ -4964,6 +5325,38 @@ html[data-theme="light"] .related-track-grid > .track-card:hover {
     padding: 28px 0 22px;
   }
 
+  /* Mobile: identity card stacks as a compact full-width panel. */
+  body[data-page="about"] .about-id-card {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "head"
+      "focus"
+      "foot";
+    gap: 14px;
+    padding: 18px;
+  }
+
+  body[data-page="about"] .about-id-focus {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  body[data-page="about"] .about-id-foot {
+    display: grid;
+    gap: 10px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(162, 176, 255, 0.12);
+  }
+
+  body[data-page="about"] .about-id-status {
+    max-width: none;
+  }
+
+  body[data-page="about"] .about-id-clock {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 10px;
+  }
+
   body[data-page="about"] .about-hero-meta,
   .listing-hero-meta {
     margin-top: 12px;
@@ -4974,14 +5367,6 @@ html[data-theme="light"] .related-track-grid > .track-card:hover {
   body[data-page="about"] .about-hero-meta-sep,
   .listing-hero-meta-sep {
     margin: 0 6px;
-  }
-
-  body[data-page="about"] .page-hero-panel-grid {
-    grid-template-columns: 1fr;
-  }
-
-  body[data-page="about"] .page-hero-panel-grid div:last-child {
-    grid-column: auto;
   }
 
   body[data-page="about"] .terminal-statement .terminal-body,
@@ -5204,10 +5589,25 @@ html[data-theme="light"] .related-track-grid > .track-card:hover {
     gap: 12px;
   }
 
+  body[data-page="about"] .about-now-list {
+    padding-left: 20px;
+  }
+
+  body[data-page="about"] .about-now-list::before {
+    left: 3px;
+    top: 26px;
+    bottom: 26px;
+  }
+
   body[data-page="about"] .about-now-row {
     grid-template-columns: 1fr;
     gap: 8px;
     padding: 16px 0;
+  }
+
+  body[data-page="about"] .about-now-row::before {
+    top: 21px;
+    left: -20px;
   }
 
   body[data-page="about"] .about-now-row-meta {
@@ -5219,7 +5619,12 @@ html[data-theme="light"] .related-track-grid > .track-card:hover {
 
   body[data-page="about"] .about-signals-grid {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 0;
+  }
+
+  body[data-page="about"] .about-signals-grid > div {
+    padding: 13px 0;
+    border-bottom: 1px solid rgba(162, 176, 255, 0.1);
   }
 
   body[data-page="about"] .about-contact-links {
@@ -5641,15 +6046,26 @@ html.page-hidden *::after {
 
   body[data-page="about"] .about-contact-links a:hover {
     transform: none;
+    border-color: rgba(162, 176, 255, 0.14);
+    background: rgba(255, 255, 255, 0.025);
     color: var(--muted);
-  }
-
-  body[data-page="about"] .about-contact-links a:hover::after {
-    transform: none;
+    box-shadow: none;
   }
 
   [data-theme="light"] body[data-page="about"] .about-contact-links a:hover {
+    border-color: rgba(80, 90, 140, 0.16);
+    background: rgba(255, 255, 255, 0.6);
     color: var(--muted);
+  }
+
+  body[data-page="about"] .about-now-row:hover::before {
+    background: var(--bg);
+    box-shadow: 0 0 0 3px rgba(108, 242, 255, 0.07);
+  }
+
+  [data-theme="light"] body[data-page="about"] .about-now-row:hover::before {
+    background: var(--bg);
+    box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.08);
   }
 
   /* Home Round 2: same-specificity touch resets for the richer hover */
