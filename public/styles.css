@@ -4892,8 +4892,8 @@ html[data-theme="light"] .related-track-grid > .track-card:hover {
   }
 
   body[data-page="about"] .about-signal {
-    min-height: 80px;
-    padding: 14px;
+    min-height: 64px;
+    padding: 12px 14px;
   }
 
   body[data-page="about"] .about-signal-value,
@@ -4926,10 +4926,6 @@ html[data-theme="light"] .related-track-grid > .track-card:hover {
   body[data-page="about"] .about-contact {
     gap: 16px;
     padding: 22px 0;
-  }
-
-  body[data-page="about"] .about-signal {
-    min-height: 64px;
   }
 
   body[data-page="about"] .about-page-actions {
