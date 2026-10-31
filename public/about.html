@@ -34,7 +34,7 @@
     <link rel="preconnect" href="https://stats.jameryw.dev" />
     <link rel="dns-prefetch" href="https://github.com" />
     <link rel="preload" href="./fonts/syne-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="./styles.css?v=115" />
+    <link rel="stylesheet" href="./styles.css?v=116" />
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -127,31 +127,21 @@
               <span data-profile-title>AI 时代原住民</span>
             </h1>
             <p class="page-lead" data-i18n="about.lead">终端是第二个大脑，LLM 是第三个。现在把精力放在内核、记忆和可观测执行面上——先跑通，再谈结构。</p>
+            <p class="about-hero-meta" id="profile-signal" aria-label="个人快照" data-i18n-aria="about.signalAria">
+              <span>Hangzhou</span>
+              <span class="about-hero-meta-sep" aria-hidden="true">·</span>
+              <span><strong data-project-count>0</strong> <span data-i18n="about.signalProjects">项目</span></span>
+              <span class="about-hero-meta-sep" aria-hidden="true">·</span>
+              <span><strong data-note-count>0</strong> <span data-i18n="about.signalNotes">笔记</span></span>
+              <span class="about-hero-meta-sep" aria-hidden="true">·</span>
+              <span>Kernel</span>
+            </p>
             <div class="page-actions about-page-actions">
               <a class="button primary" href="./projects.html" data-i18n="cta.projects">项目方向</a>
               <a class="button secondary" href="./showcase.html" data-i18n="cta.showcase">在线作品</a>
             </div>
           </div>
         </section>
-
-        <div class="about-signal-strip reveal" id="profile-signal" aria-label="个人快照" data-i18n-aria="about.signalAria">
-          <div class="about-signal">
-            <span class="about-signal-value">HANGZHOU</span>
-            <span class="about-signal-label" data-i18n="about.signalBase">基地 / 在线</span>
-          </div>
-          <div class="about-signal">
-            <strong data-project-count>0</strong>
-            <span class="about-signal-label" data-i18n="about.signalProjects">项目</span>
-          </div>
-          <div class="about-signal">
-            <strong data-note-count>0</strong>
-            <span class="about-signal-label" data-i18n="about.signalNotes">笔记</span>
-          </div>
-          <div class="about-signal">
-            <span class="about-signal-value">KERNEL</span>
-            <span class="about-signal-label" data-i18n="about.signalLens">当前透镜</span>
-          </div>
-        </div>
 
         <section class="section about-now-section" id="now-building" aria-label="最新进展" data-i18n-aria="about.nowAria">
           <div class="section-head about-section-head reveal">
@@ -181,15 +171,13 @@
               </div>
               <div class="terminal-body">
                 <p class="terminal-cmd"><span class="prompt">$</span> whoami</p>
-                <p class="terminal-out">jameryw — AI-native / prototyper / Hangzhou</p>
-
+                <p class="terminal-out">jameryw — AI-native / prototyper</p>
                 <p class="terminal-cmd"><span class="prompt">$</span> cat ~/.ai-stack</p>
-                <p class="terminal-out"><span class="terminal-key">runtime</span> → Kernel layers · LangGraph · Rust/Python DAG</p>
-                <p class="terminal-out"><span class="terminal-key">memory</span>  → hy-memory · TiKV / Qdrant / Postgres</p>
-                <p class="terminal-out"><span class="terminal-key">surface</span> → Showcase · Replay · Ops Dashboard</p>
+                <p class="terminal-out"><span class="terminal-key">runtime</span> → Kernel · LangGraph · DAG</p>
+                <p class="terminal-out"><span class="terminal-key">memory</span>  → hy-memory · TiKV / Qdrant</p>
+                <p class="terminal-out"><span class="terminal-key">surface</span> → Showcase · Replay</p>
                 <p class="terminal-out"><span class="terminal-key">editor</span>  → keyboard-native · CLI-first</p>
-
-                <p class="terminal-cmd"><span class="prompt"><span class="cursor-blink">█</span></span></p>
+                <p class="terminal-cmd terminal-cmd-cursor"><span class="prompt"><span class="cursor-blink">█</span></span></p>
               </div>
             </article>
             <article class="about-signals reveal">
