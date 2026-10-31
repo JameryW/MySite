@@ -5,7 +5,7 @@
 This is a zero-dependency static personal website. All site files live in `public/` — there is no `src/`, no compilation, no bundler.
 
 ```
-public/
+public/                 # everything shipped to production
 ├── index.html          # homepage
 ├── projects.html       # project listing
 ├── notes.html          # notes listing
@@ -18,6 +18,10 @@ public/
 ├── styles.css          # single shared stylesheet
 ├── sw.js               # service worker
 └── manifest.json       # PWA manifest
+
+deploy/nginx.conf       # source of truth for the production VPS nginx config
+scripts/                # release checks + deploy scripts (zero dependencies)
+.github/workflows/      # CI checks on every PR/push
 ```
 
 Root config: `package.json`, `CLAUDE.md`, `.editorconfig`, `.gitignore`
@@ -25,6 +29,9 @@ Root config: `package.json`, `CLAUDE.md`, `.editorconfig`, `.gitignore`
 ## Development Commands
 
 - `npm run dev` — start local dev server at `http://localhost:4173` (Python HTTP server)
+- `npm run check` — release checks: CSP hashes, cache-version consistency, service-worker precache keys, broken local refs, external scripts, sitemap coverage (also runs in CI)
+- `npm run deploy` — verify, back up, rsync `public/` to the production VPS, verify deployed versions (`-- --dry-run` to preview)
+- `npm run deploy:nginx` — validate + install `deploy/nginx.conf` on the VPS and reload nginx
 - No test suite, linter, or build step is configured
 
 ## Coding Style
@@ -44,7 +51,7 @@ Root config: `package.json`, `CLAUDE.md`, `.editorconfig`, `.gitignore`
 - Scroll animations via IntersectionObserver (add `.reveal` class to new sections)
 - Fonts: self-hosted latin variable woff2 (Syne, Space Grotesk) + system CJK stack (PingFang SC / Microsoft YaHei) — no Google Fonts requests anywhere
 - `recorder.js` (umami session replay) is lazy-injected by `app.js` after `window load` + idle; never a static head script
-- Cache versioning: bump `styles.css?v=` / `app.js?v=` / `data.js?v=` in every page head together with the matching `sw.js` SHELL keys (exact URLs, query string included) and the `sw.js` CACHE name
+- Cache versioning: bump `styles.css?v=` / `app.js?v=` / `data.js?v=` in every page head together with the matching `sw.js` SHELL keys (exact URLs, query string included) and the `sw.js` CACHE name. `npm run check` fails on any mismatch in CI.
 - SW strategy: network-first for navigations (deploys land on the next online visit, offline falls back to cache), cache-first for versioned `?v=` statics; `controllerchange` in `app.js` reloads once when a new SW takes over (first installs excluded)
 
 ## Adding Content
@@ -67,6 +74,13 @@ Language is site-wide (`localStorage` key `site-lang`, legacy `notes-lang` still
 - `label`, `status`, `timeframe`, `meta`, `outputs` stay English-only
 - Tone: direct, contracted forms (`isn't`, `don't`, `can't` — never `is not`, `cannot`); shared terms: `closed loop`, `flywheel`, `moat`, `hundred-million-scale`, `build in public`
 - After editing, toggle EN on home / projects / notes / one detail page and check for blanks or `undefined`
+
+## Deployment
+
+- **Production = one VPS** (`jwip`, `142.93.21.26`): nginx serves `/var/www/html` from `public/`; TLS via acme.sh DNS-01 (Aliyun), certs in `/root/.acme.sh/jameryw.dev_ecc/`, renewed by cron. GitHub Pages is not used (the old Pages workflow was removed).
+- nginx behavior lives in `deploy/nginx.conf`: port 80 → HTTPS redirect, apex → www 301, custom 404 (`/404.html`), gzip, `Cache-Control: no-cache` for HTML + `sw.js`, 1-year immutable caching for `?v=` statics/fonts, and the box's `/ws` / `/xray` proxies (do not drop them).
+- Deploy with `npm run deploy` (script runs `npm run check`, backs up the web root to `/root/deploy-backups/`, rsyncs, and verifies the deployed versions). Roll back with `ssh jwip 'tar xzf /root/deploy-backups/mysite-html-<stamp>.tgz -C /var/www'`.
+- Server config changes go through `deploy/nginx.conf` + `npm run deploy:nginx`; never hand-edit `/etc/nginx/nginx.conf` without syncing it back into the repo.
 
 ## Security
 

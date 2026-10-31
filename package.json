@@ -19,6 +19,9 @@
     "dark-theme"
   ],
   "scripts": {
-    "dev": "python3 -m http.server 4173 --directory public"
+    "dev": "python3 -m http.server 4173 --directory public",
+    "check": "node scripts/verify-site.mjs",
+    "deploy": "bash scripts/deploy.sh",
+    "deploy:nginx": "bash scripts/deploy-nginx.sh"
   }
 }
