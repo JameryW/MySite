@@ -353,6 +353,7 @@ const I18N = {
     "aria.search": "搜索",
     "aria.breadcrumb": "面包屑导航",
     "aria.footerNav": "页脚导航",
+    "footer.archive": "站点索引",
     "aria.theme": "切换主题",
     "aria.menu": "菜单",
     "aria.lang": "语言切换 Language",
@@ -576,6 +577,7 @@ const I18N = {
     "aria.search": "Search",
     "aria.breadcrumb": "Breadcrumb",
     "aria.footerNav": "Footer navigation",
+    "footer.archive": "Archive",
     "aria.theme": "Toggle theme",
     "aria.menu": "Menu",
     "aria.lang": "Language",
@@ -1343,7 +1345,6 @@ const renderProjectDetail = (instant = false) => {
         <p class="page-lead">${overview}</p>
         <p class="listing-hero-meta detail-hero-meta" aria-label="${t("detail.signal")}">
           <span>${escapeHtml(project.role)}</span>
-          <span class="listing-hero-meta-sep" aria-hidden="true">·</span>
           <span>${escapeHtml(project.outputs.slice(0, 2).join(" / "))}</span>
         </p>
         <div class="page-actions">
@@ -1499,7 +1500,7 @@ const renderNoteDetail = (instant = false) => {
           ]
             .filter(Boolean)
             .map((value) => `<span>${escapeHtml(String(value))}</span>`)
-            .join('<span class="listing-hero-meta-sep" aria-hidden="true">·</span>')}
+            .join("")}
         </p>
         <div class="page-actions">
           ${
