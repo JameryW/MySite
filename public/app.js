@@ -363,6 +363,8 @@ const I18N = {
     "nav.allNotes": "全部笔记",
     "aria.search": "搜索",
     "aria.breadcrumb": "面包屑导航",
+    "aria.palette": "搜索面板",
+    "aria.paletteResults": "搜索结果",
     "aria.footerNav": "页脚导航",
     "footer.archive": "站点索引",
     "aria.theme": "切换主题",
@@ -587,6 +589,8 @@ const I18N = {
     "nav.allNotes": "All Notes",
     "aria.search": "Search",
     "aria.breadcrumb": "Breadcrumb",
+    "aria.palette": "Search dialog",
+    "aria.paletteResults": "Search results",
     "aria.footerNav": "Footer navigation",
     "footer.archive": "Archive",
     "aria.theme": "Toggle theme",
@@ -1915,7 +1919,9 @@ if (palette && paletteInput) {
     paletteTriggerEl = document.activeElement;
     palette.classList.add("open");
     paletteOverlay.classList.add("open");
+    paletteInput.setAttribute("aria-expanded", "true");
     paletteInput.value = "";
+    activeIndex = 0;
     paletteInput.focus();
     renderResults("");
   }
@@ -1928,11 +1934,17 @@ if (palette && paletteInput) {
   function closePalette() {
     palette.classList.remove("open");
     paletteOverlay.classList.remove("open");
+    paletteInput.setAttribute("aria-expanded", "false");
+    paletteInput.removeAttribute("aria-activedescendant");
     paletteInput.value = "";
-    if (paletteTriggerEl) {
-      paletteTriggerEl.focus();
-      paletteTriggerEl = null;
-    }
+    // Always hand keyboard focus back to something visible: the element that
+    // opened the dialog, else the palette hint button in the topbar.
+    const fallback =
+      (paletteTriggerEl && paletteTriggerEl !== document.body ? paletteTriggerEl : null) ||
+      document.querySelector("[data-palette-trigger]");
+    if (fallback && typeof fallback.focus === "function") fallback.focus();
+    else if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+    paletteTriggerEl = null;
   }
 
   function buildItems(query) {
@@ -1995,13 +2007,17 @@ if (palette && paletteInput) {
     Object.entries(grouped).forEach(([label, items]) => {
       const groupLabel = document.createElement("div");
       groupLabel.className = "palette-group-label";
+      groupLabel.setAttribute("role", "presentation");
       groupLabel.textContent = label;
       paletteResults.appendChild(groupLabel);
 
       items.forEach((item) => {
         const el = document.createElement("div");
         el.className = "palette-item";
+        el.id = `palette-option-${currentResults.indexOf(item)}`;
         el.setAttribute("role", "option");
+        el.setAttribute("aria-selected", "false");
+        el.setAttribute("tabindex", "-1");
         el.innerHTML = `<span class="palette-item-title">${item.title}</span><span class="palette-item-label">${item.label}</span>`;
         el.addEventListener("click", () => {
           window.location.href = item.href;
@@ -2016,10 +2032,15 @@ if (palette && paletteInput) {
   function updateActiveItem() {
     const items = paletteResults.querySelectorAll(".palette-item");
     items.forEach((el, i) => {
-      el.classList.toggle("active", i === activeIndex);
+      const isActive = i === activeIndex;
+      el.classList.toggle("active", isActive);
+      el.setAttribute("aria-selected", isActive ? "true" : "false");
     });
     if (items[activeIndex]) {
+      paletteInput.setAttribute("aria-activedescendant", items[activeIndex].id);
       items[activeIndex].scrollIntoView({ block: "nearest" });
+    } else {
+      paletteInput.removeAttribute("aria-activedescendant");
     }
   }
 
