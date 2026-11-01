@@ -286,6 +286,9 @@ const archive = `<!DOCTYPE html>
     <meta name="author" content="Jamery Wang" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <link rel="canonical" href="${SITE}/archive.html" />
+    <link rel="alternate" hreflang="zh-CN" href="${SITE}/archive.html" />
+    <link rel="alternate" hreflang="en" href="${SITE}/archive.html?lang=en" />
+    <link rel="alternate" hreflang="x-default" href="${SITE}/archive.html" />
     <meta property="og:title" content="站点索引 / Site Archive — Jamery Wang" />
     <meta property="og:description" content="Static text index of every project, note, and live demo on jameryw.dev." />
     <meta property="og:type" content="website" />
