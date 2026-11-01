@@ -381,6 +381,38 @@ for (const rule of cssSrc.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
 if (repeatedProps.length) fail(`styles.css: duplicated property in rule: ${repeatedProps.slice(0, 3).join(" | ")}`);
 pass(`dead code: ${jsFiles.length} scripts and styles.css free of unreferenced declarations / repeated properties`);
 
+/* 12. CSS split invariant: a rule whose selectors are all page-scoped must
+       live in that page's stylesheet, so pages that don't load it stay slim. */
+const splitFiles = {
+  home: "styles-home.css",
+  about: "styles-about.css"
+};
+for (const [page, file] of Object.entries(splitFiles)) {
+  const target = join(PUBLIC, file);
+  if (!existsSync(target)) {
+    fail(`missing ${file} — the ${page}-page CSS split was removed without updating the pages`);
+    continue;
+  }
+  const own = readFileSync(target, "utf8");
+  const strayInShared = [];
+  for (const rule of cssSrc.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    const selector = rule[1].trim().replace(/\s+/g, " ");
+    if (selector.startsWith("@")) continue;
+    const sels = selector.split(",").map((x) => x.trim()).filter(Boolean);
+    if (!sels.length) continue;
+    if (sels.every((sel) => sel.includes(`data-page="${page}"`))) {
+      strayInShared.push(selector.slice(0, 40));
+      break;
+    }
+  }
+  if (strayInShared.length) {
+    fail(`styles.css still carries ${page}-only rules (move them to ${file}): ${strayInShared[0]}`);
+  }
+  const loadedOn = pages.filter(({ html }) => html.includes(file));
+  if (!loadedOn.length) fail(`${file} is generated but no page loads it`);
+}
+pass("CSS split: page-scoped rules live in their own stylesheet (home / about)");
+
 /* Summary */
 console.log(results.join("\n"));
 if (failures > 0) {
