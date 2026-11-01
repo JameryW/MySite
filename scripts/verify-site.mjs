@@ -273,6 +273,20 @@ for (const { name, html } of pages) {
 }
 pass(`hreflang: ${pages.filter(({ html }) => html.includes("hreflang=")).length} pages advertise zh-CN / en / x-default`);
 
+/* The nginx response-level CSP pins the same inline-script hash as the page
+   meta tags; if they drift, browsers enforce both and block the boot script. */
+const nginxConf = existsSync(join(ROOT, "deploy/nginx.conf"))
+  ? readFileSync(join(ROOT, "deploy/nginx.conf"), "utf8")
+  : "";
+const nginxHashes = [...new Set([...nginxConf.matchAll(/sha256-([A-Za-z0-9+/=]+)/g)].map((m) => m[1]))];
+const pageHashes = [...new Set(pages.map(({ html }) => (html.match(/sha256-([A-Za-z0-9+/=]+)/) || [])[1]).filter(Boolean))];
+for (const hash of nginxHashes) {
+  if (!pageHashes.includes(hash)) {
+    fail(`deploy/nginx.conf CSP pins a stale inline-script hash (${hash.slice(0, 12)}…) — run deploy:nginx after recomputing`);
+  }
+}
+if (nginxHashes.length) pass(`CSP header parity: nginx pins the same inline-script hash as the pages`);
+
 for (const { name, html } of pages) {
   if (!/<link rel="canonical"/.test(html)) fail(`${name}: missing canonical link`);
   if (!/<meta name="description"/.test(html)) fail(`${name}: missing meta description`);
