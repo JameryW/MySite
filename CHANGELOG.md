@@ -21,6 +21,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - `sourcePrivate` handling: private-repo projects link to the public repos tab instead of a 404
 
 - i18n zh/en dictionaries now verified for key parity and reference resolution in `npm run check` / CI; 24 dead keys removed (201 remain, all referenced)
+- Session replay (186 KB) is skipped for `Save-Data` and 2g/slow-2g visitors
 
 ### Changed
 
