@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 - Hover/focus-intent prefetch of same-origin HTML shells (skips Save-Data, external and new-tab links)
 - Service-worker navigation preload and cross-document view transitions (progressive, Chrome 126+)
+
+### Fixed
+
+- Service worker failed to install on the VPS because `./404.html` (an internal nginx location that returns 404) was in the precache list; removed it and documented the 200-only rule. Offline unknown URLs now fall back to the cached index.
 - GitHub Pages mirror via Actions (`https://jameryw.github.io/MySite/`), canonical URLs stay on the VPS
 - Print stylesheet for project/note detail pages (chrome hidden, external URLs expanded, A4-friendly)
 - Author meta, IndieWeb `rel="me"` links, `twitter:site`/`twitter:creator`, `og:image:type` on every page

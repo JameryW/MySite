@@ -1,8 +1,11 @@
-const CACHE = 'mysite-v165';
+const CACHE = 'mysite-v166';
 /* Precache keys must exactly match the URLs pages request, otherwise
    caches.match() never hits (query params are part of the cache key).
    Bump styles.css?v= / app.js?v= / data.js?v= in every HTML head together
-   with the versioned keys below. */
+   with the versioned keys below.
+   Only add URLs that return HTTP 200 for anonymous requests: /404.html is
+   internal in nginx (returns 404), and including it here used to fail the
+   whole install. Offline unknown URLs fall back to the cached shell/index. */
 const SHELL = [
   './',
   './index.html',
@@ -13,7 +16,6 @@ const SHELL = [
   './archive.html',
   './project.html',
   './note.html',
-  './404.html',
   './styles.css?v=132',
   './fonts/syne-latin-var-v1.woff2',
   './fonts/space-grotesk-latin-var-v1.woff2',
@@ -76,8 +78,7 @@ self.addEventListener('fetch', (e) => {
         } catch (error) {
           const cached = await caches.match(e.request);
           if (cached) return cached;
-          const notFound = await caches.match('./404.html');
-          return notFound || (await caches.match('./index.html'));
+          return (await caches.match('./index.html')) || Response.error();
         }
       })()
     );
