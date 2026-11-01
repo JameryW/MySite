@@ -6424,3 +6424,90 @@ html.page-hidden *::after {
     content: "";
   }
 }
+
+/* ── Print: detail / note reading view ────────────────────────────── */
+@page {
+  margin: 16mm 14mm;
+}
+
+@media print {
+  /* Chrome and duplicate navigation have no meaning on paper. */
+  .skip-link,
+  .topbar .nav,
+  .topbar-status,
+  .topbar-socials,
+  .lang-toggle,
+  .palette-hint,
+  .menu-toggle,
+  .detail-breadcrumb,
+  .detail-pager,
+  .related-track-grid,
+  .page-actions,
+  .card-actions,
+  .footer-links,
+  .footer-socials {
+    display: none !important;
+  }
+
+  .page-hero,
+  .note-detail-hero {
+    padding: 0 0 14px;
+  }
+
+  .page-lead,
+  .note-overview-text,
+  .note-lens p,
+  .note-points p {
+    color: #222 !important;
+    max-width: none;
+  }
+
+  .section-head {
+    margin-bottom: 8px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+
+  .section,
+  .note-point,
+  .highlight-card,
+  .track-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .note-points {
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  /* Navigation sections (related builds/notes) have no print value. */
+  .section:has(.related-track-grid) {
+    display: none !important;
+  }
+
+  /* Never print internal URLs; only external references get spelled out. */
+  a[href]:not([href^="http"])::after {
+    content: "" !important;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.78em;
+    color: #555 !important;
+    word-break: break-all;
+  }
+
+  .footer {
+    margin-top: 24px;
+    padding: 10px 0 0;
+  }
+
+  .note-point-index {
+    -webkit-text-stroke: 1px #000 !important;
+  }
+}
