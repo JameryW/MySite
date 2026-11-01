@@ -93,7 +93,7 @@ const llms = [
   "",
   ...projects.map(
     (project) =>
-      `- [${project.title}](${projectUrl(project)}) — ${project.label} · ${project.status}. ${oneLine(
+      `- [${project.title}](${projectUrl(project)}) — ${project.label} · ${project.status}${project.date ? ` · ${project.date}` : ""}. ${oneLine(
         project.summaryEn || project.summary
       )}`
   ),
@@ -102,7 +102,7 @@ const llms = [
   "",
   ...notes.map(
     (note) =>
-      `- [${note.titleEn || note.title}](${noteUrl(note)}) — ${note.label} · ${note.timeframe}. ${oneLine(
+      `- [${note.titleEn || note.title}](${noteUrl(note)}) — ${note.label} · ${note.timeframe}${note.date ? ` · ${note.date}` : ""}. ${oneLine(
         note.summaryEn || note.summary
       )}`
   ),
@@ -144,6 +144,7 @@ const llmsFull = [
       "",
       `URL: ${projectUrl(project)}`,
       `Status: ${project.status} · Timeframe: ${project.timeframe} · Role: ${project.role}`,
+      project.date ? `Published: ${project.date} · Updated: ${project.updated || project.date}` : "",
       `Stack: ${(project.stack || []).join(", ")}`,
       "",
       `Summary: ${oneLine(project.summary)}`,
@@ -173,6 +174,7 @@ const llmsFull = [
       `URL: ${noteUrl(note)}`,
       `Title (EN): ${note.titleEn} · Detail: ${note.detailTitle} / ${note.detailTitleEn}`,
       `Status: ${note.status} · Timeframe: ${note.timeframe} · Meta: ${oneLine(note.meta)}`,
+      note.date ? `Published: ${note.date} · Updated: ${note.updated || note.date}` : "",
       "",
       `Summary: ${oneLine(note.summary)}`,
       `Summary (EN): ${oneLine(note.summaryEn)}`,
@@ -203,6 +205,13 @@ const llmsFull = [
 ].join("\n");
 
 /* ── feed.xml (notes, newest first as authored in data.js) ── */
+const rfc822 = (isoDate) => new Date(`${isoDate}T00:00:00Z`).toUTCString();
+const maxUpdated = [...projects, ...notes]
+  .map((entry) => entry.updated || entry.date)
+  .filter(Boolean)
+  .sort()
+  .pop();
+
 const feedItems = notes.map((note) => {
   const link = noteUrl(note);
   return [
@@ -210,10 +219,11 @@ const feedItems = notes.map((note) => {
     `      <title>${esc(`${note.code} / ${note.label} — ${note.title}`)}</title>`,
     `      <link>${esc(link)}</link>`,
     `      <guid isPermaLink="true">${esc(link)}</guid>`,
+    note.date ? `      <pubDate>${rfc822(note.date)}</pubDate>` : "",
     `      <description>${esc(oneLine(note.summaryEn || note.summary))}</description>`,
     `      <category>${esc(note.label)}</category>`,
     "    </item>"
-  ].join("\n");
+  ].filter(Boolean).join("\n");
 });
 
 const feed = [
@@ -224,6 +234,7 @@ const feed = [
   `    <link>${SITE}/notes.html</link>`,
   "    <description>Working notes on Agent engineering, kernels, memory, and build-in-public.</description>",
   "    <language>zh-cn</language>",
+  maxUpdated ? `    <lastBuildDate>${rfc822(maxUpdated)}</lastBuildDate>` : "",
   `    <atom:link href="${SITE}/feed.xml" rel="self" type="application/rss+xml" />`,
   ...feedItems,
   "  </channel>",
@@ -235,7 +246,7 @@ const feed = [
 const projectItems = projects
   .map(
     (project) => `        <li class="archive-item">
-          <p class="archive-kicker">${esc(project.code)} / ${esc(project.label)} · ${esc(project.status)}</p>
+          <p class="archive-kicker">${esc(project.code)} / ${esc(project.label)} · ${esc(project.status)}${project.date ? ` · ${esc(project.date)}` : ""}</p>
           <h3><a href="./project.html?slug=${esc(project.slug)}">${esc(project.title)}</a></h3>
           <p>${esc(oneLine(project.summary))}</p>
           <p class="archive-en">${esc(oneLine(project.summaryEn))}</p>
@@ -246,7 +257,7 @@ const projectItems = projects
 const noteItems = notes
   .map(
     (note) => `        <li class="archive-item">
-          <p class="archive-kicker">${esc(note.code)} / ${esc(note.label)} · ${esc(note.timeframe)}</p>
+          <p class="archive-kicker">${esc(note.code)} / ${esc(note.label)} · ${esc(note.timeframe)}${note.date ? ` · ${esc(note.date)}` : ""}</p>
           <h3><a href="./note.html?slug=${esc(note.slug)}">${esc(note.title)}</a> <span class="archive-en-inline">${esc(
       note.titleEn
     )}</span></h3>
@@ -344,8 +355,8 @@ ${demoItems}
 `;
 
 /* ── sitemap.xml (deterministic: no volatile lastmod) ── */
-const entry = (loc, changefreq, priority) =>
-  `  <url>\n    <loc>${SITE}/${loc}</loc>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
+const entry = (loc, changefreq, priority, lastmod) =>
+  `  <url>\n    <loc>${SITE}/${loc}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ""}\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
 
 const sitemap = [
   '<?xml version="1.0" encoding="UTF-8"?>',
@@ -356,8 +367,10 @@ const sitemap = [
   entry("showcase.html", "weekly", "0.7"),
   entry("about.html", "monthly", "0.6"),
   entry("archive.html", "monthly", "0.5"),
-  ...projects.map((project) => entry(`project.html?slug=${project.slug}`, "monthly", "0.6")),
-  ...notes.map((note) => entry(`note.html?slug=${note.slug}`, "monthly", "0.6")),
+  ...projects.map((project) =>
+    entry(`project.html?slug=${project.slug}`, "monthly", "0.6", project.updated || project.date)
+  ),
+  ...notes.map((note) => entry(`note.html?slug=${note.slug}`, "monthly", "0.6", note.updated || note.date)),
   "</urlset>",
   ""
 ].join("\n");

@@ -65,11 +65,13 @@ Edit `data.js` — add an entry to `projects[]` or `notes[]`. No HTML changes ne
 Language is site-wide (`localStorage` key `site-lang`, legacy `notes-lang` still read). Chrome strings use `data-i18n` / `data-i18n-aria` / `data-i18n-placeholder` plus `I18N` in `app.js`. Keep product keywords in English in both locales (Agent, Kernel, DAG, Showcase, Replay, hy-memory, LangGraph, etc.).
 
 **Projects** — every `projects[]` entry needs:
+- `date` + `updated` (ISO `YYYY-MM-DD`) — flow into RSS `pubDate`, JSON-LD `datePublished/dateModified`, and sitemap `lastmod`
 - `summaryEn`, `overviewEn`, `highlightsEn[]` (same length as `highlights[]`)
 - `title`, `label`, `status`, `stack`, `detailTitle`, `role`, `outputs` stay English-only
 - Profile `now[]` items need `beatEn`; profile needs `titleEn`
 
 **Notes** — every `notes[]` entry needs:
+- `date` + `updated` (ISO `YYYY-MM-DD`) — flow into RSS `pubDate`, JSON-LD `datePublished/dateModified`, and sitemap `lastmod`
 - `titleEn`, `detailTitleEn` (EN titles; `title` / `detailTitle` stay Chinese)
 - `summaryEn`, `overviewEn`, `bulletsEn[]` (same length as `bullets[]`)
 - `lensZh` (`lens` stays English)

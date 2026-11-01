@@ -29,6 +29,8 @@ window.siteData = {
   projects: [
     {
       slug: "xhs-growth-agent",
+      date: "2026-05-31",
+      updated: "2026-10-21",
       code: "A1",
       label: "Growth Agent",
       title: "XhsGrowthAgent",
@@ -66,6 +68,8 @@ window.siteData = {
     },
     {
       slug: "quant-agent",
+      date: "2026-05-31",
+      updated: "2026-09-22",
       code: "B2",
       label: "Quant Agent",
       title: "QuantAgent",
@@ -101,6 +105,8 @@ window.siteData = {
     },
     {
       slug: "real-quant-engine",
+      date: "2026-05-31",
+      updated: "2026-10-21",
       code: "C3",
       label: "Quant Engine",
       title: "RealQuantEngine",
@@ -134,6 +140,8 @@ window.siteData = {
     },
     {
       slug: "quant-strategy-prototypes",
+      date: "2026-05-31",
+      updated: "2026-06-26",
       code: "D4",
       label: "Strategy Lab",
       title: "QuantStrategyPrototypes",
@@ -167,6 +175,8 @@ window.siteData = {
     },
     {
       slug: "ultimate-coders",
+      date: "2026-06-11",
+      updated: "2026-10-21",
       code: "E5",
       label: "Distributed AI",
       title: "UltimateCoders",
@@ -203,6 +213,8 @@ window.siteData = {
     },
     {
       slug: "awesome-workflows",
+      date: "2026-09-03",
+      updated: "2026-09-03",
       code: "H8",
       label: "Agent Workflows",
       title: "AwesomeWorkflows",
@@ -241,6 +253,8 @@ window.siteData = {
   notes: [
     {
       slug: "why-agents-matter",
+      date: "2026-05-31",
+      updated: "2026-09-14",
       code: "N1",
       label: "Agents",
       title: "为什么 Agent 重要",
@@ -275,6 +289,8 @@ window.siteData = {
     },
     {
       slug: "prototype-first",
+      date: "2026-05-31",
+      updated: "2026-05-31",
       code: "N2",
       label: "Build",
       title: "先做原型",
@@ -309,6 +325,8 @@ window.siteData = {
     },
     {
       slug: "interface-as-signal",
+      date: "2026-05-31",
+      updated: "2026-05-31",
       code: "N3",
       label: "Interface",
       title: "界面即信号",
@@ -343,6 +361,8 @@ window.siteData = {
     },
     {
       slug: "prompt-engineering-evolution",
+      date: "2026-05-31",
+      updated: "2026-09-14",
       code: "N4",
       label: "Prompt",
       title: "提示工程正在演进",
@@ -377,6 +397,8 @@ window.siteData = {
     },
     {
       slug: "build-in-public",
+      date: "2026-05-31",
+      updated: "2026-09-14",
       code: "N5",
       label: "Philosophy",
       title: "公开构建",
@@ -412,6 +434,8 @@ window.siteData = {
     },
     {
       slug: "productivity-and-relations",
+      date: "2026-06-09",
+      updated: "2026-06-09",
       code: "N6",
       label: "Org",
       title: "生产力与生产关系",
@@ -447,6 +471,8 @@ window.siteData = {
     },
     {
       slug: "evolve-in-loop",
+      date: "2026-06-10",
+      updated: "2026-10-18",
       code: "N7",
       label: "Loop",
       title: "在loop中进化",
@@ -482,6 +508,8 @@ window.siteData = {
     },
     {
       slug: "quantity-to-quality",
+      date: "2026-06-26",
+      updated: "2026-06-26",
       code: "N8",
       label: "Alpha",
       title: "量变引起质变",
@@ -517,6 +545,8 @@ window.siteData = {
     },
     {
       slug: "knowledge-depreciates-experience-appreciates",
+      date: "2026-07-02",
+      updated: "2026-07-02",
       code: "N9",
       label: "Judgment",
       title: "知识贬值，经验升值",
@@ -552,6 +582,8 @@ window.siteData = {
     },
     {
       slug: "skills-devoured-tools-fortified",
+      date: "2026-07-13",
+      updated: "2026-10-18",
       code: "N10",
       label: "Moat",
       title: "技能被吞，工具成护城河",
@@ -587,6 +619,8 @@ window.siteData = {
     },
     {
       slug: "pure-software-devalued-physical-premium",
+      date: "2026-09-22",
+      updated: "2026-09-22",
       code: "N11",
       label: "Value",
       title: "纯软件贬值，软硬一体升值",
@@ -622,6 +656,8 @@ window.siteData = {
     },
     {
       slug: "ai-k-shaped-divergence",
+      date: "2026-10-21",
+      updated: "2026-10-21",
       code: "N12",
       label: "Divergence",
       title: "AI 时代的 K 型分化",

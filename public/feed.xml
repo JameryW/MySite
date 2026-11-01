@@ -5,11 +5,13 @@
     <link>https://www.jameryw.dev/notes.html</link>
     <description>Working notes on Agent engineering, kernels, memory, and build-in-public.</description>
     <language>zh-cn</language>
+    <lastBuildDate>Wed, 21 Oct 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://www.jameryw.dev/feed.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>N1 / Agents — 为什么 Agent 重要</title>
       <link>https://www.jameryw.dev/note.html?slug=why-agents-matter</link>
       <guid isPermaLink="true">https://www.jameryw.dev/note.html?slug=why-agents-matter</guid>
+      <pubDate>Sun, 31 May 2026 00:00:00 GMT</pubDate>
       <description>I care more about continuous execution, memory, and tool collaboration than about polished single-turn answers.</description>
       <category>Agents</category>
     </item>
@@ -17,6 +19,7 @@
       <title>N2 / Build — 先做原型</title>
       <link>https://www.jameryw.dev/note.html?slug=prototype-first</link>
       <guid isPermaLink="true">https://www.jameryw.dev/note.html?slug=prototype-first</guid>
+      <pubDate>Sun, 31 May 2026 00:00:00 GMT</pubDate>
       <description>Get it running first, then let the real problems surface. Many judgments only hold once the interface and the scripts work together.</description>
       <category>Build</category>
     </item>
@@ -24,6 +27,7 @@
       <title>N3 / Interface — 界面即信号</title>
       <link>https://www.jameryw.dev/note.html?slug=interface-as-signal</link>
       <guid isPermaLink="true">https://www.jameryw.dev/note.html?slug=interface-as-signal</guid>
+      <pubDate>Sun, 31 May 2026 00:00:00 GMT</pubDate>
       <description>Interface choices reveal technical understanding and product judgment, so the site itself should be part of the work.</description>
       <category>Interface</category>
     </item>
@@ -31,6 +35,7 @@
       <title>N4 / Prompt — 提示工程正在演进</title>
       <link>https://www.jameryw.dev/note.html?slug=prompt-engineering-evolution</link>
       <guid isPermaLink="true">https://www.jameryw.dev/note.html?slug=prompt-engineering-evolution</guid>
+      <pubDate>Sun, 31 May 2026 00:00:00 GMT</pubDate>
       <description>Prompt engineering is shifting from handcrafted tricks to structured interfaces — from writing prompts to designing tools and orchestrating flows.</description>
       <category>Prompt</category>
     </item>
@@ -38,6 +43,7 @@
       <title>N5 / Philosophy — 公开构建</title>
       <link>https://www.jameryw.dev/note.html?slug=build-in-public</link>
       <guid isPermaLink="true">https://www.jameryw.dev/note.html?slug=build-in-public</guid>
+      <pubDate>Sun, 31 May 2026 00:00:00 GMT</pubDate>
       <description>Building in public isn&#39;t performance — it turns the iteration process itself into signal, making ability, judgment, and execution directly verifiable.</description>
       <category>Philosophy</category>
     </item>
@@ -45,6 +51,7 @@
       <title>N6 / Org — 生产力与生产关系</title>
       <link>https://www.jameryw.dev/note.html?slug=productivity-and-relations</link>
       <guid isPermaLink="true">https://www.jameryw.dev/note.html?slug=productivity-and-relations</guid>
+      <pubDate>Tue, 09 Jun 2026 00:00:00 GMT</pubDate>
       <description>Productive forces determine production relations: organizations that match new productive forces with old forms will ultimately be replaced by a more radically efficient form.</description>
       <category>Org</category>
     </item>
@@ -52,6 +59,7 @@
       <title>N7 / Loop — 在loop中进化</title>
       <link>https://www.jameryw.dev/note.html?slug=evolve-in-loop</link>
       <guid isPermaLink="true">https://www.jameryw.dev/note.html?slug=evolve-in-loop</guid>
+      <pubDate>Wed, 10 Jun 2026 00:00:00 GMT</pubDate>
       <description>Evolution isn&#39;t a one-time leap but the accumulation of countless closed feedback loops. Each loop is a calibration: act, feedback, adjust, act again.</description>
       <category>Loop</category>
     </item>
@@ -59,6 +67,7 @@
       <title>N8 / Alpha — 量变引起质变</title>
       <link>https://www.jameryw.dev/note.html?slug=quantity-to-quality</link>
       <guid isPermaLink="true">https://www.jameryw.dev/note.html?slug=quantity-to-quality</guid>
+      <pubDate>Fri, 26 Jun 2026 00:00:00 GMT</pubDate>
       <description>Sustained high-quality data produces high-quality strategies, and high-quality strategies spawn new alpha. It&#39;s a self-reinforcing flywheel, not linear accumulation.</description>
       <category>Alpha</category>
     </item>
@@ -66,6 +75,7 @@
       <title>N9 / Judgment — 知识贬值，经验升值</title>
       <link>https://www.jameryw.dev/note.html?slug=knowledge-depreciates-experience-appreciates</link>
       <guid isPermaLink="true">https://www.jameryw.dev/note.html?slug=knowledge-depreciates-experience-appreciates</guid>
+      <pubDate>Thu, 02 Jul 2026 00:00:00 GMT</pubDate>
       <description>AI rapidly depreciates retrievable knowledge while appreciating engineering experience earned from real failures. Designing distributed architectures that survive hundred-million-scale concurrency takes more than textbook basics.</description>
       <category>Judgment</category>
     </item>
@@ -73,6 +83,7 @@
       <title>N10 / Moat — 技能被吞，工具成护城河</title>
       <link>https://www.jameryw.dev/note.html?slug=skills-devoured-tools-fortified</link>
       <guid isPermaLink="true">https://www.jameryw.dev/note.html?slug=skills-devoured-tools-fortified</guid>
+      <pubDate>Mon, 13 Jul 2026 00:00:00 GMT</pubDate>
       <description>The stronger models get, the more pure-software skills get devoured like free APIs. Truly hard to replicate are tools that touch the physical world — sensors, actuators, private protocols, real-environment feedback loops.</description>
       <category>Moat</category>
     </item>
@@ -80,6 +91,7 @@
       <title>N11 / Value — 纯软件贬值，软硬一体升值</title>
       <link>https://www.jameryw.dev/note.html?slug=pure-software-devalued-physical-premium</link>
       <guid isPermaLink="true">https://www.jameryw.dev/note.html?slug=pure-software-devalued-physical-premium</guid>
+      <pubDate>Tue, 22 Sep 2026 00:00:00 GMT</pubDate>
       <description>Large models keep internalizing pure-software capability into free infrastructure, while software-hardware integration tied to the physical world appreciates on the back of real-world data loops.</description>
       <category>Value</category>
     </item>
@@ -87,6 +99,7 @@
       <title>N12 / Divergence — AI 时代的 K 型分化</title>
       <link>https://www.jameryw.dev/note.html?slug=ai-k-shaped-divergence</link>
       <guid isPermaLink="true">https://www.jameryw.dev/note.html?slug=ai-k-shaped-divergence</guid>
+      <pubDate>Wed, 21 Oct 2026 00:00:00 GMT</pubDate>
       <description>AI splits the world into a K: apps go liberal-arts — taste and character decide who wins; tech goes hardcore — hardware bound to the physical world, perception–action–feedback in real environments, and self-evolution.</description>
       <category>Divergence</category>
     </item>

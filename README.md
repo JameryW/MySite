@@ -114,7 +114,7 @@ Self-hosted [Umami](https://umami.is/) at `stats.jameryw.dev`:
 ## SEO & GEO
 
 - Every page ships a canonical URL, page-specific description, Open Graph/Twitter cards (`og:locale` + `og:locale:alternate`), an RSS discovery link, and JSON-LD: `WebSite` + `Person` (home), `ProfilePage` (about), `CollectionPage` + `BreadcrumbList` (listings), and runtime `CreativeWork` / `BlogPosting` + breadcrumbs on detail pages.
-- **GEO surface** (for AI answer engines): `public/llms.txt` (compact index), `public/llms-full.txt` (whole site as plain markdown), `public/feed.xml` (notes RSS), `public/archive.html` (JS-free static index) and `public/sitemap.xml` are generated from `data.js` — run `npm run gen:seo` after content edits. `npm run check` fails when they are stale; `npm run deploy` regenerates them first.
+- **GEO surface** (for AI answer engines): `public/llms.txt` (compact index), `public/llms-full.txt` (whole site as plain markdown), `public/feed.xml` (notes RSS with `pubDate`), `public/archive.html` (JS-free static index) and `public/sitemap.xml` (with `lastmod`) are generated from `data.js` — run `npm run gen:seo` after content edits. Every project/note carries `date` + `updated` (derived from git history, kept in `data.js`) which feed RSS, JSON-LD dates, and sitemap lastmod. `npm run check` fails when they are stale; `npm run deploy` regenerates them first.
 - `robots.txt` explicitly allows AI crawlers (GPTBot, OAI-SearchBot, ChatGPT-User, PerplexityBot, ClaudeBot, Google-Extended, Applebot-Extended, CCBot) and points at the sitemap, llms files, and feed.
 - `404.html` is `noindex, follow`; invalid detail slugs switch to `noindex` at runtime so soft 404s never get indexed.
 

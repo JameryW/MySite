@@ -272,46 +272,6 @@ const projectHeroTitleClass = (title) => {
   return "page-title";
 };
 
-/* When the signal panel sits beside the hero, keep the product name on
-   one line by easing font-size down. Soft <wbr> breaks remain for the
-   stacked mobile layout. */
-const fitProjectHeroTitle = (root) => {
-  const hero = root && root.querySelector(".page-hero");
-  const title = root && root.querySelector(".page-title");
-  const panel = root && root.querySelector(".page-hero-panel");
-  if (!hero || !title || !panel) return;
-
-  title.style.fontSize = "";
-  title.style.whiteSpace = "";
-
-  const columns = getComputedStyle(hero).gridTemplateColumns.trim().split(/\s+/);
-  if (columns.length < 2) return;
-
-  const span = title.querySelector("span");
-  const available = title.clientWidth;
-  if (available <= 0) return;
-
-  let low = 28;
-  let high = parseFloat(getComputedStyle(title).fontSize) || 64;
-  const gutter = 28;
-  title.style.whiteSpace = "nowrap";
-
-  for (let i = 0; i < 14; i += 1) {
-    const mid = (low + high) / 2;
-    title.style.fontSize = `${mid}px`;
-    const range = document.createRange();
-    range.setStart(title, 0);
-    if (span) range.setEndBefore(span);
-    else range.selectNodeContents(title);
-    const width = range.getBoundingClientRect().width;
-    if (width <= available - gutter) low = mid;
-    else high = mid;
-  }
-
-  title.style.fontSize = `${low}px`;
-  title.style.whiteSpace = "";
-};
-
 const projectDetailHref = (project) => `./project.html?slug=${project.slug}`;
 const noteDetailHref = (note) => `./note.html?slug=${note.slug}`;
 const detailCanonicalHref = (kind, slug) =>
@@ -1063,7 +1023,7 @@ const detailPagerMarkup = (options) => {
           previous
             ? `
               <a class="track-card reveal related-card pager-card" href="${previousHref(previous)}">
-                <p class="stack-label">${t("detail.prev")}</p>
+                <p class="stack-label"><span class="pager-arrow" aria-hidden="true">←</span>${t("detail.prev")}</p>
                 <h3>${entryDisplayTitle(previous)}</h3>
                 <p>${previousLabel(previous)}</p>
                 <span class="repo-meta">${t("detail.prevMeta")}</span>
@@ -1075,7 +1035,7 @@ const detailPagerMarkup = (options) => {
           next
             ? `
               <a class="track-card reveal related-card pager-card" href="${nextHref(next)}">
-                <p class="stack-label">${t("detail.next")}</p>
+                <p class="stack-label">${t("detail.next")}<span class="pager-arrow" aria-hidden="true">→</span></p>
                 <h3>${entryDisplayTitle(next)}</h3>
                 <p>${nextLabel(next)}</p>
                 <span class="repo-meta">${t("detail.nextMeta")}</span>
@@ -1360,6 +1320,8 @@ const renderProjectDetail = (instant = false) => {
           author: personRef,
           keywords: (project.stack || []).join(", "),
           about: project.label,
+          datePublished: project.date,
+          dateModified: project.updated || project.date,
           isPartOf: { "@type": "WebSite", name: "Jamery Wang", url: `${SITE_ORIGIN}/` },
           inLanguage: siteLang === "en" ? "en" : "zh-CN"
         },
@@ -1448,7 +1410,6 @@ const renderProjectDetail = (instant = false) => {
        })}
     `;
     projectDetailNode.setAttribute("aria-busy", "false");
-    requestAnimationFrame(() => fitProjectHeroTitle(projectDetailNode));
     if (!instant) {
       const mainContent = document.getElementById("main-content");
       if (mainContent) mainContent.focus({ preventScroll: true });
@@ -1460,13 +1421,6 @@ const renderProjectDetail = (instant = false) => {
   }
 };
 renderProjectDetail();
-
-let projectHeroFitTimer = 0;
-window.addEventListener("resize", () => {
-  if (!projectDetailNode) return;
-  clearTimeout(projectHeroFitTimer);
-  projectHeroFitTimer = window.setTimeout(() => fitProjectHeroTitle(projectDetailNode), 120);
-});
 
 const renderNoteDetail = (instant = false) => {
   if (!noteDetailNode) return;
@@ -1513,6 +1467,8 @@ const renderNoteDetail = (instant = false) => {
           author: personRef,
           keywords: [note.label, note.lens].filter(Boolean).join(", "),
           articleSection: note.label,
+          datePublished: note.date,
+          dateModified: note.updated || note.date,
           isPartOf: { "@type": "WebSite", name: "Jamery Wang", url: `${SITE_ORIGIN}/` },
           inLanguage: siteLang === "en" ? "en" : "zh-CN"
         },
