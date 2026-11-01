@@ -2362,8 +2362,20 @@ const idleLoadRecorder = () => {
     setTimeout(loadRecorder, 2000);
   }
 };
-if (document.readyState === "complete") {
-  idleLoadRecorder();
-} else {
-  window.addEventListener("load", idleLoadRecorder);
+/* Session replay is the heaviest third-party payload (~186 KB). Skip it for
+   visitors who asked for less data or are on a slow/metered connection —
+   analytics must never cost those users their bandwidth budget. */
+const shouldLoadRecorder = () => {
+  const conn = navigator.connection;
+  if (!conn) return true;
+  if (conn.saveData) return false;
+  const slow = ["slow-2g", "2g"];
+  return !slow.includes(conn.effectiveType);
+};
+if (shouldLoadRecorder()) {
+  if (document.readyState === "complete") {
+    idleLoadRecorder();
+  } else {
+    window.addEventListener("load", idleLoadRecorder);
+  }
 }
