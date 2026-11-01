@@ -2119,6 +2119,45 @@ if (palette && paletteInput) {
   paletteOverlay.addEventListener("click", closePalette);
 }
 
+/* ── Link prefetch on hover/focus ──
+   Warm the next page's HTML shell when a visitor shows intent (hover or
+   keyboard focus), so navigations feel instant on slow links. Skipped on
+   Save-Data connections and for external / new-tab links. */
+const setupLinkPrefetch = () => {
+  if (navigator.connection && navigator.connection.saveData) return;
+  const seen = new Set();
+  const prefetch = (href) => {
+    if (!href || seen.has(href)) return;
+    if (!/\.html(?:\?|$)/.test(href)) return;
+    seen.add(href);
+    const link = document.createElement("link");
+    link.rel = "prefetch";
+    link.as = "document";
+    link.href = href;
+    document.head.appendChild(link);
+  };
+  const onIntent = (event) => {
+    const anchor = event.target && event.target.closest ? event.target.closest("a[href]") : null;
+    if (!anchor || anchor.target === "_blank") return;
+    let url;
+    try {
+      url = new URL(anchor.getAttribute("href"), window.location.href);
+    } catch (error) {
+      return;
+    }
+    if (url.origin !== window.location.origin) return;
+    prefetch(url.pathname + url.search);
+  };
+  document.addEventListener("pointerover", onIntent, { passive: true });
+  document.addEventListener("focusin", onIntent, { passive: true });
+};
+
+if (document.readyState === "complete") {
+  setupLinkPrefetch();
+} else {
+  window.addEventListener("load", setupLinkPrefetch, { once: true });
+}
+
 /* ── Particle Background ── */
 const particleCanvas = document.querySelector("[data-particles]");
 const saveData = navigator.connection && navigator.connection.saveData;
