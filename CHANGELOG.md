@@ -27,6 +27,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 
 - Font preloads removed entirely (they competed with the render-blocking CSS): cold FCP/LCP 2588 → 1944 ms on the live cross-border path, CLS 0.0002 → 0.016 (still "good")
+- `styles.css` split into shared + `styles-home.css` + `styles-about.css`: the six pages that need neither now ship 21.6 KB gzip of blocking CSS instead of 26.5 KB (−18%), home 24.2 KB, about 26.0 KB (computed styles verified identical on all 9 pages)
 - HTML is served with `Cache-Control: max-age=60` (repeat navigations ~2× faster; `sw.js` stays no-cache)
 - Skip link is visible on focus and now moves focus to `<main>`; detail pages no longer steal the first Tab
 - Command palette is a proper dialog (role/aria-modal/combobox/listbox/aria-activedescendant) with focus return
