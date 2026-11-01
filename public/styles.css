@@ -506,6 +506,30 @@ body {
   border: 0;
 }
 
+/* Reveal the skip link as soon as it takes focus (keyboard users). */
+.skip-link:focus,
+.skip-link:focus-visible {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 1200;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 10px 16px;
+  overflow: visible;
+  clip: auto;
+  clip-path: none;
+  border-radius: 12px;
+  background: var(--cyan);
+  color: #041018;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
 .scroll-progress {
   position: fixed;
   inset: 0 0 auto;
