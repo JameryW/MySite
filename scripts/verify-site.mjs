@@ -249,6 +249,30 @@ const mismatched = sitemapLocs.filter((loc) => !canonicalSet.has(loc) && !loc.in
 if (mismatched.length) fail(`sitemap.xml <loc> without a matching canonical: ${mismatched.slice(0, 3).join(", ")}`);
 pass(`sitemap/canonical alignment: ${sitemapLocs.length} URLs, ${mismatched.length} mismatched`);
 
+/* hreflang pairs: a page that advertises translations must list zh-CN, en and
+   x-default, and the en target must be the `?lang=en` view of its canonical. */
+for (const { name, html } of pages) {
+  const canonical = (html.match(/<link rel="canonical" href="([^"]+)"/) || [])[1];
+  const alternates = [...html.matchAll(/<link rel="alternate" hreflang="([^"]+)" href="([^"]+)"/g)]
+    .map((m) => [m[1], m[2]]);
+  if (!alternates.length) {
+    if (name !== "404.html" && !name.includes("project.html") && !name.includes("note.html")) {
+      fail(`${name}: missing hreflang alternates`);
+    }
+    continue;
+  }
+  const langs = alternates.map(([lang]) => lang);
+  for (const required of ["zh-CN", "en", "x-default"]) {
+    if (!langs.includes(required)) fail(`${name}: hreflang missing ${required}`);
+  }
+  const enHref = (alternates.find(([lang]) => lang === "en") || [])[1] || "";
+  if (canonical && !enHref.startsWith(canonical.split("?")[0])) {
+    fail(`${name}: hreflang en target does not match the canonical path`);
+  }
+  if (canonical && !enHref.includes("lang=en")) fail(`${name}: hreflang en target must carry ?lang=en`);
+}
+pass(`hreflang: ${pages.filter(({ html }) => html.includes("hreflang=")).length} pages advertise zh-CN / en / x-default`);
+
 for (const { name, html } of pages) {
   if (!/<link rel="canonical"/.test(html)) fail(`${name}: missing canonical link`);
   if (!/<meta name="description"/.test(html)) fail(`${name}: missing meta description`);

@@ -1411,6 +1411,7 @@ const renderProjectDetail = (instant = false) => {
        })}
     `;
     projectDetailNode.setAttribute("aria-busy", "false");
+    syncLangSeo();
   }
   updateLangToggleUI();
   if (instant) {
@@ -1560,6 +1561,7 @@ const renderNoteDetail = (instant = false) => {
        })}
     `;
     noteDetailNode.setAttribute("aria-busy", "false");
+    syncLangSeo();
   }
   updateLangToggleUI();
   if (instant) {
@@ -1669,6 +1671,67 @@ const renderProjectSurfaces = (instant = false) => {
   }
 };
 
+/* ── Language-aware URLs ──
+   The site is bilingual on one URL: `?lang=en` is the English view, the clean
+   URL is Chinese (x-default). hreflang alternates in the head point at both,
+   so the canonical must follow whichever language is actually shown —
+   otherwise the two versions compete with each other. */
+
+
+function langUrls() {
+  const link = document.querySelector('link[rel="canonical"]');
+  if (!link) return null;
+  const url = new URL(link.getAttribute("href"));
+  url.searchParams.delete("lang");
+  const base = url.toString();
+  const en = new URL(base);
+  en.searchParams.set("lang", "en");
+  return { base, en: en.toString() };
+}
+
+function syncLangSeo() {
+  const urls = langUrls();
+  if (!urls) return;
+  document.documentElement.lang = siteLang === "en" ? "en" : "zh-CN";
+  const canonical = siteLang === "en" ? urls.en : urls.base;
+  document.querySelector('link[rel="canonical"]').setAttribute("href", canonical);
+  const ogUrl = document.querySelector('meta[property="og:url"]');
+  if (ogUrl) ogUrl.setAttribute("content", canonical);
+  const alternates = {
+    "zh-CN": urls.base,
+    en: urls.en,
+    "x-default": urls.base
+  };
+  let alternateNodes = document.querySelectorAll('link[rel="alternate"][hreflang]');
+  if (!alternateNodes.length) {
+    Object.keys(alternates).forEach((lang) => {
+      const node = document.createElement("link");
+      node.rel = "alternate";
+      node.hreflang = lang;
+      document.head.appendChild(node);
+    });
+    alternateNodes = document.querySelectorAll('link[rel="alternate"][hreflang]');
+  }
+  alternateNodes.forEach((node) => {
+    const target = alternates[node.getAttribute("hreflang")];
+    if (!target) {
+      node.parentNode.removeChild(node);
+      return;
+    }
+    node.setAttribute("href", target);
+  });
+  // Keep the address bar shareable: the language you are reading is the URL.
+  try {
+    const current = new URL(window.location.href);
+    if (siteLang === "en") current.searchParams.set("lang", "en");
+    else current.searchParams.delete("lang");
+    const next = current.pathname + current.search + current.hash;
+    if (next !== window.location.pathname + window.location.search + window.location.hash) {
+      window.history.replaceState(null, "", next);
+    }
+  } catch (urlErr) {}
+}
+
 const setSiteLang = (lang, instant = false) => {
   if ((lang !== "en" && lang !== "zh") || lang === siteLang) return;
   siteLang = lang;
@@ -1692,6 +1755,7 @@ const setSiteLang = (lang, instant = false) => {
   });
   const paletteEmpty = document.querySelector(".palette-empty");
   if (paletteEmpty) paletteEmpty.textContent = t("palette.empty");
+  syncLangSeo();
   if (typeof window.__refreshPaletteLang === "function") window.__refreshPaletteLang();
 };
 
@@ -1704,6 +1768,7 @@ document.addEventListener("click", (event) => {
 
 applyChromeI18n();
 updateLangToggleUI();
+syncLangSeo();
 renderProjectSurfaces();
 
 const revealNodes = document.querySelectorAll(".reveal");

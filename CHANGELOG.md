@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- Language-aware URLs: `?lang=en` renders the English view (boot script reads it first), canonical/`og:url`/`hreflang` follow the active language, and the address bar is updated on toggle so a copied link keeps its language
 - Hover/focus-intent prefetch of same-origin HTML shells (skips Save-Data, external and new-tab links)
 - Service-worker navigation preload and cross-document view transitions (progressive, Chrome 126+)
 

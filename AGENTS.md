@@ -63,7 +63,7 @@ Edit `data.js` — add an entry to `projects[]` or `notes[]`. No HTML changes ne
 
 ### Site-wide bilingual contract
 
-Language is site-wide (`localStorage` key `site-lang`, legacy `notes-lang` still read). Chrome strings use `data-i18n` / `data-i18n-aria` / `data-i18n-placeholder` plus `I18N` in `app.js`. Keep product keywords in English in both locales (Agent, Kernel, DAG, Showcase, Replay, hy-memory, LangGraph, etc.).
+Language is site-wide (`localStorage` key `site-lang`, legacy `notes-lang` still read) and mirrored into the URL: `?lang=en` is the English view, the clean URL is Chinese (`x-default`). The inline boot script reads `?lang=` first (so shared links open in the right language), and `syncLangSeo()` keeps `canonical`, `og:url` and the three `hreflang` alternates in sync with whichever language is shown — otherwise zh and en compete for the same page. Pages that don't load `app.js` (404, archive) must not advertise alternates they can't honour. Chrome strings use `data-i18n` / `data-i18n-aria` / `data-i18n-placeholder` plus `I18N` in `app.js`. Keep product keywords in English in both locales (Agent, Kernel, DAG, Showcase, Replay, hy-memory, LangGraph, etc.).
 
 **Projects** — every `projects[]` entry needs:
 - `date` + `updated` (ISO `YYYY-MM-DD`) — flow into RSS `pubDate`, JSON-LD `datePublished/dateModified`, and sitemap `lastmod`
