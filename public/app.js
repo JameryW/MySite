@@ -291,6 +291,17 @@ const setPageJsonLd = (payload) => {
   node.textContent = JSON.stringify(payload);
 };
 
+const upsertJsonLd = (id, payload) => {
+  let node = document.querySelector(`script[data-jsonld-id="${id}"]`);
+  if (!node) {
+    node = document.createElement("script");
+    node.type = "application/ld+json";
+    node.setAttribute("data-jsonld-id", id);
+    document.head.appendChild(node);
+  }
+  node.textContent = JSON.stringify(payload);
+};
+
 const markNoindex = () => {
   let node = document.querySelector('meta[name="robots"]');
   if (!node) {
@@ -1268,10 +1279,34 @@ function setupFilter(container, items, onFilter) {
 
 if (projectLibraryNode) {
   setupFilter(projectLibraryNode, siteData.projects, (label, visible) => updateProjectCount(visible));
+  upsertJsonLd("projects-itemlist", {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Projects",
+    numberOfItems: siteData.projects.length,
+    itemListElement: siteData.projects.map((project, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      url: `${SITE_ORIGIN}/project.html?slug=${encodeURIComponent(project.slug)}`,
+      name: project.title
+    }))
+  });
 }
 
 if (noteLibraryNode) {
   setupFilter(noteLibraryNode, siteData.notes, (label, visible) => updateNoteCount(visible));
+  upsertJsonLd("notes-itemlist", {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Notes",
+    numberOfItems: siteData.notes.length,
+    itemListElement: siteData.notes.map((note, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      url: `${SITE_ORIGIN}/note.html?slug=${encodeURIComponent(note.slug)}`,
+      name: note.titleEn || note.title
+    }))
+  });
 }
 
 const renderProjectDetail = (instant = false) => {
@@ -1584,6 +1619,18 @@ const renderProjectSurfaces = (instant = false) => {
   }
   if (showcaseNode) {
     const demoProjects = siteData.projects.filter((project) => project.demoUrl);
+    upsertJsonLd("showcase-itemlist", {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: "Showcase",
+      numberOfItems: demoProjects.length,
+      itemListElement: demoProjects.map((project, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: project.demoUrl,
+        name: project.title
+      }))
+    });
     showcaseNode.innerHTML = demoProjects.map((project) => {
       return `
       <a class="showcase-card reveal" href="${project.demoUrl}" target="_blank" rel="noreferrer">
