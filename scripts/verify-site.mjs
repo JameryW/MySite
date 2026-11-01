@@ -258,6 +258,46 @@ for (const { name, html } of pages) {
 }
 pass(`SEO/GEO surface: ${projectSlugs.length} projects + ${noteSlugs.length} notes wired into llms/feed/archive/sitemap`);
 
+/* 9. i18n parity: both locales expose the same keys, and every referenced
+      key resolves (a missing key silently renders an empty string). */
+const appSrc = readFileSync(join(PUBLIC, "app.js"), "utf8");
+const dictStart = appSrc.indexOf("const I18N = {");
+if (dictStart === -1) {
+  fail("app.js: I18N dictionary not found");
+} else {
+  let depth = 0;
+  let dictEnd = dictStart;
+  for (let i = appSrc.indexOf("{", dictStart); i < appSrc.length; i += 1) {
+    if (appSrc[i] === "{") depth += 1;
+    else if (appSrc[i] === "}") {
+      depth -= 1;
+      if (depth === 0) {
+        dictEnd = i + 1;
+        break;
+      }
+    }
+  }
+  const dict = appSrc.slice(dictStart, dictEnd);
+  const enIndex = dict.indexOf("\n  en:");
+  const keyOf = (segment) => [...segment.matchAll(/^\s+"([^"]+)":/gm)].map((m) => m[1]);
+  const zhKeys = keyOf(dict.slice(0, enIndex));
+  const enKeys = keyOf(dict.slice(enIndex, dict.lastIndexOf("\n}")));
+  const missingEn = zhKeys.filter((key) => !enKeys.includes(key));
+  const missingZh = enKeys.filter((key) => !zhKeys.includes(key));
+  if (missingEn.length) fail(`i18n: keys missing in en: ${missingEn.slice(0, 5).join(", ")}`);
+  if (missingZh.length) fail(`i18n: keys missing in zh: ${missingZh.slice(0, 5).join(", ")}`);
+
+  const referenced = new Set();
+  for (const { html } of pages) {
+    for (const match of html.matchAll(/data-i18n(?:-aria|-placeholder)?="([^"]+)"/g)) referenced.add(match[1]);
+  }
+  for (const match of appSrc.matchAll(/\bt\("([^"]+)"\)/g)) referenced.add(match[1]);
+  const allKeys = new Set([...zhKeys, ...enKeys]);
+  const unresolved = [...referenced].filter((key) => !allKeys.has(key));
+  if (unresolved.length) fail(`i18n: referenced keys missing from the dictionary: ${unresolved.slice(0, 5).join(", ")}`);
+  pass(`i18n: ${zhKeys.length} keys with zh/en parity, ${referenced.size} references resolve`);
+}
+
 /* Summary */
 console.log(results.join("\n"));
 if (failures > 0) {

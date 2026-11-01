@@ -29,7 +29,7 @@ Root config: `package.json`, `CLAUDE.md`, `.editorconfig`, `.gitignore`
 ## Development Commands
 
 - `npm run dev` — start local dev server at `http://localhost:4173` (Python HTTP server)
-- `npm run check` — release checks: CSP hashes, cache-version consistency, service-worker precache keys, broken local refs, external scripts, sitemap coverage, SEO/GEO asset freshness (also runs in CI)
+- `npm run check` — release checks: CSP hashes, cache-version consistency, service-worker precache keys, broken local refs, external scripts, sitemap coverage, SEO/GEO asset freshness, content dates, i18n zh/en key parity + reference resolution (also runs in CI)
 - `npm run gen:seo` — regenerate `llms.txt`, `llms-full.txt`, `feed.xml`, `archive.html`, `sitemap.xml` from `data.js`
 - `npm run deploy` — verify, back up, rsync `public/` to the production VPS, verify deployed versions (`-- --dry-run` to preview)
 - `npm run deploy:nginx` — validate + install `deploy/nginx.conf` on the VPS and reload nginx
