@@ -46,7 +46,7 @@ Root config: `package.json`, `CLAUDE.md`, `.editorconfig`, `.gitignore`
 ## Key Patterns
 
 - `data-*` attributes on DOM nodes drive page rendering in `app.js`
-- Detail pages (`project.html`, `note.html`) are empty shells — content injected by JS from `?slug=`
+- Detail pages (`project.html`, `note.html`) are empty shells — content injected by JS from `?slug=`. `npm run gen:seo` additionally emits `public/p/<slug>.html` (a copy of the shell with the hero already rendered) and nginx serves it through `try_files /p/$arg_slug.html /project.html` for the *same* `?slug=` URL, so the hero — the LCP element — paints before `data.js`/`app.js` load. The block is wrapped in `.prerender-hero`, which `[data-lang="en"]` hides so English visitors never see a Chinese flash; `/p/` is `Disallow`ed in robots.txt and excluded from the sitemap
 - `window.siteData` from `data.js` is the single source of truth
 - Theme switching via `[data-theme="light"]` attribute on `<html>`
 - Scroll animations via IntersectionObserver (add `.reveal` class to new sections)

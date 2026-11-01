@@ -459,6 +459,13 @@ body {
   white-space: nowrap;
   border: 0;
 }
+/* Prerendered detail hero: shown to the Chinese view (the URL's default) and
+   hidden the moment the boot script marks the page as English, so English
+   visitors never see a Chinese flash before app.js renders. */
+[data-lang="en"] .prerender-hero {
+  display: none;
+}
+
 /* The skip target takes programmatic focus; no giant outline on <main>. */
 #main-content:focus {
   outline: none;
