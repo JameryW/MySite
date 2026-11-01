@@ -1,4 +1,4 @@
-const CACHE = 'mysite-v166';
+const CACHE = 'mysite-v167';
 /* Precache keys must exactly match the URLs pages request, otherwise
    caches.match() never hits (query params are part of the cache key).
    Bump styles.css?v= / app.js?v= / data.js?v= in every HTML head together
@@ -78,7 +78,15 @@ self.addEventListener('fetch', (e) => {
         } catch (error) {
           const cached = await caches.match(e.request);
           if (cached) return cached;
-          return (await caches.match('./index.html')) || Response.error();
+          // Detail pages are query views of their shell: serve the cached
+          // shell so the client-side router can still render the entry offline.
+          const path = new URL(e.request.url).pathname;
+          const shell = path.endsWith('/project.html')
+            ? './project.html'
+            : path.endsWith('/note.html')
+              ? './note.html'
+              : './index.html';
+          return (await caches.match(shell)) || (await caches.match('./index.html')) || Response.error();
         }
       })()
     );
