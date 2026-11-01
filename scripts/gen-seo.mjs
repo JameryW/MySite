@@ -283,6 +283,7 @@ const archive = `<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>站点索引 / Site Archive — Jamery Wang</title>
     <meta name="description" content="Jamery Wang 站点的静态纯文本索引：全部项目、笔记与在线演示，无需 JavaScript 即可阅读。" />
+    <meta name="author" content="Jamery Wang" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <link rel="canonical" href="${SITE}/archive.html" />
     <meta property="og:title" content="站点索引 / Site Archive — Jamery Wang" />
@@ -291,7 +292,10 @@ const archive = `<!DOCTYPE html>
     <meta property="og:url" content="${SITE}/archive.html" />
     <meta property="og:site_name" content="Jamery Wang" />
     <meta property="og:image" content="${SITE}/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@JameryWang" />
+    <meta name="twitter:creator" content="@JameryWang" />
     <meta name="twitter:title" content="站点索引 / Site Archive — Jamery Wang" />
     <meta name="twitter:description" content="Static text index of every project, note, and live demo on jameryw.dev." />
     <meta name="twitter:image" content="${SITE}/og-image.png" />
