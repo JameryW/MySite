@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.jameryw.dev/index.html</loc>
+    <loc>https://www.jameryw.dev/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -11,14 +11,14 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.jameryw.dev/showcase.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://www.jameryw.dev/notes.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.jameryw.dev/showcase.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.jameryw.dev/about.html</loc>
@@ -26,34 +26,39 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://www.jameryw.dev/archive.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://www.jameryw.dev/project.html?slug=xhs-growth-agent</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.jameryw.dev/project.html?slug=quant-agent</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.jameryw.dev/project.html?slug=real-quant-engine</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.jameryw.dev/project.html?slug=quant-strategy-prototypes</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.jameryw.dev/project.html?slug=ultimate-coders</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.jameryw.dev/project.html?slug=awesome-workflows</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.jameryw.dev/note.html?slug=why-agents-matter</loc>

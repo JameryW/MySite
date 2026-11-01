@@ -3,27 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jamery Wang | Notes</title>
-    <meta
-      name="description"
-      content="Jamery Wang 的笔记页，记录 AI 观察、工具实验和技术想法。"
-    />
+    <title>Notes — Agent Engineering & Build in Public | Jamery Wang</title>
+    <meta name="description" content="关于 Agent 工程、内核、记忆、界面判断与公开构建的短笔记；从失败复盘到可复用方法，持续更新。" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
-    <meta property="og:title" content="Jamery Wang | Notes" />
-    <meta property="og:description" content="公开思考缓存 — AI 观察、工作流拆解和失败记录。" />
+    <meta property="og:title" content="Notes — Agent Engineering & Build in Public | Jamery Wang" />
+    <meta property="og:description" content="Working notes on agent engineering, kernels, memory, interface judgment, and build-in-public." />
     <meta property="og:type" content="website" />
     <link rel="canonical" href="https://www.jameryw.dev/notes.html" />
+    <link rel="alternate" type="application/rss+xml" title="Jamery Wang — Notes" href="./feed.xml" />
     <meta property="og:url" content="https://www.jameryw.dev/notes.html" />
     <meta property="og:site_name" content="Jamery Wang" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:locale:alternate" content="en_US" />
     <meta property="og:image" content="https://www.jameryw.dev/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Jamery Wang — AI 时代原住民" />
+    <meta property="og:image:alt" content="Notes — Agent Engineering & Build in Public | Jamery Wang" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://www.jameryw.dev/og-image.png" />
-    <meta name="twitter:title" content="Jamery Wang | Notes" />
-    <meta name="twitter:description" content="公开思考缓存 — AI 观察、工作流拆解和失败记录。" />
+    <meta name="twitter:title" content="Notes — Agent Engineering & Build in Public | Jamery Wang" />
+    <meta name="twitter:description" content="Working notes on agent engineering, kernels, memory, interface judgment, and build-in-public." />
     <meta name="theme-color" content="#050816" />
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-3aURg3fA3oi6eIRKnp6m/7vbZqwgXbcF4hrcIPlG1qE=' https://stats.jameryw.dev; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://stats.jameryw.dev;" />
     <script>try{if(localStorage.getItem("theme")==="light"){document.documentElement.setAttribute("data-theme","light");var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content","#f0f2f8")}}catch(e){}try{var L=localStorage.getItem("site-lang")||localStorage.getItem("notes-lang");if(L==="en"||L==="zh"){document.documentElement.setAttribute("data-lang",L);document.documentElement.lang=L==="en"?"en":"zh-CN"}}catch(e){}setTimeout(function(){var el=document.querySelector(".page-loader");if(el&&!el.classList.contains("loaded"))el.classList.add("is-slow")},480);setTimeout(function(){var el=document.querySelector(".page-loader");if(el)el.classList.add("loaded")},2400);</script>
@@ -35,20 +35,41 @@
     <link rel="dns-prefetch" href="https://github.com" />
     <link rel="preload" href="./fonts/syne-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="./fonts/space-grotesk-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="./styles.css?v=123" />
+    <link rel="stylesheet" href="./styles.css?v=124" />
     <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
       "@type": "CollectionPage",
       "name": "Notes",
-      "description": "公开思考缓存 — AI 观察、工作流拆解和失败记录。",
       "url": "https://www.jameryw.dev/notes.html",
+      "description": "公开思考缓存 — AI 观察、工作流拆解和失败记录。",
       "isPartOf": {
         "@type": "WebSite",
         "name": "Jamery Wang",
-        "url": "https://www.jameryw.dev"
+        "url": "https://www.jameryw.dev/"
       }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.jameryw.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Notes",
+          "item": "https://www.jameryw.dev/notes.html"
+        }
+      ]
     }
+  ]
+}
     </script>
   </head>
   <body data-page="notes">
@@ -180,7 +201,7 @@
 
 <script src="./data.js?v=42" defer></script>
 <script src="./umami-config.js" defer></script>
-<script src="./app.js?v=80" defer></script>
+<script src="./app.js?v=81" defer></script>
 
     <!-- Command Palette -->
     <div class="palette-overlay" data-palette-overlay></div>
@@ -192,5 +213,10 @@
       </div>
       <div class="palette-results" data-palette-results></div>
     </div>
+      <noscript>
+      <div class="site-frame">
+        <p>此页面使用 JavaScript 渲染项目与笔记内容。<a href="./archive.html">查看静态站点索引</a>，或阅读 <a href="./llms-full.txt">llms-full.txt</a> 获取完整文本。</p>
+      </div>
+    </noscript>
   </body>
 </html>

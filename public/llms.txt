@@ -1,0 +1,57 @@
+# Jamery Wang — Personal Site
+
+> Jamery Wang is AI-native builder based in Hangzhou, building agent kernels, layered memory, and observable execution surfaces (Kernel runtime, LangGraph, DAG, hy-memory). The site collects project case notes, working notes, and live demos in Chinese with an English toggle.
+
+Canonical: https://www.jameryw.dev
+Languages: Chinese (primary), English (site-wide toggle via localStorage `site-lang`)
+Machine-readable: https://www.jameryw.dev/llms-full.txt (full text) · https://www.jameryw.dev/feed.xml (notes RSS) · https://www.jameryw.dev/archive.html (static index) · https://www.jameryw.dev/sitemap.xml
+
+## Profile
+
+- Name: Jamery Wang
+- Title: AI 时代原住民 / AI-Native Builder
+- Base: Hangzhou / Online
+- Status: Shipping memory-aware agent systems
+- Focus: Agents, Memory, Kernel Runtime, DAG Coding, Quant
+- GitHub: https://github.com/jameryw
+- X: https://x.com/JameryWang
+- 小红书 / Xiaohongshu: https://xhslink.com/m/5WfdZrtFi4K
+- Email: mailto:jameryw@gmail.com
+
+## Now building
+
+- XhsGrowthAgent (2026-10): Kernel runtime is live; public Showcase / Replay; optional hy-memory.
+- UltimateCoders (2026-10): DAG orchestration and an observable Dashboard; layered memory and hybrid retrieval keep moving.
+
+## Pages
+
+- [Home](https://www.jameryw.dev/) — featured projects and notes
+- [Projects](https://www.jameryw.dev/projects.html) — all 6 projects
+- [Notes](https://www.jameryw.dev/notes.html) — 12 working notes
+- [Showcase](https://www.jameryw.dev/showcase.html) — runnable demos
+- [About](https://www.jameryw.dev/about.html) — profile, working method, entry points
+- [Archive](https://www.jameryw.dev/archive.html) — static text index of everything
+
+## Projects
+
+- [XhsGrowthAgent](https://www.jameryw.dev/project.html?slug=xhs-growth-agent) — Growth Agent · Active. Xiaohongshu growth workbench: a deterministic Kernel owns state and scheduling, LangGraph only runs the task graph, and publishing stays human-gated.
+- [QuantAgent](https://www.jameryw.dev/project.html?slug=quant-agent) — Quant Agent · Active research. A heuristic agent framework where executable code is the policy — not neural weights — so iteration is learning and tests are memory.
+- [RealQuantEngine](https://www.jameryw.dev/project.html?slug=real-quant-engine) — Quant Engine · Active. A modular quant strategy library — multi-strategy orchestration, broker adapters, and risk controls, with Futu live trading and dry-run.
+- [QuantStrategyPrototypes](https://www.jameryw.dev/project.html?slug=quant-strategy-prototypes) — Strategy Lab · Active. Quant strategy prototypes grounded in arXiv research — backtest engine, 10 strategy modules, and 91% test coverage.
+- [UltimateCoders](https://www.jameryw.dev/project.html?slug=ultimate-coders) — Distributed AI · Active. Distributed AI coding platform: DAG orchestration, observable Dashboard, multi-adapter Workers, shared layered memory and hybrid retrieval.
+- [AwesomeWorkflows](https://www.jameryw.dev/project.html?slug=awesome-workflows) — Agent Workflows · Active. Issue-driven delivery workflows reusable across Codex / Claude Code / Grok Build / DeepSeek Harness — Matt Pocock engineering skills plus the Trellis task lifecycle.
+
+## Notes
+
+- [Why Agents Matter](https://www.jameryw.dev/note.html?slug=why-agents-matter) — Agents · Current lens. I care more about continuous execution, memory, and tool collaboration than about polished single-turn answers.
+- [Prototype First](https://www.jameryw.dev/note.html?slug=prototype-first) — Build · Working rule. Get it running first, then let the real problems surface. Many judgments only hold once the interface and the scripts work together.
+- [Interface as Signal](https://www.jameryw.dev/note.html?slug=interface-as-signal) — Interface · Ongoing principle. Interface choices reveal technical understanding and product judgment, so the site itself should be part of the work.
+- [Prompt Engineering Is Evolving](https://www.jameryw.dev/note.html?slug=prompt-engineering-evolution) — Prompt · 2025 observation. Prompt engineering is shifting from handcrafted tricks to structured interfaces — from writing prompts to designing tools and orchestrating flows.
+- [Build In Public](https://www.jameryw.dev/note.html?slug=build-in-public) — Philosophy · Ongoing practice. Building in public isn't performance — it turns the iteration process itself into signal, making ability, judgment, and execution directly verifiable.
+- [Productivity & Production Relations](https://www.jameryw.dev/note.html?slug=productivity-and-relations) — Org · 2025 observation. Productive forces determine production relations: organizations that match new productive forces with old forms will ultimately be replaced by a more radically efficient form.
+- [Evolve In Loop](https://www.jameryw.dev/note.html?slug=evolve-in-loop) — Loop · Ongoing practice. Evolution isn't a one-time leap but the accumulation of countless closed feedback loops. Each loop is a calibration: act, feedback, adjust, act again.
+- [Quantity Becomes Quality](https://www.jameryw.dev/note.html?slug=quantity-to-quality) — Alpha · 2025 observation. Sustained high-quality data produces high-quality strategies, and high-quality strategies spawn new alpha. It's a self-reinforcing flywheel, not linear accumulation.
+- [Knowledge Depreciates, Experience Appreciates](https://www.jameryw.dev/note.html?slug=knowledge-depreciates-experience-appreciates) — Judgment · 2025 observation. AI rapidly depreciates retrievable knowledge while appreciating engineering experience earned from real failures. Designing distributed architectures that survive hundred-million-scale concurrency takes more than textbook basics.
+- [Skills Devoured, Tools Fortified](https://www.jameryw.dev/note.html?slug=skills-devoured-tools-fortified) — Moat · 2025 observation. The stronger models get, the more pure-software skills get devoured like free APIs. Truly hard to replicate are tools that touch the physical world — sensors, actuators, private protocols, real-environment feedback loops.
+- [Pure Software Devalued, Physical Integration Premium](https://www.jameryw.dev/note.html?slug=pure-software-devalued-physical-premium) — Value · 2025 observation. Large models keep internalizing pure-software capability into free infrastructure, while software-hardware integration tied to the physical world appreciates on the back of real-world data loops.
+- [K-Shaped Divergence In The AI Era](https://www.jameryw.dev/note.html?slug=ai-k-shaped-divergence) — Divergence · 2025 observation. AI splits the world into a K: apps go liberal-arts — taste and character decide who wins; tech goes hardcore — hardware bound to the physical world, perception–action–feedback in real environments, and self-evolution.

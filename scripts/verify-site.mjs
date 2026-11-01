@@ -17,6 +17,7 @@ import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { runInNewContext } from "node:vm";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const PUBLIC = join(ROOT, "public");
@@ -39,13 +40,14 @@ const pages = htmlNames.map((name) => ({
 /* 1. CSP inline boot-script hash */
 for (const { name, html } of pages) {
   const csp = html.match(/script-src[^"]*?sha256-([A-Za-z0-9+/=]+)/);
-  if (!csp) {
-    fail(`${name}: missing script-src sha256 in CSP`);
-    continue;
-  }
   const boot = html.match(/<script>([\s\S]*?)<\/script>/);
   if (!boot) {
-    fail(`${name}: no inline boot script found`);
+    // Static pages (archive.html) ship no inline boot script, so no hash is needed.
+    if (csp) fail(`${name}: CSP hash declared but page has no inline boot script`);
+    continue;
+  }
+  if (!csp) {
+    fail(`${name}: missing script-src sha256 in CSP`);
     continue;
   }
   const actual = createHash("sha256").update(boot[1], "utf8").digest("base64");
@@ -166,6 +168,61 @@ for (const { name, html } of pages) {
   if (desc && /undefined/i.test(desc[1])) fail(`${name}: "undefined" in description`);
 }
 pass("document metadata clean");
+
+/* 8. SEO / GEO surface */
+const dataSandbox = { window: {} };
+runInNewContext(readFileSync(join(PUBLIC, "data.js"), "utf8"), dataSandbox, { filename: "data.js" });
+const siteData = dataSandbox.window.siteData || { projects: [], notes: [] };
+const projectSlugs = (siteData.projects || []).map((project) => project.slug);
+const noteSlugs = (siteData.notes || []).map((note) => note.slug);
+
+const seoFiles = ["llms.txt", "llms-full.txt", "feed.xml", "archive.html", "robots.txt"];
+for (const file of seoFiles) {
+  if (!existsSync(join(PUBLIC, file))) fail(`missing SEO asset public/${file}`);
+}
+
+const robots = existsSync(join(PUBLIC, "robots.txt")) ? readFileSync(join(PUBLIC, "robots.txt"), "utf8") : "";
+for (const bot of ["GPTBot", "OAI-SearchBot", "PerplexityBot", "ClaudeBot", "Google-Extended", "Sitemap:"]) {
+  if (!robots.includes(bot)) fail(`robots.txt: missing ${bot}`);
+}
+
+const archiveHtml = existsSync(join(PUBLIC, "archive.html")) ? readFileSync(join(PUBLIC, "archive.html"), "utf8") : "";
+const feedXml = existsSync(join(PUBLIC, "feed.xml")) ? readFileSync(join(PUBLIC, "feed.xml"), "utf8") : "";
+const llmsTxt = existsSync(join(PUBLIC, "llms-full.txt")) ? readFileSync(join(PUBLIC, "llms-full.txt"), "utf8") : "";
+for (const slug of projectSlugs) {
+  if (!archiveHtml.includes(`project.html?slug=${slug}`)) fail(`archive.html: missing project slug ${slug}`);
+  if (!sitemap.includes(`project.html?slug=${slug}`)) fail(`sitemap.xml: missing project slug ${slug}`);
+}
+for (const slug of noteSlugs) {
+  if (!archiveHtml.includes(`note.html?slug=${slug}`)) fail(`archive.html: missing note slug ${slug}`);
+  if (!sitemap.includes(`note.html?slug=${slug}`)) fail(`sitemap.xml: missing note slug ${slug}`);
+  if (!feedXml.includes(`note.html?slug=${slug}`)) fail(`feed.xml: missing note slug ${slug}`);
+}
+for (const entry of [...(siteData.projects || []), ...(siteData.notes || [])]) {
+  if (!llmsTxt.includes(entry.title)) fail(`llms-full.txt: missing entry ${entry.title}`);
+}
+if (!sitemap.includes("archive.html")) fail("sitemap.xml: missing archive.html");
+
+for (const { name, html } of pages) {
+  if (!/<link rel="canonical"/.test(html)) fail(`${name}: missing canonical link`);
+  if (!/<meta name="description"/.test(html)) fail(`${name}: missing meta description`);
+  if (!/<meta property="og:title"/.test(html)) fail(`${name}: missing og:title`);
+  if (!/<link rel="alternate" type="application\/rss\+xml"/.test(html)) fail(`${name}: missing RSS discovery link`);
+  const jsonLdBlocks = [...html.matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)];
+  for (const block of jsonLdBlocks) {
+    try {
+      JSON.parse(block[1]);
+    } catch (error) {
+      fail(`${name}: invalid JSON-LD block (${error.message})`);
+    }
+  }
+  if (name === "404.html") {
+    if (!/<meta name="robots" content="noindex/.test(html)) fail("404.html: missing noindex robots meta");
+  } else if (jsonLdBlocks.length === 0) {
+    fail(`${name}: missing JSON-LD structured data`);
+  }
+}
+pass(`SEO/GEO surface: ${projectSlugs.length} projects + ${noteSlugs.length} notes wired into llms/feed/archive/sitemap`);
 
 /* Summary */
 console.log(results.join("\n"));
