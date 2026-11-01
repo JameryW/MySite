@@ -4,6 +4,61 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.2.3] - 2026-11-01
+
+### Added
+
+- `/.well-known/security.txt` (contact + expiry) served as `text/plain`
+- Response-level `Content-Security-Policy` header that mirrors each page's meta policy and adds `frame-ancestors 'none'`, `base-uri`, `form-action`, `object-src`
+- Runtime `ItemList` JSON-LD on the projects / notes / showcase listings
+
+### Changed
+
+- Harden HTTPS server blocks with HSTS, `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`, `Permissions-Policy`
+- Re-sync `deploy/nginx.conf` with the running VPS (log format, dead `/ws` route removed, xray access log)
+- Preload `data.js` + `app.js` and mark them `fetchpriority="high"`
+
+## [1.2.2] - 2026-11-01
+
+### Added
+
+- Real `date` / `updated` fields for all projects and notes, feeding RSS `pubDate`, JSON-LD dates and sitemap `lastmod`
+- 404 page gains Notes/About actions and a proper footer nav; archive is linked from every footer
+- Skip links on the 404 and static archive pages
+
+### Changed
+
+- Compact prev/next pager with direction cues, capped at 760px for single-sibling pagers
+- Metadata separators render on the following item so wrapped rows never end with a dangling `·`
+- Showcase heading uses the shared `page-title-main` structure
+- Home outline subtitle scales to 0.7em (EN one line at every desktop width); home summaries cap at 78ch
+- Removed 67 dead CSS rules (~7.5 KB) and the dead `fitProjectHeroTitle` fitter
+
+## [1.2.1] - 2026-11-01
+
+### Added
+
+- SEO/GEO surface generated from `data.js`: `llms.txt`, `llms-full.txt`, `feed.xml`, JS-free `archive.html`, `sitemap.xml` (with lastmod)
+- `robots.txt` explicitly allows major AI crawlers; RSS discovery links on every page
+- Per-page titles/descriptions, `og:locale` alternates, and richer JSON-LD (`WebSite`/`Person`, `ProfilePage`, `CollectionPage` + `BreadcrumbList`, runtime `CreativeWork`/`BlogPosting` + breadcrumbs)
+- Visible breadcrumbs on detail pages; soft-404 `noindex` for invalid slugs; `noindex` on 404
+- `npm run gen:seo` + CI freshness check so generated assets can never go stale
+
+## [1.2.0] - 2026-11-01
+
+### Added
+
+- Production deploy pipeline for the VPS (`npm run deploy`, `npm run deploy:nginx`) with backups and version verification
+- CI `Checks` workflow for CSP hashes, cache versions, SW keys, refs and sitemap coverage
+
+### Changed
+
+- Rebuild the About page as a two-column hero with an ID card, Now Building timeline, and working profile
+- Site-wide polish: light-theme contrast tokens and neon CTA, sticky topbar, mobile gutter/typography, section-head alignment, filter tap targets + live result counts, footer grouping
+- Above-the-fold reveals paint instantly (note-detail LCP 1092ms → 252ms locally)
+- Fix mobile right-edge overflow at 421–488px and 320–430px
+- Move production from GitHub Pages to the VPS nginx host; CSP hash recomputed for the boot script
+
 ## [1.1.2] - 2026-10-17
 
 ### Changed

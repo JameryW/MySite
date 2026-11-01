@@ -204,6 +204,12 @@ if (existsSync(join(PUBLIC, "sitemap.xml"))) {
 }
 pass(`content dates: ${entryDates.length} entries carry date/updated (feed pubDate + sitemap lastmod)`);
 
+const securityTxt = join(PUBLIC, ".well-known/security.txt");
+if (!existsSync(securityTxt)) fail("missing public/.well-known/security.txt");
+else if (!/Expires: \d{4}-\d{2}-\d{2}T/.test(readFileSync(securityTxt, "utf8"))) {
+  fail("security.txt: missing RFC3339 Expires field");
+}
+
 const seoFiles = ["llms.txt", "llms-full.txt", "feed.xml", "archive.html", "robots.txt"];
 for (const file of seoFiles) {
   if (!existsSync(join(PUBLIC, file))) fail(`missing SEO asset public/${file}`);
