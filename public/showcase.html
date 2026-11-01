@@ -34,7 +34,8 @@
     <link rel="preconnect" href="https://stats.jameryw.dev" />
     <link rel="dns-prefetch" href="https://github.com" />
     <link rel="preload" href="./fonts/syne-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="./styles.css?v=122" />
+    <link rel="preload" href="./fonts/space-grotesk-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="./styles.css?v=123" />
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -126,7 +127,9 @@
             <span data-i18n="showcase.titleSub">Live Demos</span>
           </h1>
           <p class="page-lead" data-i18n="showcase.lead">可直接打开的运行面：Showcase、Replay，以及量化系统演示。</p>
-          <p class="listing-hero-meta" aria-label="Showcase 信号面板" data-i18n-aria="showcase.signalAria">
+          <p class="listing-hero-meta" aria-label="Showcase 概览" data-i18n-aria="showcase.signalAria">
+            <span><strong data-showcase-count>0</strong> <span data-i18n="showcase.count">个演示</span></span>
+            <span class="listing-hero-meta-sep" aria-hidden="true">·</span>
             <span data-i18n="showcase.signalAccessValue">公开只读面优先</span>
             <span class="listing-hero-meta-sep" aria-hidden="true">·</span>
             <span data-i18n="showcase.signalFocusValue">Growth Agent · Quant demos</span>
@@ -176,7 +179,7 @@
 
 <script src="./data.js?v=42" defer></script>
 <script src="./umami-config.js" defer></script>
-  <script src="./app.js?v=79" defer></script>
+  <script src="./app.js?v=80" defer></script>
 
     <!-- Command Palette -->
     <div class="palette-overlay" data-palette-overlay></div>
