@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- Prerendered detail pages: `public/p/<slug>.html` carries the hero in HTML and nginx serves it for the same `?slug=` URL, so the LCP element paints before the JS bundle and the content is visible without JavaScript (hidden for the English view to avoid a language flash)
 - Language-aware URLs: `?lang=en` renders the English view (boot script reads it first), canonical/`og:url`/`hreflang` follow the active language, and the address bar is updated on toggle so a copied link keeps its language
 - Hover/focus-intent prefetch of same-origin HTML shells (skips Save-Data, external and new-tab links)
 - Service-worker navigation preload and cross-document view transitions (progressive, Chrome 126+)

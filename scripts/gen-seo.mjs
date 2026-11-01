@@ -12,7 +12,7 @@
  *   npm run gen:seo          (rewrite)
  *   npm run gen:seo -- --check   (CI: fail when stale)
  */
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
 import { runInNewContext } from "node:vm";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -381,6 +381,77 @@ const sitemap = [
   ""
 ].join("\n");
 
+/* ── Prerendered detail hero (LCP) ──
+   Both detail pages are JS-rendered shells, so the largest contentful paint
+   waits for data.js + app.js. For every slug we emit a copy of the shell with
+   the hero already in the HTML; nginx serves it via try_files for the same
+   /project.html?slug= URL, so the URL space does not change. app.js still
+   renders the full page on top of it. */
+const escAttr = (value) => esc(value);
+const softBreak = (title) => esc(title).replace(/([a-z0-9])([A-Z])/g, "$1<wbr>$2");
+const heroTitleClass = (title) => {
+  const len = String(title || "").length;
+  if (len > 18) return "page-title is-long";
+  if (len > 12) return "page-title is-medium";
+  return "page-title";
+};
+
+const projectHero = (project) => {
+  const overview = oneLine(project.overview);
+  return [
+    '<section class="page-hero">',
+    '  <nav class="detail-breadcrumb" aria-label="面包屑导航">',
+    '    <a href="./index.html">首页</a><span aria-hidden="true">/</span>',
+    '    <a href="./projects.html">项目</a><span aria-hidden="true">/</span>',
+    `    <span aria-current="page">${esc(project.title)}</span>`,
+    '  </nav>',
+    `  <p class="eyebrow">${esc(project.label)} / ${esc(project.timeframe)} / ${esc(project.status)}</p>`,
+    `  <h1 class="${heroTitleClass(project.title)}">${softBreak(project.title)}<span>${esc(project.detailTitle)}</span></h1>`,
+    `  <p class="page-lead">${esc(overview)}</p>`,
+    '  <p class="listing-hero-meta detail-hero-meta" aria-label="内容信号">',
+    `    <span>${esc(project.role)}</span>`,
+    `    <span>${escAttr((project.outputs || []).slice(0, 2).join(" / "))}</span>`,
+    '  </p>',
+    '</section>'
+  ].join("\n      ");
+};
+
+const noteHero = (note) => {
+  const summary = oneLine(note.summary);
+  return [
+    '<section class="page-hero note-detail-hero">',
+    '  <nav class="detail-breadcrumb" aria-label="面包屑导航">',
+    '    <a href="./index.html">首页</a><span aria-hidden="true">/</span>',
+    '    <a href="./notes.html">笔记</a><span aria-hidden="true">/</span>',
+    `    <span aria-current="page">${esc(note.title)}</span>`,
+    '  </nav>',
+    `  <p class="eyebrow">${note.code ? `${esc(note.code)} / ` : ""}${esc(note.label)}</p>`,
+    `  <h1 class="page-title">${esc(note.title)}<span>${esc(note.detailTitle)}</span></h1>`,
+    `  <p class="page-lead">${esc(summary)}</p>`,
+    '</section>'
+  ].join("\n      ");
+};
+
+const prerenderDetail = (shellFile, containerAttr, heroHtml) => {
+  const shell = readFileSync(join(PUBLIC, shellFile), "utf8");
+  const marker = `<main id="main-content" ${containerAttr} tabindex="-1"></main>`;
+  if (!shell.includes(marker)) throw new Error(`prerender: container not found in ${shellFile}`);
+  // Wrapped so the boot script's language can suppress it: an English
+  // visitor must never see the Chinese hero flash before app.js swaps it.
+  return shell.replace(
+    marker,
+    `<main id="main-content" ${containerAttr} tabindex="-1">\n      <div class="prerender-hero">${heroHtml}</div>\n    </main>`
+  );
+};
+
+const detailFiles = {};
+for (const project of projects) {
+  detailFiles[`p/${project.slug}.html`] = prerenderDetail("project.html", "data-project-detail", projectHero(project));
+}
+for (const note of notes) {
+  detailFiles[`p/${note.slug}.html`] = prerenderDetail("note.html", "data-note-detail", noteHero(note));
+}
+
 /* ── write / check ── */
 const outputs = {
   "llms.txt": llms,
@@ -389,6 +460,10 @@ const outputs = {
   "archive.html": archive,
   "sitemap.xml": sitemap
 };
+
+// nested detail files live under public/p/
+const nestedDir = join(PUBLIC, "p");
+if (!CHECK && !existsSync(nestedDir)) mkdirSync(nestedDir, { recursive: true });
 
 let stale = 0;
 for (const [name, content] of Object.entries(outputs)) {
@@ -404,6 +479,20 @@ for (const [name, content] of Object.entries(outputs)) {
     console.log(`wrote public/${name} (${Buffer.byteLength(content)} bytes)`);
   }
 }
+
+for (const [name, content] of Object.entries(detailFiles)) {
+  const target = join(PUBLIC, name);
+  if (CHECK) {
+    const current = existsSync(target) ? readFileSync(target, "utf8") : "";
+    if (current !== content) {
+      stale += 1;
+      console.error(`stale: public/${name}`);
+    }
+  } else {
+    writeFileSync(target, content, "utf8");
+  }
+}
+if (!CHECK) console.log(`wrote ${Object.keys(detailFiles).length} prerendered detail pages under public/p/`);
 
 if (CHECK) {
   if (stale > 0) {

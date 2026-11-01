@@ -413,6 +413,28 @@ for (const [page, file] of Object.entries(splitFiles)) {
 }
 pass("CSS split: page-scoped rules live in their own stylesheet (home / about)");
 
+/* 13. Prerendered detail pages: one file per slug, carrying the hero, and
+       never added to the sitemap (they are served under the ?slug= URL). */
+const prerenderDir = join(PUBLIC, "p");
+const prerenderSlugs = [...projectSlugs, ...noteSlugs];
+if (existsSync(prerenderDir)) {
+  for (const slug of prerenderSlugs) {
+    const file = join(prerenderDir, `${slug}.html`);
+    if (!existsSync(file)) {
+      fail(`prerender: missing public/p/${slug}.html`);
+      continue;
+    }
+    const html = readFileSync(file, "utf8");
+    if (!html.includes('class="prerender-hero"')) fail(`prerender: public/p/${slug}.html has no hero block`);
+    if (!/<h1[^>]*>/.test(html)) fail(`prerender: public/p/${slug}.html has no h1`);
+    if (/<link rel="canonical" href="[^"]*\/p\//.test(html)) fail(`prerender: public/p/${slug}.html must keep the ?slug= canonical`);
+  }
+  for (const loc of sitemapLocs) {
+    if (loc.includes("/p/")) fail(`sitemap.xml must not list prerendered file ${loc}`);
+  }
+  pass(`prerender: ${prerenderSlugs.length} detail pages carry the hero in HTML (not in the sitemap)`);
+}
+
 /* Summary */
 console.log(results.join("\n"));
 if (failures > 0) {

@@ -3,6 +3,11 @@
 User-agent: *
 Allow: /
 
+# Prerendered copies of the detail pages; they are served under the canonical
+# /project.html?slug=… and /note.html?slug=… URLs, so keep crawlers out of the
+# raw files to avoid duplicate URLs.
+Disallow: /p/
+
 # AI / LLM crawlers explicitly allowed (GEO)
 User-agent: GPTBot
 Allow: /
