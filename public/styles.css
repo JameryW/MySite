@@ -506,6 +506,11 @@ body {
   border: 0;
 }
 
+/* The skip target takes programmatic focus; no giant outline on <main>. */
+#main-content:focus {
+  outline: none;
+}
+
 /* Reveal the skip link as soon as it takes focus (keyboard users). */
 .skip-link:focus,
 .skip-link:focus-visible {

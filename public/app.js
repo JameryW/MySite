@@ -240,6 +240,12 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
       block: "start"
     });
     history.pushState(null, "", href);
+    // Fragment navigation normally moves keyboard focus to the target; since
+    // this handler prevents that default, focus the target ourselves when it is
+    // focusable (skip links, anchor targets with tabindex="-1").
+    if (target.hasAttribute("tabindex") || target.tabIndex >= 0) {
+      target.focus({ preventScroll: true });
+    }
   });
 });
 
@@ -1450,10 +1456,6 @@ const renderProjectDetail = (instant = false) => {
        })}
     `;
     projectDetailNode.setAttribute("aria-busy", "false");
-    if (!instant) {
-      const mainContent = document.getElementById("main-content");
-      if (mainContent) mainContent.focus({ preventScroll: true });
-    }
   }
   updateLangToggleUI();
   if (instant) {
@@ -1603,8 +1605,6 @@ const renderNoteDetail = (instant = false) => {
        })}
     `;
     noteDetailNode.setAttribute("aria-busy", "false");
-    const mainContent = document.getElementById("main-content");
-    if (mainContent) mainContent.focus({ preventScroll: true });
   }
   updateLangToggleUI();
   if (instant) {
