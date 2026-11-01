@@ -20,7 +20,8 @@
   ],
   "scripts": {
     "dev": "python3 -m http.server 4173 --directory public",
-    "check": "node scripts/verify-site.mjs",
+    "check": "node scripts/gen-seo.mjs --check && node scripts/verify-site.mjs",
+    "gen:seo": "node scripts/gen-seo.mjs",
     "deploy": "bash scripts/deploy.sh",
     "deploy:nginx": "bash scripts/deploy-nginx.sh"
   }

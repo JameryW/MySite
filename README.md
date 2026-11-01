@@ -111,6 +111,13 @@ Self-hosted [Umami](https://umami.is/) at `stats.jameryw.dev`:
 - **Session replays** — `recorder.js` at 15% sample rate, lazy-injected by `app.js` after window load + idle
 - Blocked by no third-party trackers; CSP allows only `self` and `stats.jameryw.dev`
 
+## SEO & GEO
+
+- Every page ships a canonical URL, page-specific description, Open Graph/Twitter cards (`og:locale` + `og:locale:alternate`), an RSS discovery link, and JSON-LD: `WebSite` + `Person` (home), `ProfilePage` (about), `CollectionPage` + `BreadcrumbList` (listings), and runtime `CreativeWork` / `BlogPosting` + breadcrumbs on detail pages.
+- **GEO surface** (for AI answer engines): `public/llms.txt` (compact index), `public/llms-full.txt` (whole site as plain markdown), `public/feed.xml` (notes RSS), `public/archive.html` (JS-free static index) and `public/sitemap.xml` are generated from `data.js` — run `npm run gen:seo` after content edits. `npm run check` fails when they are stale; `npm run deploy` regenerates them first.
+- `robots.txt` explicitly allows AI crawlers (GPTBot, OAI-SearchBot, ChatGPT-User, PerplexityBot, ClaudeBot, Google-Extended, Applebot-Extended, CCBot) and points at the sitemap, llms files, and feed.
+- `404.html` is `noindex, follow`; invalid detail slugs switch to `noindex` at runtime so soft 404s never get indexed.
+
 ## Deployment
 
 Production is a single VPS (`jwip`, `142.93.21.26`): nginx serves `public/` from `/var/www/html`, and TLS certificates are issued/renewed by **acme.sh** (DNS-01 via Aliyun) into `/root/.acme.sh/jameryw.dev_ecc/`. GitHub Pages is **not** used.

@@ -3,16 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>404 | Jamery Wang</title>
+    <title>404 — Jamery Wang</title>
     <meta name="description" content="页面不存在。" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
     <meta name="theme-color" content="#050816" />
-    <meta property="og:title" content="404 | Jamery Wang" />
-    <meta property="og:description" content="页面不存在。" />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="https://www.jameryw.dev/404.html" />
+    <link rel="alternate" type="application/rss+xml" title="Jamery Wang — Notes" href="./feed.xml" />
+    <meta property="og:title" content="404 — Jamery Wang" />
+    <meta property="og:description" content="Page not found." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.jameryw.dev/404.html" />
     <meta property="og:site_name" content="Jamery Wang" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:locale:alternate" content="en_US" />
     <meta property="og:image" content="https://www.jameryw.dev/og-image.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://www.jameryw.dev/og-image.png" />
@@ -24,7 +29,7 @@
     <meta name="apple-mobile-web-app-title" content="Jamery Wang">
     <link rel="preload" href="./fonts/syne-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="./fonts/space-grotesk-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="./styles.css?v=123" />
+    <link rel="stylesheet" href="./styles.css?v=124" />
     <link rel="preconnect" href="https://stats.jameryw.dev" />
   </head>
   <body>
@@ -112,5 +117,10 @@
     </div>
     <script src="./umami-config.js" defer></script>
     <script src="./notfound.js" defer></script>
+      <noscript>
+      <div class="site-frame">
+        <p>此页面使用 JavaScript 渲染项目与笔记内容。<a href="./archive.html">查看静态站点索引</a>，或阅读 <a href="./llms-full.txt">llms-full.txt</a> 获取完整文本。</p>
+      </div>
+    </noscript>
   </body>
 </html>

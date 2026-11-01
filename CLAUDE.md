@@ -10,6 +10,7 @@ Static personal website for Jamery Wang — a geek-themed, AI-focused personal s
 
 - `npm run dev` — start local dev server at `http://localhost:4173` (Python HTTP server serving `public/`)
 - `npm run check` — zero-dependency release checks (CSP hashes, cache versions, SW precache keys, refs, sitemap)
+- `npm run gen:seo` — regenerate llms.txt / llms-full.txt / feed.xml / archive.html / sitemap.xml from `data.js`
 - `npm run deploy` — rsync `public/` to the production VPS with backup + verification
 - No test suite, linter, or build step is configured
 

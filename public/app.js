@@ -316,6 +316,56 @@ const projectDetailHref = (project) => `./project.html?slug=${project.slug}`;
 const noteDetailHref = (note) => `./note.html?slug=${note.slug}`;
 const detailCanonicalHref = (kind, slug) =>
   `https://www.jameryw.dev/${kind}.html?slug=${encodeURIComponent(slug)}`;
+
+/* ── Detail-page SEO: JSON-LD + breadcrumb + soft-404 guard ── */
+const SITE_ORIGIN = "https://www.jameryw.dev";
+
+const setPageJsonLd = (payload) => {
+  let node = document.querySelector("script[data-seo-jsonld]");
+  if (!node) {
+    node = document.createElement("script");
+    node.type = "application/ld+json";
+    node.setAttribute("data-seo-jsonld", "");
+    document.head.appendChild(node);
+  }
+  node.textContent = JSON.stringify(payload);
+};
+
+const markNoindex = () => {
+  let node = document.querySelector('meta[name="robots"]');
+  if (!node) {
+    node = document.createElement("meta");
+    node.setAttribute("name", "robots");
+    document.head.appendChild(node);
+  }
+  node.setAttribute("content", "noindex, follow");
+};
+
+const personRef = {
+  "@type": "Person",
+  "@id": `${SITE_ORIGIN}/#person`,
+  name: "Jamery Wang",
+  url: `${SITE_ORIGIN}/`
+};
+
+const breadcrumbJsonLd = (items) => ({
+  "@type": "BreadcrumbList",
+  itemListElement: items.map(([name, item], index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name,
+    item
+  }))
+});
+
+const detailBreadcrumbMarkup = (sectionLabel, sectionHref, pageTitle) => `
+        <nav class="detail-breadcrumb" aria-label="${t("aria.breadcrumb")}">
+          <a href="./index.html">${t("nav.home")}</a>
+          <span aria-hidden="true">/</span>
+          <a href="${sectionHref}">${sectionLabel}</a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">${escapeHtml(pageTitle)}</span>
+        </nav>`;
 const projectBySlug = new Map(siteData.projects.map((project) => [project.slug, project]));
 const noteBySlug = new Map(siteData.notes.map((note) => [note.slug, note]));
 
@@ -341,6 +391,7 @@ const I18N = {
     "nav.repos": "仓库",
     "nav.allNotes": "全部笔记",
     "aria.search": "搜索",
+    "aria.breadcrumb": "面包屑导航",
     "aria.footerNav": "页脚导航",
     "aria.theme": "切换主题",
     "aria.menu": "菜单",
@@ -563,6 +614,7 @@ const I18N = {
     "nav.repos": "Repos",
     "nav.allNotes": "All Notes",
     "aria.search": "Search",
+    "aria.breadcrumb": "Breadcrumb",
     "aria.footerNav": "Footer navigation",
     "aria.theme": "Toggle theme",
     "aria.menu": "Menu",
@@ -1271,6 +1323,7 @@ const renderProjectDetail = (instant = false) => {
   const siblings = project ? getSiblingEntries(siteData.projects, project.slug) : { previous: null, next: null };
 
   if (!project) {
+    markNoindex();
     projectDetailNode.innerHTML = `
       <section class="page-hero notfound-hero">
         <p class="eyebrow">${t("detail.notFoundProjectEyebrow")}</p>
@@ -1288,14 +1341,38 @@ const renderProjectDetail = (instant = false) => {
   } else {
     const overview = projectText(project, "overview");
     const highlights = projectHighlights(project) || [];
+    const canonical = detailCanonicalHref("project", project.slug);
     setDetailMeta({
       title: project.title,
       description: overview,
-      canonical: detailCanonicalHref("project", project.slug)
+      canonical
+    });
+    setPageJsonLd({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "CreativeWork",
+          "@id": `${canonical}#work`,
+          name: project.title,
+          headline: project.detailTitle,
+          description: overview,
+          url: canonical,
+          author: personRef,
+          keywords: (project.stack || []).join(", "),
+          about: project.label,
+          isPartOf: { "@type": "WebSite", name: "Jamery Wang", url: `${SITE_ORIGIN}/` },
+          inLanguage: siteLang === "en" ? "en" : "zh-CN"
+        },
+        breadcrumbJsonLd([
+          [t("nav.home"), `${SITE_ORIGIN}/`],
+          [t("nav.projects"), `${SITE_ORIGIN}/projects.html`],
+          [project.title, canonical]
+        ])
+      ]
     });
     projectDetailNode.setAttribute("aria-busy", "true");
     projectDetailNode.innerHTML = `
-      <section class="page-hero reveal">
+      <section class="page-hero reveal">${detailBreadcrumbMarkup(t("nav.projects"), "./projects.html", project.title)}
         <p class="eyebrow">${project.label} / ${project.timeframe} / ${project.status}</p>
         <h1 class="${projectHeroTitleClass(project.title)}">
           ${softBreakCamelTitle(project.title)}
@@ -1402,6 +1479,7 @@ const renderNoteDetail = (instant = false) => {
   const siblings = note ? getSiblingEntries(siteData.notes, note.slug) : { previous: null, next: null };
 
   if (!note) {
+    markNoindex();
     noteDetailNode.innerHTML = `
       <section class="page-hero notfound-hero">
         <p class="eyebrow">${t("detail.notFoundNoteEyebrow")}</p>
@@ -1417,14 +1495,37 @@ const renderNoteDetail = (instant = false) => {
       </section>
     `;
   } else {
+    const canonical = detailCanonicalHref("note", note.slug);
     setDetailMeta({
       title: noteTitle(note),
       description: noteText(note, "overview"),
-      canonical: detailCanonicalHref("note", note.slug)
+      canonical
+    });
+    setPageJsonLd({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BlogPosting",
+          "@id": `${canonical}#article`,
+          headline: noteTitle(note),
+          description: noteText(note, "summary"),
+          url: canonical,
+          author: personRef,
+          keywords: [note.label, note.lens].filter(Boolean).join(", "),
+          articleSection: note.label,
+          isPartOf: { "@type": "WebSite", name: "Jamery Wang", url: `${SITE_ORIGIN}/` },
+          inLanguage: siteLang === "en" ? "en" : "zh-CN"
+        },
+        breadcrumbJsonLd([
+          [t("nav.home"), `${SITE_ORIGIN}/`],
+          [t("nav.notes"), `${SITE_ORIGIN}/notes.html`],
+          [noteTitle(note), canonical]
+        ])
+      ]
     });
     noteDetailNode.setAttribute("aria-busy", "true");
     noteDetailNode.innerHTML = `
-      <section class="page-hero note-detail-hero reveal">
+      <section class="page-hero note-detail-hero reveal">${detailBreadcrumbMarkup(t("nav.notes"), "./notes.html", noteTitle(note))}
         <p class="eyebrow">${note.code ? `${note.code} / ` : ""}${note.label}</p>
         <h1 class="page-title">
           ${noteTitle(note)}

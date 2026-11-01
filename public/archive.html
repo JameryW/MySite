@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>站点索引 / Site Archive — Jamery Wang</title>
+    <meta name="description" content="Jamery Wang 站点的静态纯文本索引：全部项目、笔记与在线演示，无需 JavaScript 即可阅读。" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="canonical" href="https://www.jameryw.dev/archive.html" />
+    <meta property="og:title" content="站点索引 / Site Archive — Jamery Wang" />
+    <meta property="og:description" content="Static text index of every project, note, and live demo on jameryw.dev." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.jameryw.dev/archive.html" />
+    <meta property="og:site_name" content="Jamery Wang" />
+    <meta property="og:image" content="https://www.jameryw.dev/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="站点索引 / Site Archive — Jamery Wang" />
+    <meta name="twitter:description" content="Static text index of every project, note, and live demo on jameryw.dev." />
+    <meta name="twitter:image" content="https://www.jameryw.dev/og-image.png" />
+    <meta name="theme-color" content="#050816" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:;" />
+    <link rel="preload" href="./fonts/syne-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="./fonts/space-grotesk-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="./styles.css?v=124" />
+    <link rel="alternate" type="application/rss+xml" title="Jamery Wang — Notes" href="./feed.xml" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Site Archive — Jamery Wang",
+      "url": "https://www.jameryw.dev/archive.html",
+      "isPartOf": { "@type": "WebSite", "name": "Jamery Wang", "url": "https://www.jameryw.dev" },
+      "description": "Static text index of every project, note, and live demo on jameryw.dev."
+    }
+    </script>
+  </head>
+  <body data-page="archive">
+    <main class="site-frame archive-page">
+      <header class="archive-head">
+        <p class="eyebrow">Index / 站点索引</p>
+        <h1>Site Archive</h1>
+        <p class="page-lead">无需 JavaScript 的静态索引：全部项目、笔记和在线演示。机器可读版本见
+          <a href="./llms.txt">llms.txt</a>、<a href="./llms-full.txt">llms-full.txt</a> 与
+          <a href="./feed.xml">feed.xml</a>。</p>
+        <nav class="archive-actions" aria-label="站点导航">
+          <a class="button secondary" href="./index.html">首页 / Home</a>
+          <a class="button secondary" href="./projects.html">项目 / Projects</a>
+          <a class="button secondary" href="./notes.html">笔记 / Notes</a>
+          <a class="button secondary" href="./about.html">关于 / About</a>
+        </nav>
+      </header>
+      <section class="section archive-section" aria-labelledby="archive-projects">
+        <h2 id="archive-projects">项目 / Projects</h2>
+        <ul class="archive-list">
+        <li class="archive-item">
+          <p class="archive-kicker">A1 / Growth Agent · Active</p>
+          <h3><a href="./project.html?slug=xhs-growth-agent">XhsGrowthAgent</a></h3>
+          <p>小红书增长工作台：确定性内核承载状态与调度，LangGraph 只跑任务图，发布前保留人工确认。</p>
+          <p class="archive-en">Xiaohongshu growth workbench: a deterministic Kernel owns state and scheduling, LangGraph only runs the task graph, and publishing stays human-gated.</p>
+        </li>
+        <li class="archive-item">
+          <p class="archive-kicker">B2 / Quant Agent · Active research</p>
+          <h3><a href="./project.html?slug=quant-agent">QuantAgent</a></h3>
+          <p>代码即策略的启发式代理框架 — 用可执行代码替代神经网络权重作为策略载体，迭代即学习，测试即记忆。</p>
+          <p class="archive-en">A heuristic agent framework where executable code is the policy — not neural weights — so iteration is learning and tests are memory.</p>
+        </li>
+        <li class="archive-item">
+          <p class="archive-kicker">C3 / Quant Engine · Active</p>
+          <h3><a href="./project.html?slug=real-quant-engine">RealQuantEngine</a></h3>
+          <p>模块化量化策略库 — 多策略编排、券商适配和风控管理的交易引擎，支持 Futu 实盘与 dry-run。</p>
+          <p class="archive-en">A modular quant strategy library — multi-strategy orchestration, broker adapters, and risk controls, with Futu live trading and dry-run.</p>
+        </li>
+        <li class="archive-item">
+          <p class="archive-kicker">D4 / Strategy Lab · Active</p>
+          <h3><a href="./project.html?slug=quant-strategy-prototypes">QuantStrategyPrototypes</a></h3>
+          <p>基于 arXiv 论文研究的量化策略原型集合 — 含回测引擎、10 个策略模块和 91% 测试覆盖率。</p>
+          <p class="archive-en">Quant strategy prototypes grounded in arXiv research — backtest engine, 10 strategy modules, and 91% test coverage.</p>
+        </li>
+        <li class="archive-item">
+          <p class="archive-kicker">E5 / Distributed AI · Active</p>
+          <h3><a href="./project.html?slug=ultimate-coders">UltimateCoders</a></h3>
+          <p>分布式 AI 编程平台：DAG 编排、可观测 Dashboard、多适配 Worker，共享分层记忆与混合检索。</p>
+          <p class="archive-en">Distributed AI coding platform: DAG orchestration, observable Dashboard, multi-adapter Workers, shared layered memory and hybrid retrieval.</p>
+        </li>
+        <li class="archive-item">
+          <p class="archive-kicker">H8 / Agent Workflows · Active</p>
+          <h3><a href="./project.html?slug=awesome-workflows">AwesomeWorkflows</a></h3>
+          <p>可在 Codex / Claude Code / Grok Build / DeepSeek Harness 复用的 Issue 驱动交付工作流 — 整合 Matt Pocock 工程技能与 Trellis 任务生命周期。</p>
+          <p class="archive-en">Issue-driven delivery workflows reusable across Codex / Claude Code / Grok Build / DeepSeek Harness — Matt Pocock engineering skills plus the Trellis task lifecycle.</p>
+        </li>
+        </ul>
+      </section>
+      <section class="section archive-section" aria-labelledby="archive-notes">
+        <h2 id="archive-notes">笔记 / Notes</h2>
+        <ul class="archive-list">
+        <li class="archive-item">
+          <p class="archive-kicker">N1 / Agents · Current lens</p>
+          <h3><a href="./note.html?slug=why-agents-matter">为什么 Agent 重要</a> <span class="archive-en-inline">Why Agents Matter</span></h3>
+          <p>我更关心连续执行、记忆和工具协作，而不是单轮问答的漂亮程度。</p>
+        </li>
+        <li class="archive-item">
+          <p class="archive-kicker">N2 / Build · Working rule</p>
+          <h3><a href="./note.html?slug=prototype-first">先做原型</a> <span class="archive-en-inline">Prototype First</span></h3>
+          <p>先跑起来，再暴露真正的问题。很多判断只有在界面和脚本一起工作时才成立。</p>
+        </li>
+        <li class="archive-item">
+          <p class="archive-kicker">N3 / Interface · Ongoing principle</p>
+          <h3><a href="./note.html?slug=interface-as-signal">界面即信号</a> <span class="archive-en-inline">Interface as Signal</span></h3>
+          <p>界面选择会暴露技术理解和产品判断，所以站点本身也应该是作品的一部分。</p>
+        </li>
+        <li class="archive-item">
+          <p class="archive-kicker">N4 / Prompt · 2025 observation</p>
+          <h3><a href="./note.html?slug=prompt-engineering-evolution">提示工程正在演进</a> <span class="archive-en-inline">Prompt Engineering Is Evolving</span></h3>
+          <p>提示工程正在从手工技巧转向结构化接口，从写 prompt 变成设计工具和编排流程。</p>
+        </li>
+        <li class="archive-item">
+          <p class="archive-kicker">N5 / Philosophy · Ongoing practice</p>
+          <h3><a href="./note.html?slug=build-in-public">公开构建</a> <span class="archive-en-inline">Build In Public</span></h3>
+          <p>公开构建不是表演，是让迭代过程本身成为信号，让能力、判断和执行力可直接验证。</p>
+        </li>
+        <li class="archive-item">
+          <p class="archive-kicker">N6 / Org · 2025 observation</p>
+          <h3><a href="./note.html?slug=productivity-and-relations">生产力与生产关系</a> <span class="archive-en-inline">Productivity &amp; Production Relations</span></h3>
+          <p>生产力决定生产关系，用旧的组织形态匹配新生产力，终将被效率更极致的新形态替代。</p>
+        </li>
+        <li class="archive-item">
+          <p class="archive-kicker">N7 / Loop · Ongoing practice</p>
+          <h3><a href="./note.html?slug=evolve-in-loop">在loop中进化</a> <span class="archive-en-inline">Evolve In Loop</span></h3>
+          <p>进化的本质不是一次性跃迁，而是无数次闭环反馈的累积。每一次 loop 都是一次校准：行动→反馈→调整→再行动。</p>
+        </li>
+        <li class="archive-item">
+          <p class="archive-kicker">N8 / Alpha · 2025 observation</p>
+          <h3><a href="./note.html?slug=quantity-to-quality">量变引起质变</a> <span class="archive-en-inline">Quantity Becomes Quality</span></h3>
+          <p>持续高质量的数据产生高质量的策略，高质量策略催生新的 alpha。这是一个自增强的飞轮，不是线性积累。</p>
+        </li>
+        <li class="archive-item">
+          <p class="archive-kicker">N9 / Judgment · 2025 observation</p>
+          <h3><a href="./note.html?slug=knowledge-depreciates-experience-appreciates">知识贬值，经验升值</a> <span class="archive-en-inline">Knowledge Depreciates, Experience Appreciates</span></h3>
+          <p>AI 让可检索的知识快速贬值，却让从踩坑里长出来的工程经验升值。设计能扛亿级并发的分布式架构，靠的不是教科书上的基本知识。</p>
+        </li>
+        <li class="archive-item">
+          <p class="archive-kicker">N10 / Moat · 2025 observation</p>
+          <h3><a href="./note.html?slug=skills-devoured-tools-fortified">技能被吞，工具成护城河</a> <span class="archive-en-inline">Skills Devoured, Tools Fortified</span></h3>
+          <p>模型能力越强，纯软件技能越像免费 API 一样被吞噬。真正难复刻的是连接物理世界的 tools——传感器、执行器、私有协议、真实环境的反馈闭环。</p>
+        </li>
+        <li class="archive-item">
+          <p class="archive-kicker">N11 / Value · 2025 observation</p>
+          <h3><a href="./note.html?slug=pure-software-devalued-physical-premium">纯软件贬值，软硬一体升值</a> <span class="archive-en-inline">Pure Software Devalued, Physical Integration Premium</span></h3>
+          <p>大模型把纯软件能力不断内化为免费基础设施，与物理世界相连的软硬一体技术反而因真实数据闭环而升值。</p>
+        </li>
+        <li class="archive-item">
+          <p class="archive-kicker">N12 / Divergence · 2025 observation</p>
+          <h3><a href="./note.html?slug=ai-k-shaped-divergence">AI 时代的 K 型分化</a> <span class="archive-en-inline">K-Shaped Divergence In The AI Era</span></h3>
+          <p>AI 把世界撕成两极：应用侧越来越文科化，审美与品格决定胜负；技术侧越来越硬核，绑定物理世界的硬件、真实环境的感知—行动—反馈，以及自我进化。</p>
+        </li>
+        </ul>
+      </section>
+      <section class="section archive-section" aria-labelledby="archive-demos">
+        <h2 id="archive-demos">在线演示 / Showcase</h2>
+        <ul class="archive-list">
+        <li class="archive-item"><h3><a href="https://xhs.jameryw.dev" target="_blank" rel="noreferrer">XhsGrowthAgent</a></h3><p>https://xhs.jameryw.dev</p></li>
+        <li class="archive-item"><h3><a href="https://quant.jameryw.dev" target="_blank" rel="noreferrer">QuantAgent</a></h3><p>https://quant.jameryw.dev</p></li>
+        </ul>
+      </section>
+      <footer class="archive-footer">
+        <p>Jamery Wang · Hangzhou / Online · <a href="./index.html">jameryw.dev</a></p>
+        <p><a href="./feed.xml">RSS</a> · <a href="./llms.txt">llms.txt</a> · <a href="./llms-full.txt">llms-full.txt</a> · <a href="./sitemap.xml">sitemap.xml</a></p>
+      </footer>
+    </main>
+  </body>
+</html>

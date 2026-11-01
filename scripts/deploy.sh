@@ -33,8 +33,11 @@ done
 
 cd "$ROOT"
 
+echo "==> regenerate derived SEO assets"
+node scripts/gen-seo.mjs
+
 echo "==> release checks"
-node scripts/verify-site.mjs
+npm run check --silent
 
 if [ -n "$(git status --porcelain 2>/dev/null || true)" ]; then
   echo "!! working tree is dirty — fine for a hotfix, but commit before a release"
