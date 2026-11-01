@@ -790,6 +790,7 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 12px;
+  min-height: 32px;
   flex-shrink: 0;
   white-space: nowrap;
   font-weight: 700;
@@ -1079,7 +1080,8 @@ h1 .page-title-main,
 
 .title-en {
   display: block;
-  font-size: 0.45em;
+  /* 0.45em of a small heading lands near 8px on mobile; keep captions legible. */
+  font-size: max(0.45em, 0.7rem);
   font-weight: 400;
   opacity: 0.5;
   margin-top: 0.15em;
@@ -1587,6 +1589,9 @@ body[data-page="about"] .section + .section {
 }
 
 .section-view-all {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
   flex-shrink: 0;
   margin-left: 0;
   padding-bottom: 6px;
@@ -2236,6 +2241,7 @@ body[data-page="home"] .work-index {
 /* Work cards: status pill */
 body[data-page="home"] .work-status-pill {
   padding: 4px 11px;
+  font-size: max(0.68rem, 0.7rem);
   border: 1px solid rgba(216, 255, 98, 0.34);
   border-radius: 999px;
   background: rgba(216, 255, 98, 0.08);
@@ -2324,7 +2330,7 @@ body[data-page="home"] .note-card .card-actions {
   }
 
   body[data-page="home"] .work-status-pill {
-    font-size: 0.62rem;
+    font-size: max(0.62rem, 0.68rem);
     padding: 3px 9px;
   }
 
@@ -2396,6 +2402,9 @@ body[data-page="home"] .note-card .card-actions {
 }
 
 .card-inline-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
   color: var(--muted);
   font-size: 0.78rem;
   font-weight: 700;
@@ -3584,6 +3593,12 @@ body[data-page="about"] .about-now-row .card-inline-link:hover {
   color: var(--pink);
 }
 
+body[data-page="about"] .about-now-row h3 a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+}
+
 body[data-page="about"] .about-now-row .work-status-pill {
   padding: 3px 9px;
   border: 1px solid rgba(216, 255, 98, 0.34);
@@ -3870,6 +3885,12 @@ body[data-page="about"] .about-contact-links .platform-icon {
   border-top: 1px solid rgba(162, 176, 255, 0.12);
 }
 
+.archive-item h3 a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+}
+
 .archive-item h3 {
   margin: 4px 0 8px;
   font-size: clamp(1.05rem, 1.6vw, 1.25rem);
@@ -3917,6 +3938,13 @@ body[data-page="about"] .about-contact-links .platform-icon {
   margin: 0;
 }
 
+/* Footer links are navigation, not inline prose: give them a real target. */
+.archive-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+}
+
 /* ── Detail breadcrumb ── */
 .detail-breadcrumb {
   display: flex;
@@ -3932,6 +3960,9 @@ body[data-page="about"] .about-contact-links .platform-icon {
 }
 
 .detail-breadcrumb a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
   color: var(--muted);
   text-decoration: none;
   transition: color 160ms ease;
@@ -5468,7 +5499,7 @@ html[data-theme="light"] .related-track-grid > .track-card:hover {
   body[data-page="home"] .work-card .work-status-pill,
   body[data-page="home"] .work-card .showcase-demo-badge {
     padding: 3px 8px;
-    font-size: 0.6rem;
+    font-size: max(0.6rem, 0.66rem);
   }
 
   /* 421-760px used to keep the desktop `nowrap` name/subtitle: at ~421-488px
