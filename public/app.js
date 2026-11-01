@@ -392,6 +392,7 @@ const I18N = {
     "cta.demos": "进入演示",
     "cta.allProjects": "全部项目",
     "cta.viewSource": "查看源码",
+    "cta.viewPrivateSource": "查看公开仓库",
     "cta.openDetail": "查看详情",
     "cta.tryDemo": "在线体验",
     "cta.backProjects": "返回项目",
@@ -618,6 +619,7 @@ const I18N = {
     "cta.demos": "Open demos",
     "cta.allProjects": "All projects",
     "cta.viewSource": "View source",
+    "cta.viewPrivateSource": "View public repos",
     "cta.openDetail": "Open detail",
     "cta.tryDemo": "Try demo",
     "cta.backProjects": "Back to projects",
@@ -1349,6 +1351,12 @@ const renderProjectDetail = (instant = false) => {
     const overview = projectText(project, "overview");
     const highlights = projectHighlights(project) || [];
     const canonical = detailCanonicalHref("project", project.slug);
+    const sourceHref = project.sourcePrivate
+      ? "https://github.com/jameryw?tab=repositories"
+      : project.href;
+    const sourceLabel = project.sourcePrivate
+      ? t("cta.viewPrivateSource")
+      : t("cta.viewSource");
     setDetailMeta({
       title: project.title,
       description: overview,
@@ -1396,13 +1404,13 @@ const renderProjectDetail = (instant = false) => {
           ${
             project.demoUrl
               ? `<a class="button primary" href="${project.demoUrl}" target="_blank" rel="noreferrer">${t("cta.tryDemo")}</a>
-          <a class="button secondary" href="${project.href}" target="_blank" rel="noreferrer">
+          <a class="button secondary" href="${sourceHref}" target="_blank" rel="noreferrer">
             <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="vertical-align:-3px;margin-right:6px;"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-            ${t("cta.viewSource")}
+            ${sourceLabel}
           </a>`
-              : `<a class="button primary" href="${project.href}" target="_blank" rel="noreferrer">
+              : `<a class="button primary" href="${sourceHref}" target="_blank" rel="noreferrer">
             <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="vertical-align:-3px;margin-right:6px;"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-            ${t("cta.viewSource")}
+            ${sourceLabel}
           </a>`
           }
           <a class="button secondary" href="./projects.html">${t("cta.backProjects")}</a>
