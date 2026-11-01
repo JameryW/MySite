@@ -117,6 +117,7 @@ Self-hosted [Umami](https://umami.is/) at `stats.jameryw.dev`:
 - **GEO surface** (for AI answer engines): `public/llms.txt` (compact index), `public/llms-full.txt` (whole site as plain markdown), `public/feed.xml` (notes RSS with `pubDate`), `public/archive.html` (JS-free static index) and `public/sitemap.xml` (with `lastmod`) are generated from `data.js` — run `npm run gen:seo` after content edits. Every project/note carries `date` + `updated` (derived from git history, kept in `data.js`) which feed RSS, JSON-LD dates, and sitemap lastmod. `npm run check` fails when they are stale; `npm run deploy` regenerates them first.
 - `robots.txt` explicitly allows AI crawlers (GPTBot, OAI-SearchBot, ChatGPT-User, PerplexityBot, ClaudeBot, Google-Extended, Applebot-Extended, CCBot) and points at the sitemap, llms files, and feed.
 - `404.html` is `noindex, follow`; invalid detail slugs switch to `noindex` at runtime so soft 404s never get indexed.
+- nginx adds the response-level CSP (mirrors page meta + `frame-ancestors`/`base-uri`/`form-action`/`object-src`), HSTS, nosniff, Referrer-Policy, X-Frame-Options and Permissions-Policy; `/.well-known/security.txt` carries the security contact (refresh its `Expires` yearly).
 
 ## Deployment
 
