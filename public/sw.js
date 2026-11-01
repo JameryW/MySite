@@ -1,4 +1,4 @@
-const CACHE = 'mysite-v164';
+const CACHE = 'mysite-v165';
 /* Precache keys must exactly match the URLs pages request, otherwise
    caches.match() never hits (query params are part of the cache key).
    Bump styles.css?v= / app.js?v= / data.js?v= in every HTML head together
@@ -14,7 +14,7 @@ const SHELL = [
   './project.html',
   './note.html',
   './404.html',
-  './styles.css?v=131',
+  './styles.css?v=132',
   './fonts/syne-latin-var-v1.woff2',
   './fonts/space-grotesk-latin-var-v1.woff2',
   './xiaohongshu-logo.png',
@@ -36,9 +36,16 @@ self.addEventListener('install', (e) => {
 
 self.addEventListener('activate', (e) => {
   e.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
-    )
+    (async () => {
+      // Fetch navigations in parallel with service-worker startup.
+      if (self.registration.navigationPreload) {
+        try {
+          await self.registration.navigationPreload.enable();
+        } catch (error) {}
+      }
+      const keys = await caches.keys();
+      await Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)));
+    })()
   );
   self.clients.claim();
 });
@@ -57,17 +64,22 @@ self.addEventListener('fetch', (e) => {
      the precached shell, then index as a last resort. */
   if (e.request.mode === 'navigate') {
     e.respondWith(
-      fetch(e.request).then((response) => {
-        if (response.ok) {
-          const clone = response.clone();
-          caches.open(CACHE).then((c) => c.put(e.request, clone));
+      (async () => {
+        try {
+          const preload = await e.preloadResponse;
+          const response = preload || (await fetch(e.request));
+          if (response && response.ok) {
+            const clone = response.clone();
+            caches.open(CACHE).then((c) => c.put(e.request, clone));
+          }
+          return response;
+        } catch (error) {
+          const cached = await caches.match(e.request);
+          if (cached) return cached;
+          const notFound = await caches.match('./404.html');
+          return notFound || (await caches.match('./index.html'));
         }
-        return response;
-      }).catch(() =>
-        caches.match(e.request).then((cached) =>
-          cached || caches.match('./404.html').then((notFound) => notFound || caches.match('./index.html'))
-        )
-      )
+      })()
     );
     return;
   }
