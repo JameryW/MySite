@@ -299,6 +299,14 @@ if (dictStart === -1) {
   if (missingEn.length) fail(`i18n: keys missing in en: ${missingEn.slice(0, 5).join(", ")}`);
   if (missingZh.length) fail(`i18n: keys missing in zh: ${missingZh.slice(0, 5).join(", ")}`);
 
+  /* Pages that never load app.js cannot translate data-i18n text, so any
+     such attribute there would stay in the hard-coded language. */
+  for (const { name, html } of pages) {
+    if (html.includes("app.js?")) continue;
+    const stray = [...html.matchAll(/data-i18n="([^"]+)"/g)].map((m) => m[1]);
+    if (stray.length) fail(`${name}: uses data-i18n text without app.js (${stray.slice(0, 3).join(", ")})`);
+  }
+
   const referenced = new Set();
   for (const { html } of pages) {
     for (const match of html.matchAll(/data-i18n(?:-aria|-placeholder)?="([^"]+)"/g)) referenced.add(match[1]);

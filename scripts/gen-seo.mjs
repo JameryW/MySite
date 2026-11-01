@@ -317,7 +317,7 @@ const archive = `<!DOCTYPE html>
     </script>
   </head>
   <body data-page="archive">
-    <a class="skip-link" href="#main-content" data-i18n="aria.skip">跳到主要内容</a>
+    <a class="skip-link" href="#main-content">跳到主要内容 · Skip to content</a>
     <main class="site-frame archive-page" id="main-content" tabindex="-1">
       <header class="archive-head">
         <p class="eyebrow">Index / 站点索引</p>
