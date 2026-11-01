@@ -83,7 +83,8 @@ Language is site-wide (`localStorage` key `site-lang`, legacy `notes-lang` still
 
 - **Production = one VPS** (`jwip`, `142.93.21.26`): nginx serves `/var/www/html` from `public/`; TLS via acme.sh DNS-01 (Aliyun), certs in `/root/.acme.sh/jameryw.dev_ecc/`, renewed by cron. GitHub Pages is not used (the old Pages workflow was removed).
 - nginx behavior lives in `deploy/nginx.conf`: port 80 → HTTPS redirect, apex → www 301, custom 404 (`/404.html`), gzip, `Cache-Control: no-cache` for HTML + `sw.js`, 1-year immutable caching for `?v=` statics/fonts, the box's `/xray` gRPC proxy (keep it), and response-hardening headers (HSTS, nosniff, Referrer-Policy, X-Frame-Options, Permissions-Policy) declared per HTTPS server block — a server-level `add_header` suppresses the ones inherited from `http`, so never move them to a location. The old `/ws` proxy was removed server-side as a dead route.
-- Deploy with `npm run deploy` (script runs `npm run check`, backs up the web root to `/root/deploy-backups/`, rsyncs, and verifies the deployed versions). Roll back with `ssh jwip 'tar xzf /root/deploy-backups/mysite-html-<stamp>.tgz -C /var/www'`.
+- Deploy with `npm run deploy` (script runs `npm run check`, backs up the web root to `/root/deploy-backups/`, rsyncs, and verifies the deployed versions).
+- GitHub Pages runs as a read-only **mirror** (`https://jameryw.github.io/MySite/`) via `.github/workflows/pages.yml`, publishing `public/` on every push to `main`. Canonical URLs and the sitemap still point at `www.jameryw.dev`, so the mirror must never be treated as the primary deploy target. Roll back with `ssh jwip 'tar xzf /root/deploy-backups/mysite-html-<stamp>.tgz -C /var/www'`.
 - Server config changes go through `deploy/nginx.conf` + `npm run deploy:nginx`; never hand-edit `/etc/nginx/nginx.conf` without syncing it back into the repo.
 
 ## Security
