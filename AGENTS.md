@@ -50,7 +50,7 @@ Root config: `package.json`, `CLAUDE.md`, `.editorconfig`, `.gitignore`
 - `window.siteData` from `data.js` is the single source of truth
 - Theme switching via `[data-theme="light"]` attribute on `<html>`
 - Scroll animations via IntersectionObserver (add `.reveal` class to new sections)
-- Fonts: self-hosted latin variable woff2 (Syne, Space Grotesk) + system CJK stack (PingFang SC / Microsoft YaHei) — no Google Fonts requests anywhere
+- Fonts: self-hosted latin variable woff2 (Syne, Space Grotesk) + system CJK stack (PingFang SC / Microsoft YaHei) — no Google Fonts requests anywhere. Preload them with `fetchpriority="low"`: on a slow/cross-border link the 57 KB of fonts otherwise competes with the render-blocking stylesheet and pushes FCP/LCP out by ~250 ms (measured)
 - `recorder.js` (umami session replay) is lazy-injected by `app.js` after `window load` + idle; never a static head script
 - Cache versioning: bump `styles.css?v=` / `app.js?v=` / `data.js?v=` in every page head together with the matching `sw.js` SHELL keys (exact URLs, query string included) and the `sw.js` CACHE name. `npm run check` fails on any mismatch in CI.
 - SEO/GEO artifacts are **derived** from `data.js`: after editing content run `npm run gen:seo`; the generator also mints the sitemap and the no-JS `archive.html`, and CI fails if they are stale. Never hand-edit `llms.txt`, `llms-full.txt`, `feed.xml`, `archive.html`, or `sitemap.xml`.

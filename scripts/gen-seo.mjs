@@ -301,8 +301,8 @@ const archive = `<!DOCTYPE html>
     <meta name="twitter:image" content="${SITE}/og-image.png" />
     <meta name="theme-color" content="#050816" />
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:;" />
-    <link rel="preload" href="./fonts/syne-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="./fonts/space-grotesk-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="./fonts/syne-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin fetchpriority="low" />
+    <link rel="preload" href="./fonts/space-grotesk-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin fetchpriority="low" />
     <link rel="stylesheet" href="${stylesHref}" />
     <link rel="alternate" type="application/rss+xml" title="Jamery Wang — Notes" href="./feed.xml" />
     <script type="application/ld+json">
