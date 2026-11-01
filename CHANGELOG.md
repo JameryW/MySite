@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.2.4] - 2026-11-01
+
+### Added
+
+- Hover/focus-intent prefetch of same-origin HTML shells (skips Save-Data, external and new-tab links)
+- GitHub Pages mirror via Actions (`https://jameryw.github.io/MySite/`), canonical URLs stay on the VPS
+- Print stylesheet for project/note detail pages (chrome hidden, external URLs expanded, A4-friendly)
+- Author meta, IndieWeb `rel="me"` links, `twitter:site`/`twitter:creator`, `og:image:type` on every page
+- `sourcePrivate` handling: private-repo projects link to the public repos tab instead of a 404
+
+### Changed
+
+- HTML is served with `Cache-Control: max-age=60` (repeat navigations ~2× faster; `sw.js` stays no-cache)
+- Skip link is visible on focus and now moves focus to `<main>`; detail pages no longer steal the first Tab
+- Command palette is a proper dialog (role/aria-modal/combobox/listbox/aria-activedescendant) with focus return
+- About ID-card reserves its chip rows, dropping CLS from 0.0593 to ≤0.0147
+- Print CSS no longer prints internal URLs or navigation sections
+- Cache bump: `app.js?v=90`, `data.js?v=44`, `styles.css?v=131`, SW `mysite-v164`
+
 ## [1.2.3] - 2026-11-01
 
 ### Added

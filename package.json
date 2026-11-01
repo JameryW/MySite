@@ -1,6 +1,6 @@
 {
   "name": "my-site",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "private": true,
   "description": "Geek-themed, AI-focused personal website — zero dependencies, no build step, vanilla HTML/CSS/JS",
   "author": "Jamery Wang",
