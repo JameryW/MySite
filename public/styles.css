@@ -1,6 +1,39 @@
 /* ── Self-hosted latin variable fonts ──
    Pulled from Google Fonts css2 (SIL OFL 1.1), 2026-09-08. Versioned filenames
    double as cache keys; unicode-range mirrors Google's own css2 latin block. */
+/* Cross-document view transitions (Chrome 126+): same-origin navigations
+   cross-fade instead of flashing the default white/black screen. */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation: 140ms ease both vt-fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 200ms ease both vt-fade-in;
+}
+
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}
+
 @font-face {
   font-family: "Syne";
   font-style: normal;
