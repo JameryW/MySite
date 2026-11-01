@@ -20,6 +20,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Author meta, IndieWeb `rel="me"` links, `twitter:site`/`twitter:creator`, `og:image:type` on every page
 - `sourcePrivate` handling: private-repo projects link to the public repos tab instead of a 404
 
+- i18n zh/en dictionaries now verified for key parity and reference resolution in `npm run check` / CI; 24 dead keys removed (201 remain, all referenced)
+
 ### Changed
 
 - HTML is served with `Cache-Control: max-age=60` (repeat navigations ~2× faster; `sw.js` stays no-cache)
