@@ -24,6 +24,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- Font preloads are `fetchpriority="low"` so they no longer compete with the render-blocking CSS (cold FCP/LCP −263 ms measured on the live cross-border path, CLS unchanged)
 - HTML is served with `Cache-Control: max-age=60` (repeat navigations ~2× faster; `sw.js` stays no-cache)
 - Skip link is visible on focus and now moves focus to `<main>`; detail pages no longer steal the first Tab
 - Command palette is a proper dialog (role/aria-modal/combobox/listbox/aria-activedescendant) with focus return
