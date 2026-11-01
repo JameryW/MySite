@@ -23,6 +23,7 @@ const homeNotesNode = document.querySelector("[data-home-notes]");
 const projectLibraryNode = document.querySelector("[data-project-library]");
 const noteLibraryNode = document.querySelector("[data-note-library]");
 const showcaseNode = document.querySelector("[data-showcase]");
+const showcaseCountNodes = document.querySelectorAll("[data-showcase-count]");
 const nowBuildingNode = document.querySelector("[data-now-building]");
 const profileFocusNodes = document.querySelectorAll("[data-profile-focus]");
 const clockNodes = document.querySelectorAll("[data-local-clock]");
@@ -151,8 +152,9 @@ if (themeToggle) {
 /* Palette hint: ⌘K on Apple platforms, Ctrl+K elsewhere (Linux/Windows). */
 const isApplePlatform = /Mac|iPhone|iPad|iPod/i.test(navigator.platform || "") ||
   (/Mac/i.test(navigator.userAgent || "") && navigator.maxTouchPoints > 0);
+const paletteShortcut = isApplePlatform ? "⌘K" : "Ctrl+K";
 document.querySelectorAll(".palette-hint kbd").forEach((kbd) => {
-  kbd.textContent = isApplePlatform ? "⌘K" : "Ctrl+K";
+  kbd.textContent = paletteShortcut;
 });
 
 /* ── Terminal Command / Output Stagger ── */
@@ -339,6 +341,7 @@ const I18N = {
     "nav.repos": "仓库",
     "nav.allNotes": "全部笔记",
     "aria.search": "搜索",
+    "aria.footerNav": "页脚导航",
     "aria.theme": "切换主题",
     "aria.menu": "菜单",
     "aria.lang": "语言切换 Language",
@@ -369,6 +372,8 @@ const I18N = {
     "cta.thinkNotes": "思考笔记",
     "cta.top": "顶部",
     "filter.all": "全部",
+    "filter.aria": "内容筛选",
+    "filter.results": "条结果",
     "home.tagline": "终端是第二个大脑，LLM 是第三个。跑通原型比写文档勤；debug Agent 比 debug 自己勤。",
     "home.lead": "扎根杭州，专注 Agent 内核、分层记忆与可观测执行面；量化策略与 Code-as-Policy 也在同一条验证链上——原型跑通才叫验证。",
     "home.workSummary": "当前主线上的增长 Agent、分布式编程与量化系统。",
@@ -412,7 +417,7 @@ const I18N = {
     "projects.signalSurfaceValue": "GitHub 源码 + Showcase",
     "projects.signalBiasValue": "先跑通闭环，再打磨结构",
     "projects.footerKicker": "Projects / Open Build Loop",
-    "projects.signalAria": "项目信号面板",
+    "projects.signalAria": "项目概览",
     "palette.page": "页面",
     "palette.external": "外部",
     "palette.github": "GitHub 主页",
@@ -421,6 +426,7 @@ const I18N = {
     "showcase.eyebrow": "Showcase / Live Demos",
     "showcase.titleSub": "Live Demos",
     "showcase.lead": "可直接打开的运行面：Showcase、Replay，以及量化系统演示。",
+    "showcase.count": "个演示",
     "showcase.demosTitle": "在线演示",
     "showcase.demosSummary": "先看运行结果，再按需打开源码。",
     "showcase.demosKicker": "Live Products",
@@ -435,7 +441,7 @@ const I18N = {
     "showcase.signalFocusValue": "Growth Agent · Quant demos",
     "showcase.signalNextValue": "先看输出，再打开源码",
     "showcase.footerKicker": "Showcase / Ship Then Show",
-    "showcase.signalAria": "Showcase 信号面板",
+    "showcase.signalAria": "Showcase 概览",
     "notes.eyebrow": "Notes / Working Thoughts",
     "notes.titleSub": "Working Thoughts",
     "notes.topbarStatus": "工作笔记",
@@ -453,7 +459,7 @@ const I18N = {
     "notes.signalPublished": "篇在线",
     "notes.signalScopeValue": "Agents · tools · failures · UI",
     "notes.footerKicker": "Notes / Think In Public",
-    "notes.signalAria": "笔记信号面板",
+    "notes.signalAria": "笔记概览",
     "section.work": "核心构建",
     "section.workKicker": "Selected Work",
     "section.notes": "工作笔记",
@@ -557,6 +563,7 @@ const I18N = {
     "nav.repos": "Repos",
     "nav.allNotes": "All Notes",
     "aria.search": "Search",
+    "aria.footerNav": "Footer navigation",
     "aria.theme": "Toggle theme",
     "aria.menu": "Menu",
     "aria.lang": "Language",
@@ -587,6 +594,8 @@ const I18N = {
     "cta.thinkNotes": "Browse notes",
     "cta.top": "Top",
     "filter.all": "All",
+    "filter.aria": "Content filters",
+    "filter.results": "results",
     "home.tagline": "The terminal is my second brain, the LLM the third. Ship prototypes more than docs; debug Agents more than myself.",
     "home.lead": "Based in Hangzhou, focused on Agent kernels, layered memory, and observable execution — with quant strategies and Code-as-Policy on the same verification loop. A prototype only counts once it runs.",
     "home.workSummary": "Growth Agents, distributed coding systems, and quant builds on the current main line.",
@@ -630,7 +639,7 @@ const I18N = {
     "projects.signalSurfaceValue": "GitHub source + live Showcase",
     "projects.signalBiasValue": "Ship the loop, then refine structure",
     "projects.footerKicker": "Projects / Open Build Loop",
-    "projects.signalAria": "Projects signal panel",
+    "projects.signalAria": "Projects overview",
     "palette.page": "Page",
     "palette.external": "External",
     "palette.github": "GitHub Profile",
@@ -639,6 +648,7 @@ const I18N = {
     "showcase.eyebrow": "Showcase / Live Demos",
     "showcase.titleSub": "Live Demos",
     "showcase.lead": "Live surfaces you can open now: Showcase, Replay, and quant demos.",
+    "showcase.count": "demos",
     "showcase.demosTitle": "Running surfaces",
     "showcase.demosSummary": "Inspect the running result first, then open the source if you want.",
     "showcase.demosKicker": "Live Products",
@@ -653,7 +663,7 @@ const I18N = {
     "showcase.signalFocusValue": "Growth Agent · Quant demos",
     "showcase.signalNextValue": "Inspect output, then open source",
     "showcase.footerKicker": "Showcase / Ship Then Show",
-    "showcase.signalAria": "Showcase signal panel",
+    "showcase.signalAria": "Showcase overview",
     "notes.eyebrow": "Notes / Working Thoughts",
     "notes.titleSub": "Working Thoughts",
     "notes.topbarStatus": "Working Notes",
@@ -671,7 +681,7 @@ const I18N = {
     "notes.signalPublished": "notes live",
     "notes.signalScopeValue": "Agents · tools · failures · UI",
     "notes.footerKicker": "Notes / Think In Public",
-    "notes.signalAria": "Notes signal panel",
+    "notes.signalAria": "Notes overview",
     "section.work": "Core Builds",
     "section.workKicker": "Selected Work",
     "section.notes": "Working Notes",
@@ -820,6 +830,12 @@ const applyChromeI18n = () => {
     const value = t(key);
     if (value) el.setAttribute("placeholder", value);
   });
+  /* The visible shortcut text is part of the palette button's accessible
+     name (WCAG 2.5.3 label-in-name); re-applied on locale changes. */
+  document.querySelectorAll("[data-palette-trigger]").forEach((btn) => {
+    const label = t("aria.search");
+    if (label) btn.setAttribute("aria-label", `${label} ${paletteShortcut}`);
+  });
   const profileTitle = siteData.profile && (siteLang === "en" ? siteData.profile.titleEn : siteData.profile.title);
   document.querySelectorAll("[data-profile-title]").forEach((el) => {
     if (profileTitle) el.textContent = profileTitle;
@@ -864,6 +880,11 @@ function renderNoteLibraries(instant = false) {
     });
   }
 }
+const updateProjectCount = (visible) => {
+  projectCountNodes.forEach((node) => {
+    node.textContent = visible;
+  });
+};
 const updateNoteCount = (visible) => {
   noteCountNodes.forEach((node) => {
     node.textContent = visible;
@@ -1183,11 +1204,14 @@ function setupFilter(container, items, onFilter) {
       if (shown) visible++;
     });
     if (typeof onFilter === "function") onFilter(activeLabel, visible, cards.length);
+    if (filterStatus) filterStatus.textContent = `${visible} ${t("filter.results")}`;
     return visible;
   };
 
   const filterBar = document.createElement("div");
   filterBar.className = "filter-bar";
+  filterBar.setAttribute("role", "group");
+  filterBar.setAttribute("aria-label", t("filter.aria"));
 
   const allPill = document.createElement("button");
   allPill.className = "filter-pill active";
@@ -1206,6 +1230,12 @@ function setupFilter(container, items, onFilter) {
 
   container.parentNode.insertBefore(filterBar, container);
 
+  const filterStatus = document.createElement("p");
+  filterStatus.className = "visually-hidden";
+  filterStatus.setAttribute("role", "status");
+  filterStatus.setAttribute("aria-live", "polite");
+  container.parentNode.insertBefore(filterStatus, container);
+
   filterBar.addEventListener("click", (e) => {
     const pill = e.target.closest(".filter-pill");
     if (!pill) return;
@@ -1223,7 +1253,7 @@ function setupFilter(container, items, onFilter) {
 }
 
 if (projectLibraryNode) {
-  setupFilter(projectLibraryNode, siteData.projects);
+  setupFilter(projectLibraryNode, siteData.projects, (label, visible) => updateProjectCount(visible));
 }
 
 if (noteLibraryNode) {
@@ -1400,7 +1430,7 @@ const renderNoteDetail = (instant = false) => {
           ${noteTitle(note)}
           <span>${noteDetailTitle(note)}</span>
         </h1>
-        ${noteHeadingEn(note) ? `<p class="note-detail-en">${noteHeadingEn(note)}</p>` : ""}
+        <p class="page-lead">${escapeHtml(String(noteText(note, "summary") || ""))}</p>
         <p class="listing-hero-meta detail-hero-meta note-detail-meta reveal">
           ${[
             note.status,
@@ -1517,6 +1547,9 @@ const renderProjectSurfaces = (instant = false) => {
       </a>
     `;
     }).join("");
+    showcaseCountNodes.forEach((node) => {
+      node.textContent = demoProjects.length;
+    });
   }
   if (nowBuildingNode) {
     const nowItems = Array.isArray(siteData.profile?.now) ? siteData.profile.now : [];
@@ -1632,6 +1665,19 @@ if (reduceMotion) {
       if (rect.top < window.innerHeight && rect.bottom > 0) node.classList.add("visible");
     });
   }, 4000);
+
+  /* Above-the-fold reveal nodes paint immediately: holding them at opacity 0
+     while the observer spins up delayed the largest text blocks (e.g. the
+     note-detail overview) and pushed LCP past 1s on first visit. */
+  revealNodes.forEach((node) => {
+    const rect = node.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      /* No fade for the first viewport: transition + stagger is what held
+         above-the-fold LCP back, not the class itself. */
+      node.style.transition = "none";
+      node.classList.add("visible");
+    }
+  });
 
   const observer = new IntersectionObserver(
     (entries) => {
