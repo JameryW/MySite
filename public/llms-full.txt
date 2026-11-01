@@ -30,6 +30,7 @@ Canonical: https://www.jameryw.dev · Languages: zh (primary) + en · Generated 
 
 URL: https://www.jameryw.dev/project.html?slug=xhs-growth-agent
 Status: Active · Timeframe: 2025–now · Role: Architect / Builder
+Published: 2026-05-31 · Updated: 2026-10-21
 Stack: LangGraph, Kernel Runtime, Python, Vue 3, hy-memory
 
 Summary: 小红书增长工作台：确定性内核承载状态与调度，LangGraph 只跑任务图，发布前保留人工确认。
@@ -64,6 +65,7 @@ Outputs:
 
 URL: https://www.jameryw.dev/project.html?slug=quant-agent
 Status: Active research · Timeframe: 2025–now · Role: Architect / Builder
+Published: 2026-05-31 · Updated: 2026-09-22
 Stack: Python, LLM, Code-as-Policy, SQLite, Bandit
 
 Summary: 代码即策略的启发式代理框架 — 用可执行代码替代神经网络权重作为策略载体，迭代即学习，测试即记忆。
@@ -95,6 +97,7 @@ Outputs:
 
 URL: https://www.jameryw.dev/project.html?slug=real-quant-engine
 Status: Active · Timeframe: 2025–now · Role: Architect / Builder
+Published: 2026-05-31 · Updated: 2026-10-21
 Stack: Python, Trading, Futu, Risk Management, Modular Strategy
 
 Summary: 模块化量化策略库 — 多策略编排、券商适配和风控管理的交易引擎，支持 Futu 实盘与 dry-run。
@@ -126,6 +129,7 @@ Outputs:
 
 URL: https://www.jameryw.dev/project.html?slug=quant-strategy-prototypes
 Status: Active · Timeframe: 2025–now · Role: Research / Builder
+Published: 2026-05-31 · Updated: 2026-06-26
 Stack: Python, Backtest, arXiv Research, CI/CD, Strategy Prototyping
 
 Summary: 基于 arXiv 论文研究的量化策略原型集合 — 含回测引擎、10 个策略模块和 91% 测试覆盖率。
@@ -157,6 +161,7 @@ Outputs:
 
 URL: https://www.jameryw.dev/project.html?slug=ultimate-coders
 Status: Active · Timeframe: 2025–now · Role: Architect / Builder
+Published: 2026-06-11 · Updated: 2026-10-21
 Stack: Rust, Python, DAG, NATS, gRPC, Grok Build, Qdrant
 
 Summary: 分布式 AI 编程平台：DAG 编排、可观测 Dashboard、多适配 Worker，共享分层记忆与混合检索。
@@ -191,6 +196,7 @@ Outputs:
 
 URL: https://www.jameryw.dev/project.html?slug=awesome-workflows
 Status: Active · Timeframe: 2026-08–now · Role: Architect / Builder
+Published: 2026-09-03 · Updated: 2026-09-03
 Stack: Agent Skills, Trellis, Codex, Claude Code, GitHub Issues
 
 Summary: 可在 Codex / Claude Code / Grok Build / DeepSeek Harness 复用的 Issue 驱动交付工作流 — 整合 Matt Pocock 工程技能与 Trellis 任务生命周期。
@@ -228,6 +234,7 @@ Outputs:
 URL: https://www.jameryw.dev/note.html?slug=why-agents-matter
 Title (EN): Why Agents Matter · Detail: 执行循环胜过单轮演示 / Execution Loop Over Single Turn Demos
 Status: Research note · Timeframe: Current lens · Meta: Focus: execution loop
+Published: 2026-05-31 · Updated: 2026-09-14
 
 Summary: 我更关心连续执行、记忆和工具协作，而不是单轮问答的漂亮程度。
 Summary (EN): I care more about continuous execution, memory, and tool collaboration than about polished single-turn answers.
@@ -261,6 +268,7 @@ Related projects:
 URL: https://www.jameryw.dev/note.html?slug=prototype-first
 Title (EN): Prototype First · Detail: 先发一版，别过度解释 / Ship A First Version Before Over-Explaining
 Status: Build note · Timeframe: Working rule · Meta: Focus: fast validation
+Published: 2026-05-31 · Updated: 2026-05-31
 
 Summary: 先跑起来，再暴露真正的问题。很多判断只有在界面和脚本一起工作时才成立。
 Summary (EN): Get it running first, then let the real problems surface. Many judgments only hold once the interface and the scripts work together.
@@ -294,6 +302,7 @@ Related projects:
 URL: https://www.jameryw.dev/note.html?slug=interface-as-signal
 Title (EN): Interface as Signal · Detail: 界面也在解释构建者 / The Interface Also Explains The Builder
 Status: Interface note · Timeframe: Ongoing principle · Meta: Focus: visible taste
+Published: 2026-05-31 · Updated: 2026-05-31
 
 Summary: 界面选择会暴露技术理解和产品判断，所以站点本身也应该是作品的一部分。
 Summary (EN): Interface choices reveal technical understanding and product judgment, so the site itself should be part of the work.
@@ -324,6 +333,7 @@ Related projects:
 URL: https://www.jameryw.dev/note.html?slug=prompt-engineering-evolution
 Title (EN): Prompt Engineering Is Evolving · Detail: 从巧妙提示到结构化接口 / From Clever Prompts To Structured Interfaces
 Status: Observation note · Timeframe: 2025 observation · Meta: Focus: structural shift
+Published: 2026-05-31 · Updated: 2026-09-14
 
 Summary: 提示工程正在从手工技巧转向结构化接口，从写 prompt 变成设计工具和编排流程。
 Summary (EN): Prompt engineering is shifting from handcrafted tricks to structured interfaces — from writing prompts to designing tools and orchestrating flows.
@@ -357,6 +367,7 @@ Related projects:
 URL: https://www.jameryw.dev/note.html?slug=build-in-public
 Title (EN): Build In Public · Detail: 过程也是产品 / The Process Is Part Of The Product
 Status: Philosophy note · Timeframe: Ongoing practice · Meta: Focus: visible process
+Published: 2026-05-31 · Updated: 2026-09-14
 
 Summary: 公开构建不是表演，是让迭代过程本身成为信号，让能力、判断和执行力可直接验证。
 Summary (EN): Building in public isn't performance — it turns the iteration process itself into signal, making ability, judgment, and execution directly verifiable.
@@ -390,6 +401,7 @@ Related projects:
 URL: https://www.jameryw.dev/note.html?slug=productivity-and-relations
 Title (EN): Productivity & Production Relations · Detail: 当生产力超越组织外壳 / When Productivity Outgrows Its Organizational Shell
 Status: Observation note · Timeframe: 2025 observation · Meta: Focus: organizational evolution
+Published: 2026-06-09 · Updated: 2026-06-09
 
 Summary: 生产力决定生产关系，用旧的组织形态匹配新生产力，终将被效率更极致的新形态替代。
 Summary (EN): Productive forces determine production relations: organizations that match new productive forces with old forms will ultimately be replaced by a more radically efficient form.
@@ -421,6 +433,7 @@ Related projects:
 URL: https://www.jameryw.dev/note.html?slug=evolve-in-loop
 Title (EN): Evolve In Loop · Detail: 闭环即进化 / Closing The Loop Is Evolving
 Status: Philosophy note · Timeframe: Ongoing practice · Meta: Focus: feedback-driven growth
+Published: 2026-06-10 · Updated: 2026-10-18
 
 Summary: 进化的本质不是一次性跃迁，而是无数次闭环反馈的累积。每一次 loop 都是一次校准：行动→反馈→调整→再行动。
 Summary (EN): Evolution isn't a one-time leap but the accumulation of countless closed feedback loops. Each loop is a calibration: act, feedback, adjust, act again.
@@ -454,6 +467,7 @@ Related projects:
 URL: https://www.jameryw.dev/note.html?slug=quantity-to-quality
 Title (EN): Quantity Becomes Quality · Detail: 数据飞轮催生 alpha / The Data Flywheel Generates Alpha
 Status: Research note · Timeframe: 2025 observation · Meta: Focus: data-strategy flywheel
+Published: 2026-06-26 · Updated: 2026-06-26
 
 Summary: 持续高质量的数据产生高质量的策略，高质量策略催生新的 alpha。这是一个自增强的飞轮，不是线性积累。
 Summary (EN): Sustained high-quality data produces high-quality strategies, and high-quality strategies spawn new alpha. It's a self-reinforcing flywheel, not linear accumulation.
@@ -486,6 +500,7 @@ Related projects:
 URL: https://www.jameryw.dev/note.html?slug=knowledge-depreciates-experience-appreciates
 Title (EN): Knowledge Depreciates, Experience Appreciates · Detail: AI 时代的价值迁移 / The Value Shift In The AI Era
 Status: Judgment note · Timeframe: 2025 observation · Meta: Focus: AI-era value shift
+Published: 2026-07-02 · Updated: 2026-07-02
 
 Summary: AI 让可检索的知识快速贬值，却让从踩坑里长出来的工程经验升值。设计能扛亿级并发的分布式架构，靠的不是教科书上的基本知识。
 Summary (EN): AI rapidly depreciates retrievable knowledge while appreciating engineering experience earned from real failures. Designing distributed architectures that survive hundred-million-scale concurrency takes more than textbook basics.
@@ -517,6 +532,7 @@ Related projects:
 URL: https://www.jameryw.dev/note.html?slug=skills-devoured-tools-fortified
 Title (EN): Skills Devoured, Tools Fortified · Detail: 技能被吞噬，工具成护城河 / Skills Devoured, Tools Fortified
 Status: Moat note · Timeframe: 2025 observation · Meta: Focus: AI-era moat shift
+Published: 2026-07-13 · Updated: 2026-10-18
 
 Summary: 模型能力越强，纯软件技能越像免费 API 一样被吞噬。真正难复刻的是连接物理世界的 tools——传感器、执行器、私有协议、真实环境的反馈闭环。
 Summary (EN): The stronger models get, the more pure-software skills get devoured like free APIs. Truly hard to replicate are tools that touch the physical world — sensors, actuators, private protocols, real-environment feedback loops.
@@ -548,6 +564,7 @@ Related projects:
 URL: https://www.jameryw.dev/note.html?slug=pure-software-devalued-physical-premium
 Title (EN): Pure Software Devalued, Physical Integration Premium · Detail: 纯软件被内化，物理连接成溢价 / Pure Software Internalized, Physical Connection Commands A Premium
 Status: Value note · Timeframe: 2025 observation · Meta: Focus: physical-connected premium
+Published: 2026-09-22 · Updated: 2026-09-22
 
 Summary: 大模型把纯软件能力不断内化为免费基础设施，与物理世界相连的软硬一体技术反而因真实数据闭环而升值。
 Summary (EN): Large models keep internalizing pure-software capability into free infrastructure, while software-hardware integration tied to the physical world appreciates on the back of real-world data loops.
@@ -579,6 +596,7 @@ Related projects:
 URL: https://www.jameryw.dev/note.html?slug=ai-k-shaped-divergence
 Title (EN): K-Shaped Divergence In The AI Era · Detail: 应用文科化，技术硬核化 / Apps Go Soft, Tech Goes Hard
 Status: Divergence note · Timeframe: 2025 observation · Meta: Focus: AI-era dual track
+Published: 2026-10-21 · Updated: 2026-10-21
 
 Summary: AI 把世界撕成两极：应用侧越来越文科化，审美与品格决定胜负；技术侧越来越硬核，绑定物理世界的硬件、真实环境的感知—行动—反馈，以及自我进化。
 Summary (EN): AI splits the world into a K: apps go liberal-arts — taste and character decide who wins; tech goes hardcore — hardware bound to the physical world, perception–action–feedback in real environments, and self-evolution.

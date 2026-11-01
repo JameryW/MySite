@@ -176,6 +176,34 @@ const siteData = dataSandbox.window.siteData || { projects: [], notes: [] };
 const projectSlugs = (siteData.projects || []).map((project) => project.slug);
 const noteSlugs = (siteData.notes || []).map((note) => note.slug);
 
+const entryDates = [...(siteData.projects || []), ...(siteData.notes || [])];
+for (const entry of entryDates) {
+  for (const field of ["date", "updated"]) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(entry[field] || "")) {
+      fail(`data.js: ${entry.slug} is missing a valid ISO ${field}`);
+    }
+  }
+}
+if (existsSync(join(PUBLIC, "feed.xml"))) {
+  const feed = readFileSync(join(PUBLIC, "feed.xml"), "utf8");
+  for (const note of siteData.notes || []) {
+    if (!feed.includes(`note.html?slug=${note.slug}`)) fail(`feed.xml: missing ${note.slug}`);
+  }
+  if ((feed.match(/<pubDate>/g) || []).length !== (siteData.notes || []).length) {
+    fail("feed.xml: every note needs a <pubDate>");
+  }
+}
+if (existsSync(join(PUBLIC, "sitemap.xml"))) {
+  const map = readFileSync(join(PUBLIC, "sitemap.xml"), "utf8");
+  for (const entry of entryDates) {
+    if (!map.includes(`slug=${entry.slug}</loc>`)) fail(`sitemap.xml: missing ${entry.slug}`);
+    if (!map.includes(`<lastmod>${entry.updated || entry.date}</lastmod>`)) {
+      fail(`sitemap.xml: missing lastmod for ${entry.slug}`);
+    }
+  }
+}
+pass(`content dates: ${entryDates.length} entries carry date/updated (feed pubDate + sitemap lastmod)`);
+
 const seoFiles = ["llms.txt", "llms-full.txt", "feed.xml", "archive.html", "robots.txt"];
 for (const file of seoFiles) {
   if (!existsSync(join(PUBLIC, file))) fail(`missing SEO asset public/${file}`);
