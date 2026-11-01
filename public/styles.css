@@ -2241,12 +2241,11 @@ body[data-page="home"] .work-index {
 /* Work cards: status pill */
 body[data-page="home"] .work-status-pill {
   padding: 4px 11px;
-  font-size: max(0.68rem, 0.7rem);
   border: 1px solid rgba(216, 255, 98, 0.34);
   border-radius: 999px;
   background: rgba(216, 255, 98, 0.08);
   color: var(--lime);
-  font-size: 0.68rem;
+  font-size: max(0.68rem, 0.7rem);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   white-space: nowrap;

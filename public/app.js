@@ -356,7 +356,6 @@ try {
   const savedLang = localStorage.getItem(SITE_LANG_KEY) || localStorage.getItem(LEGACY_NOTES_LANG_KEY);
   if (savedLang === "en" || savedLang === "zh") siteLang = savedLang;
 } catch (langLoadErr) {}
-const notesLang = () => siteLang;
 
 const I18N = {
   zh: {
@@ -776,10 +775,6 @@ const noteText = (note, base) => {
 const noteTitle = (note) => (siteLang === "en" ? note.titleEn || note.title : note.title);
 const noteTitleSub = (note) => (siteLang === "en" ? "" : note.titleEn || "");
 const noteDetailTitle = (note) => (siteLang === "en" ? note.detailTitleEn || note.detailTitle : note.detailTitle);
-const noteDetailTitleSub = (note) => (siteLang === "en" ? "" : note.detailTitleEn || "");
-/* EN mirror of the whole heading (title + detail title) as one small caption
-   line — keeps the h1 down to two clear weights instead of three. */
-const noteHeadingEn = (note) => [noteTitleSub(note), noteDetailTitleSub(note)].filter(Boolean).join(" — ");
 const noteBullets = (note) => (siteLang === "en" && Array.isArray(note.bulletsEn) ? note.bulletsEn : note.bullets);
 const noteLens = (note) => (siteLang === "zh" ? note.lensZh || note.lens : note.lens);
 const projectText = (project, base) => {
