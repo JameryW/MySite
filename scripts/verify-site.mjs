@@ -237,6 +237,18 @@ for (const entry of [...(siteData.projects || []), ...(siteData.notes || [])]) {
 }
 if (!sitemap.includes("archive.html")) fail("sitemap.xml: missing archive.html");
 
+/* Every <loc> must match a canonical URL: a sitemap entry that disagrees with
+   the page's canonical sends search engines two different preferred URLs. */
+const canonicalSet = new Set();
+for (const { html } of pages) {
+  const match = html.match(/<link rel="canonical" href="([^"]+)"/);
+  if (match) canonicalSet.add(match[1]);
+}
+const sitemapLocs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+const mismatched = sitemapLocs.filter((loc) => !canonicalSet.has(loc) && !loc.includes("?slug="));
+if (mismatched.length) fail(`sitemap.xml <loc> without a matching canonical: ${mismatched.slice(0, 3).join(", ")}`);
+pass(`sitemap/canonical alignment: ${sitemapLocs.length} URLs, ${mismatched.length} mismatched`);
+
 for (const { name, html } of pages) {
   if (!/<link rel="canonical"/.test(html)) fail(`${name}: missing canonical link`);
   if (!/<meta name="description"/.test(html)) fail(`${name}: missing meta description`);
