@@ -3238,7 +3238,7 @@ body[data-page="about"] .about-hero-meta,
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: 6px 0;
+  gap: 6px 10px;
   margin: 16px 0 0;
   color: var(--muted);
   font-size: 0.82rem;
@@ -3256,9 +3256,12 @@ body[data-page="about"] .about-hero-meta strong,
   letter-spacing: 0.04em;
 }
 
-body[data-page="about"] .about-hero-meta-sep,
-.listing-hero-meta-sep {
-  margin: 0 10px;
+/* Separators ride on the item that follows them, so a line break can never
+   strand a lone "·" at the end of a row. */
+body[data-page="about"] .about-hero-meta > span:not(.about-hero-meta-sep) + span:not(.about-hero-meta-sep)::before,
+.listing-hero-meta > span:not(.listing-hero-meta-sep) + span:not(.listing-hero-meta-sep)::before {
+  content: "·";
+  margin-right: 10px;
   color: rgba(162, 176, 255, 0.42);
   font-weight: 500;
 }
@@ -4999,13 +5002,13 @@ html[data-theme="light"] .related-track-grid > .track-card:hover {
 
   body[data-page="about"] .about-hero-meta,
   .listing-hero-meta {
-    gap: 4px 0;
+    gap: 4px 8px;
     font-size: 0.76rem;
   }
 
-  body[data-page="about"] .about-hero-meta-sep,
-  .listing-hero-meta-sep {
-    margin: 0 8px;
+  body[data-page="about"] .about-hero-meta > span:not(.about-hero-meta-sep) + span:not(.about-hero-meta-sep)::before,
+  .listing-hero-meta > span:not(.listing-hero-meta-sep) + span:not(.listing-hero-meta-sep)::before {
+    margin-right: 8px;
   }
 
   body[data-page="about"] .about-now-row {
@@ -5312,9 +5315,9 @@ html[data-theme="light"] .related-track-grid > .track-card:hover {
     letter-spacing: 0.06em;
   }
 
-  body[data-page="about"] .about-hero-meta-sep,
-  .listing-hero-meta-sep {
-    margin: 0 6px;
+  body[data-page="about"] .about-hero-meta > span:not(.about-hero-meta-sep) + span:not(.about-hero-meta-sep)::before,
+  .listing-hero-meta > span:not(.listing-hero-meta-sep) + span:not(.listing-hero-meta-sep)::before {
+    margin-right: 6px;
   }
 
   body[data-page="about"] .terminal-statement .terminal-body,
