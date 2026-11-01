@@ -298,6 +298,31 @@ if (dictStart === -1) {
   pass(`i18n: ${zhKeys.length} keys with zh/en parity, ${referenced.size} references resolve`);
 }
 
+/* 10. Dead code: a top-level declaration that is never referenced again. */
+const jsFiles = ["app.js", "sw.js", "notfound.js"].filter((file) => existsSync(join(PUBLIC, file)));
+for (const file of jsFiles) {
+  const src = readFileSync(join(PUBLIC, file), "utf8");
+  const declared = [...src.matchAll(/^(?:const|let|var|function)\s+([A-Za-z_$][\w$]*)/gm)].map((m) => m[1]);
+  const orphans = declared.filter((name) => {
+    const hits = src.match(new RegExp(`\\b${name.replace(/\$/g, "\\$")}\\b`, "g"));
+    return (hits ? hits.length : 0) <= 1;
+  });
+  if (orphans.length) fail(`${file}: unreferenced declaration(s): ${orphans.slice(0, 5).join(", ")}`);
+}
+
+/* 11. CSS: no duplicated property inside a single rule. */
+const cssSrc = readFileSync(join(PUBLIC, "styles.css"), "utf8");
+const repeatedProps = [];
+for (const rule of cssSrc.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+  const selector = rule[1].trim().replace(/\s+/g, " ");
+  if (selector.startsWith("@")) continue;
+  const props = [...rule[2].matchAll(/([a-z-]+)\s*:/g)].map((m) => m[1]);
+  const dupes = props.filter((prop, index) => props.indexOf(prop) !== index);
+  if (dupes.length) repeatedProps.push(`${selector.slice(0, 40)} → ${[...new Set(dupes)].join(", ")}`);
+}
+if (repeatedProps.length) fail(`styles.css: duplicated property in rule: ${repeatedProps.slice(0, 3).join(" | ")}`);
+pass(`dead code: ${jsFiles.length} scripts and styles.css free of unreferenced declarations / repeated properties`);
+
 /* Summary */
 console.log(results.join("\n"));
 if (failures > 0) {
