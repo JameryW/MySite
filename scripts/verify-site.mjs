@@ -432,7 +432,10 @@ if (existsSync(prerenderDir)) {
   for (const loc of sitemapLocs) {
     if (loc.includes("/p/")) fail(`sitemap.xml must not list prerendered file ${loc}`);
   }
-  pass(`prerender: ${prerenderSlugs.length} detail pages carry the hero in HTML (not in the sitemap)`);
+  const orphanFiles = readdirSync(prerenderDir)
+    .filter((file) => file.endsWith(".html") && !prerenderSlugs.includes(file.replace(/\.html$/, "")));
+  if (orphanFiles.length) fail(`prerender: orphaned file(s) for removed slugs: ${orphanFiles.slice(0, 5).join(", ")}`);
+  pass(`prerender: ${prerenderSlugs.length} detail pages carry the hero in HTML (not in the sitemap, no orphans)`);
 
 /* 14. Data split: listing pages must not ship the detail-only copy. */
 const dataListPath = join(PUBLIC, "data-list.js");

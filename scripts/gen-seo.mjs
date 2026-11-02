@@ -12,7 +12,7 @@
  *   npm run gen:seo          (rewrite)
  *   npm run gen:seo -- --check   (CI: fail when stale)
  */
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, unlinkSync } from "node:fs";
 import { runInNewContext } from "node:vm";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -520,6 +520,24 @@ for (const [name, content] of Object.entries(detailFiles)) {
   }
 }
 if (!CHECK) console.log(`wrote ${Object.keys(detailFiles).length} prerendered detail pages under public/p/`);
+
+/* Pruned slugs: a renamed or deleted entry would otherwise keep serving its old
+   prerendered hero from public/p/ forever. Remove anything not in data.js. */
+if (existsSync(nestedDir)) {
+  const expected = new Set(Object.keys(detailFiles).map((name) => name.replace(/^p\//, "")));
+  const orphans = readdirSync(nestedDir).filter((file) => file.endsWith(".html") && !expected.has(file));
+  if (orphans.length) {
+    if (CHECK) {
+      stale += orphans.length;
+      console.error(`orphaned prerender file(s): ${orphans.slice(0, 5).join(", ")}`);
+    } else {
+      for (const file of orphans) {
+        unlinkSync(join(nestedDir, file));
+        console.log(`removed orphaned public/p/${file}`);
+      }
+    }
+  }
+}
 
 if (CHECK) {
   if (stale > 0) {
