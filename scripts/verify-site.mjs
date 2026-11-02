@@ -433,6 +433,23 @@ if (existsSync(prerenderDir)) {
     if (loc.includes("/p/")) fail(`sitemap.xml must not list prerendered file ${loc}`);
   }
   pass(`prerender: ${prerenderSlugs.length} detail pages carry the hero in HTML (not in the sitemap)`);
+
+/* 14. Data split: listing pages must not ship the detail-only copy. */
+const dataListPath = join(PUBLIC, "data-list.js");
+if (!existsSync(dataListPath)) {
+  fail("missing public/data-list.js — run npm run gen:seo");
+} else {
+  const listFileSize = readFileSync(dataListPath, "utf8").length;
+  const fullSize = readFileSync(join(PUBLIC, "data.js"), "utf8").length;
+  if (listFileSize >= fullSize) fail("data-list.js is not smaller than data.js");
+  for (const { name, html } of pages) {
+    const detailShell = name === "project.html" || name === "note.html";
+    if (detailShell && !html.includes("data.js?")) fail(`${name}: detail shell must load the full data.js`);
+    if (!detailShell && html.includes("data.js?")) fail(`${name}: listings must load the pruned data-list.js`);
+    if (!detailShell && /class="(?:work-card|note-card|track-card)"/.test(html) && false) continue;
+  }
+  pass(`data split: listing pages use data-list.js (${Math.round(listFileSize / 1024)} KB) instead of data.js (${Math.round(fullSize / 1024)} KB)`);
+}
 }
 
 /* Summary */
