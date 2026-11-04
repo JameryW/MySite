@@ -117,8 +117,6 @@ latin avg-width .5897em vs Arial. */
   background: linear-gradient(180deg, rgba(240, 242, 248, 0.97) 0%, rgba(240, 242, 248, 0.88) 58%, rgba(240, 242, 248, 0) 100%);
 }
 [data-theme="light"] .hero-copy,
-[data-theme="light"] .hero-focus-panel,
-[data-theme="light"] .glass-card,
 [data-theme="light"] .work-card,
 [data-theme="light"] .repo-card,
 [data-theme="light"] .note-card {
@@ -964,7 +962,6 @@ h3 {
   max-width: 42ch;
 }
 .hero-copy,
-.glass-card,
 .work-card,
 .repo-card,
 .note-card {
@@ -1022,16 +1019,7 @@ h3 {
   font-weight: 500;
   color: var(--text);
 }
-.tagline-en {
-  display: block;
-  margin-top: 2px;
-  font-size: 0.88rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--cyan);
-}
-.hero-focus-panel {
+{
   position: relative;
   display: flex;
   flex-direction: column;
@@ -1046,16 +1034,6 @@ h3 {
     linear-gradient(135deg, rgba(108, 242, 255, 0.06), transparent 45%),
     linear-gradient(180deg, rgba(18, 26, 52, 0.68), rgba(7, 11, 27, 0.9));
   box-shadow: var(--shadow);
-}
-.hero-focus-panel::before {
-  position: absolute;
-  inset: auto -18% -28% auto;
-  width: 220px;
-  height: 220px;
-  content: "";
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(108, 242, 255, 0.16), transparent 68%);
-  pointer-events: none;
 }
 .focus-list {
   position: relative;
@@ -1211,7 +1189,6 @@ h3 {
   padding-top: 48px;
   border-top: 1px solid rgba(162, 176, 255, 0.06);
 }
-.glass-card { padding: 28px; }
 .hero { gap: 20px; }
 .work-list { gap: 16px; }
 .notes-grid { gap: 20px; }
@@ -1287,9 +1264,6 @@ h3 {
 }
 .section-view-all:hover span {
   transform: translateX(5px);
-}
-.glass-card {
-  border-radius: 28px;
 }
 .statement,
 .detail {
@@ -2039,8 +2013,7 @@ timeframe right-aligned */
 }
 /* EN mode: drop ZH dual-caption clutter once the primary string is already English */
 [data-lang="en"] .title-en,
-[data-lang="en"] [data-i18n-en-hint],
-[data-lang="en"] .tagline-en {
+[data-lang="en"] [data-i18n-en-hint]{
   display: none;
 }
 .section-head-top:has(.lang-toggle) {
@@ -2773,21 +2746,9 @@ and never leave a filter on the text. */
 .hero-copy .lead {
   animation: hero-text-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 260ms both;
 }
-.hero-copy .home-hero-meta {
-  animation: hero-text-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 300ms both;
-}
 .hero-copy .hero-actions {
   animation: hero-text-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 340ms both;
 }
-.hero-focus-panel .stack-label {
-  animation: hero-text-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 160ms both;
-}
-.hero-focus-panel .focus-list div {
-  animation: hero-text-in 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-.hero-focus-panel .focus-list div:nth-child(1) { animation-delay: 200ms; }
-.hero-focus-panel .focus-list div:nth-child(2) { animation-delay: 260ms; }
-.hero-focus-panel .focus-list div:nth-child(3) { animation-delay: 320ms; }
 /* ── Page Loader ──
    Hidden through first paint. The head boot script adds .is-slow only
    when scripts are still running after 480ms,
@@ -3353,14 +3314,11 @@ html {
     transition: none !important;
   }
 .hero-copy.reveal,
-  .hero-focus-panel.reveal,
   .page-hero.reveal,
   .hero-copy h1,
   .hero-copy .hero-tagline,
   .hero-copy .lead,
-  .hero-copy .home-hero-meta,
-  .hero-copy .hero-actions,
-  .hero-focus-panel .focus-list div {
+  .hero-copy .hero-actions {
     animation: none;
   }
 .repo-card:hover::before,
@@ -3407,7 +3365,6 @@ html {
    until app.js,
 and don't leave a filter layer on the title. */
 .hero-copy.reveal,
-.hero-focus-panel.reveal,
 .page-hero.reveal {
   opacity: 1;
   transform: none;
@@ -3419,9 +3376,6 @@ and don't leave a filter layer on the title. */
   }
 .home-hero {
     flex-direction: column;
-  }
-.hero-focus-panel {
-    flex: none;
   }
 .page-hero {
     grid-template-columns: 1fr;
@@ -3641,7 +3595,6 @@ body[data-page="about"] .about-hero-meta > span:not(.about-hero-meta-sep) + span
 /* 移动端间距覆盖 — 更紧凑透气 */
   .section { padding: 20px 0; }
 .section + .section { margin-top: 12px; padding-top: 20px; }
-.glass-card { padding: 18px; }
 .hero { gap: 10px; }
 .work-list { gap: 10px; }
 .notes-grid { gap: 10px; }
@@ -3689,10 +3642,6 @@ body[data-page="about"] .about-hero-meta > span:not(.about-hero-meta-sep) + span
     font-size: 0.94rem;
     line-height: 1.55;
   }
-.tagline-en {
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-  }
 /* lead 移动端 — 加上方间距 */
   .hero-copy .lead {
     margin-top: 8px;
@@ -3711,7 +3660,7 @@ body[data-page="about"] .about-hero-meta > span:not(.about-hero-meta-sep) + span
     flex: 1 1 auto;
   }
 /* Focus panel 移动端 — 精简 */
-  .hero-focus-panel {
+{
     flex: none;
     padding: 16px;
     border-radius: 18px;
@@ -3907,7 +3856,6 @@ body[data-page="showcase"] .page-actions .button {
     overflow-wrap: anywhere;
   }
 .hero-copy,
-  .hero-focus-panel,
   .statement,
   .detail,
   .work-card{
@@ -4337,7 +4285,7 @@ a[href^="#"]::after,
     color: #000 !important;
     background: transparent !important;
   }
-.glass-card,
+,
   .track-card,
   .work-card,
   .repo-card,
