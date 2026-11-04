@@ -737,7 +737,6 @@ const projectHighlights = (project) =>
   siteLang === "en" && Array.isArray(project.highlightsEn) ? project.highlightsEn : project.highlights;
 /* note.meta is authored as "Focus: xxx" — the facts strip already labels the
    cell, so drop the inline prefix to avoid printing the word twice. */
-const noteFocusValue = (note) => (note.meta || "").replace(/^\s*focus\s*[:：]\s*/i, "").trim();
 const updateLangToggleUI = () => {
   document.querySelectorAll("[data-lang-toggle]").forEach((btn) => {
     const active = btn.getAttribute("data-lang-toggle") === siteLang;
@@ -1432,10 +1431,6 @@ const renderNoteDetail = (instant = false) => {
         <p class="page-lead">${escapeHtml(String(noteText(note, "summary") || ""))}</p>
         <p class="listing-hero-meta detail-hero-meta note-detail-meta reveal">
           ${[
-            note.status,
-            noteFocusValue(note),
-            note.timeframe,
-            `${noteBullets(note).length} ${t("meta.points")}`,
             `${noteReadMinutes(note)} ${t("meta.min")}`,
             relatedProjects.length ? `${relatedProjects.length} ${t("meta.builds")}` : ""
           ]

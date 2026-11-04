@@ -164,7 +164,7 @@ window.siteData = {
       "href": "https://github.com/JameryW/AwesomeWorkflows",
       "sourcePrivate": true,
       "cta": "查看公开仓库",
-      "status": "Active",
+      "status": "Lab",
       "stack": [
         "Agent Skills",
         "Trellis",
@@ -231,7 +231,7 @@ window.siteData = {
       "summaryEn": "Prompt engineering is shifting from handcrafted tricks to structured interfaces — from writing prompts to designing tools and orchestrating flows.",
       "meta": "Focus: structural shift",
       "status": "Observation note",
-      "timeframe": "2025 observation"
+      "timeframe": "2026 observation"
     },
     {
       "slug": "build-in-public",
@@ -261,7 +261,7 @@ window.siteData = {
       "summaryEn": "Productive forces determine production relations: organizations that match new productive forces with old forms will ultimately be replaced by a more radically efficient form.",
       "meta": "Focus: organizational evolution",
       "status": "Observation note",
-      "timeframe": "2025 observation"
+      "timeframe": "2026 observation"
     },
     {
       "slug": "evolve-in-loop",
@@ -291,7 +291,7 @@ window.siteData = {
       "summaryEn": "Sustained high-quality data produces high-quality strategies, and high-quality strategies spawn new alpha. It's a self-reinforcing flywheel, not linear accumulation.",
       "meta": "Focus: data-strategy flywheel",
       "status": "Research note",
-      "timeframe": "2025 observation"
+      "timeframe": "2026 observation"
     },
     {
       "slug": "knowledge-depreciates-experience-appreciates",
@@ -306,7 +306,7 @@ window.siteData = {
       "summaryEn": "AI rapidly depreciates retrievable knowledge while appreciating engineering experience earned from real failures. Designing distributed architectures that survive hundred-million-scale concurrency takes more than textbook basics.",
       "meta": "Focus: AI-era value shift",
       "status": "Judgment note",
-      "timeframe": "2025 observation"
+      "timeframe": "2026 observation"
     },
     {
       "slug": "skills-devoured-tools-fortified",
@@ -321,7 +321,7 @@ window.siteData = {
       "summaryEn": "The stronger models get, the more pure-software skills get devoured like free APIs. Truly hard to replicate are tools that touch the physical world — sensors, actuators, private protocols, real-environment feedback loops.",
       "meta": "Focus: AI-era moat shift",
       "status": "Moat note",
-      "timeframe": "2025 observation"
+      "timeframe": "2026 observation"
     },
     {
       "slug": "pure-software-devalued-physical-premium",
@@ -336,7 +336,7 @@ window.siteData = {
       "summaryEn": "Large models keep internalizing pure-software capability into free infrastructure, while software-hardware integration tied to the physical world appreciates on the back of real-world data loops.",
       "meta": "Focus: physical-connected premium",
       "status": "Value note",
-      "timeframe": "2025 observation"
+      "timeframe": "2026 observation"
     },
     {
       "slug": "ai-k-shaped-divergence",
@@ -351,7 +351,7 @@ window.siteData = {
       "summaryEn": "AI splits the world into a K: apps go liberal-arts — taste and character decide who wins; tech goes hardcore — hardware bound to the physical world, perception–action–feedback in real environments, and self-evolution.",
       "meta": "Focus: AI-era dual track",
       "status": "Divergence note",
-      "timeframe": "2025 observation"
+      "timeframe": "2026 observation"
     }
   ]
 };
