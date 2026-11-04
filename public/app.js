@@ -160,21 +160,6 @@ document.querySelectorAll(".palette-hint kbd").forEach((kbd) => {
   kbd.textContent = paletteShortcut;
 });
 
-/* ── Terminal Command / Output Stagger ── */
-document.querySelectorAll(".terminal-body").forEach((terminal) => {
-  const children = Array.from(terminal.children);
-  let delay = 120;
-  children.forEach((child) => {
-    if (child.classList.contains("terminal-cmd")) {
-      child.style.animationDelay = `${delay}ms`;
-      delay += 140;
-    } else if (child.classList.contains("terminal-out")) {
-      child.style.animationDelay = `${delay}ms`;
-      delay += 60;
-    }
-  });
-});
-
 /* ── Button Ripple Effect ── */
 document.querySelectorAll(".button").forEach((button) => {
   button.addEventListener("click", (e) => {
@@ -443,7 +428,7 @@ const I18N = {
     "projects.indexed": "个项目",
     "projects.signalFocus": "焦点",
     "projects.signalBias": "偏好",
-    "projects.signalFocusValue": "Kernel runtimes · DAG coding · Quant",
+    "projects.signalFocusValue": "Kernel · DAG · Quant",
     "projects.signalBiasValue": "先跑通闭环，再打磨结构",
     "projects.footerKicker": "Projects / Open Build Loop",
     "projects.signalAria": "项目概览",
@@ -648,7 +633,7 @@ const I18N = {
     "projects.indexed": "projects indexed",
     "projects.signalFocus": "Focus",
     "projects.signalBias": "Bias",
-    "projects.signalFocusValue": "Kernel runtimes · DAG coding · Quant",
+    "projects.signalFocusValue": "Kernel · DAG · Quant",
     "projects.signalBiasValue": "Ship the loop, then refine structure",
     "projects.footerKicker": "Projects / Open Build Loop",
     "projects.signalAria": "Projects overview",
@@ -1174,14 +1159,23 @@ if (noteCountNodes.length > 0) {
   });
 }
 
-/* ── Filter/Tag System for Library Pages ── */
+/* ── Filter/Tag System for Library Pages ──
+   Only render when at least one label is shared by 2+ items — otherwise the
+   bar is a one-pill-per-card cloud with no grouping value. */
 function setupFilter(container, items, onFilter) {
-  const allLabels = new Set();
-  items.forEach((item) => {
-    if (item.label) allLabels.add(item.label);
-  });
+  if (!container) return;
 
-  if (allLabels.size < 2 || !container) return;
+  const labelCounts = new Map();
+  items.forEach((item) => {
+    if (!item.label) return;
+    labelCounts.set(item.label, (labelCounts.get(item.label) || 0) + 1);
+  });
+  const sharedLabels = [...labelCounts.entries()]
+    .filter(([, count]) => count >= 2)
+    .map(([label]) => label)
+    .sort((a, b) => a.localeCompare(b));
+
+  if (sharedLabels.length < 1) return;
 
   const applyFilter = (activeLabel) => {
     container.dataset.activeFilter = activeLabel || "";
@@ -1214,10 +1208,10 @@ function setupFilter(container, items, onFilter) {
   allPill.setAttribute("aria-pressed", "true");
   filterBar.appendChild(allPill);
 
-  allLabels.forEach((label) => {
+  sharedLabels.forEach((label) => {
     const pill = document.createElement("button");
     pill.className = "filter-pill";
-    pill.textContent = label;
+    pill.textContent = `${label} (${labelCounts.get(label)})`;
     pill.dataset.filterLabel = label;
     pill.setAttribute("aria-pressed", "false");
     filterBar.appendChild(pill);
