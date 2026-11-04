@@ -387,7 +387,6 @@ const sitemap = [
    the hero already in the HTML; nginx serves it via try_files for the same
    /project.html?slug= URL, so the URL space does not change. app.js still
    renders the full page on top of it. */
-const escAttr = (value) => esc(value);
 const softBreak = (title) => esc(title).replace(/([a-z0-9])([A-Z])/g, "$1<wbr>$2");
 const heroTitleClass = (title) => {
   const len = String(title || "").length;
@@ -405,12 +404,11 @@ const projectHero = (project) => {
     '    <a href="./projects.html">项目</a><span aria-hidden="true">/</span>',
     `    <span aria-current="page">${esc(project.title)}</span>`,
     '  </nav>',
-    `  <p class="eyebrow">${esc(project.label)} / ${esc(project.timeframe)} / ${esc(project.status)}</p>`,
+    `  <p class="eyebrow">${esc(project.label)} / ${esc(project.status)}</p>`,
     `  <h1 class="${heroTitleClass(project.title)}">${softBreak(project.title)}<span>${esc(project.detailTitle)}</span></h1>`,
     `  <p class="page-lead">${esc(overview)}</p>`,
     '  <p class="listing-hero-meta detail-hero-meta" aria-label="内容信号">',
     `    <span>${esc(project.role)}</span>`,
-    `    <span>${escAttr((project.outputs || []).slice(0, 2).join(" / "))}</span>`,
     '  </p>',
     '</section>'
   ].join("\n      ");

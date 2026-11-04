@@ -399,19 +399,6 @@ body[data-page="about"] .about-now-row h3 a {
   align-items: center;
   min-height: 24px;
 }
-body[data-page="about"] .about-now-row .work-status-pill {
-  padding: 3px 9px;
-  border: 1px solid rgba(216, 255, 98, 0.34);
-  border-radius: 999px;
-  background: rgba(216, 255, 98, 0.08);
-  color: var(--lime);
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
-}
-[data-theme="light"] body[data-page="about"] .about-now-row .work-status-pill {
-  border-color: rgba(90, 138, 0, 0.28);
-  background: rgba(90, 138, 0, 0.08);
-}
 [data-theme="light"] body[data-page="about"] .about-now-list::before {
   background: linear-gradient(180deg, rgba(8, 145, 178, 0.32), rgba(80, 90, 140, 0.16) 55%, transparent);
 }
@@ -427,8 +414,7 @@ body[data-page="about"] .about-now-row .work-status-pill {
     0 0 12px rgba(8, 145, 178, 0.45);
 }
 /* Light theme micro accents: darker ink so 11-12px labels clear AA. */
-[data-theme="light"] body[data-page="about"] .about-id-focus-label,
-[data-theme="light"] body[data-page="about"] .about-now-row .work-status-pill {
+[data-theme="light"] body[data-page="about"] .about-id-focus-label {
   color: #456b00;
 }
 [data-theme="light"] body[data-page="about"] .about-signals-grid span {
@@ -737,9 +723,6 @@ body[data-page="about"] .about-now-row:hover::before {
 [data-theme="light"] body[data-page="about"] .about-now-row:hover::before {
     background: var(--bg);
     box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.08);
-  }
-body[data-page="about"] .contact-links .platform-link:hover {
-    color: var(--text);
   }
 body[data-page="about"] .about-now-row .card-inline-link:hover {
     color: var(--cyan);
