@@ -420,7 +420,6 @@ const I18N = {
     "showcase.lead": "两个可直接打开的运行面：XhsGrowthAgent 的 Showcase / Replay，以及 QuantAgent 演示。",
     "showcase.count": "个演示",
     "showcase.demosTitle": "在线演示",
-    "showcase.demosSummary": "先看运行结果，再按需打开源码。",
     "showcase.demosKicker": "Live Products",
     "showcase.badge": "在线演示",
     "showcase.footerKicker": "Showcase / Ship Then Show",
@@ -518,7 +517,6 @@ const I18N = {
     "footer.projectDetail": "把外部链接转换成站内可阅读的项目说明，逐步积累成更完整的作品资料。",
     "footer.noteDetail": "把短观察扩成站内可持续阅读的笔记条目，为后续长文和项目复盘打底。",
     "aria.skip": "跳到主要内容",
-    "shipping": "推进中"
   },
   en: {
     "nav.home": "Home",
@@ -616,7 +614,6 @@ const I18N = {
     "showcase.lead": "Two live surfaces you can open now: XhsGrowthAgent Showcase / Replay, and the QuantAgent demo.",
     "showcase.count": "demos",
     "showcase.demosTitle": "Running surfaces",
-    "showcase.demosSummary": "Inspect the running result first, then open the source if you want.",
     "showcase.demosKicker": "Live Products",
     "showcase.badge": "Live demo",
     "showcase.footerKicker": "Showcase / Ship Then Show",
@@ -714,7 +711,6 @@ const I18N = {
     "footer.projectDetail": "Turn external repos into readable on-site case notes that compound over time.",
     "footer.noteDetail": "Expand short observations into lasting note entries for later reviews.",
     "aria.skip": "Skip to main content",
-    "shipping": "Shipping"
   }
 };
 
@@ -927,7 +923,6 @@ const relatedNoteMarkup = (note) => `
     <h3>${noteTitle(note)}</h3>
     <p>${noteText(note, "summary")}</p>
     <div class="card-actions">
-      <span class="repo-meta">${note.timeframe || t("cta.readNote")}</span>
       <span class="card-inline-link">${t("cta.readNote")} <span aria-hidden="true">→</span></span>
     </div>
   </a>
@@ -1025,7 +1020,6 @@ const projectCardMarkup = (project, variant) => {
         <div class="card-tags">${createTagList(project.stack)}</div>
       </div>
       <div class="card-actions">
-        <span class="repo-meta">${project.timeframe}</span>
         <span class="card-inline-link">${openDetail} <span aria-hidden="true">→</span></span>
       </div>
     </a>
@@ -1280,7 +1274,7 @@ const renderProjectDetail = (instant = false) => {
     projectDetailNode.setAttribute("aria-busy", "true");
     projectDetailNode.innerHTML = `
       <section class="page-hero reveal">${detailBreadcrumbMarkup(t("nav.projects"), "./projects.html", project.title)}
-        <p class="eyebrow">${project.label} / ${project.timeframe} / ${project.status}</p>
+        <p class="eyebrow">${project.label} / ${project.status}</p>
         <h1 class="${projectHeroTitleClass(project.title)}">
           ${softBreakCamelTitle(project.title)}
           <span>${escapeHtml(project.detailTitle)}</span>
@@ -1288,7 +1282,6 @@ const renderProjectDetail = (instant = false) => {
         <p class="page-lead">${overview}</p>
         <p class="listing-hero-meta detail-hero-meta" aria-label="${t("detail.signal")}">
           <span>${escapeHtml(project.role)}</span>
-          <span>${escapeHtml(project.outputs.slice(0, 2).join(" / "))}</span>
         </p>
         <div class="page-actions">
           ${
@@ -1323,7 +1316,6 @@ const renderProjectDetail = (instant = false) => {
                   <p class="stack-label">${t("detail.highlightLabel")} 0${index + 1}</p>
                   <h3>${escapeHtml(highlight.title)}</h3>
                   <p>${softBreakFlowText(highlight.body)}</p>
-                  <span class="repo-meta">${escapeHtml(project.outputs[index] || project.stack[index] || project.status)}</span>
                 </article>
               `;
             })
@@ -1544,9 +1536,7 @@ const renderProjectSurfaces = (instant = false) => {
         <h3>${project.title}</h3>
         <p>${projectText(project, "summary")}</p>
         <div class="card-tags">${createTagList(project.stack)}</div>
-        <div class="showcase-url">${project.demoUrl}</div>
         <div class="card-actions">
-          <span class="repo-meta">${project.status}</span>
           <span class="work-link">${t("cta.tryDemo")} <span aria-hidden="true">→</span></span>
         </div>
       </a>
@@ -1577,7 +1567,6 @@ const renderProjectSurfaces = (instant = false) => {
               <p class="about-now-label">
                 ${label}
                 <span class="card-status-dot live" aria-hidden="true"></span>
-                <span class="work-status-pill">${t("shipping")}</span>
               </p>
               <h3><a href="${href}">${item.title}</a></h3>
             </div>
