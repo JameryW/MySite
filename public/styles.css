@@ -22,7 +22,7 @@
     opacity: 0;
   }
 }
-@media (prefers-reduced-motion: reduce){
+@media (prefers-reduced-motion: reduce) {
 ::view-transition-old(root),
   ::view-transition-new(root) {
     animation: none !important;
@@ -47,8 +47,10 @@
 /* ── Metric-override fallback faces ──
    One-time-measured approximations (fontTools hhea metrics, 2026-09-08, computed
    with the web.dev/next-font formulas: override = primary-metric / upm / size-adjust).
-   Syne 925/-275 per 1000upm, latin avg-width .5605em vs Arial (2048upm) .5791em.
-   Space Grotesk 984/-292 per 1000upm, latin avg-width .5897em vs Arial. */
+   Syne 925/-275 per 1000upm,
+latin avg-width .5605em vs Arial (2048upm) .5791em.
+   Space Grotesk 984/-292 per 1000upm,
+latin avg-width .5897em vs Arial. */
 @font-face {
   font-family: "Syne Fallback";
   font-style: normal;
@@ -115,20 +117,15 @@
   background: linear-gradient(180deg, rgba(240, 242, 248, 0.97) 0%, rgba(240, 242, 248, 0.88) 58%, rgba(240, 242, 248, 0) 100%);
 }
 [data-theme="light"] .hero-copy,
-  [data-theme="light"] .hero-focus-panel,
-  [data-theme="light"] .glass-card,
-  [data-theme="light"] .stack-card,
-  [data-theme="light"] .work-card,
-  [data-theme="light"] .repo-card,
-  [data-theme="light"] .note-card,
-  [data-theme="light"] .contact-card {
+[data-theme="light"] .hero-focus-panel,
+[data-theme="light"] .glass-card,
+[data-theme="light"] .work-card,
+[data-theme="light"] .repo-card,
+[data-theme="light"] .note-card {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(230, 234, 245, 0.86));
 }
-[data-theme="light"] .metric-panel,
-  [data-theme="light"] .lab-card,
-  [data-theme="light"] .footer,
-  [data-theme="light"] .track-card,
-  [data-theme="light"] .page-hero-panel {
+[data-theme="light"] .footer,
+[data-theme="light"] .track-card {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(230, 234, 245, 0.9));
 }
 [data-theme="light"] .brand-mark {
@@ -221,15 +218,6 @@
 [data-theme="light"] .work-index {
   -webkit-text-stroke: 1.5px rgba(8, 145, 178, 0.85);
 }
-[data-theme="light"] .terminal-body {
-  color: #1a2744;
-}
-[data-theme="light"] .terminal-out {
-  color: #3d5070;
-}
-[data-theme="light"] .terminal-key {
-  color: #0891b2;
-}
 [data-theme="light"] body::before {
   background:
     linear-gradient(rgba(80, 90, 140, 0.06) 1px, transparent 1px),
@@ -296,8 +284,6 @@
   border-color: rgba(80, 90, 140, 0.14);
   background: rgba(255, 255, 255, 0.4);
 }
-[data-theme="light"] .ops-card:hover,
-[data-theme="light"] .stack-card:hover,
 [data-theme="light"] .track-card:hover {
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05), 0 0 8px rgba(8, 145, 178, 0.04);
 }
@@ -353,7 +339,7 @@
   color: var(--cyan);
   transform: translateY(-1px);
 }
-@media (max-width: 760px){
+@media (max-width: 760px) {
 .palette-hint kbd { display: none; }
 }
 .theme-toggle {
@@ -439,11 +425,15 @@ body {
     radial-gradient(circle at 50% 75%, rgba(216, 255, 98, 0.1), transparent 20%),
     linear-gradient(180deg, #050816 0%, #070b1b 45%, #04060f 100%);
 }
-/* NEVER add filter, transform, or an opacity:0 entrance on body. A non-none
+/* NEVER add filter,
+transform,
+or an opacity:0 entrance on body. A non-none
    filter or transform makes body the containing block for every position:fixed
    descendant (.scroll-progress, .back-to-top, .palette, .toast, .cursor-glow,
-   .orb-*, background layers): the scroll progress bar scrolls away, the palette
-   lands at 18% of document height, and the cursor glow drifts off the pointer.
+   .orb-*, background layers): the scroll progress bar scrolls away,
+the palette
+   lands at 18% of document height,
+and the cursor glow drifts off the pointer.
    Fading body from opacity 0 also hides the title until the animation ends. */
 
 /* Visually hidden but accessible to screen readers and keyboard focus */
@@ -460,7 +450,8 @@ body {
   border: 0;
 }
 /* Prerendered detail hero: shown to the Chinese view (the URL's default) and
-   hidden the moment the boot script marks the page as English, so English
+   hidden the moment the boot script marks the page as English,
+so English
    visitors never see a Chinese flash before app.js renders. */
 [data-lang="en"] .prerender-hero {
   display: none;
@@ -620,11 +611,13 @@ body::after {
   border-radius: 50%;
   pointer-events: none;
 }
-/* Orb offsets use viewport units, not %: if body ever gains a filter/transform
+/* Orb offsets use viewport units,
+not %: if body ever gains a filter/transform
    (see the comment above the skip-link) it becomes the containing block for these fixed
    elements and %-offsets would re-resolve against body height as content
    mounts (CLS regression 2026-09-08). vh/vw resolve identically under either
-   containing block, so the decor survives that regime change. */
+   containing block,
+so the decor survives that regime change. */
 .orb-a {
   top: 6vh;
   left: -8vw;
@@ -850,9 +843,6 @@ body[data-page="about"] .nav a[href="./about.html"]::after {
   align-items: end;
   padding: 48px 0 26px;
 }
-.page-hero > :not(.page-hero-panel) {
-  grid-column: 1;
-}
 .page-hero::after {
   content: "";
   position: absolute;
@@ -957,17 +947,14 @@ h3 {
   margin-bottom: 12px;
 }
 .lead,
-  .page-lead,
-  .statement p,
-  .detail p,
-  .stack-card p,
-  .lab-card p,
-  .work-copy p,
-  .metric-panel span,
-  .contact-links a,
-  .repo-card p,
-  .note-card p,
-  .footer p {
+.page-lead,
+.statement p,
+.detail p,
+.work-copy p,
+.contact-links a,
+.repo-card p,
+.note-card p,
+.footer p {
   color: var(--muted);
   font-size: 1.04rem;
   line-height: 1.8;
@@ -977,12 +964,10 @@ h3 {
   max-width: 42ch;
 }
 .hero-copy,
-  .glass-card,
-  .stack-card,
-  .work-card,
-  .repo-card,
-  .note-card,
-  .contact-card {
+.glass-card,
+.work-card,
+.repo-card,
+.note-card {
   position: relative;
   overflow: hidden;
   border: 1px solid var(--line);
@@ -1196,97 +1181,17 @@ h3 {
     0 0 18px rgba(8, 145, 178, 0.06),
     inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
-.terminal-top {
-  display: flex;
-  gap: 8px;
-  padding: 12px 14px;
-  border-bottom: 1px solid rgba(162, 176, 255, 0.14);
-  background: rgba(255, 255, 255, 0.03);
-}
-.terminal-top span:nth-child(-n+3) {
-  width: 10px;
-  height: 10px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.28);
-}
-.terminal-top span:nth-child(1) {
-  background: #ff5f57;
-}
-.terminal-top span:nth-child(2) {
-  background: #ffbd2e;
-}
-.terminal-top span:nth-child(3) {
-  background: #28c840;
-}
-.terminal-body {
-  padding: 16px 14px 18px;
-  font-family: var(--font-mono);
-  font-size: 0.84rem;
-  line-height: 1.7;
-  color: #c9f9ff;
-}
-.terminal-body p {
-  margin: 0;
-}
-/* ── About Page Terminal Statement ── */
-.statement.terminal-statement {
-  padding: 0;
-  overflow: hidden;
-}
-.terminal-title {
-  margin-left: auto;
-  width: auto;
-  height: auto;
-  border-radius: 0;
-  background: none;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--muted);
-  opacity: 0.55;
-  letter-spacing: 0.05em;
-}
-.terminal-cmd {
-  margin-top: 14px !important;
-  color: var(--text);
-  opacity: 0;
-  transform: translateX(-12px);
-  animation: cmd-reveal 600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
 @keyframes cmd-reveal {
   to {
     opacity: 1;
     transform: translateX(0);
   }
 }
-.terminal-cmd:first-child {
-  margin-top: 4px !important;
-}
-.terminal-out {
-  padding-left: 2px;
-  color: #a0b8c8;
-  line-height: 1.65;
-  opacity: 0;
-  transform: translateY(6px);
-  animation: out-reveal 500ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
 @keyframes out-reveal {
   to {
     opacity: 1;
     transform: translateY(0);
   }
-}
-.terminal-key {
-  color: var(--cyan);
-  font-weight: 700;
-  text-shadow: 0 0 8px rgba(108, 242, 255, 0.2);
-}
-.terminal-out.indent {
-  padding-left: 18px;
-}
-.cursor-blink {
-  display: inline-block;
-  color: var(--lime);
-  animation: blink 1s step-end infinite;
 }
 @keyframes blink {
   0%, 100% { opacity: 1; }
@@ -1383,15 +1288,11 @@ h3 {
 .section-view-all:hover span {
   transform: translateX(5px);
 }
-.glass-card,
-  .stack-card,
-  .contact-card {
+.glass-card {
   border-radius: 28px;
 }
 .statement,
-  .detail,
-  .stack-card,
-  .contact-card {
+.detail {
   padding: 24px;
 }
 .detail {
@@ -1424,9 +1325,7 @@ h3 {
   font-size: clamp(2.2rem, 4vw, 3.4rem);
   line-height: 1;
 }
-.metric-panel,
-  .lab-card,
-  .footer {
+.footer {
   position: relative;
   overflow: hidden;
   border: 1px solid var(--line);
@@ -1548,8 +1447,8 @@ h3 {
   gap: 18px;
 }
 /* Exactly five highlight cards: three columns so the last card spans two,
-   instead of a lone orphan card and a dead half-row. */
-@media (min-width: 981px){
+instead of a lone orphan card and a dead half-row. */
+@media (min-width: 981px) {
 .build-track-grid:has(> .track-card:nth-child(5):last-child) {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -1597,11 +1496,6 @@ h3 {
 [data-note-detail] .page-hero {
   display: block;
   padding-bottom: 28px;
-}
-[data-project-detail] .page-hero > :not(.page-hero-panel),
-[data-note-detail] .page-hero > :not(.page-hero-panel) {
-  min-width: 0;
-  max-width: 100%;
 }
 [data-project-detail] .page-lead,
 [data-note-detail] .page-lead {
@@ -1688,8 +1582,8 @@ h3 {
   min-width: 0;
 }
 .repo-card,
-  .note-card,
-  .track-card {
+.note-card,
+.track-card {
   padding: 22px;
   border-radius: 26px;
 }
@@ -1739,7 +1633,8 @@ h3 {
     linear-gradient(180deg, rgba(18, 26, 52, 0.72), rgba(7, 11, 27, 0.86));
 }
 /* ── Projects page: long repo-name titles (e.g. QuantStrategyPrototypes) ──
-   Keep desktop 2-col / mobile 1-col, but let unbroken Latin tokens wrap and
+   Keep desktop 2-col / mobile 1-col,
+but let unbroken Latin tokens wrap and
    clamp the title to 2 lines so cards stay even. Flex children need
    min-width: 0 or a long word forces the track wider than 50%. */
 .project-page-grid > * {
@@ -1946,7 +1841,8 @@ h3 {
   min-height: 280px;
   overflow-wrap: anywhere;
 }
-/* Row 1: code / label on the left, timeframe right-aligned */
+/* Row 1: code / label on the left,
+timeframe right-aligned */
 .note-card-head {
   display: flex;
   align-items: center;
@@ -2071,7 +1967,7 @@ h3 {
   gap: 14px;
   padding-bottom: 8px;
 }
-@media (max-width: 760px){
+@media (max-width: 760px) {
 .note-entry-card .card-actions,
   .note-entry-card .note-meta-inline {
     flex-wrap: wrap;
@@ -2212,7 +2108,7 @@ h3 {
 [data-theme="light"] .note-overview-card {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(230, 234, 245, 0.9));
 }
-@media (max-width: 760px){
+@media (max-width: 760px) {
 .note-overview-card {
     padding: 20px;
     border-radius: 18px;
@@ -2268,7 +2164,7 @@ h3 {
   line-height: 1.85;
   overflow-wrap: break-word;
 }
-@media (max-width: 760px){
+@media (max-width: 760px) {
 .note-point {
     grid-template-columns: 40px minmax(0, 1fr);
     gap: 12px;
@@ -2401,7 +2297,7 @@ h3 {
   padding-top: 12px;
 }
 /* Only nudge sideways when both prev + next sit in a 2-col pager. */
-@media (min-width: 761px){
+@media (min-width: 761px) {
 .detail-pager:not(.is-single-prev):not(.is-single-next) .pager-card:first-child:hover {
     transform: translateX(-6px);
   }
@@ -2430,7 +2326,8 @@ body[data-page="about"] .about-hero-meta strong,
   font-weight: 700;
   letter-spacing: 0.04em;
 }
-/* Separators ride on the item that follows them, so a line break can never
+/* Separators ride on the item that follows them,
+so a line break can never
    strand a lone "·" at the end of a row. */
 body[data-page="about"] .about-hero-meta > span:not(.about-hero-meta-sep) + span:not(.about-hero-meta-sep)::before,
 .listing-hero-meta > span:not(.listing-hero-meta-sep) + span:not(.listing-hero-meta-sep)::before {
@@ -2594,7 +2491,8 @@ body[data-page="showcase"] .page-title span:not(.page-title-main) {
 .archive-footer p {
   margin: 0;
 }
-/* Footer links are navigation, not inline prose: give them a real target. */
+/* Footer links are navigation,
+not inline prose: give them a real target. */
 .archive-footer a {
   display: inline-flex;
   align-items: center;
@@ -2633,7 +2531,7 @@ body[data-page="showcase"] .page-title span:not(.page-title-main) {
 [data-theme="light"] .detail-breadcrumb a:hover {
   color: var(--cyan-text);
 }
-@media (max-width: 760px){
+@media (max-width: 760px) {
 .archive-page {
     padding-top: 28px;
   }
@@ -2706,7 +2604,7 @@ html:not([data-lang="en"]) .notfound-hero .page-title .lang-zh.notfound-title-ma
 .notfound-footer .footer-links {
   grid-template-columns: max-content;
 }
-@media (max-width: 760px){
+@media (max-width: 760px) {
 .notfound-main {
     min-height: 56vh;
   }
@@ -2864,7 +2762,8 @@ html:not([data-lang="en"]) .notfound-hero .page-title .lang-zh.notfound-title-ma
   }
 }
 /* Hero copy is in the HTML. Animate it from the stylesheet so the title
-   paints without waiting for app.js, and never leave a filter on the text. */
+   paints without waiting for app.js,
+and never leave a filter on the text. */
 .hero-copy .eyebrow {
   animation: hero-text-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 60ms both;
 }
@@ -2891,7 +2790,8 @@ html:not([data-lang="en"]) .notfound-hero .page-title .lang-zh.notfound-title-ma
 .hero-focus-panel .focus-list div:nth-child(3) { animation-delay: 320ms; }
 /* ── Page Loader ──
    Hidden through first paint. The head boot script adds .is-slow only
-   when scripts are still running after 480ms, and .loaded wins after that. */
+   when scripts are still running after 480ms,
+and .loaded wins after that. */
 .page-loader {
   position: fixed;
   inset: 0;
@@ -3040,7 +2940,7 @@ html:not([data-lang="en"]) .notfound-hero .page-title .lang-zh.notfound-title-ma
   transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
 }
 /* Narrow screens: keep pills on one scannable row instead of a ragged wrap. */
-@media (max-width: 760px){
+@media (max-width: 760px) {
 .filter-bar {
     flex-wrap: nowrap;
     gap: 8px;
@@ -3222,7 +3122,7 @@ html[data-theme="light"] .filter-pill.active {
   overflow-y: auto;
   padding: 8px;
 }
-@media (max-width: 760px){
+@media (max-width: 760px) {
 .palette {
     top: max(12px, env(safe-area-inset-top, 0px));
     width: calc(100% - 24px);
@@ -3296,20 +3196,17 @@ html[data-theme="light"] .filter-pill.active {
 .repo-card,
 .note-card,
 .work-card,
-.ops-card,
-.stack-card,
 .track-card {
   transition: transform 220ms ease, border-color 220ms ease, background 220ms ease, box-shadow 220ms ease;
 }
 .repo-card:hover,
 .note-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(108, 242, 255, 0.5);
+  transform: translateY(-4px);
+  border-color: rgba(108, 242, 255, 0.38);
   box-shadow:
-    0 24px 70px rgba(0, 0, 0, 0.32),
-    0 0 28px rgba(108, 242, 255, 0.12),
-    0 0 52px rgba(108, 242, 255, 0.07),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    0 18px 48px rgba(0, 0, 0, 0.26),
+    0 0 18px rgba(108, 242, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 /* Reassert light hover border after the unscoped neon rule above. */
 html[data-theme="light"] .repo-card:hover,
@@ -3335,8 +3232,6 @@ html[data-theme="light"] .note-card:hover {
   transform: translateX(4px) scale(0.985);
   transition-duration: 80ms;
 }
-.ops-card:hover,
-.stack-card:hover,
 .track-card:hover {
   border-color: rgba(108, 242, 255, 0.36);
   transform: translateY(-4px);
@@ -3346,14 +3241,9 @@ html[data-theme="light"] .note-card:hover {
     0 0 40px rgba(108, 242, 255, 0.05),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
-/* Reassert light border after the unscoped neon rule above. */
-html[data-theme="light"] .ops-card:hover,
-html[data-theme="light"] .stack-card:hover,
 html[data-theme="light"] .track-card:hover {
   border-color: rgba(8, 145, 178, 0.35);
 }
-.ops-card:active,
-.stack-card:active,
 .track-card:active {
   transform: translateY(-1px) scale(0.985);
   transition-duration: 80ms;
@@ -3432,13 +3322,12 @@ html[data-theme="light"] .related-track-grid > .track-card:hover {
   );
   animation: shimmer 2.2s ease-in-out infinite;
 }
-@media (prefers-reduced-motion: reduce){
+@media (prefers-reduced-motion: reduce) {
 html {
     scroll-behavior: auto;
   }
 .loader-ring,
   .hero-copy::after,
-  .cursor-blink,
   .orb-a,
   .orb-b,
   .orb-c,
@@ -3450,19 +3339,14 @@ html {
   .stack-label,
   body,
   .data-streams span,
-  body::after,
-  .terminal-key,
-  .terminal-cmd,
-  .terminal-out {
+  body::after{
     animation: none;
   }
 .cursor-glow,
   .data-streams {
     display: none;
   }
-.reveal,
-  .terminal-cmd,
-  .terminal-out {
+.reveal{
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;
@@ -3471,7 +3355,6 @@ html {
 .hero-copy.reveal,
   .hero-focus-panel.reveal,
   .page-hero.reveal,
-  .page-hero-panel.reveal,
   .hero-copy h1,
   .hero-copy .hero-tagline,
   .hero-copy .lead,
@@ -3498,8 +3381,6 @@ html {
   .repo-card:hover,
   .note-card:hover,
   .showcase-card:hover,
-  .ops-card:hover,
-  .stack-card:hover,
   .track-card:hover,
   .topbar-link:hover,
   .palette-hint:hover,
@@ -3523,16 +3404,16 @@ html {
   transform: none;
 }
 /* Above-the-fold shells are in the HTML. Don't hold them at opacity 0
-   until app.js, and don't leave a filter layer on the title. */
+   until app.js,
+and don't leave a filter layer on the title. */
 .hero-copy.reveal,
 .hero-focus-panel.reveal,
-.page-hero.reveal,
-.page-hero-panel.reveal {
+.page-hero.reveal {
   opacity: 1;
   transform: none;
   transition: none;
 }
-@media (max-width: 980px){
+@media (max-width: 980px) {
 .hero {
     min-height: auto;
   }
@@ -3727,7 +3608,7 @@ body[data-page="about"] .about-hero-meta > span:not(.about-hero-meta-sep) + span
   }
 }
 /* Ease density before the hamburger takes over */
-@media (max-width: 1180px) and (min-width: 981px){
+@media (max-width: 1180px) {
 .topbar {
     gap: 12px;
   }
@@ -3749,7 +3630,14 @@ body[data-page="about"] .about-hero-meta > span:not(.about-hero-meta-sep) + span
     display: none;
   }
 }
-@media (max-width: 760px){
+@media (max-width: 760px) {
+/* Socials already live in the footer — drop the duplicate chrome on small screens. */
+  .topbar-socials {
+    display: none;
+  }
+.topbar-status {
+    display: none;
+  }
 /* 移动端间距覆盖 — 更紧凑透气 */
   .section { padding: 20px 0; }
 .section + .section { margin-top: 12px; padding-top: 20px; }
@@ -4022,9 +3910,7 @@ body[data-page="showcase"] .page-actions .button {
   .hero-focus-panel,
   .statement,
   .detail,
-  .stack-card,
-  .work-card,
-  .contact-card {
+  .work-card{
     padding: 18px;
     border-radius: 20px;
   }
@@ -4120,7 +4006,7 @@ h2 {
     max-width: none;
   }
 }
-@media (max-width: 360px){
+@media (max-width: 360px) {
 .topbar {
     gap: 8px;
   }
@@ -4151,7 +4037,7 @@ html.theme-transitioning *::before,
 html.theme-transitioning *::after {
   transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease !important;
 }
-@media (hover: none){
+@media (hover: none) {
 .cursor-glow {
     display: none;
   }
@@ -4161,20 +4047,20 @@ html.theme-transitioning *::after {
     will-change: auto;
   }
 }
-/* Background tabs should not keep painting glows, orbs, or the grid scan. */
+/* Background tabs should not keep painting glows,
+orbs,
+or the grid scan. */
 html.page-hidden *,
 html.page-hidden *::before,
 html.page-hidden *::after {
   animation-play-state: paused !important;
 }
 /* ── Touch Device Hover Fix ── */
-@media (hover: none){
+@media (hover: none) {
 .work-card:hover,
   .repo-card:hover,
   .note-card:hover,
   .track-card:hover,
-  .ops-card:hover,
-  .stack-card:hover,
   .showcase-card:hover,
   .topbar-link:hover,
   .contact-links a:hover,
@@ -4267,8 +4153,7 @@ html[data-theme="light"] .filter-pill:hover:not(.active) {
 .track-card:hover {
     border-top-color: rgba(108, 242, 255, 0.12);
   }
-[data-theme="light"] .ops-card:hover,
-  [data-theme="light"] .stack-card:hover,
+,
   [data-theme="light"] .track-card:hover {
     border-color: var(--line);
   }
@@ -4369,7 +4254,7 @@ html[data-theme="light"] .filter-pill:hover:not(.active) {
   }
 }
 /* ── Print Styles ── */
-@media print{
+@media print {
 * {
     background: transparent !important;
     color: #000 !important;
@@ -4453,15 +4338,10 @@ a[href^="#"]::after,
     background: transparent !important;
   }
 .glass-card,
-  .ops-card,
-  .metric-panel,
-  .stack-card,
-  .lab-card,
   .track-card,
   .work-card,
   .repo-card,
   .note-card,
-  .contact-card,
   .footer {
     border: 1px solid #ccc !important;
     border-radius: 0 !important;
@@ -4485,7 +4365,7 @@ a[href^="#"]::after,
 @page {
   margin: 16mm 14mm;
 }
-@media print{
+@media print {
 /* Chrome and duplicate navigation have no meaning on paper. */
   .skip-link,
   .topbar .nav,
