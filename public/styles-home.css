@@ -6,6 +6,15 @@ body[data-page="home"] .home-hero {
   display: block;
   padding-bottom: 4px;
 }
+/* Home keeps the fuller atmospheric orbs. */
+body[data-page="home"] .orb-a,
+body[data-page="home"] .orb-b {
+  opacity: 1;
+  filter: blur(26px);
+}
+body[data-page="home"] .orb-c {
+  opacity: 1;
+}
 body[data-page="home"] .hero-copy {
   flex: none;
   width: 100%;
@@ -14,6 +23,20 @@ body[data-page="home"] .hero-copy {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  /* Open composition — match the principles strip below, not a dashboard card. */
+  padding: 8px 0 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+}
+body[data-page="home"] .hero-copy::before,
+body[data-page="home"] .hero-copy::after {
+  display: none;
+}
+[data-theme="light"] body[data-page="home"] .hero-copy {
+  background: transparent;
 }
 body[data-page="home"] .hero-copy h1 {
   max-width: none;
@@ -202,10 +225,6 @@ body[data-page="home"] .note-card .card-actions {
   padding-top: 12px;
   border-top: 1px solid rgba(162, 176, 255, 0.12);
 }
-body[data-page="home"] .note-card .note-status-pill {
-  display: none;
-}
-
 body[data-page="home"] #work.section {
   padding-top: 28px;
 }
@@ -218,8 +237,8 @@ body[data-page="home"] #work.section {
 
 @media (max-width: 760px) {
   body[data-page="home"] .hero-copy {
-    padding: 18px;
-    border-radius: 20px;
+    padding: 4px 0 0;
+    border-radius: 0;
   }
   body[data-page="home"] .hero-copy h1 {
     max-width: none;

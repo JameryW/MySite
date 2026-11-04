@@ -86,10 +86,9 @@ if (finePointer) document.addEventListener("pointermove", (e) => {
            fight this inline transform. */
         cursorGlow.style.transform = `translate3d(${pointerX}px, ${pointerY}px, 0) translate(-50%, -50%)`;
       }
-      if (!reduceMotion) {
-        const intensity = isHomePage ? 1 : 0.55;
-        const x = (pointerX / window.innerWidth - 0.5) * 12 * intensity;
-        const y = (pointerY / window.innerHeight - 0.5) * 12 * intensity;
+      if (!reduceMotion && isHomePage) {
+        const x = (pointerX / window.innerWidth - 0.5) * 12;
+        const y = (pointerY / window.innerHeight - 0.5) * 12;
         if (orbA) orbA.style.transform = `translate(${x * -1.4}px, ${y * -1.4}px)`;
         if (orbB) orbB.style.transform = `translate(${x * 1.05}px, ${y * 1.05}px)`;
         if (orbC) orbC.style.transform = `translate(${x * 0.7}px, ${y * -0.7}px)`;
@@ -424,8 +423,6 @@ const I18N = {
     "showcase.demosSummary": "先看运行结果，再按需打开源码。",
     "showcase.demosKicker": "Live Products",
     "showcase.badge": "在线演示",
-    "showcase.signalFocus": "焦点",
-    "showcase.signalFocusValue": "2 live demos",
     "showcase.footerKicker": "Showcase / Ship Then Show",
     "showcase.signalAria": "Showcase 概览",
     "notes.eyebrow": "Notes / Working Thoughts",
@@ -622,8 +619,6 @@ const I18N = {
     "showcase.demosSummary": "Inspect the running result first, then open the source if you want.",
     "showcase.demosKicker": "Live Products",
     "showcase.badge": "Live demo",
-    "showcase.signalFocus": "Focus",
-    "showcase.signalFocusValue": "2 live demos",
     "showcase.footerKicker": "Showcase / Ship Then Show",
     "showcase.signalAria": "Showcase overview",
     "notes.eyebrow": "Notes / Working Thoughts",
@@ -1038,17 +1033,6 @@ const projectCardMarkup = (project, variant) => {
   `;
 };
 
-const noteStatusKind = (status) =>
-  String(status || "")
-    .toLowerCase()
-    .replace(/\s+note$/i, "")
-    .trim()
-    .replace(/\s+/g, "-");
-const noteStatusLabel = (status) =>
-  String(status || "")
-    .replace(/\s+note$/i, "")
-    .trim();
-
 const noteCardMarkup = (note) => {
   const buildCount = Array.isArray(note.relatedProjects) ? note.relatedProjects.length : 0;
   const teaser = noteText(note, "summary") || noteText(note, "overview") || "";
@@ -1056,25 +1040,18 @@ const noteCardMarkup = (note) => {
   const titleSub = noteTitleSub(note);
   const buildWord = siteLang === "en" ? (buildCount === 1 ? "build" : t("card.relatedBuilds")) : t("card.relatedBuilds");
   const readWord = t("cta.readNote");
-  const statusLabel = noteStatusLabel(note.status);
-  const statusKind = noteStatusKind(note.status);
   /* Skip universal bullet counts — every note ships 4 points, so the
-     number is noise. Related-project counts still vary and stay useful. */
+     number is noise. Related-project counts still vary and stay useful.
+     Status/timeframe stay on detail pages; library cards keep code/label only. */
   return `
   <a class="note-card reveal note-entry-card" href="${noteDetailHref(note)}">
     <div class="note-card-head">
       <p class="stack-label"><span class="note-code">${note.code || "Note"}</span><span class="note-label-rest"> / ${note.label || ""}</span></p>
-      ${note.timeframe ? `<span class="note-timeframe">${note.timeframe}</span>` : ""}
     </div>
     <h3>${title}${titleSub ? `<span class="title-en">${titleSub}</span>` : ""}</h3>
     <p class="note-summary">${teaser}</p>
     <div class="card-actions">
       <span class="note-meta-inline">
-        ${
-          statusLabel
-            ? `<span class="note-status-pill" data-kind="${statusKind}">${statusLabel}</span>`
-            : ""
-        }
         ${buildCount > 0 ? `<span class="repo-meta">${buildCount} ${buildWord}</span>` : ""}
       </span>
       <span class="card-inline-link">${readWord} <span aria-hidden="true">→</span></span>
