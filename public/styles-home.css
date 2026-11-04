@@ -56,12 +56,9 @@ body[data-page="home"] .hero-copy h1 span {
   white-space: normal;
   text-wrap: balance;
 }
-body[data-page="home"] .hero-copy .lead {
-  margin: 12px 0 0;
-  max-width: 46ch;
-  color: var(--text);
-  opacity: 0.88;
-  font-size: 1.06rem;
+body[data-page="home"] .hero-tagline {
+  margin-top: 16px;
+  max-width: 40ch;
 }
 
 /* Hero: eyebrow — quieter chip, not a loud pill */

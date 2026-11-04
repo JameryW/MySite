@@ -227,7 +227,7 @@ window.siteData = {
       href: "https://github.com/JameryW/AwesomeWorkflows",
       sourcePrivate: true,
       cta: "查看公开仓库",
-      status: "Active",
+      status: "Lab",
       stack: ["Agent Skills", "Trellis", "Codex", "Claude Code", "GitHub Issues"],
       timeframe: "2026-08–now",
       role: "Architect / Builder",
@@ -376,7 +376,7 @@ window.siteData = {
       summaryEn: "Prompt engineering is shifting from handcrafted tricks to structured interfaces — from writing prompts to designing tools and orchestrating flows.",
       meta: "Focus: structural shift",
       status: "Observation note",
-      timeframe: "2025 observation",
+      timeframe: "2026 observation",
       detailTitle: "从巧妙提示到结构化接口",
       detailTitleEn: "From Clever Prompts To Structured Interfaces",
       overview:
@@ -450,7 +450,7 @@ window.siteData = {
       summaryEn: "Productive forces determine production relations: organizations that match new productive forces with old forms will ultimately be replaced by a more radically efficient form.",
       meta: "Focus: organizational evolution",
       status: "Observation note",
-      timeframe: "2025 observation",
+      timeframe: "2026 observation",
       detailTitle: "当生产力超越组织外壳",
       detailTitleEn: "When Productivity Outgrows Its Organizational Shell",
       overview:
@@ -524,7 +524,7 @@ window.siteData = {
       summaryEn: "Sustained high-quality data produces high-quality strategies, and high-quality strategies spawn new alpha. It's a self-reinforcing flywheel, not linear accumulation.",
       meta: "Focus: data-strategy flywheel",
       status: "Research note",
-      timeframe: "2025 observation",
+      timeframe: "2026 observation",
       detailTitle: "数据飞轮催生 alpha",
       detailTitleEn: "The Data Flywheel Generates Alpha",
       overview:
@@ -561,7 +561,7 @@ window.siteData = {
       summaryEn: "AI rapidly depreciates retrievable knowledge while appreciating engineering experience earned from real failures. Designing distributed architectures that survive hundred-million-scale concurrency takes more than textbook basics.",
       meta: "Focus: AI-era value shift",
       status: "Judgment note",
-      timeframe: "2025 observation",
+      timeframe: "2026 observation",
       detailTitle: "AI 时代的价值迁移",
       detailTitleEn: "The Value Shift In The AI Era",
       overview:
@@ -598,7 +598,7 @@ window.siteData = {
       summaryEn: "The stronger models get, the more pure-software skills get devoured like free APIs. Truly hard to replicate are tools that touch the physical world — sensors, actuators, private protocols, real-environment feedback loops.",
       meta: "Focus: AI-era moat shift",
       status: "Moat note",
-      timeframe: "2025 observation",
+      timeframe: "2026 observation",
       detailTitle: "技能被吞噬，工具成护城河",
       detailTitleEn: "Skills Devoured, Tools Fortified",
       overview:
@@ -635,7 +635,7 @@ window.siteData = {
       summaryEn: "Large models keep internalizing pure-software capability into free infrastructure, while software-hardware integration tied to the physical world appreciates on the back of real-world data loops.",
       meta: "Focus: physical-connected premium",
       status: "Value note",
-      timeframe: "2025 observation",
+      timeframe: "2026 observation",
       detailTitle: "纯软件被内化，物理连接成溢价",
       detailTitleEn: "Pure Software Internalized, Physical Connection Commands A Premium",
       overview:
@@ -672,7 +672,7 @@ window.siteData = {
       summaryEn: "AI splits the world into a K: apps go liberal-arts — taste and character decide who wins; tech goes hardcore — hardware bound to the physical world, perception–action–feedback in real environments, and self-evolution.",
       meta: "Focus: AI-era dual track",
       status: "Divergence note",
-      timeframe: "2025 observation",
+      timeframe: "2026 observation",
       detailTitle: "应用文科化，技术硬核化",
       detailTitleEn: "Apps Go Soft, Tech Goes Hard",
       overview:

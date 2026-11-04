@@ -195,7 +195,7 @@ Outputs:
 ### AwesomeWorkflows (H8 / Agent Workflows)
 
 URL: https://www.jameryw.dev/project.html?slug=awesome-workflows
-Status: Active · Timeframe: 2026-08–now · Role: Architect / Builder
+Status: Lab · Timeframe: 2026-08–now · Role: Architect / Builder
 Published: 2026-09-03 · Updated: 2026-09-03
 Stack: Agent Skills, Trellis, Codex, Claude Code, GitHub Issues
 
@@ -332,7 +332,7 @@ Related projects:
 
 URL: https://www.jameryw.dev/note.html?slug=prompt-engineering-evolution
 Title (EN): Prompt Engineering Is Evolving · Detail: 从巧妙提示到结构化接口 / From Clever Prompts To Structured Interfaces
-Status: Observation note · Timeframe: 2025 observation · Meta: Focus: structural shift
+Status: Observation note · Timeframe: 2026 observation · Meta: Focus: structural shift
 Published: 2026-05-31 · Updated: 2026-09-14
 
 Summary: 提示工程正在从手工技巧转向结构化接口，从写 prompt 变成设计工具和编排流程。
@@ -400,7 +400,7 @@ Related projects:
 
 URL: https://www.jameryw.dev/note.html?slug=productivity-and-relations
 Title (EN): Productivity & Production Relations · Detail: 当生产力超越组织外壳 / When Productivity Outgrows Its Organizational Shell
-Status: Observation note · Timeframe: 2025 observation · Meta: Focus: organizational evolution
+Status: Observation note · Timeframe: 2026 observation · Meta: Focus: organizational evolution
 Published: 2026-06-09 · Updated: 2026-06-09
 
 Summary: 生产力决定生产关系，用旧的组织形态匹配新生产力，终将被效率更极致的新形态替代。
@@ -466,7 +466,7 @@ Related projects:
 
 URL: https://www.jameryw.dev/note.html?slug=quantity-to-quality
 Title (EN): Quantity Becomes Quality · Detail: 数据飞轮催生 alpha / The Data Flywheel Generates Alpha
-Status: Research note · Timeframe: 2025 observation · Meta: Focus: data-strategy flywheel
+Status: Research note · Timeframe: 2026 observation · Meta: Focus: data-strategy flywheel
 Published: 2026-06-26 · Updated: 2026-06-26
 
 Summary: 持续高质量的数据产生高质量的策略，高质量策略催生新的 alpha。这是一个自增强的飞轮，不是线性积累。
@@ -499,7 +499,7 @@ Related projects:
 
 URL: https://www.jameryw.dev/note.html?slug=knowledge-depreciates-experience-appreciates
 Title (EN): Knowledge Depreciates, Experience Appreciates · Detail: AI 时代的价值迁移 / The Value Shift In The AI Era
-Status: Judgment note · Timeframe: 2025 observation · Meta: Focus: AI-era value shift
+Status: Judgment note · Timeframe: 2026 observation · Meta: Focus: AI-era value shift
 Published: 2026-07-02 · Updated: 2026-07-02
 
 Summary: AI 让可检索的知识快速贬值，却让从踩坑里长出来的工程经验升值。设计能扛亿级并发的分布式架构，靠的不是教科书上的基本知识。
@@ -531,7 +531,7 @@ Related projects:
 
 URL: https://www.jameryw.dev/note.html?slug=skills-devoured-tools-fortified
 Title (EN): Skills Devoured, Tools Fortified · Detail: 技能被吞噬，工具成护城河 / Skills Devoured, Tools Fortified
-Status: Moat note · Timeframe: 2025 observation · Meta: Focus: AI-era moat shift
+Status: Moat note · Timeframe: 2026 observation · Meta: Focus: AI-era moat shift
 Published: 2026-07-13 · Updated: 2026-10-18
 
 Summary: 模型能力越强，纯软件技能越像免费 API 一样被吞噬。真正难复刻的是连接物理世界的 tools——传感器、执行器、私有协议、真实环境的反馈闭环。
@@ -563,7 +563,7 @@ Related projects:
 
 URL: https://www.jameryw.dev/note.html?slug=pure-software-devalued-physical-premium
 Title (EN): Pure Software Devalued, Physical Integration Premium · Detail: 纯软件被内化，物理连接成溢价 / Pure Software Internalized, Physical Connection Commands A Premium
-Status: Value note · Timeframe: 2025 observation · Meta: Focus: physical-connected premium
+Status: Value note · Timeframe: 2026 observation · Meta: Focus: physical-connected premium
 Published: 2026-09-22 · Updated: 2026-09-22
 
 Summary: 大模型把纯软件能力不断内化为免费基础设施，与物理世界相连的软硬一体技术反而因真实数据闭环而升值。
@@ -595,7 +595,7 @@ Related projects:
 
 URL: https://www.jameryw.dev/note.html?slug=ai-k-shaped-divergence
 Title (EN): K-Shaped Divergence In The AI Era · Detail: 应用文科化，技术硬核化 / Apps Go Soft, Tech Goes Hard
-Status: Divergence note · Timeframe: 2025 observation · Meta: Focus: AI-era dual track
+Status: Divergence note · Timeframe: 2026 observation · Meta: Focus: AI-era dual track
 Published: 2026-10-21 · Updated: 2026-10-21
 
 Summary: AI 把世界撕成两极：应用侧越来越文科化，审美与品格决定胜负；技术侧越来越硬核，绑定物理世界的硬件、真实环境的感知—行动—反馈，以及自我进化。
