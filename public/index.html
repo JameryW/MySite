@@ -42,10 +42,10 @@
     <meta name="apple-mobile-web-app-title" content="Jamery Wang">
     <link rel="preconnect" href="https://stats.jameryw.dev" />
     <link rel="dns-prefetch" href="https://github.com" />
-    <link rel="stylesheet" href="./styles.css?v=141" />
-    <link rel="stylesheet" href="./styles-home.css?v=1" />
-    <link rel="preload" href="./data-list.js?v=1" as="script" />
-    <link rel="preload" href="./app.js?v=96" as="script" />
+    <link rel="stylesheet" href="./styles.css?v=142" />
+    <link rel="stylesheet" href="./styles-home.css?v=2" />
+    <link rel="preload" href="./data-list.js?v=2" as="script" />
+    <link rel="preload" href="./app.js?v=97" as="script" />
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -172,37 +172,40 @@
             </h1>
             <p class="hero-tagline">
               <span class="tagline-ch" data-i18n="home.tagline">终端是第二个大脑，LLM 是第三个。跑通原型比写文档勤；debug Agent 比 debug 自己勤。</span>
-              <span class="tagline-en">Agent-first · Kernel-aware · Ship before sleep</span>
             </p>
             <p class="lead" data-i18n="home.lead">扎根杭州，专注 Agent 内核、分层记忆与可观测执行面；量化策略与 Code-as-Policy 也在同一条验证链上——原型跑通才叫验证。</p>
             <div class="hero-actions">
               <a class="button primary" href="#work" data-i18n="cta.work">核心项目</a>
-              <a class="button secondary" href="./showcase.html" data-i18n="cta.showcase">作品展示</a>
               <a class="button secondary" href="#notes" data-i18n="cta.notes">最新笔记</a>
             </div>
           </div>
-
-          <aside class="hero-focus-panel reveal" aria-label="当前焦点" data-i18n-aria="aria.focus">
-            <p class="stack-label" data-i18n="home.focusLabel">Current Focus</p>
-            <div class="focus-list">
-              <div>
-                <span>01</span>
-                <strong><span data-i18n="home.focus1Title">执行优于解释</span> <span class="title-en" data-i18n-en-hint="home.focus1Title">Execution Over Explanation</span></strong>
-                <p data-i18n="home.focus1">把工具、记忆和多步执行串成可恢复的闭环，比把单轮回答写漂亮更重要。</p>
-              </div>
-              <div>
-                <span>02</span>
-                <strong><span data-i18n="home.focus2Title">内核优于技巧</span> <span class="title-en" data-i18n-en-hint="home.focus2Title">Kernel Over Tricks</span></strong>
-                <p data-i18n="home.focus2">上限由状态、上下文编译、调度和发布边界决定，不靠临时技巧。</p>
-              </div>
-              <div>
-                <span>03</span>
-                <strong><span data-i18n="home.focus3Title">信号优于声明</span> <span class="title-en" data-i18n-en-hint="home.focus3Title">Signal Over Claims</span></strong>
-                <p data-i18n="home.focus3">让别人从运行结果里读到能力，而不是从简历声明里读到。</p>
-              </div>
-            </div>
-          </aside>
         </section>
+
+        <section class="section home-principles" id="principles" aria-label="当前焦点" data-i18n-aria="aria.focus">
+          <div class="section-head reveal">
+            <p class="section-kicker" data-i18n="home.focusLabel">Current Focus</p>
+            <h2 data-i18n="home.principlesTitle">三条原则</h2>
+            <p class="section-summary" data-i18n="home.principlesSummary">执行、内核、信号——比简历声明更靠谱的判断标准。</p>
+          </div>
+          <div class="focus-list home-principles-list reveal">
+            <div>
+              <span>01</span>
+              <strong><span data-i18n="home.focus1Title">执行优于解释</span> <span class="title-en" data-i18n-en-hint="home.focus1Title">Execution Over Explanation</span></strong>
+              <p data-i18n="home.focus1">把工具、记忆和多步执行串成可恢复的闭环，比把单轮回答写漂亮更重要。</p>
+            </div>
+            <div>
+              <span>02</span>
+              <strong><span data-i18n="home.focus2Title">内核优于技巧</span> <span class="title-en" data-i18n-en-hint="home.focus2Title">Kernel Over Tricks</span></strong>
+              <p data-i18n="home.focus2">上限由状态、上下文编译、调度和发布边界决定，不靠临时技巧。</p>
+            </div>
+            <div>
+              <span>03</span>
+              <strong><span data-i18n="home.focus3Title">信号优于声明</span> <span class="title-en" data-i18n-en-hint="home.focus3Title">Signal Over Claims</span></strong>
+              <p data-i18n="home.focus3">让别人从运行结果里读到能力，而不是从简历声明里读到。</p>
+            </div>
+          </div>
+        </section>
+
         <section class="work section" id="work" aria-label="精选项目" data-i18n-aria="aria.work">
           <div class="section-head reveal">
             <div class="section-head-top">
@@ -266,9 +269,9 @@
       <span data-i18n="cta.top">顶部</span>
     </button>
 
-    <script src="./data-list.js?v=1" defer fetchpriority="high"></script>
+    <script src="./data-list.js?v=2" defer fetchpriority="high"></script>
     <script src="./umami-config.js" defer></script>
-    <script src="./app.js?v=96" defer fetchpriority="high"></script>
+    <script src="./app.js?v=97" defer fetchpriority="high"></script>
 
     <!-- Command Palette -->
     <div class="palette-overlay" data-palette-overlay aria-hidden="true"></div>

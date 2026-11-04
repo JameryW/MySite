@@ -42,10 +42,10 @@
     <meta name="apple-mobile-web-app-title" content="Jamery Wang">
     <link rel="preconnect" href="https://stats.jameryw.dev" />
     <link rel="dns-prefetch" href="https://github.com" />
-    <link rel="stylesheet" href="./styles.css?v=141" />
-    <link rel="stylesheet" href="./styles-about.css?v=1" />
-    <link rel="preload" href="./data-list.js?v=1" as="script" />
-    <link rel="preload" href="./app.js?v=96" as="script" />
+    <link rel="stylesheet" href="./styles.css?v=142" />
+    <link rel="stylesheet" href="./styles-about.css?v=2" />
+    <link rel="preload" href="./data-list.js?v=2" as="script" />
+    <link rel="preload" href="./app.js?v=97" as="script" />
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -238,41 +238,23 @@
             <h2 data-i18n="about.profileTitle">工作方式</h2>
             <p class="section-summary" data-i18n="about.profileSummary">工具偏好、构建方法和公开信号，压成一套可扫描的说明。</p>
           </div>
-          <div class="about-profile-stack">
-            <article class="glass-card statement terminal-statement reveal">
-              <div class="terminal-top">
-                <span></span><span></span><span></span>
-                <span class="terminal-title">jameryw@native — zsh</span>
+          <article class="about-signals reveal">
+            <p class="detail-heading" data-i18n="about.signalsHeading">构建信号</p>
+            <div class="about-signals-grid">
+              <div>
+                <span data-i18n="about.signalBias">偏好</span>
+                <p data-i18n="about.bias">边搭边想，优先跑通。想法要落到可恢复的系统，而不是一次性演示。</p>
               </div>
-              <div class="terminal-body">
-                <p class="terminal-cmd"><span class="prompt">$</span> whoami</p>
-                <p class="terminal-out">jameryw — AI-native / prototyper</p>
-                <p class="terminal-cmd"><span class="prompt">$</span> cat ~/.ai-stack</p>
-                <p class="terminal-out"><span class="terminal-key">runtime</span> → Kernel · LangGraph · DAG</p>
-                <p class="terminal-out"><span class="terminal-key">memory</span>  → hy-memory · TiKV / Qdrant</p>
-                <p class="terminal-out"><span class="terminal-key">surface</span> → Showcase · Replay</p>
-                <p class="terminal-out"><span class="terminal-key">editor</span>  → keyboard-native · CLI&#8209;first</p>
-                <p class="terminal-cmd terminal-cmd-cursor"><span class="prompt"><span class="cursor-blink">█</span></span></p>
+              <div>
+                <span data-i18n="about.signalMethod">方法</span>
+                <p data-i18n="about.method">用 Agent 原型验证假设；公开迭代留下可核对的执行痕迹。</p>
               </div>
-            </article>
-            <article class="about-signals reveal">
-              <p class="detail-heading" data-i18n="about.signalsHeading">构建信号</p>
-              <div class="about-signals-grid">
-                <div>
-                  <span data-i18n="about.signalBias">偏好</span>
-                  <p data-i18n="about.bias">边搭边想，优先跑通。想法要落到可恢复的系统，而不是一次性演示。</p>
-                </div>
-                <div>
-                  <span data-i18n="about.signalMethod">方法</span>
-                  <p data-i18n="about.method">用 Agent 原型验证假设；公开迭代留下可核对的执行痕迹。</p>
-                </div>
-                <div>
-                  <span data-i18n="about.signalLensLabel">透镜</span>
-                  <p data-i18n="about.lens">上限由状态、上下文编译、调度和发布边界决定，而不是单次技巧。</p>
-                </div>
+              <div>
+                <span data-i18n="about.signalLensLabel">透镜</span>
+                <p data-i18n="about.lens">上限由状态、上下文编译、调度和发布边界决定，而不是单次技巧。</p>
               </div>
-            </article>
-          </div>
+            </div>
+          </article>
         </section>
 
         <section class="section about-contact-section" id="entry-points">
@@ -317,9 +299,9 @@
       <span data-i18n="cta.top">顶部</span>
     </button>
 
-<script src="./data-list.js?v=1" defer fetchpriority="high"></script>
+<script src="./data-list.js?v=2" defer fetchpriority="high"></script>
 <script src="./umami-config.js" defer></script>
-<script src="./app.js?v=96" defer fetchpriority="high"></script>
+<script src="./app.js?v=97" defer fetchpriority="high"></script>
 
     <!-- Command Palette -->
     <div class="palette-overlay" data-palette-overlay aria-hidden="true"></div>

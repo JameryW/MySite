@@ -37,11 +37,13 @@ Content is driven entirely by `data.js`, which sets `window.siteData` with `proj
 |------|---------|
 | `data.js` | All content data (projects + notes with slugs, metadata, cross-references) |
 | `app.js` | Rendering logic, scroll interactions, nav state, time display, reveal animations |
-| `styles.css` | Single shared stylesheet (dark theme, glass-morphism, responsive) |
+| `styles.css` | Shared stylesheet (dark theme, glass-morphism, responsive) |
+| `styles-home.css` | Homepage-only rules |
+| `styles-about.css` | About-page-only rules |
 
 ### HTML pages
 
-- `index.html` — homepage (hero, ops, about, stack, work, notes, timeline, contact)
+- `index.html` — homepage (hero, principles, work, notes)
 - `projects.html` — project listing
 - `notes.html` — notes listing
 - `about.html` — about page
@@ -50,7 +52,7 @@ Content is driven entirely by `data.js`, which sets `window.siteData` with `proj
 - `note.html` — note detail shell (JS-rendered from slug)
 - `404.html` — custom 404 page (static, does not load `app.js` or record sessions)
 
-All pages share the same header/nav structure, `data.js`, `app.js`, and `styles.css`.
+All pages share the same header/nav structure; listing pages load `data-list.js`, detail shells load full `data.js`.
 
 ## Coding Conventions
 
@@ -71,5 +73,5 @@ To add a new project or note, edit `data.js` — add an entry to the `projects` 
 
 - Dark theme with glass-morphism cards (`backdrop-filter: blur()`)
 - IntersectionObserver-based `.reveal` scroll animations (add `.reveal` class to new sections)
-- Parallax orb movement on pointer move (`.orb-a`, `.orb-b`)
-- Ticker animation, radar panel, and terminal card are homepage-specific decorative elements
+- Parallax orb movement on pointer move (`.orb-a`, `.orb-b`); particle net / data-streams / cursor glow stay home-only
+- Keep atmospheric FX quieter on listing and detail pages so content stays the signal
