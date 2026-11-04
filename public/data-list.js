@@ -72,7 +72,7 @@ window.siteData = {
       "href": "https://github.com/JameryW/QuantAgent",
       "sourcePrivate": true,
       "demoUrl": "https://quant.jameryw.dev",
-      "cta": "查看源码",
+      "cta": "查看公开仓库",
       "status": "Active research",
       "stack": [
         "Python",
@@ -94,7 +94,7 @@ window.siteData = {
       "summaryEn": "A modular quant strategy library — multi-strategy orchestration, broker adapters, and risk controls, with Futu live trading and dry-run.",
       "href": "https://github.com/JameryW/RealQuantEngine",
       "sourcePrivate": true,
-      "cta": "查看源码",
+      "cta": "查看公开仓库",
       "status": "Active",
       "stack": [
         "Python",
@@ -116,7 +116,7 @@ window.siteData = {
       "summaryEn": "Quant strategy prototypes grounded in arXiv research — backtest engine, 10 strategy modules, and 91% test coverage. Archived; strategy surface folded into RealQuantEngine.",
       "href": "https://github.com/JameryW/QuantStrategyPrototypes",
       "sourcePrivate": true,
-      "cta": "查看源码",
+      "cta": "查看公开仓库",
       "status": "Archive",
       "stack": [
         "Python",
@@ -163,7 +163,7 @@ window.siteData = {
       "summaryEn": "Issue-driven delivery workflows reusable across Codex / Claude Code / Grok Build / DeepSeek Harness — Matt Pocock engineering skills plus the Trellis task lifecycle.",
       "href": "https://github.com/JameryW/AwesomeWorkflows",
       "sourcePrivate": true,
-      "cta": "查看源码",
+      "cta": "查看公开仓库",
       "status": "Active",
       "stack": [
         "Agent Skills",

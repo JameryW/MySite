@@ -37,7 +37,8 @@ body[data-page="about"] .about-hero-copy .eyebrow {
 body[data-page="about"] .about-hero .page-title {
   max-width: none;
   line-height: 1.12;
-  white-space: nowrap;
+  white-space: normal;
+  text-wrap: balance;
 }
 body[data-page="about"] .about-hero .page-title span {
   max-width: none;

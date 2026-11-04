@@ -66,8 +66,6 @@ let pointerFrame = false;
 let glowTarget = null;
 let glowEvent = null;
 
-const tiltSelector = ".track-card";
-
 if (finePointer) document.addEventListener("pointermove", (e) => {
   pointerX = e.clientX;
   pointerY = e.clientY;
@@ -76,9 +74,6 @@ if (finePointer) document.addEventListener("pointermove", (e) => {
   const card = e.target.closest(".repo-card, .note-card, .work-card");
   glowTarget = card;
   glowEvent = card ? e : null;
-
-  /* Card tilt target */
-  const tiltCard = !reduceMotion ? e.target.closest(tiltSelector) : null;
 
   if (!pointerFrame) {
     pointerFrame = true;
@@ -104,25 +99,9 @@ if (finePointer) document.addEventListener("pointermove", (e) => {
         glowTarget.style.setProperty("--glow-x", ((glowEvent.clientX - rect.left) / rect.width * 100) + "%");
         glowTarget.style.setProperty("--glow-y", ((glowEvent.clientY - rect.top) / rect.height * 100) + "%");
       }
-      if (tiltCard) {
-        const rect = tiltCard.getBoundingClientRect();
-        const tx = (pointerX - rect.left) / rect.width - 0.5;
-        const ty = (pointerY - rect.top) / rect.height - 0.5;
-        tiltCard.style.transform = `perspective(800px) rotateY(${tx * 4}deg) rotateX(${-ty * 4}deg) translateZ(4px)`;
-      }
     });
   }
 });
-
-/* Card tilt reset on pointerout */
-if (finePointer && !reduceMotion) {
-  document.addEventListener("pointerout", (e) => {
-    const card = e.target.closest(tiltSelector);
-    if (card && !card.contains(e.relatedTarget)) {
-      card.style.transform = "perspective(800px) rotateY(0deg) rotateX(0deg) translateZ(0px)";
-    }
-  });
-}
 
 /* ── Theme Toggle ── */
 const themeToggle = document.querySelector(".theme-toggle");
@@ -370,6 +349,7 @@ const I18N = {
     "aria.x": "X 主页",
     "aria.xhs": "小红书",
     "aria.focus": "当前焦点",
+    "aria.principles": "三条原则",
     "aria.work": "精选项目",
     "aria.latestNotes": "最新笔记",
     "cta.projects": "项目方向",
@@ -397,6 +377,7 @@ const I18N = {
     "home.lead": "扎根杭州，专注 Agent 内核、分层记忆与可观测执行面；量化策略与 Code-as-Policy 也在同一条验证链上——原型跑通才叫验证。",
     "home.workSummary": "当前主线上的增长 Agent、分布式编程与量化系统。",
     "home.notesSummary": "判断、失败和构建方法，沉淀成还能继续改的笔记。",
+    "home.principlesKicker": "Principles",
     "home.principlesTitle": "三条原则",
     "home.principlesSummary": "执行、内核、信号——比简历声明更靠谱的判断标准。",
     "home.focus1Title": "执行优于解释",
@@ -427,9 +408,7 @@ const I18N = {
     "projects.libraryKicker": "Library",
     "projects.indexed": "个项目",
     "projects.signalFocus": "焦点",
-    "projects.signalBias": "偏好",
     "projects.signalFocusValue": "Kernel · DAG · Quant",
-    "projects.signalBiasValue": "先跑通闭环，再打磨结构",
     "projects.footerKicker": "Projects / Open Build Loop",
     "projects.signalAria": "项目概览",
     "palette.page": "页面",
@@ -445,12 +424,8 @@ const I18N = {
     "showcase.demosSummary": "先看运行结果，再按需打开源码。",
     "showcase.demosKicker": "Live Products",
     "showcase.badge": "在线演示",
-    "showcase.signalAccess": "访问",
     "showcase.signalFocus": "焦点",
-    "showcase.signalNext": "下一步",
-    "showcase.signalAccessValue": "公开只读面",
     "showcase.signalFocusValue": "2 live demos",
-    "showcase.signalNextValue": "先看输出，再打开源码",
     "showcase.footerKicker": "Showcase / Ship Then Show",
     "showcase.signalAria": "Showcase 概览",
     "notes.eyebrow": "Notes / Working Thoughts",
@@ -462,7 +437,6 @@ const I18N = {
     "notes.libraryTitle": "最新思考",
     "notes.librarySummary": "先留下判断，再让项目和后续复盘继续验证。",
     "notes.libraryKicker": "All Notes",
-    "notes.signalMode": "短笔记 → 深挖",
     "notes.signalPublished": "篇在线",
     "notes.signalScopeValue": "Agents · tools · failures · UI",
     "notes.footerKicker": "Notes / Think In Public",
@@ -472,7 +446,6 @@ const I18N = {
     "section.notes": "工作笔记",
     "section.notesKicker": "Latest Notes",
     "home.eyebrow": "AI Builder / Agents / Quant Systems",
-    "home.focusLabel": "Current Focus",
     "home.footerKicker": "Jamery Wang / Personal Signal Site",
     "home.topbarStatus": "杭州 / 在线",
     "home.metaTag": "极客模式开启",
@@ -529,7 +502,6 @@ const I18N = {
     "about.profileKicker": "Working Profile",
     "about.signalProjects": "项目",
     "about.signalNotes": "笔记",
-    "about.signalLens": "当前透镜",
     "about.signalAria": "个人快照",
     "about.nowAria": "最新进展",
     "about.entryKicker": "Entry Points",
@@ -575,6 +547,7 @@ const I18N = {
     "aria.x": "X Profile",
     "aria.xhs": "Xiaohongshu",
     "aria.focus": "Current focus",
+    "aria.principles": "Three principles",
     "aria.work": "Selected work",
     "aria.latestNotes": "Latest notes",
     "cta.projects": "Project tracks",
@@ -602,6 +575,7 @@ const I18N = {
     "home.lead": "Based in Hangzhou, focused on Agent kernels, layered memory, and observable execution — with quant strategies and Code-as-Policy on the same verification loop. A prototype only counts once it runs.",
     "home.workSummary": "Growth Agents, distributed coding systems, and quant builds on the current main line.",
     "home.notesSummary": "Judgment, failure, and build method — kept as notes you can still revise.",
+    "home.principlesKicker": "Principles",
     "home.principlesTitle": "Three principles",
     "home.principlesSummary": "Execution, kernel, signal — better judgment criteria than resume claims.",
     "home.focus1Title": "Execution Over Explanation",
@@ -632,9 +606,7 @@ const I18N = {
     "projects.libraryKicker": "Library",
     "projects.indexed": "projects indexed",
     "projects.signalFocus": "Focus",
-    "projects.signalBias": "Bias",
     "projects.signalFocusValue": "Kernel · DAG · Quant",
-    "projects.signalBiasValue": "Ship the loop, then refine structure",
     "projects.footerKicker": "Projects / Open Build Loop",
     "projects.signalAria": "Projects overview",
     "palette.page": "Page",
@@ -650,12 +622,8 @@ const I18N = {
     "showcase.demosSummary": "Inspect the running result first, then open the source if you want.",
     "showcase.demosKicker": "Live Products",
     "showcase.badge": "Live demo",
-    "showcase.signalAccess": "Access",
     "showcase.signalFocus": "Focus",
-    "showcase.signalNext": "Next",
-    "showcase.signalAccessValue": "Public read surfaces",
     "showcase.signalFocusValue": "2 live demos",
-    "showcase.signalNextValue": "Inspect output, then open source",
     "showcase.footerKicker": "Showcase / Ship Then Show",
     "showcase.signalAria": "Showcase overview",
     "notes.eyebrow": "Notes / Working Thoughts",
@@ -667,7 +635,6 @@ const I18N = {
     "notes.libraryTitle": "Latest thinking",
     "notes.librarySummary": "Leave the judgment first, then let projects and later reviews keep testing it.",
     "notes.libraryKicker": "All Notes",
-    "notes.signalMode": "Short notes → deep dives",
     "notes.signalPublished": "notes live",
     "notes.signalScopeValue": "Agents · tools · failures · UI",
     "notes.footerKicker": "Notes / Think In Public",
@@ -677,7 +644,6 @@ const I18N = {
     "section.notes": "Working Notes",
     "section.notesKicker": "Latest Notes",
     "home.eyebrow": "AI Builder / Agents / Quant Systems",
-    "home.focusLabel": "Current Focus",
     "home.footerKicker": "Jamery Wang / Personal Signal Site",
     "home.topbarStatus": "Hangzhou / Online",
     "home.metaTag": "Geek mode enabled",
@@ -734,7 +700,6 @@ const I18N = {
     "about.profileKicker": "Working Profile",
     "about.signalProjects": "Projects",
     "about.signalNotes": "Notes",
-    "about.signalLens": "Current lens",
     "about.signalAria": "Profile snapshot",
     "about.nowAria": "Now building",
     "about.entryKicker": "Entry Points",
@@ -1056,16 +1021,13 @@ const projectCardMarkup = (project, variant) => {
   return `
     <a class="repo-card reveal project-entry-card" href="${projectDetailHref(project)}">
       <div class="project-entry-head">
-        <p class="stack-label">
-          ${project.label}
-          <span class="card-status-dot ${liveDot}" aria-hidden="true"></span>
-        </p>
+        <p class="stack-label">${project.label}</p>
         ${project.demoUrl ? `<span class="showcase-demo-badge">${t("showcase.badge")}</span>` : ""}
       </div>
       <h3>${project.title}</h3>
       <p>${summary}</p>
       <div class="project-entry-meta">
-        <span class="project-entry-status">${project.status}</span>
+        <span class="project-entry-status"><span class="card-status-dot ${liveDot}" aria-hidden="true"></span>${project.status}</span>
         <div class="card-tags">${createTagList(project.stack)}</div>
       </div>
       <div class="card-actions">
@@ -1777,7 +1739,7 @@ syncLangSeo();
 renderProjectSurfaces();
 
 const revealNodes = document.querySelectorAll(".reveal");
-const emphasisNodes = document.querySelectorAll(".work-card, .command-list p, .ops-command-list p");
+const emphasisNodes = document.querySelectorAll(".work-card");
 
 if (reduceMotion) {
   revealNodes.forEach((node) => node.classList.add("visible"));
