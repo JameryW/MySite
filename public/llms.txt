@@ -20,8 +20,8 @@ Machine-readable: https://www.jameryw.dev/llms-full.txt (full text) · https://w
 
 ## Now building
 
-- XhsGrowthAgent (2026-10): Kernel runtime is live; public Showcase / Replay; optional hy-memory.
-- UltimateCoders (2026-10): DAG orchestration and an observable Dashboard; layered memory and hybrid retrieval keep moving.
+- XhsGrowthAgent (2026-11): Kernel runtime is live; public Showcase / Replay; optional hy-memory.
+- UltimateCoders (2026-11): DAG orchestration and an observable Dashboard; layered memory and hybrid retrieval keep moving.
 
 ## Pages
 
@@ -37,7 +37,7 @@ Machine-readable: https://www.jameryw.dev/llms-full.txt (full text) · https://w
 - [XhsGrowthAgent](https://www.jameryw.dev/project.html?slug=xhs-growth-agent) — Growth Agent · Active · 2026-05-31. Xiaohongshu growth workbench: a deterministic Kernel owns state and scheduling, LangGraph only runs the task graph, and publishing stays human-gated.
 - [QuantAgent](https://www.jameryw.dev/project.html?slug=quant-agent) — Quant Agent · Active research · 2026-05-31. A heuristic agent framework where executable code is the policy — not neural weights — so iteration is learning and tests are memory.
 - [RealQuantEngine](https://www.jameryw.dev/project.html?slug=real-quant-engine) — Quant Engine · Active · 2026-05-31. A modular quant strategy library — multi-strategy orchestration, broker adapters, and risk controls, with Futu live trading and dry-run.
-- [QuantStrategyPrototypes](https://www.jameryw.dev/project.html?slug=quant-strategy-prototypes) — Strategy Lab · Active · 2026-05-31. Quant strategy prototypes grounded in arXiv research — backtest engine, 10 strategy modules, and 91% test coverage.
+- [QuantStrategyPrototypes](https://www.jameryw.dev/project.html?slug=quant-strategy-prototypes) — Strategy Lab · Archive · 2026-05-31. Quant strategy prototypes grounded in arXiv research — backtest engine, 10 strategy modules, and 91% test coverage. Archived; strategy surface folded into RealQuantEngine.
 - [UltimateCoders](https://www.jameryw.dev/project.html?slug=ultimate-coders) — Distributed AI · Active · 2026-06-11. Distributed AI coding platform: DAG orchestration, observable Dashboard, multi-adapter Workers, shared layered memory and hybrid retrieval.
 - [AwesomeWorkflows](https://www.jameryw.dev/project.html?slug=awesome-workflows) — Agent Workflows · Active · 2026-09-03. Issue-driven delivery workflows reusable across Codex / Claude Code / Grok Build / DeepSeek Harness — Matt Pocock engineering skills plus the Trellis task lifecycle.
 

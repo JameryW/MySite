@@ -565,7 +565,7 @@ body::after {
   pointer-events: none;
   contain: strict;
   overflow: hidden;
-  opacity: 0.55;
+  opacity: 0.38;
 }
 .data-streams span {
   position: absolute;
@@ -607,11 +607,11 @@ body::after {
   inset: 0;
   z-index: -2;
   pointer-events: none;
-  opacity: 0.35;
+  opacity: 0.22;
   contain: paint;
 }
 [data-theme="light"] .particle-bg {
-  opacity: 0.2;
+  opacity: 0.14;
 }
 .orb {
   position: fixed;

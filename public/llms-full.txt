@@ -19,9 +19,9 @@ Canonical: https://www.jameryw.dev · Languages: zh (primary) + en · Generated 
 
 ## Now building
 
-- **XhsGrowthAgent** (2026-10): 内核运行时已落地；公开 Showcase / Replay；可选接入 hy-memory。
+- **XhsGrowthAgent** (2026-11): 内核运行时已落地；公开 Showcase / Replay；可选接入 hy-memory。
   EN: Kernel runtime is live; public Showcase / Replay; optional hy-memory.
-- **UltimateCoders** (2026-10): DAG 编排与 Dashboard 可观测；分层记忆和混合检索持续推进。
+- **UltimateCoders** (2026-11): DAG 编排与 Dashboard 可观测；分层记忆和混合检索持续推进。
   EN: DAG orchestration and an observable Dashboard; layered memory and hybrid retrieval keep moving.
 
 ## Projects
@@ -128,12 +128,12 @@ Outputs:
 ### QuantStrategyPrototypes (D4 / Strategy Lab)
 
 URL: https://www.jameryw.dev/project.html?slug=quant-strategy-prototypes
-Status: Active · Timeframe: 2025–now · Role: Research / Builder
+Status: Archive · Timeframe: 2025–2026 · Role: Research / Builder
 Published: 2026-05-31 · Updated: 2026-06-26
 Stack: Python, Backtest, arXiv Research, CI/CD, Strategy Prototyping
 
-Summary: 基于 arXiv 论文研究的量化策略原型集合 — 含回测引擎、10 个策略模块和 91% 测试覆盖率。
-Summary (EN): Quant strategy prototypes grounded in arXiv research — backtest engine, 10 strategy modules, and 91% test coverage.
+Summary: 基于 arXiv 论文研究的量化策略原型集合 — 含回测引擎、10 个策略模块和 91% 测试覆盖率。已归档，策略面并入 RealQuantEngine。
+Summary (EN): Quant strategy prototypes grounded in arXiv research — backtest engine, 10 strategy modules, and 91% test coverage. Archived; strategy surface folded into RealQuantEngine.
 
 Overview: 基于 arXiv 论文研究的量化策略原型集合，包含 10 个策略模块（Dual MA、Chan 缠论、VGRSI、Gap 缺口、Trend 强度、MRP 多因子等），配有完整回测引擎、186 个测试用例（91% 覆盖率）和 CI Pipeline。
 

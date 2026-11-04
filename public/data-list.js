@@ -23,7 +23,7 @@ window.siteData = {
         "title": "XhsGrowthAgent",
         "beat": "内核运行时已落地；公开 Showcase / Replay；可选接入 hy-memory。",
         "beatEn": "Kernel runtime is live; public Showcase / Replay; optional hy-memory.",
-        "when": "2026-10"
+        "when": "2026-11"
       },
       {
         "slug": "ultimate-coders",
@@ -31,7 +31,7 @@ window.siteData = {
         "title": "UltimateCoders",
         "beat": "DAG 编排与 Dashboard 可观测；分层记忆和混合检索持续推进。",
         "beatEn": "DAG orchestration and an observable Dashboard; layered memory and hybrid retrieval keep moving.",
-        "when": "2026-10"
+        "when": "2026-11"
       }
     ]
   },
@@ -112,12 +112,12 @@ window.siteData = {
       "code": "D4",
       "label": "Strategy Lab",
       "title": "QuantStrategyPrototypes",
-      "summary": "基于 arXiv 论文研究的量化策略原型集合 — 含回测引擎、10 个策略模块和 91% 测试覆盖率。",
-      "summaryEn": "Quant strategy prototypes grounded in arXiv research — backtest engine, 10 strategy modules, and 91% test coverage.",
+      "summary": "基于 arXiv 论文研究的量化策略原型集合 — 含回测引擎、10 个策略模块和 91% 测试覆盖率。已归档，策略面并入 RealQuantEngine。",
+      "summaryEn": "Quant strategy prototypes grounded in arXiv research — backtest engine, 10 strategy modules, and 91% test coverage. Archived; strategy surface folded into RealQuantEngine.",
       "href": "https://github.com/JameryW/QuantStrategyPrototypes",
       "sourcePrivate": true,
       "cta": "查看源码",
-      "status": "Active",
+      "status": "Archive",
       "stack": [
         "Python",
         "Backtest",
@@ -125,7 +125,7 @@ window.siteData = {
         "CI/CD",
         "Strategy Prototyping"
       ],
-      "timeframe": "2025–now"
+      "timeframe": "2025–2026"
     },
     {
       "slug": "ultimate-coders",
@@ -184,6 +184,7 @@ window.siteData = {
       "label": "Agents",
       "title": "为什么 Agent 重要",
       "titleEn": "Why Agents Matter",
+      "featured": true,
       "summary": "我更关心连续执行、记忆和工具协作，而不是单轮问答的漂亮程度。",
       "summaryEn": "I care more about continuous execution, memory, and tool collaboration than about polished single-turn answers.",
       "meta": "Focus: execution loop",
@@ -255,7 +256,7 @@ window.siteData = {
       "label": "Org",
       "title": "生产力与生产关系",
       "titleEn": "Productivity & Production Relations",
-      "featured": true,
+      "featured": false,
       "summary": "生产力决定生产关系，用旧的组织形态匹配新生产力，终将被效率更极致的新形态替代。",
       "summaryEn": "Productive forces determine production relations: organizations that match new productive forces with old forms will ultimately be replaced by a more radically efficient form.",
       "meta": "Focus: organizational evolution",
@@ -285,7 +286,7 @@ window.siteData = {
       "label": "Alpha",
       "title": "量变引起质变",
       "titleEn": "Quantity Becomes Quality",
-      "featured": true,
+      "featured": false,
       "summary": "持续高质量的数据产生高质量的策略，高质量策略催生新的 alpha。这是一个自增强的飞轮，不是线性积累。",
       "summaryEn": "Sustained high-quality data produces high-quality strategies, and high-quality strategies spawn new alpha. It's a self-reinforcing flywheel, not linear accumulation.",
       "meta": "Focus: data-strategy flywheel",
@@ -300,7 +301,7 @@ window.siteData = {
       "label": "Judgment",
       "title": "知识贬值，经验升值",
       "titleEn": "Knowledge Depreciates, Experience Appreciates",
-      "featured": true,
+      "featured": false,
       "summary": "AI 让可检索的知识快速贬值，却让从踩坑里长出来的工程经验升值。设计能扛亿级并发的分布式架构，靠的不是教科书上的基本知识。",
       "summaryEn": "AI rapidly depreciates retrievable knowledge while appreciating engineering experience earned from real failures. Designing distributed architectures that survive hundred-million-scale concurrency takes more than textbook basics.",
       "meta": "Focus: AI-era value shift",
@@ -315,7 +316,7 @@ window.siteData = {
       "label": "Moat",
       "title": "技能被吞，工具成护城河",
       "titleEn": "Skills Devoured, Tools Fortified",
-      "featured": true,
+      "featured": false,
       "summary": "模型能力越强，纯软件技能越像免费 API 一样被吞噬。真正难复刻的是连接物理世界的 tools——传感器、执行器、私有协议、真实环境的反馈闭环。",
       "summaryEn": "The stronger models get, the more pure-software skills get devoured like free APIs. Truly hard to replicate are tools that touch the physical world — sensors, actuators, private protocols, real-environment feedback loops.",
       "meta": "Focus: AI-era moat shift",
@@ -330,7 +331,7 @@ window.siteData = {
       "label": "Value",
       "title": "纯软件贬值，软硬一体升值",
       "titleEn": "Pure Software Devalued, Physical Integration Premium",
-      "featured": true,
+      "featured": false,
       "summary": "大模型把纯软件能力不断内化为免费基础设施，与物理世界相连的软硬一体技术反而因真实数据闭环而升值。",
       "summaryEn": "Large models keep internalizing pure-software capability into free infrastructure, while software-hardware integration tied to the physical world appreciates on the back of real-world data loops.",
       "meta": "Focus: physical-connected premium",

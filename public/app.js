@@ -7,14 +7,15 @@ syncPageVisibility();
 document.addEventListener("visibilitychange", syncPageVisibility);
 const orbA = document.querySelector(".orb-a");
 const orbB = document.querySelector(".orb-b");
+const currentPage = document.body.dataset.page;
+const isHomePage = currentPage === "home";
 let orbC = document.querySelector(".orb-c");
-if (!orbC && !reduceMotion) {
+if (!orbC && !reduceMotion && isHomePage) {
   orbC = document.createElement("div");
   orbC.className = "orb orb-c";
   orbC.setAttribute("aria-hidden", "true");
   document.body.insertBefore(orbC, document.body.firstChild);
 }
-const currentPage = document.body.dataset.page;
 const yearNodes = document.querySelectorAll("[data-year]");
 const scrollProgressNode = document.querySelector("[data-scroll-progress]");
 const backToTopButton = document.querySelector("[data-back-to-top]");
@@ -33,7 +34,7 @@ const projectDetailNode = document.querySelector("[data-project-detail]");
 const noteDetailNode = document.querySelector("[data-note-detail]");
 const siteData = window.siteData || { profile: {}, projects: [], notes: [] };
 const cursorGlow = document.querySelector(".cursor-glow");
-if (cursorGlow && reduceMotion) cursorGlow.style.display = "none";
+if (cursorGlow && (reduceMotion || !isHomePage)) cursorGlow.style.display = "none";
 
 /* ── Page Loader ──
    The shell stays visible. The head boot script only raises the cover
@@ -48,8 +49,8 @@ if (loader) {
   }
 }
 
-/* ── Data Streams Background ── */
-if (!reduceMotion && finePointer) {
+/* ── Data Streams Background (home only — listing pages stay quieter) ── */
+if (isHomePage && !reduceMotion && finePointer) {
   const dataStreams = document.createElement("div");
   dataStreams.className = "data-streams";
   dataStreams.setAttribute("aria-hidden", "true");
@@ -65,7 +66,7 @@ let pointerFrame = false;
 let glowTarget = null;
 let glowEvent = null;
 
-const tiltSelector = ".ops-card, .stack-card, .track-card, .metric-panel, .lab-card";
+const tiltSelector = ".track-card";
 
 if (finePointer) document.addEventListener("pointermove", (e) => {
   pointerX = e.clientX;
@@ -91,10 +92,12 @@ if (finePointer) document.addEventListener("pointermove", (e) => {
         cursorGlow.style.transform = `translate3d(${pointerX}px, ${pointerY}px, 0) translate(-50%, -50%)`;
       }
       if (!reduceMotion) {
-        const x = (pointerX / window.innerWidth - 0.5) * 16;
-        const y = (pointerY / window.innerHeight - 0.5) * 16;
-        if (orbA) orbA.style.transform = `translate(${x * -1.6}px, ${y * -1.6}px)`;
-        if (orbB) orbB.style.transform = `translate(${x * 1.2}px, ${y * 1.2}px)`;
+        const intensity = isHomePage ? 1 : 0.55;
+        const x = (pointerX / window.innerWidth - 0.5) * 12 * intensity;
+        const y = (pointerY / window.innerHeight - 0.5) * 12 * intensity;
+        if (orbA) orbA.style.transform = `translate(${x * -1.4}px, ${y * -1.4}px)`;
+        if (orbB) orbB.style.transform = `translate(${x * 1.05}px, ${y * 1.05}px)`;
+        if (orbC) orbC.style.transform = `translate(${x * 0.7}px, ${y * -0.7}px)`;
       }
       if (glowTarget && glowEvent) {
         const rect = glowTarget.getBoundingClientRect();
@@ -249,8 +252,8 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
   });
 });
 
-const createTagList = (items) =>
-  items.map((item) => `<span>${item}</span>`).join("");
+const createTagList = (items, limit = 3) =>
+  (Array.isArray(items) ? items : []).slice(0, limit).map((item) => `<span>${item}</span>`).join("");
 
 /* Soft-break CamelCase product names at token boundaries
    (Awesome<wbr>Workflows) so wraps stay intentional, not mid-glyph. */
@@ -409,6 +412,8 @@ const I18N = {
     "home.lead": "扎根杭州，专注 Agent 内核、分层记忆与可观测执行面；量化策略与 Code-as-Policy 也在同一条验证链上——原型跑通才叫验证。",
     "home.workSummary": "当前主线上的增长 Agent、分布式编程与量化系统。",
     "home.notesSummary": "判断、失败和构建方法，沉淀成还能继续改的笔记。",
+    "home.principlesTitle": "三条原则",
+    "home.principlesSummary": "执行、内核、信号——比简历声明更靠谱的判断标准。",
     "home.focus1Title": "执行优于解释",
     "home.focus2Title": "内核优于技巧",
     "home.focus3Title": "信号优于声明",
@@ -449,7 +454,7 @@ const I18N = {
     "palette.note": "笔记",
     "showcase.eyebrow": "Showcase / Live Demos",
     "showcase.titleSub": "Live Demos",
-    "showcase.lead": "可直接打开的运行面：Showcase、Replay，以及量化系统演示。",
+    "showcase.lead": "两个可直接打开的运行面：XhsGrowthAgent 的 Showcase / Replay，以及 QuantAgent 演示。",
     "showcase.count": "个演示",
     "showcase.demosTitle": "在线演示",
     "showcase.demosSummary": "先看运行结果，再按需打开源码。",
@@ -458,8 +463,8 @@ const I18N = {
     "showcase.signalAccess": "访问",
     "showcase.signalFocus": "焦点",
     "showcase.signalNext": "下一步",
-    "showcase.signalAccessValue": "公开只读面优先",
-    "showcase.signalFocusValue": "Growth Agent · Quant demos",
+    "showcase.signalAccessValue": "公开只读面",
+    "showcase.signalFocusValue": "2 live demos",
     "showcase.signalNextValue": "先看输出，再打开源码",
     "showcase.footerKicker": "Showcase / Ship Then Show",
     "showcase.signalAria": "Showcase 概览",
@@ -612,6 +617,8 @@ const I18N = {
     "home.lead": "Based in Hangzhou, focused on Agent kernels, layered memory, and observable execution — with quant strategies and Code-as-Policy on the same verification loop. A prototype only counts once it runs.",
     "home.workSummary": "Growth Agents, distributed coding systems, and quant builds on the current main line.",
     "home.notesSummary": "Judgment, failure, and build method — kept as notes you can still revise.",
+    "home.principlesTitle": "Three principles",
+    "home.principlesSummary": "Execution, kernel, signal — better judgment criteria than resume claims.",
     "home.focus1Title": "Execution Over Explanation",
     "home.focus2Title": "Kernel Over Tricks",
     "home.focus3Title": "Signal Over Claims",
@@ -652,7 +659,7 @@ const I18N = {
     "palette.note": "Note",
     "showcase.eyebrow": "Showcase / Live Demos",
     "showcase.titleSub": "Live Demos",
-    "showcase.lead": "Live surfaces you can open now: Showcase, Replay, and quant demos.",
+    "showcase.lead": "Two live surfaces you can open now: XhsGrowthAgent Showcase / Replay, and the QuantAgent demo.",
     "showcase.count": "demos",
     "showcase.demosTitle": "Running surfaces",
     "showcase.demosSummary": "Inspect the running result first, then open the source if you want.",
@@ -661,8 +668,8 @@ const I18N = {
     "showcase.signalAccess": "Access",
     "showcase.signalFocus": "Focus",
     "showcase.signalNext": "Next",
-    "showcase.signalAccessValue": "Public read surfaces first",
-    "showcase.signalFocusValue": "Growth Agent · Quant demos",
+    "showcase.signalAccessValue": "Public read surfaces",
+    "showcase.signalFocusValue": "2 live demos",
     "showcase.signalNextValue": "Inspect output, then open source",
     "showcase.footerKicker": "Showcase / Ship Then Show",
     "showcase.signalAria": "Showcase overview",
@@ -851,7 +858,12 @@ const applyStoredFilter = (container) => {
 };
 function renderNoteLibraries(instant = false) {
   if (homeNotesNode) {
-    homeNotesNode.innerHTML = siteData.notes.filter((note) => note.featured).reverse().slice(0, 4).map(noteCardMarkup).join("");
+    homeNotesNode.innerHTML = siteData.notes
+      .filter((note) => note.featured)
+      .sort((a, b) => String(b.updated || b.date || "").localeCompare(String(a.updated || a.date || "")))
+      .slice(0, 4)
+      .map(noteCardMarkup)
+      .join("");
   }
   if (noteLibraryNode) {
     noteLibraryNode.innerHTML = siteData.notes.map(noteCardMarkup).join("");
@@ -1037,7 +1049,6 @@ const projectCardMarkup = (project, variant) => {
           <p class="card-topline">
             ${project.label}
             <span class="card-status-dot ${homeLiveDot}" aria-hidden="true"></span>
-            <span class="work-status-pill">${project.status}</span>
             ${project.demoUrl ? `<span class="showcase-demo-badge">${t("showcase.badge")}</span>` : ""}
           </p>
           <h3>${project.title}</h3>
@@ -2170,10 +2181,10 @@ if (document.readyState === "complete") {
   window.addEventListener("load", setupLinkPrefetch, { once: true });
 }
 
-/* ── Particle Background ── */
+/* ── Particle Background (home only) ── */
 const particleCanvas = document.querySelector("[data-particles]");
 const saveData = navigator.connection && navigator.connection.saveData;
-if (particleCanvas && !reduceMotion && !saveData && finePointer) {
+if (isHomePage && particleCanvas && !reduceMotion && !saveData && finePointer) {
   const ctx = particleCanvas.getContext("2d");
   let particles = [];
   let animId = 0;
