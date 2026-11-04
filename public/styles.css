@@ -637,6 +637,12 @@ so the decor survives that regime change. */
   height: 260px;
   background: rgba(216, 255, 98, 0.08);
 }
+/* Default orb intensity is quiet; home boosts in styles-home.css. */
+.orb-a,
+.orb-b {
+  opacity: 0.45;
+  filter: blur(30px);
+}
 a {
   color: inherit;
   text-decoration: none;
@@ -1018,22 +1024,6 @@ h3 {
   font-size: 1.12rem;
   font-weight: 500;
   color: var(--text);
-}
-{
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  flex: 0 1 360px;
-  align-self: stretch;
-  min-width: 0;
-  overflow: hidden;
-  padding: 26px;
-  border: 1px solid var(--line);
-  border-radius: 28px;
-  background:
-    linear-gradient(135deg, rgba(108, 242, 255, 0.06), transparent 45%),
-    linear-gradient(180deg, rgba(18, 26, 52, 0.68), rgba(7, 11, 27, 0.9));
-  box-shadow: var(--shadow);
 }
 .focus-list {
   position: relative;
@@ -1441,11 +1431,11 @@ instead of a lone orphan card and a dead half-row. */
   flex-direction: column;
   min-width: 0;
   height: 100%;
-  min-height: 280px;
+  min-height: 0;
   border-top: 2px solid rgba(108, 242, 255, 0.12);
 }
 .build-track-grid > .track-card h3 {
-  min-height: 2.4em;
+  min-height: 0;
   line-height: 1.2;
   overflow-wrap: anywhere;
   word-break: break-word;
@@ -1812,7 +1802,7 @@ but let unbroken Latin tokens wrap and
   grid-template-rows: auto auto minmax(0, 1fr) auto;
   gap: 12px;
   min-width: 0;
-  min-height: 280px;
+  min-height: 0;
   overflow-wrap: anywhere;
 }
 /* Row 1: code / label on the left,
@@ -2201,7 +2191,7 @@ timeframe right-aligned */
 .related-card {
   display: flex;
   flex-direction: column;
-  min-height: 220px;
+  min-height: 0;
 }
 .related-card > p:not(.stack-label) {
   flex: 1 1 auto;
@@ -2235,8 +2225,8 @@ timeframe right-aligned */
 .pager-card {
   display: flex;
   flex-direction: column;
-  min-height: 148px;
-  padding: 16px 18px;
+  min-height: 0;
+  padding: 14px 16px;
   transition: transform 220ms ease, border-color 220ms ease;
 }
 .pager-card .stack-label {
@@ -2314,7 +2304,12 @@ body[data-page="projects"]:not(:has([data-project-detail])) .page-hero,
 body[data-page="notes"]:not(:has([data-note-detail])) .page-hero,
 body[data-page="showcase"] .page-hero {
   display: block;
-  padding-bottom: 28px;
+  padding-bottom: 16px;
+}
+body[data-page="projects"]:not(:has([data-project-detail])) .page-hero + .section,
+body[data-page="notes"]:not(:has([data-note-detail])) .page-hero + .section,
+body[data-page="showcase"] .page-hero + .section {
+  padding-top: 20px;
 }
 body[data-page="projects"]:not(:has([data-project-detail])) .page-lead,
 body[data-page="notes"]:not(:has([data-note-detail])) .page-lead,
@@ -3658,12 +3653,6 @@ body[data-page="about"] .about-hero-meta > span:not(.about-hero-meta-sep) + span
     padding: 12px 16px;
     font-size: 0.84rem;
     flex: 1 1 auto;
-  }
-/* Focus panel 移动端 — 精简 */
-{
-    flex: none;
-    padding: 16px;
-    border-radius: 18px;
   }
 .focus-list {
     gap: 12px;
