@@ -450,7 +450,6 @@ if (!existsSync(dataListPath)) {
     const detailShell = name === "project.html" || name === "note.html";
     if (detailShell && !html.includes("data.js?")) fail(`${name}: detail shell must load the full data.js`);
     if (!detailShell && html.includes("data.js?")) fail(`${name}: listings must load the pruned data-list.js`);
-    if (!detailShell && /class="(?:work-card|note-card|track-card)"/.test(html) && false) continue;
   }
   pass(`data split: listing pages use data-list.js (${Math.round(listFileSize / 1024)} KB) instead of data.js (${Math.round(fullSize / 1024)} KB)`);
 }

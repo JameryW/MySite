@@ -341,7 +341,6 @@ const I18N = {
     "nav.notes": "笔记",
     "nav.about": "关于",
     "nav.repos": "仓库",
-    "nav.allNotes": "全部笔记",
     "aria.search": "搜索",
     "aria.breadcrumb": "面包屑导航",
     "aria.palette": "搜索面板",
@@ -506,7 +505,6 @@ const I18N = {
     "nav.notes": "Notes",
     "nav.about": "About",
     "nav.repos": "Repos",
-    "nav.allNotes": "All Notes",
     "aria.search": "Search",
     "aria.breadcrumb": "Breadcrumb",
     "aria.palette": "Search dialog",
@@ -1793,6 +1791,7 @@ if (palette && paletteInput) {
     { title: t("nav.showcase"), label: t("palette.page"), href: "./showcase.html" },
     { title: t("nav.notes"), label: t("palette.page"), href: "./notes.html" },
     { title: t("nav.about"), label: t("palette.page"), href: "./about.html" },
+    { title: t("footer.archive"), label: t("palette.page"), href: "./archive.html" },
     { title: t("palette.github"), label: t("palette.external"), href: "https://github.com/jameryw" }
   ];
 

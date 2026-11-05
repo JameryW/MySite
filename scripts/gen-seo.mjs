@@ -416,8 +416,24 @@ const projectHero = (project) => {
   ].filter((line) => line != null).join("\n      ");
 };
 
+/* Mirror public/app.js noteReadMinutes so the prerendered hero doesn't
+   jump when app.js hydrates the meta strip. */
+const noteReadMinutes = (note) => {
+  const text = [note.overview, note.lensZh || note.lens, ...(note.bullets || [])].join(" ");
+  const cjk = (text.match(/[\u4e00-\u9fff\uf900-\ufaff]/g) || []).length;
+  const words = (text.match(/[A-Za-z0-9']+/g) || []).length;
+  return Math.max(1, Math.ceil(cjk / 400 + words / 200));
+};
+
 const noteHero = (note) => {
   const summary = oneLine(note.summary);
+  const relatedCount = Array.isArray(note.relatedProjects) ? note.relatedProjects.length : 0;
+  const stamp = note.updated || note.date;
+  const metaBits = [
+    `<span>${noteReadMinutes(note)} 分钟</span>`,
+    stamp ? `<span>更新 ${esc(stamp)}</span>` : null,
+    relatedCount ? `<span>${relatedCount} 关联</span>` : null
+  ].filter(Boolean);
   return [
     '<section class="page-hero note-detail-hero">',
     '  <nav class="detail-breadcrumb" aria-label="面包屑导航">',
@@ -428,6 +444,9 @@ const noteHero = (note) => {
     `  <p class="eyebrow">${note.code ? `${esc(note.code)} / ` : ""}${esc(note.label)}</p>`,
     `  <h1 class="page-title">${esc(note.title)}<span>${esc(note.detailTitle)}</span></h1>`,
     `  <p class="page-lead">${esc(summary)}</p>`,
+    '  <p class="listing-hero-meta detail-hero-meta note-detail-meta" aria-label="内容信号">',
+    `    ${metaBits.join("\n    ")}`,
+    '  </p>',
     '</section>'
   ].join("\n      ");
 };
@@ -453,7 +472,7 @@ for (const note of notes) {
 }
 
 /* ── data-list.js ──
-   77% of data.js is detail-only copy (overviews, highlight bullets) that the
+   ~74% of data.js is detail-only copy (overviews, highlight bullets) that the
    listing pages never touch. Ship a pruned copy for them and keep the full
    file for the two detail shells, which are the only pages that render it. */
 const DETAIL_ONLY = {

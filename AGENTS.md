@@ -95,7 +95,7 @@ Language is site-wide (`localStorage` key `site-lang`, legacy `notes-lang` still
 - CSP is declared in every page `<head>` **and** as an nginx response header (same policy + `frame-ancestors 'none'`, `base-uri`, `form-action`, `object-src`); keep the inline-script hash in sync in both places
 - `public/.well-known/security.txt` is the public security contact document (expires yearly — refresh the `Expires:` date when it lapses)
 - No external scripts allowed
-- `script-src` allows `'self'` plus the sha256 of the inline boot script. If you touch that inline script (theme/lang restore, loader timeouts), recompute the hash for all 8 pages or the browser silently blocks the boot script and light/EN users get a flash of the wrong theme/language:
+- `script-src` allows `'self'` plus the sha256 of the inline boot script. If you touch that inline script (theme/lang restore, loader timeouts), recompute the hash for all 9 pages (the 7 app pages plus `404.html` and `archive.html`) or the browser silently blocks the boot script and light/EN users get a flash of the wrong theme/language:
   `node -e 'const c=require("crypto"),s=require("fs").readFileSync("public/about.html","utf8").match(/<script>([\s\S]*?)<\/script>/)[1];console.log("sha256-"+c.createHash("sha256").update(s).digest("base64"))'`
 
 <!-- TRELLIS:START -->
