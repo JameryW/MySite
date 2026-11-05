@@ -229,7 +229,7 @@ window.siteData = {
       cta: "查看公开仓库",
       status: "Lab",
       stack: ["Agent Skills", "Trellis", "Codex", "Claude Code", "GitHub Issues"],
-      timeframe: "2026-08–now",
+      timeframe: "2026-09–now",
       role: "Architect / Builder",
       detailTitle: "Reusable Issue-Driven Delivery Workflow for AI Agents",
       overview:

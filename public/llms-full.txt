@@ -195,7 +195,7 @@ Outputs:
 ### AwesomeWorkflows (H8 / Agent Workflows)
 
 URL: https://www.jameryw.dev/project.html?slug=awesome-workflows
-Status: Lab · Timeframe: 2026-08–now · Role: Architect / Builder
+Status: Lab · Timeframe: 2026-09–now · Role: Architect / Builder
 Published: 2026-09-03 · Updated: 2026-09-03
 Stack: Agent Skills, Trellis, Codex, Claude Code, GitHub Issues
 

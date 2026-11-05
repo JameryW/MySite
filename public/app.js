@@ -461,16 +461,13 @@ const I18N = {
     "detail.projectFooterKicker": "Project Detail / Internal Case Layer",
     "detail.noteFooterKicker": "Note Detail / Internal Thinking Layer",
     "detail.projectMetaTag": "案例页",
-    "detail.projectMetaSuffix": " / 进行中",
+    "detail.projectMetaSuffix": " / 杭州 / 在线",
     "detail.noteMetaTag": "思考层",
-    "detail.noteMetaSuffix": " / 笔记更新中",
+    "detail.noteMetaSuffix": " / 杭州 / 在线",
     "detail.highlights": "关键设计",
     "detail.highlightLabel": "要点",
-    "detail.highlightsSummary": "核心设计选择和技术亮点。",
     "detail.relatedNotes": "相关笔记",
-    "detail.relatedNotesSummary": "从项目继续跳到相关判断和方法论。",
     "detail.relatedProjects": "相关项目",
-    "detail.relatedProjectsSummary": "从判断跳回对应的项目入口，让想法和构建产物互相解释。",
     "detail.keyPoints": "关键要点",
     "detail.overview": "概览",
     "detail.lens": "视角",
@@ -488,10 +485,6 @@ const I18N = {
     "meta.min": "分钟",
     "meta.updated": "更新",
     "detail.signal": "项目信号",
-    "detail.highlightsKicker": "Highlights",
-    "detail.relatedNotesKicker": "Related Notes",
-    "detail.breakdownKicker": "Breakdown",
-    "detail.relatedProjectsKicker": "Related Projects",
     "about.eyebrow": "About / AI-Native Profile",
     "about.nowKicker": "Now Building",
     "about.signalProjects": "项目",
@@ -580,7 +573,7 @@ const I18N = {
     "about.entrySummary": "Source, socials, and email — the public doors in one place.",
     "about.idAria": "Profile card",
     "about.idFocusLabel": "Focus",
-    "about.idStatus": "Shipping memory-aware agent systems",
+    "about.idStatus": "Building memory-aware agent systems",
     "about.idTimeLabel": "Local time",
     "projects.eyebrow": "Portfolio / Active Builds",
     "projects.titleSub": "Agent · Kernel · Quant",
@@ -639,16 +632,13 @@ const I18N = {
     "detail.projectFooterKicker": "Project Detail / Internal Case Layer",
     "detail.noteFooterKicker": "Note Detail / Internal Thinking Layer",
     "detail.projectMetaTag": "Case page",
-    "detail.projectMetaSuffix": " / Work in progress",
+    "detail.projectMetaSuffix": " / Hangzhou / Online",
     "detail.noteMetaTag": "Thinking layer",
-    "detail.noteMetaSuffix": " / Notes in progress",
+    "detail.noteMetaSuffix": " / Hangzhou / Online",
     "detail.highlights": "Key design",
     "detail.highlightLabel": "Point",
-    "detail.highlightsSummary": "Key design choices and technical highlights.",
     "detail.relatedNotes": "Related notes",
-    "detail.relatedNotesSummary": "Jump from the project into matching judgments and methods.",
     "detail.relatedProjects": "Related projects",
-    "detail.relatedProjectsSummary": "Jump from the judgment back to the matching builds.",
     "detail.keyPoints": "Key points",
     "detail.overview": "Overview",
     "detail.lens": "Lens",
@@ -666,10 +656,6 @@ const I18N = {
     "meta.min": "min",
     "meta.updated": "Updated",
     "detail.signal": "Project Signal",
-    "detail.highlightsKicker": "Highlights",
-    "detail.relatedNotesKicker": "Related Notes",
-    "detail.breakdownKicker": "Breakdown",
-    "detail.relatedProjectsKicker": "Related Projects",
     "about.eyebrow": "About / AI-Native Profile",
     "about.nowKicker": "Now Building",
     "about.signalProjects": "Projects",
@@ -1268,9 +1254,7 @@ const renderProjectDetail = (instant = false) => {
 
       <section class="section">
         <div class="section-head reveal">
-          <p class="section-kicker">${t("detail.highlightsKicker")}</p>
           <h2>${t("detail.highlights")}</h2>
-          <p class="section-summary">${project.title} — ${t("detail.highlightsSummary")}</p>
         </div>
         <div class="build-track-grid">
           ${highlights
@@ -1292,9 +1276,7 @@ const renderProjectDetail = (instant = false) => {
       ${relatedNotes.length > 0 ? `
       <section class="section">
         <div class="section-head reveal">
-          <p class="section-kicker">${t("detail.relatedNotesKicker")}</p>
           <h2>${t("detail.relatedNotes")}</h2>
-          <p class="section-summary">${t("detail.relatedNotesSummary")}</p>
         </div>
         <div class="build-track-grid related-track-grid">
           ${relatedNotes.map((note) => relatedNoteMarkup(note)).join("")}
@@ -1388,6 +1370,9 @@ const renderNoteDetail = (instant = false) => {
         <p class="listing-hero-meta detail-hero-meta note-detail-meta reveal">
           ${[
             `${noteReadMinutes(note)} ${t("meta.min")}`,
+            note.updated || note.date
+              ? `${t("meta.updated")} ${note.updated || note.date}`
+              : "",
             relatedProjects.length ? `${relatedProjects.length} ${t("meta.builds")}` : ""
           ]
             .filter(Boolean)
@@ -1400,7 +1385,7 @@ const renderNoteDetail = (instant = false) => {
               ? `<a class="button secondary" href="./notes.html">${t("cta.backNotes")}</a>
           <a class="button primary" href="#linked-builds">${t("detail.relatedProjects")}</a>`
               : `<a class="button primary" href="./notes.html">${t("cta.backNotes")}</a>
-          <a class="button secondary" href="./projects.html">${t("detail.relatedProjects")}</a>`
+          <a class="button secondary" href="./projects.html">${t("cta.projects")}</a>`
           }
         </div>
       </section>
@@ -1418,7 +1403,6 @@ const renderNoteDetail = (instant = false) => {
 
       <section class="section note-detail-body">
         <div class="section-head reveal">
-          <p class="section-kicker">${t("detail.breakdownKicker")}</p>
           <h2>${t("detail.keyPoints")}</h2>
         </div>
         <ol class="note-points">
@@ -1436,9 +1420,7 @@ const renderNoteDetail = (instant = false) => {
       ${relatedProjects.length > 0 ? `
       <section class="section" id="linked-builds">
         <div class="section-head reveal">
-          <p class="section-kicker">${t("detail.relatedProjectsKicker")}</p>
           <h2>${t("detail.relatedProjects")}</h2>
-          <p class="section-summary">${t("detail.relatedProjectsSummary")}</p>
         </div>
         <div class="build-track-grid related-track-grid">
           ${relatedProjects.map((project) => relatedProjectMarkup(project)).join("")}
@@ -1491,7 +1473,7 @@ const renderProjectSurfaces = (instant = false) => {
         <div class="showcase-card-header">
           <p class="card-topline">
             ${project.label}
-            <span class="card-status-dot live" aria-hidden="true"></span>
+            <span class="card-status-dot ${statusDotClass(project.status)}" aria-hidden="true"></span>
           </p>
           <div class="showcase-demo-badge">${t("showcase.badge")}</div>
         </div>

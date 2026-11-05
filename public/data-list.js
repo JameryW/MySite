@@ -172,7 +172,7 @@ window.siteData = {
         "Claude Code",
         "GitHub Issues"
       ],
-      "timeframe": "2026-08–now"
+      "timeframe": "2026-09–now"
     }
   ],
   "notes": [
