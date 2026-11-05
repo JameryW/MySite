@@ -1385,10 +1385,6 @@ h3 {
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
-.showcase-card:focus-visible {
-  outline: 2px solid var(--lime);
-  outline-offset: 4px;
-}
 .notes-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1672,8 +1668,7 @@ but let unbroken Latin tokens wrap and
 .work-card:focus-visible,
 .repo-card:focus-visible,
 .note-card:focus-visible,
-.track-card:focus-visible,
-.showcase-card:focus-visible {
+.track-card:focus-visible {
   box-shadow:
     0 0 0 2px rgba(216, 255, 98, 0.6),
     0 0 24px rgba(216, 255, 98, 0.2);
@@ -2473,6 +2468,10 @@ not inline prose: give them a real target. */
 }
 .detail-breadcrumb span[aria-current] {
   color: var(--text);
+  /* Keep product titles (Agent, XhsGrowthAgent) readable — don't force AGENT. */
+  text-transform: none;
+  letter-spacing: 0.04em;
+  font-weight: 600;
 }
 [data-theme="light"] .detail-breadcrumb a {
   color: var(--muted);
@@ -2687,14 +2686,6 @@ html:not([data-lang="en"]) .notfound-hero .page-title .lang-zh.notfound-title-ma
   100% {
     transform: translateY(120px);
     opacity: 0;
-  }
-}
-@keyframes badge-pulse {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgba(108, 242, 255, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 16px 2px rgba(108, 242, 255, 0.12);
   }
 }
 @keyframes hero-text-in {
