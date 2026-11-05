@@ -396,8 +396,23 @@ const heroTitleClass = (title) => {
   return "page-title";
 };
 
+const githubIcon =
+  '<svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="vertical-align:-3px;margin-right:6px;" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>';
+
 const projectHero = (project) => {
   const overview = oneLine(project.overview);
+  const sourceHref = project.sourcePrivate
+    ? "https://github.com/jameryw?tab=repositories"
+    : project.href;
+  const sourceLabel = project.sourcePrivate ? "查看公开仓库" : "查看源码";
+  const sourceButton = `<a class="button ${project.demoUrl ? "secondary" : "primary"}" href="${esc(sourceHref)}" target="_blank" rel="noreferrer">${githubIcon}${sourceLabel}</a>`;
+  const actionBits = project.demoUrl
+    ? [
+        `    <a class="button primary" href="${esc(project.demoUrl)}" target="_blank" rel="noreferrer">在线体验</a>`,
+        `    ${sourceButton}`
+      ]
+    : [`    ${sourceButton}`];
+  actionBits.push('    <a class="button secondary" href="./projects.html">返回项目</a>');
   return [
     '<section class="page-hero">',
     '  <nav class="detail-breadcrumb" aria-label="面包屑导航">',
@@ -412,6 +427,9 @@ const projectHero = (project) => {
     `    <span>${esc(project.role)}</span>`,
     project.updated ? `    <span>更新 ${esc(project.updated)}</span>` : null,
     '  </p>',
+    '  <div class="page-actions">',
+    ...actionBits,
+    '  </div>',
     '</section>'
   ].filter((line) => line != null).join("\n      ");
 };
@@ -434,6 +452,15 @@ const noteHero = (note) => {
     stamp ? `<span>更新 ${esc(stamp)}</span>` : null,
     relatedCount ? `<span>${relatedCount} 关联</span>` : null
   ].filter(Boolean);
+  const actionBits = relatedCount
+    ? [
+        '    <a class="button secondary" href="./notes.html">返回笔记</a>',
+        '    <a class="button primary" href="#linked-builds">相关项目</a>'
+      ]
+    : [
+        '    <a class="button primary" href="./notes.html">返回笔记</a>',
+        '    <a class="button secondary" href="./projects.html">项目方向</a>'
+      ];
   return [
     '<section class="page-hero note-detail-hero">',
     '  <nav class="detail-breadcrumb" aria-label="面包屑导航">',
@@ -447,6 +474,9 @@ const noteHero = (note) => {
     '  <p class="listing-hero-meta detail-hero-meta note-detail-meta" aria-label="内容信号">',
     `    ${metaBits.join("\n    ")}`,
     '  </p>',
+    '  <div class="page-actions">',
+    ...actionBits,
+    '  </div>',
     '</section>'
   ].join("\n      ");
 };
