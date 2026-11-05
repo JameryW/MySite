@@ -357,7 +357,6 @@ const I18N = {
     "aria.github": "GitHub 主页",
     "aria.x": "X 主页",
     "aria.xhs": "小红书",
-    "aria.focus": "当前焦点",
     "aria.principles": "三条原则",
     "aria.work": "精选项目",
     "aria.latestNotes": "最新笔记",
@@ -407,7 +406,6 @@ const I18N = {
     "projects.titleSub": "Agent · Kernel · Quant",
     "projects.lead": "增长 Agent、分布式编程、量化引擎，以及复用型交付工作流。",
     "projects.indexed": "个项目",
-    "projects.signalFocus": "焦点",
     "projects.signalFocusValue": "Kernel · DAG · Quant",
     "projects.footerKicker": "Projects / Open Build Loop",
     "projects.signalAria": "项目概览",
@@ -418,7 +416,6 @@ const I18N = {
     "palette.project": "项目",
     "palette.note": "笔记",
     "showcase.eyebrow": "Showcase / Live Demos",
-    "showcase.titleSub": "Live Demos",
     "showcase.lead": "两个可直接打开的运行面：XhsGrowthAgent 的 Showcase / Replay，以及 QuantAgent 演示。",
     "showcase.count": "个演示",
     "showcase.badge": "在线演示",
@@ -426,7 +423,6 @@ const I18N = {
     "showcase.signalAria": "Showcase 概览",
     "showcase.demosAria": "在线演示",
     "notes.eyebrow": "Notes / Working Thoughts",
-    "notes.titleSub": "Working Thoughts",
     "notes.topbarStatus": "工作笔记",
     "notes.metaTag": "公开思考",
     "notes.metaSuffix": " / 杭州 / 在线",
@@ -451,14 +447,14 @@ const I18N = {
     "about.metaSuffix": " / 杭州 / 在线",
     "projects.topbarStatus": "项目主线",
     "projects.metaTag": "开放构建循环",
-    "projects.metaSuffix": " / GitHub 优先",
+    "projects.metaSuffix": " / 杭州 / 在线",
     "showcase.topbarStatus": "在线演示",
     "showcase.metaTag": "先交付再展示",
     "showcase.metaSuffix": " / 杭州 / 在线",
     "detail.projectTopbar": "项目详情",
     "detail.noteTopbar": "笔记详情",
-    "detail.projectFooterKicker": "Project Detail / Internal Case Layer",
-    "detail.noteFooterKicker": "Note Detail / Internal Thinking Layer",
+    "detail.projectFooterKicker": "Project Detail",
+    "detail.noteFooterKicker": "Note Detail",
     "detail.projectMetaTag": "案例页",
     "detail.projectMetaSuffix": " / 杭州 / 在线",
     "detail.noteMetaTag": "思考层",
@@ -479,7 +475,6 @@ const I18N = {
     "detail.notFoundNoteTitle": "未找到笔记",
     "detail.notFoundProjectEyebrow": "Error 404 / Projects",
     "detail.notFoundNoteEyebrow": "Error 404 / Notes",
-    "meta.points": "要点",
     "meta.builds": "关联",
     "meta.min": "分钟",
     "meta.updated": "更新",
@@ -527,7 +522,6 @@ const I18N = {
     "aria.github": "GitHub Profile",
     "aria.x": "X Profile",
     "aria.xhs": "Xiaohongshu",
-    "aria.focus": "Current focus",
     "aria.principles": "Three principles",
     "aria.work": "Selected work",
     "aria.latestNotes": "Latest notes",
@@ -577,7 +571,6 @@ const I18N = {
     "projects.titleSub": "Agent · Kernel · Quant",
     "projects.lead": "Growth Agents, distributed coding, quant engines, and reusable delivery workflows.",
     "projects.indexed": "projects indexed",
-    "projects.signalFocus": "Focus",
     "projects.signalFocusValue": "Kernel · DAG · Quant",
     "projects.footerKicker": "Projects / Open Build Loop",
     "projects.signalAria": "Projects overview",
@@ -588,7 +581,6 @@ const I18N = {
     "palette.project": "Project",
     "palette.note": "Note",
     "showcase.eyebrow": "Showcase / Live Demos",
-    "showcase.titleSub": "Live Demos",
     "showcase.lead": "Two live surfaces you can open now: XhsGrowthAgent Showcase / Replay, and the QuantAgent demo.",
     "showcase.count": "demos",
     "showcase.badge": "Live demo",
@@ -596,7 +588,6 @@ const I18N = {
     "showcase.signalAria": "Showcase overview",
     "showcase.demosAria": "Live demos",
     "notes.eyebrow": "Notes / Working Thoughts",
-    "notes.titleSub": "Working Thoughts",
     "notes.topbarStatus": "Working Notes",
     "notes.metaTag": "Think in public",
     "notes.metaSuffix": " / Hangzhou / Online",
@@ -621,14 +612,14 @@ const I18N = {
     "about.metaSuffix": " / Hangzhou / Online",
     "projects.topbarStatus": "Project Surface",
     "projects.metaTag": "Open build loop",
-    "projects.metaSuffix": " / GitHub first",
+    "projects.metaSuffix": " / Hangzhou / Online",
     "showcase.topbarStatus": "Live Demos",
     "showcase.metaTag": "Ship then show",
     "showcase.metaSuffix": " / Hangzhou / Online",
     "detail.projectTopbar": "Project Detail",
     "detail.noteTopbar": "Note Detail",
-    "detail.projectFooterKicker": "Project Detail / Internal Case Layer",
-    "detail.noteFooterKicker": "Note Detail / Internal Thinking Layer",
+    "detail.projectFooterKicker": "Project Detail",
+    "detail.noteFooterKicker": "Note Detail",
     "detail.projectMetaTag": "Case page",
     "detail.projectMetaSuffix": " / Hangzhou / Online",
     "detail.noteMetaTag": "Thinking layer",
@@ -649,7 +640,6 @@ const I18N = {
     "detail.notFoundNoteTitle": "Note Not Found",
     "detail.notFoundProjectEyebrow": "Error 404 / Projects",
     "detail.notFoundNoteEyebrow": "Error 404 / Notes",
-    "meta.points": "Points",
     "meta.builds": "Builds",
     "meta.min": "min",
     "meta.updated": "Updated",
@@ -1467,7 +1457,7 @@ const renderProjectSurfaces = (instant = false) => {
     });
     showcaseNode.innerHTML = demoProjects.map((project) => {
       return `
-      <a class="showcase-card reveal" href="${project.demoUrl}" target="_blank" rel="noreferrer">
+      <article class="showcase-card reveal">
         <div class="showcase-card-header">
           <p class="card-topline">
             ${project.label}
@@ -1475,13 +1465,14 @@ const renderProjectSurfaces = (instant = false) => {
           </p>
           <div class="showcase-demo-badge">${t("showcase.badge")}</div>
         </div>
-        <h3>${project.title}</h3>
+        <h3><a href="${project.demoUrl}" target="_blank" rel="noreferrer">${project.title}</a></h3>
         <p>${projectText(project, "summary")}</p>
         <div class="card-tags">${createTagList(project.stack)}</div>
         <div class="card-actions">
-          <span class="work-link">${t("cta.tryDemo")} <span aria-hidden="true">→</span></span>
+          <a class="work-link" href="${project.demoUrl}" target="_blank" rel="noreferrer">${t("cta.tryDemo")} <span aria-hidden="true">→</span></a>
+          <a class="card-inline-link" href="${projectDetailHref(project)}">${t("cta.openDetail")}</a>
         </div>
-      </a>
+      </article>
     `;
     }).join("");
     showcaseCountNodes.forEach((node) => {
@@ -1508,7 +1499,7 @@ const renderProjectSurfaces = (instant = false) => {
             <div class="about-now-row-head">
               <p class="about-now-label">
                 ${label}
-                <span class="card-status-dot live" aria-hidden="true"></span>
+                <span class="card-status-dot ${statusDotClass(project?.status)}" aria-hidden="true"></span>
               </p>
               <h3><a href="${href}">${item.title}</a></h3>
             </div>

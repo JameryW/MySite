@@ -128,7 +128,7 @@ Outputs:
 ### QuantStrategyPrototypes (D4 / Strategy Lab)
 
 URL: https://www.jameryw.dev/project.html?slug=quant-strategy-prototypes
-Status: Archive · Timeframe: 2025–2026 · Role: Research / Builder
+Status: Archive · Timeframe: 2026 · Role: Research / Builder
 Published: 2026-05-31 · Updated: 2026-06-26
 Stack: Python, Backtest, arXiv Research, CI/CD, Strategy Prototyping
 
@@ -195,7 +195,7 @@ Outputs:
 ### AwesomeWorkflows (H8 / Agent Workflows)
 
 URL: https://www.jameryw.dev/project.html?slug=awesome-workflows
-Status: Lab · Timeframe: 2026-09–now · Role: Architect / Builder
+Status: Lab · Timeframe: 2026-09 · Role: Architect / Builder
 Published: 2026-09-03 · Updated: 2026-09-03
 Stack: Agent Skills, Trellis, Codex, Claude Code, GitHub Issues
 

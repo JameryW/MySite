@@ -154,7 +154,7 @@ window.siteData = {
       cta: "查看公开仓库",
       status: "Archive",
       stack: ["Python", "Backtest", "arXiv Research", "CI/CD", "Strategy Prototyping"],
-      timeframe: "2025–2026",
+      timeframe: "2026",
       role: "Research / Builder",
       detailTitle: "Quantitative Strategy Prototypes from Paper Research",
       overview:
@@ -229,7 +229,7 @@ window.siteData = {
       cta: "查看公开仓库",
       status: "Lab",
       stack: ["Agent Skills", "Trellis", "Codex", "Claude Code", "GitHub Issues"],
-      timeframe: "2026-09–now",
+      timeframe: "2026-09",
       role: "Architect / Builder",
       detailTitle: "Reusable Issue-Driven Delivery Workflow for AI Agents",
       overview:
