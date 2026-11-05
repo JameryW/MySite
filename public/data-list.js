@@ -57,7 +57,7 @@ window.siteData = {
         "Vue 3",
         "hy-memory"
       ],
-      "timeframe": "2025–now"
+      "timeframe": "2026–now"
     },
     {
       "slug": "quant-agent",
@@ -81,7 +81,7 @@ window.siteData = {
         "SQLite",
         "Bandit"
       ],
-      "timeframe": "2025–now"
+      "timeframe": "2026–now"
     },
     {
       "slug": "real-quant-engine",
@@ -103,7 +103,7 @@ window.siteData = {
         "Risk Management",
         "Modular Strategy"
       ],
-      "timeframe": "2025–now"
+      "timeframe": "2026–now"
     },
     {
       "slug": "quant-strategy-prototypes",
@@ -149,7 +149,7 @@ window.siteData = {
         "Grok Build",
         "Qdrant"
       ],
-      "timeframe": "2025–now"
+      "timeframe": "2026–now"
     },
     {
       "slug": "awesome-workflows",

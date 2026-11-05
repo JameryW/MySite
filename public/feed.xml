@@ -11,7 +11,7 @@
       <title>N1 / Agents — 为什么 Agent 重要</title>
       <link>https://www.jameryw.dev/note.html?slug=why-agents-matter</link>
       <guid isPermaLink="true">https://www.jameryw.dev/note.html?slug=why-agents-matter</guid>
-      <pubDate>Sun, 31 May 2026 00:00:00 GMT</pubDate>
+      <pubDate>Mon, 14 Sep 2026 00:00:00 GMT</pubDate>
       <description>I care more about continuous execution, memory, and tool collaboration than about polished single-turn answers.</description>
       <category>Agents</category>
     </item>
@@ -35,7 +35,7 @@
       <title>N4 / Prompt — 提示工程正在演进</title>
       <link>https://www.jameryw.dev/note.html?slug=prompt-engineering-evolution</link>
       <guid isPermaLink="true">https://www.jameryw.dev/note.html?slug=prompt-engineering-evolution</guid>
-      <pubDate>Sun, 31 May 2026 00:00:00 GMT</pubDate>
+      <pubDate>Mon, 14 Sep 2026 00:00:00 GMT</pubDate>
       <description>Prompt engineering is shifting from handcrafted tricks to structured interfaces — from writing prompts to designing tools and orchestrating flows.</description>
       <category>Prompt</category>
     </item>
@@ -43,7 +43,7 @@
       <title>N5 / Philosophy — 公开构建</title>
       <link>https://www.jameryw.dev/note.html?slug=build-in-public</link>
       <guid isPermaLink="true">https://www.jameryw.dev/note.html?slug=build-in-public</guid>
-      <pubDate>Sun, 31 May 2026 00:00:00 GMT</pubDate>
+      <pubDate>Mon, 14 Sep 2026 00:00:00 GMT</pubDate>
       <description>Building in public isn&#39;t performance — it turns the iteration process itself into signal, making ability, judgment, and execution directly verifiable.</description>
       <category>Philosophy</category>
     </item>
@@ -59,7 +59,7 @@
       <title>N7 / Loop — 在loop中进化</title>
       <link>https://www.jameryw.dev/note.html?slug=evolve-in-loop</link>
       <guid isPermaLink="true">https://www.jameryw.dev/note.html?slug=evolve-in-loop</guid>
-      <pubDate>Wed, 10 Jun 2026 00:00:00 GMT</pubDate>
+      <pubDate>Sun, 18 Oct 2026 00:00:00 GMT</pubDate>
       <description>Evolution isn&#39;t a one-time leap but the accumulation of countless closed feedback loops. Each loop is a calibration: act, feedback, adjust, act again.</description>
       <category>Loop</category>
     </item>
@@ -83,7 +83,7 @@
       <title>N10 / Moat — 技能被吞，工具成护城河</title>
       <link>https://www.jameryw.dev/note.html?slug=skills-devoured-tools-fortified</link>
       <guid isPermaLink="true">https://www.jameryw.dev/note.html?slug=skills-devoured-tools-fortified</guid>
-      <pubDate>Mon, 13 Jul 2026 00:00:00 GMT</pubDate>
+      <pubDate>Sun, 18 Oct 2026 00:00:00 GMT</pubDate>
       <description>The stronger models get, the more pure-software skills get devoured like free APIs. Truly hard to replicate are tools that touch the physical world — sensors, actuators, private protocols, real-environment feedback loops.</description>
       <category>Moat</category>
     </item>
