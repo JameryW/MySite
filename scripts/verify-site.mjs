@@ -256,7 +256,8 @@ for (const { name, html } of pages) {
   const alternates = [...html.matchAll(/<link rel="alternate" hreflang="([^"]+)" href="([^"]+)"/g)]
     .map((m) => [m[1], m[2]]);
   if (!alternates.length) {
-    if (name !== "404.html" && !name.includes("project.html") && !name.includes("note.html")) {
+    // Static pages without app.js must not advertise language alternates they can't honour.
+    if (name !== "404.html" && name !== "archive.html" && !name.includes("project.html") && !name.includes("note.html")) {
       fail(`${name}: missing hreflang alternates`);
     }
     continue;
