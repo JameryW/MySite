@@ -86,7 +86,7 @@ const llms = [
   `- [Projects](${SITE}/projects.html) — all ${projects.length} projects`,
   `- [Notes](${SITE}/notes.html) — ${notes.length} working notes`,
   `- [Showcase](${SITE}/showcase.html) — runnable demos`,
-  `- [About](${SITE}/about.html) — profile, working method, entry points`,
+  `- [About](${SITE}/about.html) — profile, latest progress, entry points`,
   `- [Archive](${SITE}/archive.html) — static text index of everything`,
   "",
   "## Projects",
