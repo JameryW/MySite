@@ -42,7 +42,7 @@ window.siteData = {
       cta: "查看源码",
       status: "Active",
       stack: ["LangGraph", "Kernel Runtime", "Python", "Vue 3", "hy-memory"],
-      timeframe: "2025–now",
+      timeframe: "2026–now",
       role: "Architect / Builder",
       detailTitle: "Kernel-Centric Content Growth Runtime",
       overview:
@@ -82,7 +82,7 @@ window.siteData = {
       cta: "查看公开仓库",
       status: "Active research",
       stack: ["Python", "LLM", "Code-as-Policy", "SQLite", "Bandit"],
-      timeframe: "2025–now",
+      timeframe: "2026–now",
       role: "Architect / Builder",
       detailTitle: "Code as Policy, Not Weights as Policy",
       overview:
@@ -118,7 +118,7 @@ window.siteData = {
       cta: "查看公开仓库",
       status: "Active",
       stack: ["Python", "Trading", "Futu", "Risk Management", "Modular Strategy"],
-      timeframe: "2025–now",
+      timeframe: "2026–now",
       role: "Architect / Builder",
       detailTitle: "Modular Quant Trading Engine",
       overview:
@@ -190,7 +190,7 @@ window.siteData = {
       cta: "查看源码",
       status: "Active",
       stack: ["Rust", "Python", "DAG", "NATS", "gRPC", "Grok Build", "Qdrant"],
-      timeframe: "2025–now",
+      timeframe: "2026–now",
       role: "Architect / Builder",
       detailTitle: "Observable Distributed Coding Platform",
       overview:

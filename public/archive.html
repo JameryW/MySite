@@ -25,8 +25,9 @@
     <meta name="twitter:description" content="Static text index of every project, note, and live demo on jameryw.dev." />
     <meta name="twitter:image" content="https://www.jameryw.dev/og-image.png" />
     <meta name="theme-color" content="#050816" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:;" />
-    <link rel="stylesheet" href="./styles.css?v=148" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-vkhMS1n7yPrJZZuX7L/KbZwsI7/sQOe7r5ffim/TlX4='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:;" />
+    <script>try{if(localStorage.getItem("theme")==="light"){document.documentElement.setAttribute("data-theme","light");var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content","#f0f2f8")}}catch(e){}try{var Q=new URLSearchParams(location.search).get("lang");var L=(Q==="en"||Q==="zh")?Q:(localStorage.getItem("site-lang")||localStorage.getItem("notes-lang"));if(L==="en"||L==="zh"){document.documentElement.setAttribute("data-lang",L);document.documentElement.lang=L==="en"?"en":"zh-CN";if(Q==="en"||Q==="zh"){localStorage.setItem("site-lang",Q)}}}catch(e){}setTimeout(function(){var el=document.querySelector(".page-loader");if(el&&!el.classList.contains("loaded"))el.classList.add("is-slow")},480);setTimeout(function(){var el=document.querySelector(".page-loader");if(el)el.classList.add("loaded")},2400);</script>
+    <link rel="stylesheet" href="./styles.css?v=149" />
     <link rel="alternate" type="application/rss+xml" title="Jamery Wang — Notes" href="./feed.xml" />
     <script type="application/ld+json">
     {
@@ -51,6 +52,7 @@
         <nav class="archive-actions" aria-label="站点导航">
           <a class="button secondary" href="./index.html">首页 / Home</a>
           <a class="button secondary" href="./projects.html">项目 / Projects</a>
+          <a class="button secondary" href="./showcase.html">Showcase / 在线演示</a>
           <a class="button secondary" href="./notes.html">笔记 / Notes</a>
           <a class="button secondary" href="./about.html">关于 / About</a>
         </nav>
@@ -59,31 +61,31 @@
         <h2 id="archive-projects">项目 / Projects</h2>
         <ul class="archive-list">
         <li class="archive-item">
-          <p class="archive-kicker">A1 / Growth Agent · Active · 2026-05-31</p>
+          <p class="archive-kicker">A1 / Growth Agent · Active · 2026-10-21</p>
           <h3><a href="./project.html?slug=xhs-growth-agent">XhsGrowthAgent</a></h3>
           <p>小红书增长工作台：确定性内核承载状态与调度，LangGraph 只跑任务图，发布前保留人工确认。</p>
           <p class="archive-en">Xiaohongshu growth workbench: a deterministic Kernel owns state and scheduling, LangGraph only runs the task graph, and publishing stays human-gated.</p>
         </li>
         <li class="archive-item">
-          <p class="archive-kicker">B2 / Quant Agent · Active research · 2026-05-31</p>
+          <p class="archive-kicker">B2 / Quant Agent · Active research · 2026-09-22</p>
           <h3><a href="./project.html?slug=quant-agent">QuantAgent</a></h3>
           <p>代码即策略的启发式代理框架 — 用可执行代码替代神经网络权重作为策略载体，迭代即学习，测试即记忆。</p>
           <p class="archive-en">A heuristic agent framework where executable code is the policy — not neural weights — so iteration is learning and tests are memory.</p>
         </li>
         <li class="archive-item">
-          <p class="archive-kicker">C3 / Quant Engine · Active · 2026-05-31</p>
+          <p class="archive-kicker">C3 / Quant Engine · Active · 2026-10-21</p>
           <h3><a href="./project.html?slug=real-quant-engine">RealQuantEngine</a></h3>
           <p>模块化量化策略库 — 多策略编排、券商适配和风控管理的交易引擎，支持 Futu 实盘与 dry-run。</p>
           <p class="archive-en">A modular quant strategy library — multi-strategy orchestration, broker adapters, and risk controls, with Futu live trading and dry-run.</p>
         </li>
         <li class="archive-item">
-          <p class="archive-kicker">D4 / Strategy Lab · Archive · 2026-05-31</p>
+          <p class="archive-kicker">D4 / Strategy Lab · Archive · 2026-06-26</p>
           <h3><a href="./project.html?slug=quant-strategy-prototypes">QuantStrategyPrototypes</a></h3>
           <p>基于 arXiv 论文研究的量化策略原型集合 — 含回测引擎、10 个策略模块和 91% 测试覆盖率。已归档，策略面并入 RealQuantEngine。</p>
           <p class="archive-en">Quant strategy prototypes grounded in arXiv research — backtest engine, 10 strategy modules, and 91% test coverage. Archived; strategy surface folded into RealQuantEngine.</p>
         </li>
         <li class="archive-item">
-          <p class="archive-kicker">E5 / Distributed AI · Active · 2026-06-11</p>
+          <p class="archive-kicker">E5 / Distributed AI · Active · 2026-10-21</p>
           <h3><a href="./project.html?slug=ultimate-coders">UltimateCoders</a></h3>
           <p>分布式 AI 编程平台：DAG 编排、可观测 Dashboard、多适配 Worker，共享分层记忆与混合检索。</p>
           <p class="archive-en">Distributed AI coding platform: DAG orchestration, observable Dashboard, multi-adapter Workers, shared layered memory and hybrid retrieval.</p>
@@ -100,7 +102,7 @@
         <h2 id="archive-notes">笔记 / Notes</h2>
         <ul class="archive-list">
         <li class="archive-item">
-          <p class="archive-kicker">N1 / Agents · Current lens · 2026-05-31</p>
+          <p class="archive-kicker">N1 / Agents · Current lens · 2026-09-14</p>
           <h3><a href="./note.html?slug=why-agents-matter">为什么 Agent 重要</a> <span class="archive-en-inline">Why Agents Matter</span></h3>
           <p>我更关心连续执行、记忆和工具协作，而不是单轮问答的漂亮程度。</p>
         </li>
@@ -115,12 +117,12 @@
           <p>界面选择会暴露技术理解和产品判断，所以站点本身也应该是作品的一部分。</p>
         </li>
         <li class="archive-item">
-          <p class="archive-kicker">N4 / Prompt · 2026 observation · 2026-05-31</p>
+          <p class="archive-kicker">N4 / Prompt · 2026 observation · 2026-09-14</p>
           <h3><a href="./note.html?slug=prompt-engineering-evolution">提示工程正在演进</a> <span class="archive-en-inline">Prompt Engineering Is Evolving</span></h3>
           <p>提示工程正在从手工技巧转向结构化接口，从写 prompt 变成设计工具和编排流程。</p>
         </li>
         <li class="archive-item">
-          <p class="archive-kicker">N5 / Philosophy · Ongoing practice · 2026-05-31</p>
+          <p class="archive-kicker">N5 / Philosophy · Ongoing practice · 2026-09-14</p>
           <h3><a href="./note.html?slug=build-in-public">公开构建</a> <span class="archive-en-inline">Build In Public</span></h3>
           <p>公开构建不是表演，是让迭代过程本身成为信号，让能力、判断和执行力可直接验证。</p>
         </li>
@@ -130,7 +132,7 @@
           <p>生产力决定生产关系，用旧的组织形态匹配新生产力，终将被效率更极致的新形态替代。</p>
         </li>
         <li class="archive-item">
-          <p class="archive-kicker">N7 / Loop · Ongoing practice · 2026-06-10</p>
+          <p class="archive-kicker">N7 / Loop · Ongoing practice · 2026-10-18</p>
           <h3><a href="./note.html?slug=evolve-in-loop">在loop中进化</a> <span class="archive-en-inline">Evolve In Loop</span></h3>
           <p>进化的本质不是一次性跃迁，而是无数次闭环反馈的累积。每一次 loop 都是一次校准：行动→反馈→调整→再行动。</p>
         </li>
@@ -145,7 +147,7 @@
           <p>AI 让可检索的知识快速贬值，却让从踩坑里长出来的工程经验升值。设计能扛亿级并发的分布式架构，靠的不是教科书上的基本知识。</p>
         </li>
         <li class="archive-item">
-          <p class="archive-kicker">N10 / Moat · 2026 observation · 2026-07-13</p>
+          <p class="archive-kicker">N10 / Moat · 2026 observation · 2026-10-18</p>
           <h3><a href="./note.html?slug=skills-devoured-tools-fortified">技能被吞，工具成护城河</a> <span class="archive-en-inline">Skills Devoured, Tools Fortified</span></h3>
           <p>模型能力越强，纯软件技能越像免费 API 一样被吞噬。真正难复刻的是连接物理世界的 tools——传感器、执行器、私有协议、真实环境的反馈闭环。</p>
         </li>

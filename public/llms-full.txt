@@ -29,7 +29,7 @@ Canonical: https://www.jameryw.dev · Languages: zh (primary) + en · Generated 
 ### XhsGrowthAgent (A1 / Growth Agent)
 
 URL: https://www.jameryw.dev/project.html?slug=xhs-growth-agent
-Status: Active · Timeframe: 2025–now · Role: Architect / Builder
+Status: Active · Timeframe: 2026–now · Role: Architect / Builder
 Published: 2026-05-31 · Updated: 2026-10-21
 Stack: LangGraph, Kernel Runtime, Python, Vue 3, hy-memory
 
@@ -64,7 +64,7 @@ Outputs:
 ### QuantAgent (B2 / Quant Agent)
 
 URL: https://www.jameryw.dev/project.html?slug=quant-agent
-Status: Active research · Timeframe: 2025–now · Role: Architect / Builder
+Status: Active research · Timeframe: 2026–now · Role: Architect / Builder
 Published: 2026-05-31 · Updated: 2026-09-22
 Stack: Python, LLM, Code-as-Policy, SQLite, Bandit
 
@@ -96,7 +96,7 @@ Outputs:
 ### RealQuantEngine (C3 / Quant Engine)
 
 URL: https://www.jameryw.dev/project.html?slug=real-quant-engine
-Status: Active · Timeframe: 2025–now · Role: Architect / Builder
+Status: Active · Timeframe: 2026–now · Role: Architect / Builder
 Published: 2026-05-31 · Updated: 2026-10-21
 Stack: Python, Trading, Futu, Risk Management, Modular Strategy
 
@@ -160,7 +160,7 @@ Outputs:
 ### UltimateCoders (E5 / Distributed AI)
 
 URL: https://www.jameryw.dev/project.html?slug=ultimate-coders
-Status: Active · Timeframe: 2025–now · Role: Architect / Builder
+Status: Active · Timeframe: 2026–now · Role: Architect / Builder
 Published: 2026-06-11 · Updated: 2026-10-21
 Stack: Rust, Python, DAG, NATS, gRPC, Grok Build, Qdrant
 

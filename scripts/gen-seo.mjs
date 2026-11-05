@@ -219,7 +219,7 @@ const feedItems = notes.map((note) => {
     `      <title>${esc(`${note.code} / ${note.label} — ${note.title}`)}</title>`,
     `      <link>${esc(link)}</link>`,
     `      <guid isPermaLink="true">${esc(link)}</guid>`,
-    note.date ? `      <pubDate>${rfc822(note.date)}</pubDate>` : "",
+    (note.updated || note.date) ? `      <pubDate>${rfc822(note.updated || note.date)}</pubDate>` : "",
     `      <description>${esc(oneLine(note.summaryEn || note.summary))}</description>`,
     `      <category>${esc(note.label)}</category>`,
     "    </item>"
@@ -243,10 +243,12 @@ const feed = [
 ].join("\n");
 
 /* ── archive.html (static, no JS) ── */
+const stamp = (entry) => entry.updated || entry.date || "";
+
 const projectItems = projects
   .map(
     (project) => `        <li class="archive-item">
-          <p class="archive-kicker">${esc(project.code)} / ${esc(project.label)} · ${esc(project.status)}${project.date ? ` · ${esc(project.date)}` : ""}</p>
+          <p class="archive-kicker">${esc(project.code)} / ${esc(project.label)} · ${esc(project.status)}${stamp(project) ? ` · ${esc(stamp(project))}` : ""}</p>
           <h3><a href="./project.html?slug=${esc(project.slug)}">${esc(project.title)}</a></h3>
           <p>${esc(oneLine(project.summary))}</p>
           <p class="archive-en">${esc(oneLine(project.summaryEn))}</p>
@@ -257,7 +259,7 @@ const projectItems = projects
 const noteItems = notes
   .map(
     (note) => `        <li class="archive-item">
-          <p class="archive-kicker">${esc(note.code)} / ${esc(note.label)} · ${esc(note.timeframe)}${note.date ? ` · ${esc(note.date)}` : ""}</p>
+          <p class="archive-kicker">${esc(note.code)} / ${esc(note.label)} · ${esc(note.timeframe)}${stamp(note) ? ` · ${esc(stamp(note))}` : ""}</p>
           <h3><a href="./note.html?slug=${esc(note.slug)}">${esc(note.title)}</a> <span class="archive-en-inline">${esc(
       note.titleEn
     )}</span></h3>
@@ -303,7 +305,8 @@ const archive = `<!DOCTYPE html>
     <meta name="twitter:description" content="Static text index of every project, note, and live demo on jameryw.dev." />
     <meta name="twitter:image" content="${SITE}/og-image.png" />
     <meta name="theme-color" content="#050816" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:;" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-vkhMS1n7yPrJZZuX7L/KbZwsI7/sQOe7r5ffim/TlX4='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:;" />
+    <script>try{if(localStorage.getItem("theme")==="light"){document.documentElement.setAttribute("data-theme","light");var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content","#f0f2f8")}}catch(e){}try{var Q=new URLSearchParams(location.search).get("lang");var L=(Q==="en"||Q==="zh")?Q:(localStorage.getItem("site-lang")||localStorage.getItem("notes-lang"));if(L==="en"||L==="zh"){document.documentElement.setAttribute("data-lang",L);document.documentElement.lang=L==="en"?"en":"zh-CN";if(Q==="en"||Q==="zh"){localStorage.setItem("site-lang",Q)}}}catch(e){}setTimeout(function(){var el=document.querySelector(".page-loader");if(el&&!el.classList.contains("loaded"))el.classList.add("is-slow")},480);setTimeout(function(){var el=document.querySelector(".page-loader");if(el)el.classList.add("loaded")},2400);</script>
     <link rel="stylesheet" href="${stylesHref}" />
     <link rel="alternate" type="application/rss+xml" title="Jamery Wang — Notes" href="./feed.xml" />
     <script type="application/ld+json">
@@ -329,6 +332,7 @@ const archive = `<!DOCTYPE html>
         <nav class="archive-actions" aria-label="站点导航">
           <a class="button secondary" href="./index.html">首页 / Home</a>
           <a class="button secondary" href="./projects.html">项目 / Projects</a>
+          <a class="button secondary" href="./showcase.html">Showcase / 在线演示</a>
           <a class="button secondary" href="./notes.html">笔记 / Notes</a>
           <a class="button secondary" href="./about.html">关于 / About</a>
         </nav>

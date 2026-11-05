@@ -2376,6 +2376,13 @@ body[data-page="showcase"] .page-title span:not(.page-title-main) {
   opacity: 0.7;
   font-size: 0.86rem !important;
 }
+[data-theme="light"] .archive-en {
+  opacity: 1;
+  color: var(--muted);
+}
+[data-theme="light"] .archive-kicker {
+  color: var(--cyan);
+}
 .archive-en-inline {
   color: var(--muted);
   font-size: 0.6em;
