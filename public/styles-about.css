@@ -272,7 +272,6 @@ body[data-page="about"] .about-section-head .section-summary {
   max-width: 40rem;
 }
 body[data-page="about"] .about-now-section,
-body[data-page="about"] .about-profile-section,
 body[data-page="about"] .about-contact-section {
   padding-top: 24px;
   padding-bottom: 12px;
@@ -417,50 +416,6 @@ body[data-page="about"] .about-now-row h3 a {
 [data-theme="light"] body[data-page="about"] .about-id-focus-label {
   color: #456b00;
 }
-[data-theme="light"] body[data-page="about"] .about-signals-grid span {
-  color: #0e7490;
-}
-/* Profile: three signal columns (terminal removed — id-card already carries geek identity). */
-body[data-page="about"] .about-signals {
-  min-width: 0;
-  max-width: 56rem;
-  padding-top: 2px;
-}
-body[data-page="about"] .detail-heading {
-  margin: 0 0 14px;
-  color: var(--lime);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-body[data-page="about"] .about-signals-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0 28px;
-  padding-top: 4px;
-  border-top: 1px solid rgba(216, 255, 98, 0.18);
-}
-body[data-page="about"] .about-signals-grid > div {
-  display: grid;
-  gap: 8px;
-  min-width: 0;
-  padding: 16px 0;
-  border-bottom: 0;
-}
-body[data-page="about"] .about-signals-grid span {
-  color: var(--cyan);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-body[data-page="about"] .about-signals-grid p {
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.6;
-  font-size: 0.94rem;
-}
 /* Entry Points: icon tiles instead of bare text links. */
 body[data-page="about"] .about-contact {
   display: grid;
@@ -586,14 +541,6 @@ body[data-page="about"] .about-contact-links {
 body[data-page="about"] .about-contact-links a {
     font-size: 0.92rem;
   }
-body[data-page="about"] .about-signals-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0 22px;
-  }
-body[data-page="about"] .about-signals-grid > div {
-    padding: 12px 0 0;
-    border-bottom: 0;
-  }
 body[data-page="about"] .about-now-row {
     grid-template-columns: 72px minmax(0, 1fr);
     gap: 14px 18px;
@@ -689,14 +636,6 @@ body[data-page="about"] .about-now-row-meta {
     align-items: center;
     gap: 10px;
     padding-top: 0;
-  }
-body[data-page="about"] .about-signals-grid {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-body[data-page="about"] .about-signals-grid > div {
-    padding: 13px 0;
-    border-bottom: 1px solid rgba(162, 176, 255, 0.1);
   }
 body[data-page="about"] .about-contact-links {
     grid-template-columns: 1fr;

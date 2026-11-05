@@ -409,9 +409,10 @@ const projectHero = (project) => {
     `  <p class="page-lead">${esc(overview)}</p>`,
     '  <p class="listing-hero-meta detail-hero-meta" aria-label="内容信号">',
     `    <span>${esc(project.role)}</span>`,
+    project.updated ? `    <span>更新 ${esc(project.updated)}</span>` : null,
     '  </p>',
     '</section>'
-  ].join("\n      ");
+  ].filter((line) => line != null).join("\n      ");
 };
 
 const noteHero = (note) => {

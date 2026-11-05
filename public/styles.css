@@ -1737,6 +1737,10 @@ but let unbroken Latin tokens wrap and
   background: var(--cyan);
   box-shadow: 0 0 6px rgba(108, 242, 255, 0.4);
 }
+.card-status-dot.archive {
+  background: rgba(162, 176, 255, 0.55);
+  box-shadow: none;
+}
 .card-tags {
   display: flex;
   flex-wrap: wrap;
@@ -2235,7 +2239,12 @@ body[data-page="showcase"] .page-hero {
 body[data-page="projects"]:not(:has([data-project-detail])) .page-hero + .section,
 body[data-page="notes"]:not(:has([data-note-detail])) .page-hero + .section,
 body[data-page="showcase"] .page-hero + .section {
-  padding-top: 20px;
+  padding-top: 12px;
+}
+body[data-page="projects"] .listing-section,
+body[data-page="notes"] .listing-section,
+body[data-page="showcase"] .listing-section {
+  padding-top: 12px;
 }
 body[data-page="projects"]:not(:has([data-project-detail])) .page-lead,
 body[data-page="notes"]:not(:has([data-note-detail])) .page-lead,
