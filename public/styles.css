@@ -1719,6 +1719,14 @@ but let unbroken Latin tokens wrap and
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
+/* Showcase dual CTAs + About Now actions are primary taps on mobile. */
+@media (max-width: 760px) {
+  .showcase-card .card-actions a,
+  .about-now-row .card-inline-link,
+  .card-inline-link {
+    min-height: 44px;
+  }
+}
 .card-topline,
 .note-meta,
 .project-entry-status,
@@ -1751,6 +1759,17 @@ but let unbroken Latin tokens wrap and
 .card-status-dot.archive {
   background: rgba(162, 176, 255, 0.55);
   box-shadow: none;
+}
+/* Neon glow values are dark-theme only; light theme uses the darkened
+   --lime/--cyan tokens so status dots stay readable on pale panels. */
+[data-theme="light"] .card-status-dot.live {
+  box-shadow: 0 0 8px rgba(90, 138, 0, 0.35);
+}
+[data-theme="light"] .card-status-dot.dev {
+  box-shadow: 0 0 6px rgba(8, 145, 178, 0.3);
+}
+[data-theme="light"] .card-status-dot.archive {
+  background: rgba(80, 90, 140, 0.45);
 }
 .card-tags {
   display: flex;
