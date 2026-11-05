@@ -218,6 +218,16 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
 const createTagList = (items, limit = 3) =>
   (Array.isArray(items) ? items : []).slice(0, limit).map((item) => `<span>${item}</span>`).join("");
 
+/* Status dots: only exact shipping statuses get the lime "live" pulse.
+   "Active research" / Lab / Archive used to match includes("active") and
+   read as production — wrong signal for a honesty-first site. */
+const statusDotClass = (status) => {
+  const value = String(status || "").trim().toLowerCase();
+  if (value === "active" || value === "live" || value.includes("production")) return "live";
+  if (value === "archive") return "archive";
+  return "dev";
+};
+
 /* Soft-break CamelCase product names at token boundaries
    (Awesome<wbr>Workflows) so wraps stay intentional, not mid-glyph. */
 const escapeHtml = (value) =>
@@ -388,11 +398,6 @@ const I18N = {
     "about.lead": "终端是第二个大脑，LLM 是第三个。现在把精力放在内核、记忆和可观测执行面上——先跑通，再谈结构。",
     "about.nowSummary": "两条主线并行：增长 Agent 内核化，编程系统可观测化。",
     "about.nowTitle": "最新进展",
-    "about.profileSummary": "工具偏好、构建方法和公开信号，压成一套可扫描的说明。",
-    "about.profileTitle": "工作方式",
-    "about.bias": "边搭边想，优先跑通。想法要落到可恢复的系统，而不是一次性演示。",
-    "about.method": "用 Agent 原型验证假设；公开迭代留下可核对的执行痕迹。",
-    "about.lens": "上限由状态、上下文编译、调度和发布边界决定，而不是单次技巧。",
     "about.entryTitle": "从这里进入",
     "about.entrySummary": "源码、社交和邮箱——公开入口集中在这里。",
     "about.idAria": "个人名片",
@@ -402,14 +407,12 @@ const I18N = {
     "projects.eyebrow": "Portfolio / Active Builds",
     "projects.titleSub": "Agent · Kernel · Quant",
     "projects.lead": "增长 Agent、分布式编程、量化引擎，以及复用型交付工作流。",
-    "projects.libraryTitle": "全部项目",
-    "projects.librarySummary": "直接进入详情，少讲概念，多看执行痕迹。",
-    "projects.libraryKicker": "Library",
     "projects.indexed": "个项目",
     "projects.signalFocus": "焦点",
     "projects.signalFocusValue": "Kernel · DAG · Quant",
     "projects.footerKicker": "Projects / Open Build Loop",
     "projects.signalAria": "项目概览",
+    "projects.libraryAria": "全部项目",
     "palette.page": "页面",
     "palette.external": "外部",
     "palette.github": "GitHub 主页",
@@ -419,25 +422,21 @@ const I18N = {
     "showcase.titleSub": "Live Demos",
     "showcase.lead": "两个可直接打开的运行面：XhsGrowthAgent 的 Showcase / Replay，以及 QuantAgent 演示。",
     "showcase.count": "个演示",
-    "showcase.demosTitle": "在线演示",
-    "showcase.demosSummary": "先看运行结果，再按需打开源码。",
-    "showcase.demosKicker": "Live Products",
     "showcase.badge": "在线演示",
     "showcase.footerKicker": "Showcase / Ship Then Show",
     "showcase.signalAria": "Showcase 概览",
+    "showcase.demosAria": "在线演示",
     "notes.eyebrow": "Notes / Working Thoughts",
     "notes.titleSub": "Working Thoughts",
     "notes.topbarStatus": "工作笔记",
     "notes.metaTag": "公开思考",
     "notes.metaSuffix": " / 笔记更新中",
     "notes.lead": "关于 Agent、构建方法和界面判断的短笔记。",
-    "notes.libraryTitle": "最新思考",
-    "notes.librarySummary": "先留下判断，再让项目和后续复盘继续验证。",
-    "notes.libraryKicker": "All Notes",
     "notes.signalPublished": "篇在线",
     "notes.signalScopeValue": "Agents · tools · failures · UI",
     "notes.footerKicker": "Notes / Think In Public",
     "notes.signalAria": "笔记概览",
+    "notes.libraryAria": "全部笔记",
     "section.work": "核心构建",
     "section.workKicker": "Selected Work",
     "section.notes": "工作笔记",
@@ -477,8 +476,6 @@ const I18N = {
     "detail.lens": "视角",
     "detail.prev": "上一条",
     "detail.next": "下一条",
-    "detail.prevMeta": "返回上一条",
-    "detail.nextMeta": "继续阅读",
     "detail.openProject": "打开项目详情",
     "detail.notFoundProject": "这个项目还不存在，或者 slug 不正确。",
     "detail.notFoundNote": "这篇笔记还不存在，或者 slug 不正确。",
@@ -489,6 +486,7 @@ const I18N = {
     "meta.points": "要点",
     "meta.builds": "关联",
     "meta.min": "分钟",
+    "meta.updated": "更新",
     "detail.signal": "项目信号",
     "detail.highlightsKicker": "Highlights",
     "detail.relatedNotesKicker": "Related Notes",
@@ -496,16 +494,11 @@ const I18N = {
     "detail.relatedProjectsKicker": "Related Projects",
     "about.eyebrow": "About / AI-Native Profile",
     "about.nowKicker": "Now Building",
-    "about.profileKicker": "Working Profile",
     "about.signalProjects": "项目",
     "about.signalNotes": "笔记",
     "about.signalAria": "个人快照",
     "about.nowAria": "最新进展",
     "about.entryKicker": "Entry Points",
-    "about.signalsHeading": "构建信号",
-    "about.signalBias": "偏好",
-    "about.signalMethod": "方法",
-    "about.signalLensLabel": "透镜",
     "card.relatedBuilds": "关联项目",
     "card.openDetail": "查看详情",
     "palette.placeholder": "搜索项目、笔记或页面...",
@@ -518,7 +511,6 @@ const I18N = {
     "footer.projectDetail": "把外部链接转换成站内可阅读的项目说明，逐步积累成更完整的作品资料。",
     "footer.noteDetail": "把短观察扩成站内可持续阅读的笔记条目，为后续长文和项目复盘打底。",
     "aria.skip": "跳到主要内容",
-    "shipping": "推进中"
   },
   en: {
     "nav.home": "Home",
@@ -584,11 +576,6 @@ const I18N = {
     "about.lead": "The terminal is the second brain, the LLM the third. Focus now sits on Kernel, memory, and observable execution — ship the loop, then refine structure.",
     "about.nowSummary": "Two tracks in parallel: Kernel-izing the growth Agent, and making the coding system observable.",
     "about.nowTitle": "Latest progress",
-    "about.profileSummary": "Tool bias, build method, and public signal — compressed into a scannable profile.",
-    "about.profileTitle": "How I work",
-    "about.bias": "Build while thinking. Prefer a recoverable system over a one-shot demo.",
-    "about.method": "Validate hypotheses with Agent prototypes; leave checkable execution traces in public.",
-    "about.lens": "The ceiling is state, context compilation, scheduling, and publish boundaries — not a single trick.",
     "about.entryTitle": "Start here",
     "about.entrySummary": "Source, socials, and email — the public doors in one place.",
     "about.idAria": "Profile card",
@@ -598,14 +585,12 @@ const I18N = {
     "projects.eyebrow": "Portfolio / Active Builds",
     "projects.titleSub": "Agent · Kernel · Quant",
     "projects.lead": "Growth Agents, distributed coding, quant engines, and reusable delivery workflows.",
-    "projects.libraryTitle": "All projects",
-    "projects.librarySummary": "Jump into details. Less concept talk, more execution traces.",
-    "projects.libraryKicker": "Library",
     "projects.indexed": "projects indexed",
     "projects.signalFocus": "Focus",
     "projects.signalFocusValue": "Kernel · DAG · Quant",
     "projects.footerKicker": "Projects / Open Build Loop",
     "projects.signalAria": "Projects overview",
+    "projects.libraryAria": "All projects",
     "palette.page": "Page",
     "palette.external": "External",
     "palette.github": "GitHub Profile",
@@ -615,25 +600,21 @@ const I18N = {
     "showcase.titleSub": "Live Demos",
     "showcase.lead": "Two live surfaces you can open now: XhsGrowthAgent Showcase / Replay, and the QuantAgent demo.",
     "showcase.count": "demos",
-    "showcase.demosTitle": "Running surfaces",
-    "showcase.demosSummary": "Inspect the running result first, then open the source if you want.",
-    "showcase.demosKicker": "Live Products",
     "showcase.badge": "Live demo",
     "showcase.footerKicker": "Showcase / Ship Then Show",
     "showcase.signalAria": "Showcase overview",
+    "showcase.demosAria": "Live demos",
     "notes.eyebrow": "Notes / Working Thoughts",
     "notes.titleSub": "Working Thoughts",
     "notes.topbarStatus": "Working Notes",
     "notes.metaTag": "Think in public",
     "notes.metaSuffix": " / Notes in progress",
     "notes.lead": "Short notes on Agents, build method, and interface judgment.",
-    "notes.libraryTitle": "Latest thinking",
-    "notes.librarySummary": "Leave the judgment first, then let projects and later reviews keep testing it.",
-    "notes.libraryKicker": "All Notes",
     "notes.signalPublished": "notes live",
     "notes.signalScopeValue": "Agents · tools · failures · UI",
     "notes.footerKicker": "Notes / Think In Public",
     "notes.signalAria": "Notes overview",
+    "notes.libraryAria": "All notes",
     "section.work": "Core Builds",
     "section.workKicker": "Selected Work",
     "section.notes": "Working Notes",
@@ -673,8 +654,6 @@ const I18N = {
     "detail.lens": "Lens",
     "detail.prev": "Previous",
     "detail.next": "Next",
-    "detail.prevMeta": "go back one",
-    "detail.nextMeta": "keep reading",
     "detail.openProject": "open project detail",
     "detail.notFoundProject": "This project doesn't exist yet, or the slug is wrong.",
     "detail.notFoundNote": "This note doesn't exist yet, or the slug is wrong.",
@@ -685,6 +664,7 @@ const I18N = {
     "meta.points": "Points",
     "meta.builds": "Builds",
     "meta.min": "min",
+    "meta.updated": "Updated",
     "detail.signal": "Project Signal",
     "detail.highlightsKicker": "Highlights",
     "detail.relatedNotesKicker": "Related Notes",
@@ -692,16 +672,11 @@ const I18N = {
     "detail.relatedProjectsKicker": "Related Projects",
     "about.eyebrow": "About / AI-Native Profile",
     "about.nowKicker": "Now Building",
-    "about.profileKicker": "Working Profile",
     "about.signalProjects": "Projects",
     "about.signalNotes": "Notes",
     "about.signalAria": "Profile snapshot",
     "about.nowAria": "Now building",
     "about.entryKicker": "Entry Points",
-    "about.signalsHeading": "Build Signals",
-    "about.signalBias": "Bias",
-    "about.signalMethod": "Method",
-    "about.signalLensLabel": "Lens",
     "card.relatedBuilds": "builds",
     "card.openDetail": "Open detail",
     "palette.placeholder": "Search projects, notes, or pages...",
@@ -714,7 +689,6 @@ const I18N = {
     "footer.projectDetail": "Turn external repos into readable on-site case notes that compound over time.",
     "footer.noteDetail": "Expand short observations into lasting note entries for later reviews.",
     "aria.skip": "Skip to main content",
-    "shipping": "Shipping"
   }
 };
 
@@ -915,7 +889,6 @@ const relatedProjectMarkup = (project) => `
     <h3>${project.title}</h3>
     <p>${projectText(project, "summary")}</p>
     <div class="card-actions">
-      <span class="repo-meta">${project.status}</span>
       <span class="card-inline-link">${t("detail.openProject")} <span aria-hidden="true">→</span></span>
     </div>
   </a>
@@ -927,7 +900,6 @@ const relatedNoteMarkup = (note) => `
     <h3>${noteTitle(note)}</h3>
     <p>${noteText(note, "summary")}</p>
     <div class="card-actions">
-      <span class="repo-meta">${note.timeframe || t("cta.readNote")}</span>
       <span class="card-inline-link">${t("cta.readNote")} <span aria-hidden="true">→</span></span>
     </div>
   </a>
@@ -936,7 +908,7 @@ const relatedNoteMarkup = (note) => `
 const entryDisplayTitle = (entry) => (entry && entry.titleEn ? noteTitle(entry) : entry?.title || "");
 
 const detailPagerMarkup = (options) => {
-  const { previous, next, previousHref, nextHref, previousLabel, nextLabel } = options;
+  const { previous, next, previousHref, nextHref } = options;
 
   if (!previous && !next) {
     return "";
@@ -953,8 +925,6 @@ const detailPagerMarkup = (options) => {
               <a class="track-card reveal related-card pager-card" href="${previousHref(previous)}">
                 <p class="stack-label"><span class="pager-arrow" aria-hidden="true">←</span>${t("detail.prev")}</p>
                 <h3>${entryDisplayTitle(previous)}</h3>
-                <p>${previousLabel(previous)}</p>
-                <span class="repo-meta">${t("detail.prevMeta")}</span>
               </a>
             `
             : ""
@@ -965,8 +935,6 @@ const detailPagerMarkup = (options) => {
               <a class="track-card reveal related-card pager-card" href="${nextHref(next)}">
                 <p class="stack-label">${t("detail.next")}<span class="pager-arrow" aria-hidden="true">→</span></p>
                 <h3>${entryDisplayTitle(next)}</h3>
-                <p>${nextLabel(next)}</p>
-                <span class="repo-meta">${t("detail.nextMeta")}</span>
               </a>
             `
             : ""
@@ -980,19 +948,13 @@ const projectCardMarkup = (project, variant) => {
   const summary = projectText(project, "summary");
   const openDetail = t("card.openDetail");
   if (variant === "home") {
-    const homeLiveDot =
-      project.status.toLowerCase().includes("active") ||
-      project.status.toLowerCase().includes("production") ||
-      project.status.toLowerCase().includes("live")
-        ? "live"
-        : "dev";
     return `
       <a class="work-card reveal" href="${projectDetailHref(project)}">
         <div class="work-index">${project.code}</div>
         <div class="work-copy">
           <p class="card-topline">
             ${project.label}
-            <span class="card-status-dot ${homeLiveDot}" aria-hidden="true"></span>
+            <span class="card-status-dot ${statusDotClass(project.status)}" aria-hidden="true"></span>
             ${project.demoUrl ? `<span class="showcase-demo-badge">${t("showcase.badge")}</span>` : ""}
           </p>
           <h3>${project.title}</h3>
@@ -1006,12 +968,6 @@ const projectCardMarkup = (project, variant) => {
     `;
   }
 
-  const liveDot =
-    project.status.toLowerCase().includes("active") ||
-    project.status.toLowerCase().includes("production") ||
-    project.status.toLowerCase().includes("live")
-      ? "live"
-      : "dev";
   return `
     <a class="repo-card reveal project-entry-card" href="${projectDetailHref(project)}">
       <div class="project-entry-head">
@@ -1021,11 +977,10 @@ const projectCardMarkup = (project, variant) => {
       <h3>${project.title}</h3>
       <p>${summary}</p>
       <div class="project-entry-meta">
-        <span class="project-entry-status"><span class="card-status-dot ${liveDot}" aria-hidden="true"></span>${project.status}</span>
+        <span class="project-entry-status"><span class="card-status-dot ${statusDotClass(project.status)}" aria-hidden="true"></span>${project.status}</span>
         <div class="card-tags">${createTagList(project.stack)}</div>
       </div>
       <div class="card-actions">
-        <span class="repo-meta">${project.timeframe}</span>
         <span class="card-inline-link">${openDetail} <span aria-hidden="true">→</span></span>
       </div>
     </a>
@@ -1280,7 +1235,7 @@ const renderProjectDetail = (instant = false) => {
     projectDetailNode.setAttribute("aria-busy", "true");
     projectDetailNode.innerHTML = `
       <section class="page-hero reveal">${detailBreadcrumbMarkup(t("nav.projects"), "./projects.html", project.title)}
-        <p class="eyebrow">${project.label} / ${project.timeframe} / ${project.status}</p>
+        <p class="eyebrow">${project.label} / ${project.status}</p>
         <h1 class="${projectHeroTitleClass(project.title)}">
           ${softBreakCamelTitle(project.title)}
           <span>${escapeHtml(project.detailTitle)}</span>
@@ -1288,7 +1243,11 @@ const renderProjectDetail = (instant = false) => {
         <p class="page-lead">${overview}</p>
         <p class="listing-hero-meta detail-hero-meta" aria-label="${t("detail.signal")}">
           <span>${escapeHtml(project.role)}</span>
-          <span>${escapeHtml(project.outputs.slice(0, 2).join(" / "))}</span>
+          ${
+            project.updated
+              ? `<span>${t("meta.updated")} ${escapeHtml(project.updated)}</span>`
+              : ""
+          }
         </p>
         <div class="page-actions">
           ${
@@ -1323,7 +1282,6 @@ const renderProjectDetail = (instant = false) => {
                   <p class="stack-label">${t("detail.highlightLabel")} 0${index + 1}</p>
                   <h3>${escapeHtml(highlight.title)}</h3>
                   <p>${softBreakFlowText(highlight.body)}</p>
-                  <span class="repo-meta">${escapeHtml(project.outputs[index] || project.stack[index] || project.status)}</span>
                 </article>
               `;
             })
@@ -1348,9 +1306,7 @@ const renderProjectDetail = (instant = false) => {
         previous: siblings.previous,
         next: siblings.next,
         previousHref: projectDetailHref,
-        nextHref: projectDetailHref,
-        previousLabel: (entry) => entry.label,
-        nextLabel: (entry) => entry.label
+        nextHref: projectDetailHref
        })}
     `;
     projectDetailNode.setAttribute("aria-busy", "false");
@@ -1494,9 +1450,7 @@ const renderNoteDetail = (instant = false) => {
         previous: siblings.previous,
         next: siblings.next,
         previousHref: noteDetailHref,
-        nextHref: noteDetailHref,
-        previousLabel: (entry) => noteText(entry, "summary"),
-        nextLabel: (entry) => noteText(entry, "summary")
+        nextHref: noteDetailHref
        })}
     `;
     noteDetailNode.setAttribute("aria-busy", "false");
@@ -1544,9 +1498,7 @@ const renderProjectSurfaces = (instant = false) => {
         <h3>${project.title}</h3>
         <p>${projectText(project, "summary")}</p>
         <div class="card-tags">${createTagList(project.stack)}</div>
-        <div class="showcase-url">${project.demoUrl}</div>
         <div class="card-actions">
-          <span class="repo-meta">${project.status}</span>
           <span class="work-link">${t("cta.tryDemo")} <span aria-hidden="true">→</span></span>
         </div>
       </a>
@@ -1577,7 +1529,6 @@ const renderProjectSurfaces = (instant = false) => {
               <p class="about-now-label">
                 ${label}
                 <span class="card-status-dot live" aria-hidden="true"></span>
-                <span class="work-status-pill">${t("shipping")}</span>
               </p>
               <h3><a href="${href}">${item.title}</a></h3>
             </div>

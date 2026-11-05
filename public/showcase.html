@@ -40,9 +40,9 @@
     <meta name="apple-mobile-web-app-title" content="Jamery Wang">
     <link rel="preconnect" href="https://stats.jameryw.dev" />
     <link rel="dns-prefetch" href="https://github.com" />
-    <link rel="stylesheet" href="./styles.css?v=146" />
+    <link rel="stylesheet" href="./styles.css?v=148" />
     <link rel="preload" href="./data-list.js?v=4" as="script" />
-    <link rel="preload" href="./app.js?v=101" as="script" />
+    <link rel="preload" href="./app.js?v=103" as="script" />
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -162,12 +162,7 @@
           </div>
         </section>
 
-        <section class="section" id="demos">
-          <div class="section-head reveal">
-            <p class="section-kicker" data-i18n="showcase.demosKicker">Live Products</p>
-            <h2 data-i18n="showcase.demosTitle">在线演示</h2>
-            <p class="section-summary" data-i18n="showcase.demosSummary">先看运行结果，再按需打开源码。</p>
-          </div>
+        <section class="section listing-section" id="demos" aria-label="在线演示" data-i18n-aria="showcase.demosAria">
           <div class="showcase-grid" data-showcase></div>
         </section>
       </main>
@@ -200,7 +195,7 @@
 
 <script src="./data-list.js?v=4" defer fetchpriority="high"></script>
 <script src="./umami-config.js" defer></script>
-  <script src="./app.js?v=101" defer fetchpriority="high"></script>
+  <script src="./app.js?v=103" defer fetchpriority="high"></script>
 
     <!-- Command Palette -->
     <div class="palette-overlay" data-palette-overlay aria-hidden="true"></div>
