@@ -2327,8 +2327,17 @@ body[data-page="showcase"] .page-title span:not(.page-title-main) {
 .archive-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
   margin-top: 20px;
+}
+.archive-actions .button {
+  padding: 10px 14px;
+  font-size: 0.86rem;
+}
+@media (min-width: 981px) {
+  .archive-actions {
+    flex-wrap: nowrap;
+  }
 }
 .archive-section {
   padding: 36px 0 8px;
@@ -2502,7 +2511,12 @@ html:not([data-lang="en"]) .notfound-hero .page-title .lang-zh.notfound-title-ma
 }
 .notfound-hero .page-actions {
   justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
   margin-top: 16px;
+}
+.notfound-hero .page-actions .button {
+  min-width: 0;
 }
 .notfound-footer {
   margin-top: 24px;

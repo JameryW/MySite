@@ -7,7 +7,7 @@ window.siteData = {
     "title": "AI 时代原住民",
     "titleEn": "AI-Native Builder",
     "base": "Hangzhou / Online",
-    "status": "Shipping memory-aware agent systems",
+    "status": "Building memory-aware agent systems",
     "github": "https://github.com/jameryw",
     "focus": [
       "Agents",

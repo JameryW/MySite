@@ -10,7 +10,7 @@ Canonical: https://www.jameryw.dev · Languages: zh (primary) + en · Generated 
 - Title: AI 时代原住民
 - Title (EN): AI-Native Builder
 - Base: Hangzhou / Online
-- Status: Shipping memory-aware agent systems
+- Status: Building memory-aware agent systems
 - Focus: Agents, Memory, Kernel Runtime, DAG Coding, Quant
 - GitHub: https://github.com/jameryw
 - X: https://x.com/JameryWang
