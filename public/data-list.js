@@ -48,7 +48,6 @@ window.siteData = {
       "summaryEn": "Xiaohongshu growth workbench: a deterministic Kernel owns state and scheduling, LangGraph only runs the task graph, and publishing stays human-gated.",
       "href": "https://github.com/JameryW/XhsGrowthAgent",
       "demoUrl": "https://xhs.jameryw.dev",
-      "cta": "查看源码",
       "status": "Active",
       "stack": [
         "LangGraph",
@@ -72,7 +71,6 @@ window.siteData = {
       "href": "https://github.com/JameryW/QuantAgent",
       "sourcePrivate": true,
       "demoUrl": "https://quant.jameryw.dev",
-      "cta": "查看公开仓库",
       "status": "Active research",
       "stack": [
         "Python",
@@ -94,7 +92,6 @@ window.siteData = {
       "summaryEn": "A modular quant strategy library — multi-strategy orchestration, broker adapters, and risk controls, with Futu live trading and dry-run.",
       "href": "https://github.com/JameryW/RealQuantEngine",
       "sourcePrivate": true,
-      "cta": "查看公开仓库",
       "status": "Active",
       "stack": [
         "Python",
@@ -116,7 +113,6 @@ window.siteData = {
       "summaryEn": "Quant strategy prototypes inspired by arXiv research — backtest engine, 10 strategy modules, and a tracked test suite. Archived; strategy surface folded into RealQuantEngine.",
       "href": "https://github.com/JameryW/QuantStrategyPrototypes",
       "sourcePrivate": true,
-      "cta": "查看公开仓库",
       "status": "Archive",
       "stack": [
         "Python",
@@ -138,7 +134,6 @@ window.siteData = {
       "summary": "分布式 AI 编程平台：DAG 编排、可观测 Dashboard、多适配 Worker，共享分层记忆与混合检索。",
       "summaryEn": "Distributed AI coding platform: DAG orchestration, observable Dashboard, multi-adapter Workers, shared layered memory and hybrid retrieval.",
       "href": "https://github.com/JameryW/UltimateCoders",
-      "cta": "查看源码",
       "status": "Active",
       "stack": [
         "Rust",
@@ -163,7 +158,6 @@ window.siteData = {
       "summaryEn": "Issue-driven delivery workflows reusable across Codex / Claude Code / Grok Build / DeepSeek Harness — Matt Pocock engineering skills plus the Trellis task lifecycle.",
       "href": "https://github.com/JameryW/AwesomeWorkflows",
       "sourcePrivate": true,
-      "cta": "查看公开仓库",
       "status": "Lab",
       "stack": [
         "Agent Skills",
