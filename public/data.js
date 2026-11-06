@@ -147,8 +147,8 @@ window.siteData = {
       code: "D4",
       label: "Strategy Lab",
       title: "QuantStrategyPrototypes",
-      summary: "基于 arXiv 论文研究的量化策略原型集合 — 含回测引擎、10 个策略模块和 91% 测试覆盖率。已归档，策略面并入 RealQuantEngine。",
-      summaryEn: "Quant strategy prototypes grounded in arXiv research — backtest engine, 10 strategy modules, and 91% test coverage. Archived; strategy surface folded into RealQuantEngine.",
+      summary: "受 arXiv 量化研究启发的策略原型集合 — 含回测引擎、10 个策略模块与测试套件。已归档，策略面并入 RealQuantEngine。",
+      summaryEn: "Quant strategy prototypes inspired by arXiv research — backtest engine, 10 strategy modules, and a tracked test suite. Archived; strategy surface folded into RealQuantEngine.",
       href: "https://github.com/JameryW/QuantStrategyPrototypes",
       sourcePrivate: true,
       cta: "查看公开仓库",
@@ -158,19 +158,19 @@ window.siteData = {
       role: "Research / Builder",
       detailTitle: "Quantitative Strategy Prototypes from Paper Research",
       overview:
-        "基于 arXiv 论文研究的量化策略原型集合，包含 10 个策略模块（Dual MA、Chan 缠论、VGRSI、Gap 缺口、Trend 强度、MRP 多因子等），配有完整回测引擎、186 个测试用例（91% 覆盖率）和 CI Pipeline。",
+        "受 arXiv 量化研究启发的策略原型集合，包含 10 个策略模块（Dual MA、Chan 缠论、VGRSI、Gap 缺口、Trend 强度、MRP 多因子等），配有完整回测引擎、测试套件和 CI Pipeline。",
       overviewEn:
-        "A research-to-code set of quant strategy prototypes from arXiv papers: 10 modules (Dual MA, Chan, VGRSI, Gap, Trend strength, MRP multifactor, and more), a full backtest engine, 186 tests at 91% coverage, and a CI pipeline.",
+        "A research-to-code set of quant strategy prototypes inspired by arXiv papers: 10 modules (Dual MA, Chan, VGRSI, Gap, Trend strength, MRP multifactor, and more), a full backtest engine, test suite, and CI pipeline.",
       highlights: [
-        "10 个策略模块：Dual MA、Chan 缠论、VGRSI (arXiv 2605.01300)、Gap 缺口 (arXiv 2605.04004)、Trend 强度 (arXiv 2605.02326)、MRP 多因子等。",
+        "10 个策略模块：Dual MA、Chan 缠论、VGRSI、Gap 缺口、Trend 强度、MRP 多因子等（从论文思路落地到可回测代码）。",
         "完整回测引擎：含 metrics、portfolio 和 data_fetcher 模块，支持港股和 A 股回测。",
-        "测试与 CI：186 个测试用例，91% 覆盖率，GitHub Actions 自动运行，成功率约 60%。",
+        "测试与 CI：186 个测试用例，覆盖率约 91%；GitHub Actions 跟踪套件通过率约 60%。",
         "批量回测报告：按策略分组配置、按日期归档报告，支持参数化批量回测。"
       ],
       highlightsEn: [
-        "10 strategy modules: Dual MA, Chan, VGRSI (arXiv 2605.01300), Gap (arXiv 2605.04004), Trend strength (arXiv 2605.02326), MRP multifactor, and more.",
+        "10 strategy modules: Dual MA, Chan, VGRSI, Gap, Trend strength, MRP multifactor, and more — paper ideas turned into backtestable code.",
         "Backtest engine: metrics, portfolio, and data_fetcher modules for HK and A-share runs.",
-        "Tests & CI: 186 tests, 91% coverage, GitHub Actions, ~60% pass rate on the tracked suite.",
+        "Tests & CI: 186 tests at ~91% coverage; GitHub Actions tracked suite ~60% pass rate.",
         "Batch reports: strategy-grouped configs and date-archived reports for parameterized runs."
       ],
       outputs: ["Strategy modules", "Backtest engine", "CI test suite", "Batch backtest reports"],

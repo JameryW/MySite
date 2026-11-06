@@ -25,7 +25,6 @@ const homeNotesNode = document.querySelector("[data-home-notes]");
 const projectLibraryNode = document.querySelector("[data-project-library]");
 const noteLibraryNode = document.querySelector("[data-note-library]");
 const showcaseNode = document.querySelector("[data-showcase]");
-const showcaseCountNodes = document.querySelectorAll("[data-showcase-count]");
 const nowBuildingNode = document.querySelector("[data-now-building]");
 const profileFocusNodes = document.querySelectorAll("[data-profile-focus]");
 const clockNodes = document.querySelectorAll("[data-local-clock]");
@@ -341,7 +340,6 @@ const I18N = {
     "nav.showcase": "Showcase",
     "nav.notes": "笔记",
     "nav.about": "关于",
-    "nav.repos": "仓库",
     "aria.search": "搜索",
     "aria.breadcrumb": "面包屑导航",
     "aria.palette": "搜索面板",
@@ -391,10 +389,8 @@ const I18N = {
     "home.focus1Title": "执行优于解释",
     "home.focus2Title": "内核优于技巧",
     "home.focus3Title": "信号优于声明",
-    "home.focus1": "把工具、记忆和多步执行串成可恢复的闭环，比把单轮回答写漂亮更重要。",
-    "home.focus2": "上限由状态、上下文编译、调度和发布边界决定，不靠临时技巧。",
-    "home.focus3": "让别人从运行结果里读到能力，而不是从简历声明里读到。",
     "about.lead": "终端是第二个大脑，LLM 是第三个。现在把精力放在内核、记忆和可观测执行面上——先跑通，再谈结构。",
+    "about.viewBuilds": "公开构建",
     "about.nowSummary": "两条主线并行：增长 Agent 内核化，编程系统可观测化。",
     "about.nowTitle": "最新进展",
     "about.entryTitle": "从这里进入",
@@ -505,7 +501,6 @@ const I18N = {
     "nav.showcase": "Showcase",
     "nav.notes": "Notes",
     "nav.about": "About",
-    "nav.repos": "Repos",
     "aria.search": "Search",
     "aria.breadcrumb": "Breadcrumb",
     "aria.palette": "Search dialog",
@@ -555,10 +550,8 @@ const I18N = {
     "home.focus1Title": "Execution Over Explanation",
     "home.focus2Title": "Kernel Over Tricks",
     "home.focus3Title": "Signal Over Claims",
-    "home.focus1": "A recoverable loop of tools, memory, and multi-step execution beats a polished single-turn answer.",
-    "home.focus2": "The ceiling is set by state, context compilation, scheduling, and publish boundaries — not one-off tricks.",
-    "home.focus3": "Let people read ability from running results, not from resume claims.",
     "about.lead": "The terminal is the second brain, the LLM the third. Focus now sits on Kernel, memory, and observable execution — ship the loop, then refine structure.",
+    "about.viewBuilds": "Open builds",
     "about.nowSummary": "Two tracks in parallel: Kernel-izing the growth Agent, and making the coding system observable.",
     "about.nowTitle": "Latest progress",
     "about.entryTitle": "Start here",
@@ -1498,9 +1491,6 @@ const renderProjectSurfaces = (instant = false) => {
       </article>
     `;
     }).join("");
-    showcaseCountNodes.forEach((node) => {
-      node.textContent = demoProjects.length;
-    });
   }
   if (nowBuildingNode) {
     const nowItems = Array.isArray(siteData.profile?.now) ? siteData.profile.now : [];
