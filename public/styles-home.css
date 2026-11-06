@@ -87,7 +87,7 @@ body[data-page="home"] .home-signal-strip {
   flex-direction: column;
   gap: 0;
   max-width: 46rem;
-  border-top: 1px solid rgba(162, 176, 255, 0.14);
+  border-top: 1px solid var(--line);
 }
 body[data-page="home"] .home-signal-row {
   display: grid;
@@ -95,7 +95,7 @@ body[data-page="home"] .home-signal-row {
   gap: 10px 14px;
   align-items: baseline;
   padding: 12px 0;
-  border-bottom: 1px solid rgba(162, 176, 255, 0.12);
+  border-bottom: 1px solid var(--line);
   color: inherit;
   text-decoration: none;
   transition: color 160ms ease;
@@ -138,6 +138,12 @@ body[data-page="home"] .home-signal-live {
   text-transform: uppercase;
   color: var(--lime);
 }
+[data-theme="light"] body[data-page="home"] .home-signal-code {
+  color: var(--cyan-text);
+}
+[data-theme="light"] body[data-page="home"] .home-signal-live {
+  color: var(--lime-text);
+}
 
 /* Hero: eyebrow — quieter chip, not a loud pill */
 body[data-page="home"] .hero-copy .eyebrow {
@@ -170,7 +176,7 @@ body[data-page="home"] .hero-actions .button.primary {
     inset 0 1px 0 rgba(255, 255, 255, 0.45);
 }
 
-/* Principles / lens — after work + notes, not before the builds. */
+/* Principles / lens — after work + notes; title-only compact rows. */
 body[data-page="home"] .home-principles {
   padding-top: 28px;
   padding-bottom: 8px;
@@ -181,38 +187,38 @@ body[data-page="home"] #work.section {
 body[data-page="home"] .home-principles-list {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
+  gap: 10px 18px;
   margin-top: 4px;
 }
-body[data-page="home"] .home-principles-list > div {
-  padding: 14px 16px 16px;
-  border: 1px solid rgba(162, 176, 255, 0.12);
-  border-bottom: 1px solid rgba(162, 176, 255, 0.12);
-  border-left: 3px solid rgba(108, 242, 255, 0.42);
-  border-radius: 0 16px 16px 0;
-  background: linear-gradient(180deg, rgba(18, 26, 52, 0.45), rgba(7, 11, 27, 0.35));
-  transition: background 200ms ease, border-color 200ms ease;
+body[data-page="home"] .home-principles-compact > div {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 10px 0;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
-body[data-page="home"] .home-principles-list > div:last-child {
-  padding-bottom: 14px;
-  border-bottom: 1px solid rgba(162, 176, 255, 0.12);
+body[data-page="home"] .home-principles-compact > div:hover {
+  background: transparent;
+  border-color: var(--line);
 }
-body[data-page="home"] .home-principles-list > div:nth-child(2) {
-  border-left-color: rgba(255, 79, 216, 0.45);
+body[data-page="home"] .home-principles-compact > div span:first-child {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--cyan);
 }
-body[data-page="home"] .home-principles-list > div:nth-child(3) {
-  border-left-color: rgba(216, 255, 98, 0.45);
+body[data-page="home"] .home-principles-compact > div strong {
+  font-size: 0.98rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
 }
-body[data-page="home"] .home-principles-list > div:hover {
-  border-color: rgba(108, 242, 255, 0.2);
-  background: rgba(108, 242, 255, 0.04);
-}
-[data-theme="light"] body[data-page="home"] .home-principles-list > div {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(236, 239, 248, 0.9));
-}
-[data-theme="light"] body[data-page="home"] .home-principles-list > div:hover {
-  border-color: rgba(8, 145, 178, 0.18);
-  background: rgba(255, 255, 255, 0.85);
+[data-theme="light"] body[data-page="home"] .home-principles-compact > div span:first-child {
+  color: var(--cyan-text);
 }
 
 /* Work cards */
