@@ -43,9 +43,9 @@
     <link rel="preconnect" href="https://stats.jameryw.dev" />
     <link rel="dns-prefetch" href="https://github.com" />
     <link rel="stylesheet" href="./styles.css?v=153" />
-    <link rel="stylesheet" href="./styles-home.css?v=4" />
+    <link rel="stylesheet" href="./styles-home.css?v=5" />
     <link rel="preload" href="./data-list.js?v=8" as="script" />
-    <link rel="preload" href="./app.js?v=107" as="script" />
+    <link rel="preload" href="./app.js?v=108" as="script" />
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -168,14 +168,20 @@
             <p class="eyebrow" data-i18n="home.eyebrow">AI Builder / Agents / Quant Systems</p>
             <h1>
               Jamery Wang
-              <span data-profile-title>AI 时代原住民</span>
+              <span data-i18n="home.titleSub">公开构建的 Agent 工作台</span>
             </h1>
             <p class="hero-tagline">
-              <span class="tagline-ch" data-i18n="home.tagline">终端是第二个大脑，LLM 是第三个。跑通原型比写文档勤；debug Agent 比 debug 自己勤。</span>
+              <span class="tagline-ch" data-i18n="home.tagline">精选项目、在线演示和工作笔记——先看跑通的信号，再读判断。</span>
+            </p>
+            <p class="home-hero-tracks" aria-label="内容入口" data-i18n-aria="home.tracksAria">
+              <a href="./projects.html">Projects</a>
+              <a href="./showcase.html">Showcase</a>
+              <a href="./notes.html">Notes</a>
+              <a href="./about.html" data-i18n="nav.about">关于</a>
             </p>
             <div class="hero-actions">
               <a class="button primary" href="#work" data-i18n="cta.work">核心项目</a>
-              <a class="button secondary" href="#notes" data-i18n="cta.notes">最新笔记</a>
+              <a class="button secondary" href="./showcase.html" data-i18n="cta.showcase">在线作品</a>
             </div>
           </div>
         </section>
@@ -271,7 +277,7 @@
 
     <script src="./data-list.js?v=8" defer fetchpriority="high"></script>
     <script src="./umami-config.js" defer></script>
-    <script src="./app.js?v=107" defer fetchpriority="high"></script>
+    <script src="./app.js?v=108" defer fetchpriority="high"></script>
 
     <!-- Command Palette -->
     <div class="palette-overlay" data-palette-overlay aria-hidden="true"></div>
