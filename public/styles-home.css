@@ -78,43 +78,39 @@ body[data-page="home"] .hero-tagline {
 body[data-page="home"] .hero-actions {
   margin-top: 20px;
 }
-/* Compact live signals — About owns the timeline, Home shows chips. */
+/* Flat live signals — link rows, not hero cards. */
 body[data-page="home"] .home-signal-strip {
   list-style: none;
-  margin: 22px 0 0;
+  margin: 20px 0 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
   max-width: 46rem;
+  border-top: 1px solid rgba(162, 176, 255, 0.14);
 }
-body[data-page="home"] .home-signal-card {
+body[data-page="home"] .home-signal-row {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  gap: 10px 12px;
-  align-items: start;
-  min-height: 100%;
-  padding: 12px 14px;
-  border: 1px solid rgba(162, 176, 255, 0.14);
-  border-radius: 16px;
-  background: linear-gradient(180deg, rgba(18, 26, 52, 0.55), rgba(7, 11, 27, 0.72));
+  grid-template-columns: 2.2rem minmax(8rem, 11rem) minmax(0, 1fr) auto;
+  gap: 10px 14px;
+  align-items: baseline;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(162, 176, 255, 0.12);
   color: inherit;
   text-decoration: none;
-  transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+  transition: color 160ms ease;
 }
-body[data-page="home"] .home-signal-card:hover,
-body[data-page="home"] .home-signal-card:focus-visible {
-  border-color: rgba(108, 242, 255, 0.42);
-  background: linear-gradient(180deg, rgba(24, 34, 66, 0.72), rgba(9, 15, 36, 0.88));
-  transform: translateY(-2px);
+body[data-page="home"] .home-signal-row:hover,
+body[data-page="home"] .home-signal-row:focus-visible {
+  color: var(--cyan);
 }
-[data-theme="light"] body[data-page="home"] .home-signal-card {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(236, 239, 248, 0.94));
+body[data-page="home"] .home-signal-row:hover .home-signal-beat,
+body[data-page="home"] .home-signal-row:focus-visible .home-signal-beat {
+  color: var(--muted);
 }
-[data-theme="light"] body[data-page="home"] .home-signal-card:hover,
-[data-theme="light"] body[data-page="home"] .home-signal-card:focus-visible {
-  border-color: rgba(8, 145, 178, 0.32);
-  background: rgba(255, 255, 255, 0.95);
+[data-theme="light"] body[data-page="home"] .home-signal-row:hover,
+[data-theme="light"] body[data-page="home"] .home-signal-row:focus-visible {
+  color: var(--cyan-text);
 }
 body[data-page="home"] .home-signal-code {
   font-family: var(--font-mono, ui-monospace, monospace);
@@ -122,38 +118,25 @@ body[data-page="home"] .home-signal-code {
   font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--cyan);
-  margin-top: 2px;
 }
-body[data-page="home"] .home-signal-copy {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-body[data-page="home"] .home-signal-copy strong {
+body[data-page="home"] .home-signal-title {
   font-size: 0.98rem;
   letter-spacing: -0.01em;
 }
 body[data-page="home"] .home-signal-beat {
   color: var(--muted);
-  font-size: 0.82rem;
-  line-height: 1.45;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  font-size: 0.86rem;
+  line-height: 1.4;
+  white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 body[data-page="home"] .home-signal-live {
-  align-self: start;
-  padding: 4px 8px;
-  border: 1px solid rgba(216, 255, 98, 0.28);
-  border-radius: 999px;
-  background: rgba(216, 255, 98, 0.08);
-  color: var(--lime);
-  font-size: 0.66rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+  color: var(--lime);
 }
 
 /* Hero: eyebrow — quieter chip, not a loud pill */
@@ -324,9 +307,6 @@ body[data-page="home"] .note-card .card-actions {
   body[data-page="home"] .home-principles-list {
     grid-template-columns: 1fr;
   }
-  body[data-page="home"] .home-signal-strip {
-    grid-template-columns: 1fr;
-  }
 }
 
 @media (max-width: 760px) {
@@ -350,12 +330,24 @@ body[data-page="home"] .note-card .card-actions {
     font-size: 0.95rem;
   }
   body[data-page="home"] .home-signal-strip {
-    margin-top: 16px;
-    gap: 8px;
+    margin-top: 14px;
   }
-  body[data-page="home"] .home-signal-card {
-    padding: 12px;
+  body[data-page="home"] .home-signal-row {
+    grid-template-columns: 2rem minmax(0, 1fr) auto;
+    gap: 8px 10px;
+    padding: 11px 0;
     min-height: 44px;
+  }
+  body[data-page="home"] .home-signal-beat {
+    grid-column: 2 / 3;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  body[data-page="home"] .home-signal-live {
+    grid-row: 1;
+    grid-column: 3;
   }
   body[data-page="home"] .hero-actions {
     display: grid;

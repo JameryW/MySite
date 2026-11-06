@@ -379,13 +379,13 @@ Overview (EN): The point of building in public isn't showing diligence, but maki
 Bullets:
 - 公开迭代比一份精美简历更有说服力。提交记录不会撒谎，但简历可以。
 - 失败记录比成功展示更有信息量。知道什么行不通比知道什么行得通更有价值。
-- 这个站点本身就是 build in public 的实践：从占位内容开始，持续往里填真实项目。
+- 这个站点本身就是 build in public 的实践：公开构建门户持续更新真实项目、演示与笔记。
 - 公开不是目的，可验证才是。如果你不能让别人直接看到你的工作轨迹，你就还在靠声明。
 
 Bullets (EN):
 - Public iteration is more convincing than a polished resume. Commit history doesn't lie; resumes can.
 - Failure logs carry more information than success showcases. Knowing what doesn't work is more valuable than knowing what does.
-- This site is itself an exercise in building in public: starting from placeholder content, continuously filling in real projects.
+- This site is itself an exercise in building in public: an open build portal that keeps shipping real projects, demos, and notes.
 - Publicness isn't the goal — verifiability is. If others can't directly see your trail of work, you're still relying on claims.
 
 Lens: Public building makes your process verifiable — it turns claims into evidence and intentions into track records. / 公开构建让过程可验证，把宣称变成证据，把意图变成记录。

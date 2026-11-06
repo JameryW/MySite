@@ -360,7 +360,7 @@ const I18N = {
     "aria.principles": "怎么读这些构建",
     "aria.work": "精选项目",
     "aria.latestNotes": "最新笔记",
-    "cta.projects": "项目方向",
+    "cta.projects": "浏览项目",
     "cta.showcase": "在线作品",
     "cta.work": "核心项目",
     "cta.demos": "进入演示",
@@ -375,7 +375,6 @@ const I18N = {
     "cta.all": "全部",
     "cta.repos": "仓库列表",
     "cta.home": "首页",
-    "cta.thinkNotes": "思考笔记",
     "cta.top": "顶部",
     "filter.all": "全部",
     "filter.aria": "内容筛选",
@@ -410,7 +409,6 @@ const I18N = {
     "projects.titleSub": "Agent · Kernel · Quant",
     "projects.lead": "增长 Agent、分布式编程、量化引擎，以及复用型交付工作流。",
     "projects.indexed": "个项目",
-    "projects.signalFocusValue": "Kernel · DAG · Quant",
     "projects.footerKicker": "Projects / Open Build Loop",
     "projects.signalAria": "项目概览",
     "projects.libraryAria": "全部项目",
@@ -421,10 +419,8 @@ const I18N = {
     "palette.note": "笔记",
     "showcase.eyebrow": "Showcase / Live Demos",
     "showcase.lead": "两个可直接打开的运行面：XhsGrowthAgent 的 Showcase / Replay，以及 QuantAgent 演示。",
-    "showcase.count": "个演示",
     "showcase.badge": "在线演示",
     "showcase.footerKicker": "Showcase / Ship Then Show",
-    "showcase.signalAria": "Showcase 概览",
     "showcase.demosAria": "在线演示",
     "notes.eyebrow": "Notes / Working Thoughts",
     "notes.topbarStatus": "工作笔记",
@@ -441,7 +437,7 @@ const I18N = {
     "section.notes": "工作笔记",
     "section.notesKicker": "Latest Notes",
     "home.eyebrow": "Build Portal / Live Signal",
-    "home.footerKicker": "Jamery Wang / Personal Signal Site",
+    "home.footerKicker": "Build Portal / Live Signal",
     "home.topbarStatus": "杭州 / 在线",
     "home.metaTag": "极客模式开启",
     "home.metaSuffix": " / 杭州 / 在线",
@@ -528,7 +524,7 @@ const I18N = {
     "aria.principles": "How to read these builds",
     "aria.work": "Selected work",
     "aria.latestNotes": "Latest notes",
-    "cta.projects": "Project tracks",
+    "cta.projects": "Browse projects",
     "cta.showcase": "Live work",
     "cta.work": "Core builds",
     "cta.demos": "Open demos",
@@ -543,7 +539,6 @@ const I18N = {
     "cta.all": "All",
     "cta.repos": "Repositories",
     "cta.home": "Home",
-    "cta.thinkNotes": "Browse notes",
     "cta.top": "Top",
     "filter.all": "All",
     "filter.aria": "Content filters",
@@ -578,7 +573,6 @@ const I18N = {
     "projects.titleSub": "Agent · Kernel · Quant",
     "projects.lead": "Growth Agents, distributed coding, quant engines, and reusable delivery workflows.",
     "projects.indexed": "projects indexed",
-    "projects.signalFocusValue": "Kernel · DAG · Quant",
     "projects.footerKicker": "Projects / Open Build Loop",
     "projects.signalAria": "Projects overview",
     "projects.libraryAria": "All projects",
@@ -589,10 +583,8 @@ const I18N = {
     "palette.note": "Note",
     "showcase.eyebrow": "Showcase / Live Demos",
     "showcase.lead": "Two live surfaces you can open now: XhsGrowthAgent Showcase / Replay, and the QuantAgent demo.",
-    "showcase.count": "demos",
     "showcase.badge": "Live demo",
     "showcase.footerKicker": "Showcase / Ship Then Show",
-    "showcase.signalAria": "Showcase overview",
     "showcase.demosAria": "Live demos",
     "notes.eyebrow": "Notes / Working Thoughts",
     "notes.topbarStatus": "Working Notes",
@@ -609,7 +601,7 @@ const I18N = {
     "section.notes": "Working Notes",
     "section.notesKicker": "Latest Notes",
     "home.eyebrow": "Build Portal / Live Signal",
-    "home.footerKicker": "Jamery Wang / Personal Signal Site",
+    "home.footerKicker": "Build Portal / Live Signal",
     "home.topbarStatus": "Hangzhou / Online",
     "home.metaTag": "Geek mode enabled",
     "home.metaSuffix": " / Hangzhou / Online",
@@ -936,11 +928,9 @@ const projectCardMarkup = (project, variant) => {
           <p class="card-topline">
             ${project.label}
             <span class="card-status-dot ${statusDotClass(project.status)}" aria-hidden="true"></span>
-            ${project.demoUrl ? `<span class="showcase-demo-badge">${t("showcase.badge")}</span>` : ""}
           </p>
           <h3>${project.title}</h3>
           <p class="work-summary">${summary}</p>
-          <div class="card-tags">${createTagList(project.stack)}</div>
           <div class="card-actions">
             <span class="work-link">${openDetail} <span class="work-arrow" aria-hidden="true">→</span></span>
           </div>
@@ -1023,12 +1013,10 @@ const renderHomeSignals = () => {
         : "";
       return `
       <li>
-        <a class="home-signal-card" href="${href}">
+        <a class="home-signal-row" href="${href}">
           <span class="home-signal-code">${escapeHtml(item.code || project?.code || "")}</span>
-          <span class="home-signal-copy">
-            <strong>${escapeHtml(item.title)}</strong>
-            <span class="home-signal-beat">${escapeHtml(beat || "")}</span>
-          </span>
+          <strong class="home-signal-title">${escapeHtml(item.title)}</strong>
+          <span class="home-signal-beat">${escapeHtml(beat || "")}</span>
           ${live}
         </a>
       </li>`;
