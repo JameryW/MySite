@@ -161,7 +161,7 @@ const llmsFull = [
       mdList(project.highlightsEn || [], "(none)"),
       "",
       "Outputs:",
-      mdList(project.outputs || [], project.cta || "(none)"),
+      mdList(project.outputs || [], "(none)"),
       ""
     ].join("\n")
   ),

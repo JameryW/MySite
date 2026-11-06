@@ -1814,6 +1814,8 @@ if (palette && paletteInput) {
     paletteTriggerEl = document.activeElement;
     palette.classList.add("open");
     paletteOverlay.classList.add("open");
+    palette.setAttribute("aria-hidden", "false");
+    paletteOverlay.setAttribute("aria-hidden", "false");
     paletteInput.setAttribute("aria-expanded", "true");
     paletteInput.value = "";
     activeIndex = 0;
@@ -1829,6 +1831,8 @@ if (palette && paletteInput) {
   function closePalette() {
     palette.classList.remove("open");
     paletteOverlay.classList.remove("open");
+    palette.setAttribute("aria-hidden", "true");
+    paletteOverlay.setAttribute("aria-hidden", "true");
     paletteInput.setAttribute("aria-expanded", "false");
     paletteInput.removeAttribute("aria-activedescendant");
     paletteInput.value = "";
