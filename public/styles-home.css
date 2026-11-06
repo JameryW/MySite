@@ -58,7 +58,40 @@ body[data-page="home"] .hero-copy h1 span {
 }
 body[data-page="home"] .hero-tagline {
   margin-top: 16px;
-  max-width: 40ch;
+  max-width: 42ch;
+}
+/* Portal tracks — route chips, not an About identity card. */
+body[data-page="home"] .home-hero-tracks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin: 18px 0 0;
+  padding: 0;
+  max-width: 42rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+body[data-page="home"] .home-hero-tracks a {
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 160ms ease, border-color 160ms ease;
+}
+body[data-page="home"] .home-hero-tracks a:hover,
+body[data-page="home"] .home-hero-tracks a:focus-visible {
+  color: var(--cyan);
+  border-bottom-color: rgba(108, 242, 255, 0.45);
+}
+[data-theme="light"] body[data-page="home"] .home-hero-tracks a:hover,
+[data-theme="light"] body[data-page="home"] .home-hero-tracks a:focus-visible {
+  color: var(--cyan-text);
+  border-bottom-color: rgba(8, 145, 178, 0.4);
+}
+body[data-page="home"] .hero-actions {
+  margin-top: 22px;
 }
 
 /* Hero: eyebrow — quieter chip, not a loud pill */
@@ -244,6 +277,16 @@ body[data-page="home"] #work.section {
   }
   body[data-page="home"] .hero-copy h1 span {
     white-space: normal;
+  }
+  body[data-page="home"] .home-hero-tracks {
+    gap: 10px 14px;
+    margin-top: 14px;
+    font-size: 0.74rem;
+  }
+  body[data-page="home"] .home-hero-tracks a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
   body[data-page="home"] .hero-actions {
     display: grid;
