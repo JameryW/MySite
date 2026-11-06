@@ -39,59 +39,121 @@ body[data-page="home"] .hero-copy::after {
   background: transparent;
 }
 body[data-page="home"] .hero-copy h1 {
-  max-width: none;
-  line-height: 1.12;
-  white-space: nowrap;
-  font-size: clamp(3.2rem, 6.8vw, 5.2rem);
-  letter-spacing: -0.015em;
-  text-shadow: 0 0 22px rgba(108, 242, 255, 0.08);
+  max-width: min(46rem, 100%);
+  line-height: 1.08;
+  white-space: normal;
+  font-size: clamp(2.4rem, 5.4vw, 3.8rem);
+  letter-spacing: -0.02em;
+  text-shadow: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.18em;
 }
-[data-theme="light"] body[data-page="home"] .hero-copy h1 {
+body[data-page="home"] .hero-copy h1 .home-brand {
+  display: block;
+  font-size: 0.42em;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  -webkit-text-stroke: 0;
   text-shadow: none;
 }
-body[data-page="home"] .hero-copy h1 span {
+body[data-page="home"] .hero-copy h1 .home-portal-line {
   display: block;
-  margin-block: 0.08em 0;
-  font-size: 0.7em;
+  font-size: 1em;
   white-space: normal;
   text-wrap: balance;
+  color: var(--text);
+  -webkit-text-stroke: 0;
+  text-shadow: 0 0 22px rgba(108, 242, 255, 0.08);
+}
+[data-theme="light"] body[data-page="home"] .hero-copy h1 .home-portal-line {
+  text-shadow: none;
 }
 body[data-page="home"] .hero-tagline {
-  margin-top: 16px;
-  max-width: 42ch;
-}
-/* Portal tracks — route chips, not an About identity card. */
-body[data-page="home"] .home-hero-tracks {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 18px;
-  margin: 18px 0 0;
-  padding: 0;
-  max-width: 42rem;
-  color: var(--muted);
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-body[data-page="home"] .home-hero-tracks a {
-  color: var(--muted);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: color 160ms ease, border-color 160ms ease;
-}
-body[data-page="home"] .home-hero-tracks a:hover,
-body[data-page="home"] .home-hero-tracks a:focus-visible {
-  color: var(--cyan);
-  border-bottom-color: rgba(108, 242, 255, 0.45);
-}
-[data-theme="light"] body[data-page="home"] .home-hero-tracks a:hover,
-[data-theme="light"] body[data-page="home"] .home-hero-tracks a:focus-visible {
-  color: var(--cyan-text);
-  border-bottom-color: rgba(8, 145, 178, 0.4);
+  margin-top: 14px;
+  max-width: 36ch;
 }
 body[data-page="home"] .hero-actions {
-  margin-top: 22px;
+  margin-top: 20px;
+}
+/* Compact live signals — About owns the timeline, Home shows chips. */
+body[data-page="home"] .home-signal-strip {
+  list-style: none;
+  margin: 22px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  max-width: 46rem;
+}
+body[data-page="home"] .home-signal-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 10px 12px;
+  align-items: start;
+  min-height: 100%;
+  padding: 12px 14px;
+  border: 1px solid rgba(162, 176, 255, 0.14);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(18, 26, 52, 0.55), rgba(7, 11, 27, 0.72));
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+body[data-page="home"] .home-signal-card:hover,
+body[data-page="home"] .home-signal-card:focus-visible {
+  border-color: rgba(108, 242, 255, 0.42);
+  background: linear-gradient(180deg, rgba(24, 34, 66, 0.72), rgba(9, 15, 36, 0.88));
+  transform: translateY(-2px);
+}
+[data-theme="light"] body[data-page="home"] .home-signal-card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(236, 239, 248, 0.94));
+}
+[data-theme="light"] body[data-page="home"] .home-signal-card:hover,
+[data-theme="light"] body[data-page="home"] .home-signal-card:focus-visible {
+  border-color: rgba(8, 145, 178, 0.32);
+  background: rgba(255, 255, 255, 0.95);
+}
+body[data-page="home"] .home-signal-code {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--cyan);
+  margin-top: 2px;
+}
+body[data-page="home"] .home-signal-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+body[data-page="home"] .home-signal-copy strong {
+  font-size: 0.98rem;
+  letter-spacing: -0.01em;
+}
+body[data-page="home"] .home-signal-beat {
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+body[data-page="home"] .home-signal-live {
+  align-self: start;
+  padding: 4px 8px;
+  border: 1px solid rgba(216, 255, 98, 0.28);
+  border-radius: 999px;
+  background: rgba(216, 255, 98, 0.08);
+  color: var(--lime);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 /* Hero: eyebrow — quieter chip, not a loud pill */
@@ -125,10 +187,13 @@ body[data-page="home"] .hero-actions .button.primary {
     inset 0 1px 0 rgba(255, 255, 255, 0.45);
 }
 
-/* Principles strip (moved out of the first viewport) */
+/* Principles / lens — after work + notes, not before the builds. */
 body[data-page="home"] .home-principles {
-  padding-top: 20px;
+  padding-top: 28px;
   padding-bottom: 8px;
+}
+body[data-page="home"] #work.section {
+  padding-top: 18px;
 }
 body[data-page="home"] .home-principles-list {
   display: grid;
@@ -255,43 +320,48 @@ body[data-page="home"] .note-card .card-actions {
   padding-top: 12px;
   border-top: 1px solid rgba(162, 176, 255, 0.12);
 }
-body[data-page="home"] #work.section {
-  padding-top: 28px;
-}
-
 @media (max-width: 980px) {
   body[data-page="home"] .home-principles-list {
+    grid-template-columns: 1fr;
+  }
+  body[data-page="home"] .home-signal-strip {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 760px) {
+  body[data-page="home"] .home-hero {
+    padding-bottom: 0;
+  }
   body[data-page="home"] .hero-copy {
-    padding: 4px 0 0;
+    padding: 0;
     border-radius: 0;
   }
   body[data-page="home"] .hero-copy h1 {
     max-width: none;
-    font-size: clamp(2.2rem, 10.6vw, 3.4rem);
-    white-space: normal;
+    font-size: clamp(1.85rem, 8.2vw, 2.6rem);
   }
-  body[data-page="home"] .hero-copy h1 span {
-    white-space: normal;
+  body[data-page="home"] .hero-copy h1 .home-brand {
+    font-size: 0.48em;
   }
-  body[data-page="home"] .home-hero-tracks {
-    gap: 10px 14px;
-    margin-top: 14px;
-    font-size: 0.74rem;
+  body[data-page="home"] .hero-tagline {
+    margin-top: 10px;
+    max-width: none;
+    font-size: 0.95rem;
   }
-  body[data-page="home"] .home-hero-tracks a {
+  body[data-page="home"] .home-signal-strip {
+    margin-top: 16px;
+    gap: 8px;
+  }
+  body[data-page="home"] .home-signal-card {
+    padding: 12px;
     min-height: 44px;
-    display: inline-flex;
-    align-items: center;
   }
   body[data-page="home"] .hero-actions {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
+    margin-top: 16px;
   }
   body[data-page="home"] .hero-actions .button.primary {
     grid-column: 1 / -1;

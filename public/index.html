@@ -43,9 +43,9 @@
     <link rel="preconnect" href="https://stats.jameryw.dev" />
     <link rel="dns-prefetch" href="https://github.com" />
     <link rel="stylesheet" href="./styles.css?v=153" />
-    <link rel="stylesheet" href="./styles-home.css?v=5" />
+    <link rel="stylesheet" href="./styles-home.css?v=6" />
     <link rel="preload" href="./data-list.js?v=8" as="script" />
-    <link rel="preload" href="./app.js?v=108" as="script" />
+    <link rel="preload" href="./app.js?v=109" as="script" />
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -165,49 +165,19 @@
       <main id="main-content" tabindex="-1">
         <section class="hero home-hero" id="hero">
           <div class="hero-copy reveal">
-            <p class="eyebrow" data-i18n="home.eyebrow">AI Builder / Agents / Quant Systems</p>
+            <p class="eyebrow" data-i18n="home.eyebrow">Build Portal / Live Signal</p>
             <h1>
-              Jamery Wang
-              <span data-i18n="home.titleSub">公开构建的 Agent 工作台</span>
+              <span class="home-brand">Jamery Wang</span>
+              <span class="home-portal-line" data-i18n="home.titleSub">公开构建的 Agent 工作台</span>
             </h1>
             <p class="hero-tagline">
-              <span class="tagline-ch" data-i18n="home.tagline">精选项目、在线演示和工作笔记——先看跑通的信号，再读判断。</span>
-            </p>
-            <p class="home-hero-tracks" aria-label="内容入口" data-i18n-aria="home.tracksAria">
-              <a href="./projects.html">Projects</a>
-              <a href="./showcase.html">Showcase</a>
-              <a href="./notes.html">Notes</a>
-              <a href="./about.html" data-i18n="nav.about">关于</a>
+              <span class="tagline-ch" data-i18n="home.tagline">先看跑通的构建与演示，再读判断。</span>
             </p>
             <div class="hero-actions">
               <a class="button primary" href="#work" data-i18n="cta.work">核心项目</a>
               <a class="button secondary" href="./showcase.html" data-i18n="cta.showcase">在线作品</a>
             </div>
-          </div>
-        </section>
-
-        <section class="section home-principles" id="principles" aria-label="三条原则" data-i18n-aria="aria.principles">
-          <div class="section-head reveal">
-            <p class="section-kicker" data-i18n="home.principlesKicker">Principles</p>
-            <h2 data-i18n="home.principlesTitle">三条原则</h2>
-            <p class="section-summary" data-i18n="home.principlesSummary">执行、内核、信号——比简历声明更靠谱的判断标准。</p>
-          </div>
-          <div class="focus-list home-principles-list reveal">
-            <div>
-              <span>01</span>
-              <strong><span data-i18n="home.focus1Title">执行优于解释</span> <span class="title-en" data-i18n-en-hint="home.focus1Title">Execution Over Explanation</span></strong>
-              <p data-i18n="home.focus1">把工具、记忆和多步执行串成可恢复的闭环，比把单轮回答写漂亮更重要。</p>
-            </div>
-            <div>
-              <span>02</span>
-              <strong><span data-i18n="home.focus2Title">内核优于技巧</span> <span class="title-en" data-i18n-en-hint="home.focus2Title">Kernel Over Tricks</span></strong>
-              <p data-i18n="home.focus2">上限由状态、上下文编译、调度和发布边界决定，不靠临时技巧。</p>
-            </div>
-            <div>
-              <span>03</span>
-              <strong><span data-i18n="home.focus3Title">信号优于声明</span> <span class="title-en" data-i18n-en-hint="home.focus3Title">Signal Over Claims</span></strong>
-              <p data-i18n="home.focus3">让别人从运行结果里读到能力，而不是从简历声明里读到。</p>
-            </div>
+            <ul class="home-signal-strip" data-home-signals aria-label="当前信号" data-i18n-aria="home.signalsAria"></ul>
           </div>
         </section>
 
@@ -239,6 +209,31 @@
             <p class="section-summary" data-i18n="home.notesSummary">判断、失败和构建方法，沉淀成还能继续改的笔记。</p>
           </div>
           <div class="notes-grid" data-home-notes></div>
+        </section>
+
+        <section class="section home-principles" id="principles" aria-label="怎么读这些构建" data-i18n-aria="aria.principles">
+          <div class="section-head reveal">
+            <p class="section-kicker" data-i18n="home.principlesKicker">Lens</p>
+            <h2 data-i18n="home.principlesTitle">怎么读这些构建</h2>
+            <p class="section-summary" data-i18n="home.principlesSummary">执行、内核、信号——比简历声明更靠谱的判断标准。</p>
+          </div>
+          <div class="focus-list home-principles-list reveal">
+            <div>
+              <span>01</span>
+              <strong><span data-i18n="home.focus1Title">执行优于解释</span> <span class="title-en" data-i18n-en-hint="home.focus1Title">Execution Over Explanation</span></strong>
+              <p data-i18n="home.focus1">把工具、记忆和多步执行串成可恢复的闭环，比把单轮回答写漂亮更重要。</p>
+            </div>
+            <div>
+              <span>02</span>
+              <strong><span data-i18n="home.focus2Title">内核优于技巧</span> <span class="title-en" data-i18n-en-hint="home.focus2Title">Kernel Over Tricks</span></strong>
+              <p data-i18n="home.focus2">上限由状态、上下文编译、调度和发布边界决定，不靠临时技巧。</p>
+            </div>
+            <div>
+              <span>03</span>
+              <strong><span data-i18n="home.focus3Title">信号优于声明</span> <span class="title-en" data-i18n-en-hint="home.focus3Title">Signal Over Claims</span></strong>
+              <p data-i18n="home.focus3">让别人从运行结果里读到能力，而不是从简历声明里读到。</p>
+            </div>
+          </div>
         </section>
 
       </main>
@@ -277,7 +272,7 @@
 
     <script src="./data-list.js?v=8" defer fetchpriority="high"></script>
     <script src="./umami-config.js" defer></script>
-    <script src="./app.js?v=108" defer fetchpriority="high"></script>
+    <script src="./app.js?v=109" defer fetchpriority="high"></script>
 
     <!-- Command Palette -->
     <div class="palette-overlay" data-palette-overlay aria-hidden="true"></div>

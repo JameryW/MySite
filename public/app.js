@@ -20,6 +20,7 @@ const yearNodes = document.querySelectorAll("[data-year]");
 const scrollProgressNode = document.querySelector("[data-scroll-progress]");
 const backToTopButton = document.querySelector("[data-back-to-top]");
 const homeProjectsNode = document.querySelector("[data-home-projects]");
+const homeSignalsNode = document.querySelector("[data-home-signals]");
 const homeNotesNode = document.querySelector("[data-home-notes]");
 const projectLibraryNode = document.querySelector("[data-project-library]");
 const noteLibraryNode = document.querySelector("[data-note-library]");
@@ -356,7 +357,7 @@ const I18N = {
     "aria.github": "GitHub 主页",
     "aria.x": "X 主页",
     "aria.xhs": "小红书",
-    "aria.principles": "三条原则",
+    "aria.principles": "怎么读这些构建",
     "aria.work": "精选项目",
     "aria.latestNotes": "最新笔记",
     "cta.projects": "项目方向",
@@ -380,12 +381,13 @@ const I18N = {
     "filter.aria": "内容筛选",
     "filter.results": "条结果",
     "home.titleSub": "公开构建的 Agent 工作台",
-    "home.tagline": "精选项目、在线演示和工作笔记——先看跑通的信号，再读判断。",
-    "home.tracksAria": "内容入口",
+    "home.tagline": "先看跑通的构建与演示，再读判断。",
+    "home.signalsAria": "当前信号",
+    "home.signalLive": "Live",
     "home.workSummary": "当前主线上的增长 Agent、分布式编程与量化系统。",
     "home.notesSummary": "判断、失败和构建方法，沉淀成还能继续改的笔记。",
-    "home.principlesKicker": "Principles",
-    "home.principlesTitle": "三条原则",
+    "home.principlesKicker": "Lens",
+    "home.principlesTitle": "怎么读这些构建",
     "home.principlesSummary": "执行、内核、信号——比简历声明更靠谱的判断标准。",
     "home.focus1Title": "执行优于解释",
     "home.focus2Title": "内核优于技巧",
@@ -402,6 +404,8 @@ const I18N = {
     "about.idFocusLabel": "聚焦",
     "about.idStatus": "构建记忆感知的 Agent 系统",
     "about.idTimeLabel": "本地时间",
+    "about.ctaNow": "最新进展",
+    "about.ctaEntry": "公开入口",
     "projects.eyebrow": "Portfolio / Active Builds",
     "projects.titleSub": "Agent · Kernel · Quant",
     "projects.lead": "增长 Agent、分布式编程、量化引擎，以及复用型交付工作流。",
@@ -436,7 +440,7 @@ const I18N = {
     "section.workKicker": "Selected Work",
     "section.notes": "工作笔记",
     "section.notesKicker": "Latest Notes",
-    "home.eyebrow": "AI Builder / Agents / Quant Systems",
+    "home.eyebrow": "Build Portal / Live Signal",
     "home.footerKicker": "Jamery Wang / Personal Signal Site",
     "home.topbarStatus": "杭州 / 在线",
     "home.metaTag": "极客模式开启",
@@ -521,7 +525,7 @@ const I18N = {
     "aria.github": "GitHub Profile",
     "aria.x": "X Profile",
     "aria.xhs": "Xiaohongshu",
-    "aria.principles": "Three principles",
+    "aria.principles": "How to read these builds",
     "aria.work": "Selected work",
     "aria.latestNotes": "Latest notes",
     "cta.projects": "Project tracks",
@@ -545,12 +549,13 @@ const I18N = {
     "filter.aria": "Content filters",
     "filter.results": "results",
     "home.titleSub": "An open Agent build surface",
-    "home.tagline": "Selected builds, live demos, and working notes — read the running signal before the claim.",
-    "home.tracksAria": "Content entry points",
+    "home.tagline": "Running builds and demos first — judgment after.",
+    "home.signalsAria": "Live signals",
+    "home.signalLive": "Live",
     "home.workSummary": "Growth Agents, distributed coding systems, and quant builds on the current main line.",
     "home.notesSummary": "Judgment, failure, and build method — kept as notes you can still revise.",
-    "home.principlesKicker": "Principles",
-    "home.principlesTitle": "Three principles",
+    "home.principlesKicker": "Lens",
+    "home.principlesTitle": "How to read these builds",
     "home.principlesSummary": "Execution, kernel, signal — better judgment criteria than resume claims.",
     "home.focus1Title": "Execution Over Explanation",
     "home.focus2Title": "Kernel Over Tricks",
@@ -567,6 +572,8 @@ const I18N = {
     "about.idFocusLabel": "Focus",
     "about.idStatus": "Building memory-aware agent systems",
     "about.idTimeLabel": "Local time",
+    "about.ctaNow": "Now building",
+    "about.ctaEntry": "Entry points",
     "projects.eyebrow": "Portfolio / Active Builds",
     "projects.titleSub": "Agent · Kernel · Quant",
     "projects.lead": "Growth Agents, distributed coding, quant engines, and reusable delivery workflows.",
@@ -601,7 +608,7 @@ const I18N = {
     "section.workKicker": "Selected Work",
     "section.notes": "Working Notes",
     "section.notesKicker": "Latest Notes",
-    "home.eyebrow": "AI Builder / Agents / Quant Systems",
+    "home.eyebrow": "Build Portal / Live Signal",
     "home.footerKicker": "Jamery Wang / Personal Signal Site",
     "home.topbarStatus": "Hangzhou / Online",
     "home.metaTag": "Geek mode enabled",
@@ -1003,10 +1010,37 @@ document.querySelectorAll(".nav a").forEach((link) => {
   }
 });
 
+const renderHomeSignals = () => {
+  if (!homeSignalsNode) return;
+  const nowItems = Array.isArray(siteData.profile?.now) ? siteData.profile.now : [];
+  homeSignalsNode.innerHTML = nowItems
+    .map((item) => {
+      const project = projectBySlug.get(item.slug);
+      const href = project ? projectDetailHref(project) : "./projects.html";
+      const beat = siteLang === "en" ? item.beatEn || item.beat : item.beat;
+      const live = project?.demoUrl
+        ? `<span class="home-signal-live">${t("home.signalLive")}</span>`
+        : "";
+      return `
+      <li>
+        <a class="home-signal-card" href="${href}">
+          <span class="home-signal-code">${escapeHtml(item.code || project?.code || "")}</span>
+          <span class="home-signal-copy">
+            <strong>${escapeHtml(item.title)}</strong>
+            <span class="home-signal-beat">${escapeHtml(beat || "")}</span>
+          </span>
+          ${live}
+        </a>
+      </li>`;
+    })
+    .join("");
+};
+
 if (homeProjectsNode) {
   const featuredProjects = siteData.projects.filter((project) => project.featured);
   homeProjectsNode.innerHTML = featuredProjects.map((project) => projectCardMarkup(project, "home")).join("");
 }
+renderHomeSignals();
 
 if (projectLibraryNode) {
   projectLibraryNode.innerHTML = siteData.projects.map((project) => projectCardMarkup(project, "library")).join("");
@@ -1438,6 +1472,7 @@ const renderProjectSurfaces = (instant = false) => {
     const featuredProjects = siteData.projects.filter((project) => project.featured);
     homeProjectsNode.innerHTML = featuredProjects.map((project) => projectCardMarkup(project, "home")).join("");
   }
+  renderHomeSignals();
   if (projectLibraryNode) {
     projectLibraryNode.innerHTML = siteData.projects.map((project) => projectCardMarkup(project, "library")).join("");
   }
