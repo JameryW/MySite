@@ -2611,17 +2611,23 @@ html:not([data-lang="en"]) .notfound-hero .page-title .lang-zh.notfound-title-ma
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
+/* Nav and socials sit in one row on desktop: as two vertical stacks they
+   forced a 182px column and left ~120px of dead space under the blurb, so
+   the footer spent 285px of the page on two lines of text. */
 .footer-links {
-  display: grid;
-  grid-template-columns: max-content max-content;
-  gap: 12px 36px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 10px 32px;
   align-self: start;
 }
 .footer-nav,
 .footer-socials {
-  display: grid;
-  gap: 8px;
-  align-content: start;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 18px;
 }
 .footer-links a {
   position: relative;
@@ -3901,8 +3907,14 @@ h2 {
     font-size: 0.72rem;
   }
 .footer-links {
+    display: grid;
     grid-template-columns: repeat(2, minmax(0, max-content));
     gap: 8px 16px;
+  }
+.footer-nav,
+.footer-socials {
+    display: grid;
+    gap: 8px;
   }
 .footer-meta {
     margin-top: 12px;
