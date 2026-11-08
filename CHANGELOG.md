@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Changed
+
+- Home hero is now a two-column stage: the identity copy on the left and a live `signal.log` console on the right carrying the `profile.now` rows, so the 1200px frame is no longer two-thirds empty above the fold. It stacks under the copy below 1080px; between 761–1080px the rows go back to a single line for the full-bleed panel
+- Home work list gives the first build a full-width featured row (CTA pill pinned right) with the other two sharing a row beneath it; list height 718px → 398px, page 2910px → 2517px
+- Lens is one ruled strip instead of three floating cells; section links are pills; note cards are equal height with the action pinned to the bottom edge
+- Home orbs are larger and softer (blur 26 → 46px) and the light theme drops them to 0.3 opacity, so they stop reading as a milky smudge behind the headline
+
+### Fixed
+
+- Cold-load layout shift on the home page, 0.247 → 0.057 (`#notes` being pushed by the JS-mounted work cards is the remainder, below the fold and under the "good" threshold). Two causes: `max-width: min(20ch, 100%)` on the h1 resolved against the fallback font and capped the title at 603px until Syne arrived (a 60px reflow across the page), and the vertically centred signal console moved its own top by 83px when `app.js` injected its rows — it is now top-aligned
+- Three hover states painted on touch and stayed painted after a tap: the "all" pill, the featured CTA pill, and the light-theme signal-row title
+
 ## [1.2.4] - 2026-11-01
 
 ### Added
