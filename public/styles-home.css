@@ -11,7 +11,7 @@ body[data-page="home"] .home-hero {
   display: grid;
   grid-template-columns: minmax(0, 1.14fr) minmax(19rem, 0.86fr);
   column-gap: clamp(20px, 3vw, 44px);
-  align-items: center;
+  align-items: start;
   padding: 40px 0 6px;
 }
 /* Home keeps the fuller atmospheric orbs. They are viewport-fixed blurred
@@ -67,7 +67,11 @@ body[data-page="home"] .hero-copy::after {
   background: transparent;
 }
 body[data-page="home"] .hero-copy h1 {
-  max-width: min(20ch, 100%);
+  /* No `ch` cap here: `ch` resolves against whichever font is current, so the
+     fallback capped the line at 603px while Syne allows 826px and the title
+     flipped from two lines to one when the woff2 landed (a 60px reflow, the
+     bulk of the cold-load CLS). The grid column already bounds the width. */
+  max-width: 100%;
   line-height: 1.08;
   white-space: normal;
   font-size: clamp(2.3rem, 4.1vw, 3.5rem);
@@ -144,6 +148,10 @@ body[data-page="home"] .hero-actions .button.primary {
 body[data-page="home"] .hero-console {
   position: relative;
   z-index: 1;
+  /* Top-aligned on purpose: the rows are injected by app.js, and centring the
+     panel made it grow in both directions (83px of movement, the last sizeable
+     cold-load shift). Anchored at the top it can only grow downwards. */
+  align-self: start;
   display: flex;
   flex-direction: column;
   min-width: 0;
@@ -602,9 +610,6 @@ body[data-page="home"] .home-principles-compact > div strong {
     grid-template-columns: minmax(0, 1fr);
     row-gap: 26px;
     padding-top: 34px;
-  }
-  body[data-page="home"] .hero-copy h1 {
-    max-width: min(24ch, 100%);
   }
 }
 
