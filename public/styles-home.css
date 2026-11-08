@@ -2,29 +2,57 @@
    Split out of styles.css (2026-11-01) so pages that don't need it
    don't download it. Loaded after styles.css. */
 
+/* ── Hero stage ─────────────────────────────────────────────────────────
+   Wide screens get two columns: the identity copy on the left and the live
+   signal console on the right, so the 1200px frame isn't two-thirds empty
+   above the fold. Below 1080px the console drops under the copy. */
 body[data-page="home"] .home-hero {
-  display: block;
-  padding-bottom: 4px;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.14fr) minmax(19rem, 0.86fr);
+  column-gap: clamp(20px, 3vw, 44px);
+  align-items: center;
+  padding: 40px 0 6px;
 }
-/* Home keeps the fuller atmospheric orbs. */
+/* Home keeps the fuller atmospheric orbs. They are viewport-fixed blurred
+   discs, so they carry the hero backdrop without drawing box edges the way
+   an inset gradient panel would. Bigger + softer than the shared default,
+   which keeps them from reading as a coloured smudge behind the headline. */
 body[data-page="home"] .orb-a,
 body[data-page="home"] .orb-b {
   opacity: 1;
-  filter: blur(26px);
+  filter: blur(46px);
+}
+body[data-page="home"] .orb-a {
+  width: 400px;
+  height: 400px;
+}
+body[data-page="home"] .orb-b {
+  width: 470px;
+  height: 470px;
 }
 body[data-page="home"] .orb-c {
-  opacity: 1;
+  opacity: 0.85;
+  filter: blur(40px);
+}
+/* Light theme turns the orbs into a milky smudge behind the headline. */
+[data-theme="light"] body[data-page="home"] .orb-a,
+[data-theme="light"] body[data-page="home"] .orb-b,
+[data-theme="light"] body[data-page="home"] .orb-c {
+  opacity: 0.3;
+  filter: blur(40px);
 }
 body[data-page="home"] .hero-copy {
-  flex: none;
-  width: 100%;
-  max-width: 46rem;
-  min-width: 0;
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
   /* Open composition — match the principles strip below, not a dashboard card. */
-  padding: 8px 0 0;
+  padding: 0;
   border: 0;
   border-radius: 0;
   background: transparent;
@@ -39,10 +67,10 @@ body[data-page="home"] .hero-copy::after {
   background: transparent;
 }
 body[data-page="home"] .hero-copy h1 {
-  max-width: min(46rem, 100%);
+  max-width: min(20ch, 100%);
   line-height: 1.08;
   white-space: normal;
-  font-size: clamp(2.4rem, 5.4vw, 3.8rem);
+  font-size: clamp(2.3rem, 4.1vw, 3.5rem);
   letter-spacing: -0.02em;
   text-shadow: none;
   display: flex;
@@ -73,76 +101,10 @@ body[data-page="home"] .hero-copy h1 .home-portal-line {
 }
 body[data-page="home"] .hero-tagline {
   margin-top: 14px;
-  max-width: 36ch;
+  max-width: 34ch;
 }
 body[data-page="home"] .hero-actions {
-  margin-top: 20px;
-}
-/* Flat live signals — link rows, not hero cards. */
-body[data-page="home"] .home-signal-strip {
-  list-style: none;
-  margin: 20px 0 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  max-width: 46rem;
-  border-top: 1px solid var(--line);
-}
-body[data-page="home"] .home-signal-row {
-  display: grid;
-  grid-template-columns: 2.2rem minmax(8rem, 11rem) minmax(0, 1fr) auto;
-  gap: 10px 14px;
-  align-items: baseline;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--line);
-  color: inherit;
-  text-decoration: none;
-  transition: color 160ms ease;
-}
-body[data-page="home"] .home-signal-row:hover,
-body[data-page="home"] .home-signal-row:focus-visible {
-  color: var(--cyan);
-}
-body[data-page="home"] .home-signal-row:hover .home-signal-beat,
-body[data-page="home"] .home-signal-row:focus-visible .home-signal-beat {
-  color: var(--muted);
-}
-[data-theme="light"] body[data-page="home"] .home-signal-row:hover,
-[data-theme="light"] body[data-page="home"] .home-signal-row:focus-visible {
-  color: var(--cyan-text);
-}
-body[data-page="home"] .home-signal-code {
-  font-family: var(--font-mono, ui-monospace, monospace);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--cyan);
-}
-body[data-page="home"] .home-signal-title {
-  font-size: 0.98rem;
-  letter-spacing: -0.01em;
-}
-body[data-page="home"] .home-signal-beat {
-  color: var(--muted);
-  font-size: 0.86rem;
-  line-height: 1.4;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-body[data-page="home"] .home-signal-live {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--lime);
-}
-[data-theme="light"] body[data-page="home"] .home-signal-code {
-  color: var(--cyan-text);
-}
-[data-theme="light"] body[data-page="home"] .home-signal-live {
-  color: var(--lime-text);
+  margin-top: 22px;
 }
 
 /* Hero: eyebrow — quieter chip, not a loud pill */
@@ -176,56 +138,327 @@ body[data-page="home"] .hero-actions .button.primary {
     inset 0 1px 0 rgba(255, 255, 255, 0.45);
 }
 
-/* Principles / lens — after work + notes; title-only compact rows. */
-body[data-page="home"] .home-principles {
-  padding-top: 28px;
-  padding-bottom: 8px;
-}
-body[data-page="home"] #work.section {
-  padding-top: 18px;
-}
-body[data-page="home"] .home-principles-list {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px 18px;
-  margin-top: 4px;
-}
-body[data-page="home"] .home-principles-compact > div {
+/* ── Signal console ─────────────────────────────────────────────────────
+   The same `profile.now` rows, read as a terminal pane instead of a card:
+   mono chrome, hairline rules, one pulsing status dot. */
+body[data-page="home"] .hero-console {
+  position: relative;
+  z-index: 1;
   display: flex;
-  align-items: baseline;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(108, 242, 255, 0.17);
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(15, 22, 47, 0.86), rgba(6, 10, 24, 0.93));
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.34),
+    0 0 44px rgba(108, 242, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+/* The console markup is in the HTML above the fold, so it takes the same
+   reveal exemption as `.hero-copy` — paint it with the first frame instead
+   of holding it at opacity 0 until app.js runs. */
+body[data-page="home"] .hero-console.reveal {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+body[data-page="home"] .console-top {
+  display: flex;
+  align-items: center;
   gap: 10px;
-  padding: 10px 0;
-  border: 0;
-  border-bottom: 1px solid var(--line);
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
+  padding: 11px 16px;
+  border-bottom: 1px solid rgba(162, 176, 255, 0.14);
+  background: rgba(162, 176, 255, 0.045);
+  color: var(--muted);
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
 }
-body[data-page="home"] .home-principles-compact > div:hover {
-  background: transparent;
-  border-color: var(--line);
+body[data-page="home"] .console-dots {
+  display: inline-flex;
+  gap: 5px;
 }
-body[data-page="home"] .home-principles-compact > div span:first-child {
+body[data-page="home"] .console-dots i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(162, 176, 255, 0.32);
+}
+body[data-page="home"] .console-dots i:first-child {
+  background: rgba(216, 255, 98, 0.72);
+}
+body[data-page="home"] .console-title {
+  color: var(--muted);
+}
+body[data-page="home"] .console-pulse {
+  width: 7px;
+  height: 7px;
+  margin-left: auto;
+  border-radius: 50%;
+  background: var(--lime);
+  box-shadow: 0 0 10px rgba(216, 255, 98, 0.65);
+  animation: console-pulse 2.6s ease-in-out infinite;
+}
+@keyframes console-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.32;
+    transform: scale(0.78);
+  }
+}
+/* Rows stack (code / title / status, then the beat) so they read well in the
+   narrow pane — same shape the mobile breakpoint already used. */
+body[data-page="home"] .home-signal-strip {
+  list-style: none;
+  margin: 0;
+  padding: 4px 16px 8px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0;
+  max-width: none;
+  border-top: 0;
+}
+body[data-page="home"] .home-signal-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.1rem minmax(0, 1fr) auto;
+  gap: 4px 12px;
+  align-items: baseline;
+  padding: 14px 0 15px;
+  border-bottom: 1px dashed rgba(162, 176, 255, 0.15);
+  color: inherit;
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+body[data-page="home"] .home-signal-strip > li:last-child .home-signal-row {
+  border-bottom: 0;
+}
+body[data-page="home"] .home-signal-row::before {
+  position: absolute;
+  top: 13px;
+  bottom: 14px;
+  left: -16px;
+  width: 2px;
+  content: "";
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--cyan), var(--lime));
+  opacity: 0;
+  transform: scaleY(0.4);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+body[data-page="home"] .home-signal-row:hover::before,
+body[data-page="home"] .home-signal-row:focus-visible::before {
+  opacity: 1;
+  transform: none;
+}
+body[data-page="home"] .home-signal-row:hover .home-signal-title,
+body[data-page="home"] .home-signal-row:focus-visible .home-signal-title {
+  color: var(--cyan);
+}
+/* The row is a link but the shared focus ring only covers cards and buttons. */
+body[data-page="home"] .home-signal-row:focus-visible {
+  border-radius: 4px;
+  outline: 2px solid var(--lime);
+  outline-offset: 3px;
+}
+[data-theme="light"] body[data-page="home"] .home-signal-row:hover .home-signal-title,
+[data-theme="light"] body[data-page="home"] .home-signal-row:focus-visible .home-signal-title {
+  color: var(--cyan-text);
+}
+body[data-page="home"] .home-signal-code {
+  grid-row: 1;
+  grid-column: 1;
   font-family: var(--font-mono, ui-monospace, monospace);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--cyan);
 }
-body[data-page="home"] .home-principles-compact > div strong {
-  font-size: 0.98rem;
-  font-weight: 650;
+body[data-page="home"] .home-signal-title {
+  grid-row: 1;
+  grid-column: 2;
+  font-size: 0.96rem;
   letter-spacing: -0.01em;
+  transition: color 160ms ease;
 }
-[data-theme="light"] body[data-page="home"] .home-principles-compact > div span:first-child {
+body[data-page="home"] .home-signal-beat {
+  display: -webkit-box;
+  grid-row: 2;
+  grid-column: 2 / 4;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+body[data-page="home"] .home-signal-live {
+  grid-row: 1;
+  grid-column: 3;
+  justify-self: end;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--lime);
+}
+[data-theme="light"] body[data-page="home"] .home-signal-code {
   color: var(--cyan-text);
 }
+[data-theme="light"] body[data-page="home"] .home-signal-live {
+  color: var(--lime-text);
+}
+[data-theme="light"] body[data-page="home"] .hero-console {
+  border-color: rgba(80, 90, 140, 0.2);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.93), rgba(230, 234, 245, 0.95));
+  box-shadow:
+    0 22px 54px rgba(20, 26, 50, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+[data-theme="light"] body[data-page="home"] .console-top {
+  background: rgba(80, 90, 140, 0.05);
+  border-bottom-color: rgba(80, 90, 140, 0.14);
+}
+[data-theme="light"] body[data-page="home"] .console-dots i {
+  background: rgba(80, 90, 140, 0.28);
+}
+[data-theme="light"] body[data-page="home"] .console-dots i:first-child {
+  background: rgba(90, 138, 0, 0.65);
+}
+[data-theme="light"] body[data-page="home"] .console-pulse {
+  background: var(--lime);
+  box-shadow: 0 0 8px rgba(90, 138, 0, 0.35);
+}
+[data-theme="light"] body[data-page="home"] .home-signal-row {
+  border-bottom-color: rgba(80, 90, 140, 0.15);
+}
 
-/* Work cards */
+/* ── Section rhythm ─────────────────────────────────────────────────────
+   Bigger, even gaps between bands; the head sits closer to its list. */
+body[data-page="home"] #work.section {
+  padding-top: 52px;
+}
+body[data-page="home"] .section-head {
+  margin-bottom: 26px;
+}
+body[data-page="home"] .section-view-all {
+  min-height: 34px;
+  padding: 0 14px;
+  border: 1px solid rgba(108, 242, 255, 0.24);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  transition: color 180ms ease, border-color 180ms ease, background 180ms ease, text-shadow 180ms ease;
+}
+body[data-page="home"] .section-view-all:hover {
+  border-color: rgba(216, 255, 98, 0.45);
+  background: rgba(216, 255, 98, 0.07);
+}
+[data-theme="light"] body[data-page="home"] .section-view-all {
+  border-color: rgba(8, 145, 178, 0.26);
+}
+[data-theme="light"] body[data-page="home"] .section-view-all:hover {
+  border-color: rgba(90, 138, 0, 0.42);
+  background: rgba(90, 138, 0, 0.06);
+}
+
+/* ── Work: one featured build, then the pair under it ───────────────────
+   Three identical full-bleed slabs said nothing about priority; the first
+   build gets the width and the other two share a row. */
+body[data-page="home"] .work-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
 body[data-page="home"] .work-card {
   grid-template-columns: 84px minmax(0, 1fr);
   align-items: start;
   padding: 22px 24px;
+}
+body[data-page="home"] .work-card:first-child {
+  grid-column: 1 / -1;
+  grid-template-columns: 104px minmax(0, 1fr);
+  align-items: center;
+  padding: 26px 30px;
+}
+body[data-page="home"] .work-card:not(:first-child) {
+  grid-template-columns: 56px minmax(0, 1fr);
+  padding: 20px 22px;
+}
+body[data-page="home"] .work-copy {
+  min-width: 0;
+}
+/* The shared `p` rules carry 1.04rem block margins; inside these cards the
+   spacing is set per element so card height tracks the content. */
+body[data-page="home"] .work-copy p {
+  margin: 0;
+}
+/* Featured card reads as a row: copy left, call to action pinned right. */
+body[data-page="home"] .work-card:first-child .work-copy {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 36px;
+  align-items: center;
+}
+body[data-page="home"] .work-card:first-child .work-copy > .card-topline,
+body[data-page="home"] .work-card:first-child .work-copy > h3,
+body[data-page="home"] .work-card:first-child .work-copy > .work-summary {
+  grid-column: 1;
+}
+body[data-page="home"] .work-card:first-child .card-actions {
+  grid-row: 1 / span 3;
+  grid-column: 2;
+  align-self: center;
+  margin: 0;
+  padding: 0;
+  justify-content: flex-end;
+}
+/* Featured CTA gets the pill treatment: alone in the right half, a bare text
+   link reads as a stray label. */
+body[data-page="home"] .work-card:first-child .work-link {
+  padding: 9px 16px;
+  border: 1px solid rgba(108, 242, 255, 0.26);
+  border-radius: 999px;
+  transition: border-color 180ms ease, background 180ms ease, color 180ms ease;
+}
+body[data-page="home"] .work-card:first-child:hover .work-link {
+  border-color: rgba(216, 255, 98, 0.42);
+  background: rgba(216, 255, 98, 0.06);
+  color: var(--lime);
+}
+[data-theme="light"] body[data-page="home"] .work-card:first-child .work-link {
+  border-color: rgba(8, 145, 178, 0.24);
+}
+[data-theme="light"] body[data-page="home"] .work-card:first-child:hover .work-link {
+  border-color: rgba(90, 138, 0, 0.4);
+  background: rgba(90, 138, 0, 0.05);
+  color: var(--lime-text);
+}
+body[data-page="home"] .work-card .work-link {
+  margin-top: 0;
+}
+/* The pair below keeps its call to action on the card's bottom edge. */
+body[data-page="home"] .work-card:not(:first-child) {
+  align-items: stretch;
+}
+body[data-page="home"] .work-card:not(:first-child) .work-copy {
+  display: flex;
+  flex-direction: column;
+}
+body[data-page="home"] .work-card:not(:first-child) .card-actions {
+  margin-top: auto;
+  padding-top: 14px;
 }
 body[data-page="home"] .work-card:hover {
   transform: translateY(-3px);
@@ -243,17 +476,21 @@ body[data-page="home"] .work-card:hover {
     0 16px 40px rgba(0, 0, 0, 0.06),
     inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
-body[data-page="home"] .work-copy {
-  min-width: 0;
-}
 body[data-page="home"] .work-index {
   font-size: 2.6rem;
   line-height: 1;
   -webkit-text-stroke-width: 1.5px;
 }
+body[data-page="home"] .work-card:first-child .work-index {
+  font-size: 3.4rem;
+}
+body[data-page="home"] .work-card:not(:first-child) .work-index {
+  font-size: 2rem;
+}
 body[data-page="home"] .work-copy .card-topline {
   flex-wrap: wrap;
   row-gap: 6px;
+  margin-bottom: 8px;
 }
 body[data-page="home"] .work-copy .card-topline .showcase-demo-badge {
   margin-left: auto;
@@ -261,10 +498,17 @@ body[data-page="home"] .work-copy .card-topline .showcase-demo-badge {
   font-size: 0.66rem;
 }
 body[data-page="home"] .work-copy h3 {
+  margin-bottom: 8px;
   font-size: clamp(1.45rem, 2.4vw, 1.9rem);
   letter-spacing: -0.01em;
   word-break: break-word;
   overflow-wrap: anywhere;
+}
+body[data-page="home"] .work-card:first-child .work-copy h3 {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+}
+body[data-page="home"] .work-card:not(:first-child) .work-copy h3 {
+  font-size: clamp(1.3rem, 1.6vw + 0.75rem, 1.65rem);
 }
 body[data-page="home"] .work-summary {
   display: -webkit-box;
@@ -281,13 +525,16 @@ body[data-page="home"] .work-card:hover .work-arrow {
   transform: translateX(5px);
 }
 
-/* Notes */
+/* ── Notes ──────────────────────────────────────────────────────────────*/
 body[data-page="home"] .notes-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
 }
 body[data-page="home"] .note-card {
+  display: flex;
+  flex-direction: column;
   min-width: 0;
+  height: 100%;
 }
 body[data-page="home"] .note-card h3 {
   font-size: clamp(1.3rem, 2.2vw, 1.6rem);
@@ -306,18 +553,131 @@ body[data-page="home"] .note-card .note-summary {
   overflow-wrap: break-word;
 }
 body[data-page="home"] .note-card .card-actions {
+  margin-top: auto;
   padding-top: 12px;
   border-top: 1px solid rgba(162, 176, 255, 0.12);
 }
+[data-theme="light"] body[data-page="home"] .note-card .card-actions {
+  border-top-color: rgba(80, 90, 140, 0.14);
+}
+
+/* ── Lens band ──────────────────────────────────────────────────────────
+   Title-only rows, but read as one ruled strip with big mono numerals
+   instead of three floating pills. */
+body[data-page="home"] .home-principles {
+  padding: 44px 0 6px;
+}
+body[data-page="home"] .home-principles-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 6px;
+  border-top: 1px solid var(--line);
+}
+body[data-page="home"] .home-principles-compact > div {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 18px 24px 20px 0;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+body[data-page="home"] .home-principles-compact > div + div {
+  padding-left: 24px;
+  border-left: 1px solid var(--line);
+}
+body[data-page="home"] .home-principles-compact > div:hover {
+  background: transparent;
+  border-color: var(--line);
+}
+body[data-page="home"] .home-principles-compact > div span:first-child {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--cyan);
+}
+body[data-page="home"] .home-principles-compact > div strong {
+  font-size: 1.05rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+[data-theme="light"] body[data-page="home"] .home-principles-compact > div span:first-child {
+  color: var(--cyan-text);
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────*/
+@media (max-width: 1080px) {
+  body[data-page="home"] .home-hero {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 26px;
+    padding-top: 34px;
+  }
+  body[data-page="home"] .hero-copy h1 {
+    max-width: min(24ch, 100%);
+  }
+  body[data-page="home"] .hero-console {
+    max-width: none;
+  }
+  body[data-page="home"] .home-signal-strip {
+    justify-content: flex-start;
+  }
+}
+
 @media (max-width: 980px) {
   body[data-page="home"] .home-principles-list {
     grid-template-columns: 1fr;
+  }
+  body[data-page="home"] .home-principles-compact > div + div {
+    padding-left: 0;
+    border-left: 0;
+  }
+  body[data-page="home"] .work-list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+  body[data-page="home"] .work-card:first-child {
+    grid-column: auto;
+  }
+}
+
+/* Between 761px and 1080px the console owns the full frame width, so the
+   rows go back to one line each instead of leaving a hole in the middle. */
+@media (min-width: 761px) and (max-width: 1080px) {
+  body[data-page="home"] .home-signal-row {
+    grid-template-columns: 2.2rem minmax(7rem, 10rem) minmax(0, 1fr) auto;
+    gap: 10px 16px;
+    padding: 13px 0 14px;
+  }
+  body[data-page="home"] .home-signal-code {
+    grid-row: 1;
+    grid-column: 1;
+  }
+  body[data-page="home"] .home-signal-title {
+    grid-row: 1;
+    grid-column: 2;
+  }
+  body[data-page="home"] .home-signal-beat {
+    display: block;
+    grid-row: 1;
+    grid-column: 3;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  body[data-page="home"] .home-signal-live {
+    grid-row: 1;
+    grid-column: 4;
   }
 }
 
 @media (max-width: 760px) {
   body[data-page="home"] .home-hero {
-    padding-bottom: 0;
+    row-gap: 22px;
+    padding: 26px 0 0;
   }
   body[data-page="home"] .hero-copy {
     padding: 0;
@@ -335,42 +695,69 @@ body[data-page="home"] .note-card .card-actions {
     max-width: none;
     font-size: 0.95rem;
   }
-  body[data-page="home"] .home-signal-strip {
-    margin-top: 14px;
-  }
-  body[data-page="home"] .home-signal-row {
-    grid-template-columns: 2rem minmax(0, 1fr) auto;
-    gap: 8px 10px;
-    padding: 11px 0;
-    min-height: 44px;
-  }
-  body[data-page="home"] .home-signal-beat {
-    grid-column: 2 / 3;
-    white-space: normal;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
-  body[data-page="home"] .home-signal-live {
-    grid-row: 1;
-    grid-column: 3;
-  }
   body[data-page="home"] .hero-actions {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
-    margin-top: 16px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    margin-top: 18px;
   }
-  body[data-page="home"] .hero-actions .button.primary {
-    grid-column: 1 / -1;
+  body[data-page="home"] .hero-console {
+    border-radius: 16px;
   }
-  body[data-page="home"] .work-card {
-    grid-template-columns: 36px minmax(0, 1fr);
-    padding: 14px 16px;
+  body[data-page="home"] .home-signal-strip {
+    padding: 4px 14px 6px;
   }
-  body[data-page="home"] .work-index {
-    font-size: 1.4rem;
-    -webkit-text-stroke-width: 1px;
+  body[data-page="home"] .home-signal-row {
+    gap: 4px 10px;
+    padding: 12px 0 13px;
+  }
+  body[data-page="home"] .home-signal-row::before {
+    left: -14px;
+  }
+  body[data-page="home"] #work.section {
+    padding-top: 38px;
+  }
+  /* Keep the "all" pill on the title row: with wrap enabled a longer
+     translated title ("Working Notes") dropped it onto its own line in EN
+     while the other section kept it inline. */
+  body[data-page="home"] .section-head-top {
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    gap: 10px 12px;
+  }
+  body[data-page="home"] .section-head-titles {
+    min-width: 0;
+  }
+  /* The notes head wraps its link in `.section-head-side`, which the shared
+     mobile rule stretches to 100% — that starved the title column once the
+     row stopped wrapping. */
+  body[data-page="home"] .section-head-side {
+    width: auto;
+    padding-bottom: 0;
+  }
+  body[data-page="home"] .section-view-all {
+    min-height: 30px;
+    padding: 0 11px;
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+  }
+  body[data-page="home"] .work-card,
+  body[data-page="home"] .work-card:first-child,
+  body[data-page="home"] .work-card:not(:first-child) {
+    grid-template-columns: 40px minmax(0, 1fr);
+    padding: 16px 18px;
+  }
+  body[data-page="home"] .work-card:first-child .work-copy {
+    display: block;
+  }
+  body[data-page="home"] .work-card:first-child .card-actions {
+    margin-top: 12px;
+    justify-content: flex-start;
+  }
+  body[data-page="home"] .work-index,
+  body[data-page="home"] .work-card:first-child .work-index,
+  body[data-page="home"] .work-card:not(:first-child) .work-index {
+    font-size: 1.5rem;
   }
   body[data-page="home"] .work-card .card-topline {
     gap: 4px 6px;
@@ -381,9 +768,19 @@ body[data-page="home"] .note-card .card-actions {
     padding: 3px 8px;
     font-size: max(0.6rem, 0.66rem);
   }
+  body[data-page="home"] .work-card:first-child .work-copy h3,
+  body[data-page="home"] .work-card:not(:first-child) .work-copy h3 {
+    font-size: clamp(1.2rem, 5vw, 1.45rem);
+  }
+  body[data-page="home"] .work-summary {
+    -webkit-line-clamp: 2;
+  }
   body[data-page="home"] .notes-grid {
     grid-template-columns: 1fr;
     gap: 10px;
+  }
+  body[data-page="home"] .home-principles {
+    padding-top: 34px;
   }
 }
 
@@ -393,6 +790,7 @@ body[data-page="home"] .note-card .card-actions {
   }
 }
 
+/* Touch: no hover-only transforms that never resolve on tap. */
 @media (hover: none) {
   body[data-page="home"] .work-card:hover {
     transform: none;
@@ -412,15 +810,28 @@ body[data-page="home"] .note-card .card-actions {
   body[data-page="home"] .work-card:hover .work-arrow {
     transform: none;
   }
+  body[data-page="home"] .work-card:hover .work-index {
+    -webkit-text-stroke-width: 1.5px;
+  }
   body[data-page="home"] .note-card:hover h3 {
     color: inherit;
   }
-  body[data-page="home"] .home-principles-list > div:hover {
-    border-color: rgba(162, 176, 255, 0.12);
-    background: linear-gradient(180deg, rgba(18, 26, 52, 0.45), rgba(7, 11, 27, 0.35));
+  body[data-page="home"] .home-signal-row:hover .home-signal-title {
+    color: inherit;
   }
-  [data-theme="light"] body[data-page="home"] .home-principles-list > div:hover {
-    border-color: rgba(162, 176, 255, 0.12);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(236, 239, 248, 0.9));
+  body[data-page="home"] .home-signal-row:hover::before {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-page="home"] .console-pulse {
+    animation: none;
+  }
+  body[data-page="home"] .home-signal-row::before,
+  body[data-page="home"] .work-card,
+  body[data-page="home"] .work-card .work-arrow,
+  body[data-page="home"] .home-signal-title {
+    transition: none;
   }
 }
