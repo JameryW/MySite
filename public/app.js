@@ -924,6 +924,7 @@ const projectCardMarkup = (project, variant) => {
           </p>
           <h3>${project.title}</h3>
           <p class="work-summary">${summary}</p>
+          <div class="card-tags work-tags">${createTagList(project.stack, 4)}</div>
           <div class="card-actions">
             <span class="work-link">${openDetail} <span class="work-arrow" aria-hidden="true">→</span></span>
           </div>

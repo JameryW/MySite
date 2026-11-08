@@ -416,11 +416,12 @@ body[data-page="home"] .work-card:first-child .work-copy {
 }
 body[data-page="home"] .work-card:first-child .work-copy > .card-topline,
 body[data-page="home"] .work-card:first-child .work-copy > h3,
-body[data-page="home"] .work-card:first-child .work-copy > .work-summary {
+body[data-page="home"] .work-card:first-child .work-copy > .work-summary,
+body[data-page="home"] .work-card:first-child .work-copy > .work-tags {
   grid-column: 1;
 }
 body[data-page="home"] .work-card:first-child .card-actions {
-  grid-row: 1 / span 3;
+  grid-row: 1 / span 4;
   grid-column: 2;
   align-self: center;
   margin: 0;
@@ -504,6 +505,23 @@ body[data-page="home"] .work-card:first-child .work-copy h3 {
 }
 body[data-page="home"] .work-card:not(:first-child) .work-copy h3 {
   font-size: clamp(1.3rem, 1.6vw + 0.75rem, 1.65rem);
+}
+/* The featured card is 1200px wide; without the stack it carried a single
+   summary line and a lot of air. Chips reuse the projects-listing language. */
+body[data-page="home"] .work-tags {
+  margin-top: 12px;
+  gap: 6px;
+}
+body[data-page="home"] .work-tags span {
+  padding: 4px 9px;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+}
+/* Only the featured row shows the stack: the pair below is already dense
+   with a two-line summary, and the chips there pushed them taller than the
+   card that is supposed to lead the section. */
+body[data-page="home"] .work-card:not(:first-child) .work-tags {
+  display: none;
 }
 body[data-page="home"] .work-summary {
   display: -webkit-box;
