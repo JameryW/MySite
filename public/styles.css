@@ -220,6 +220,9 @@ latin avg-width .5897em vs Arial. */
     linear-gradient(rgba(80, 90, 140, 0.06) 1px, transparent 1px),
     linear-gradient(90deg, rgba(80, 90, 140, 0.06) 1px, transparent 1px);
   background-size: 72px 72px;
+  /* Safari needs the prefixed form before 15.4; without it the grid renders
+     edge-to-edge instead of fading out. */
+  -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 82%);
   mask-image: radial-gradient(circle at center, black 30%, transparent 82%);
 }
 [data-theme="light"] body::after {
@@ -515,6 +518,9 @@ body::before {
     linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 72px 72px;
+  /* Safari needs the prefixed form before 15.4; without it the grid renders
+     edge-to-edge instead of fading out. */
+  -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 82%);
   mask-image: radial-gradient(circle at center, black 30%, transparent 82%);
 }
 body::after {
@@ -525,6 +531,7 @@ body::after {
   contain: strict;
   background:
     linear-gradient(105deg, transparent 40%, rgba(108, 242, 255, 0.03) 48%, rgba(108, 242, 255, 0.06) 50%, rgba(108, 242, 255, 0.03) 52%, transparent 60%);
+  -webkit-mask-image: radial-gradient(circle at center, black 20%, transparent 65%);
   mask-image: radial-gradient(circle at center, black 20%, transparent 65%);
   pointer-events: none;
 }
@@ -3447,6 +3454,7 @@ body[data-page="about"] .about-hero-meta > span:not(.about-hero-meta-sep) + span
       linear-gradient(135deg, rgba(108, 242, 255, 0.08), transparent 58%),
       rgba(8, 13, 31, 0.96);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.24), 0 0 0 1px rgba(108, 242, 255, 0.04);
+    -webkit-backdrop-filter: blur(18px);
     backdrop-filter: blur(18px);
   }
 .topbar-meta.open .nav {

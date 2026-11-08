@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Fixed
 
 - Cold-load layout shift on the home page, 0.247 → 0.057 (`#notes` being pushed by the JS-mounted work cards is the remainder, below the fold and under the "good" threshold). Two causes: `max-width: min(20ch, 100%)` on the h1 resolved against the fallback font and capped the title at 603px until Syne arrived (a 60px reflow across the page), and the vertically centred signal console moved its own top by 83px when `app.js` injected its rows — it is now top-aligned
+- WebKit-prefixed aliases for the decorative masks and the mobile-menu blur: Safari before 15.4 rendered the `body::before` grid edge-to-edge instead of fading out, and before 18 lost the mobile menu's backdrop blur
 - Three hover states painted on touch and stayed painted after a tap: the "all" pill, the featured CTA pill, and the light-theme signal-row title
 
 ## [1.2.4] - 2026-11-01
