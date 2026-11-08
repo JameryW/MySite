@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Home work list gives the first build a full-width featured row (CTA pill pinned right) with the other two sharing a row beneath it; list height 718px → 398px, page 2910px → 2517px
 - Lens is one ruled strip instead of three floating cells; section links are pills; note cards are equal height with the action pinned to the bottom edge
 - Home orbs are larger and softer (blur 26 → 46px) and the light theme drops them to 0.3 opacity, so they stop reading as a milky smudge behind the headline
+- The editorial frame widens progressively on large displays (1200px → 1320 from 1600px → 1400 from 1920px), which used to leave ~38% of a 1920 screen as margin. Body copy keeps its own `max-width`, so line length does not grow with the frame
 
 ### Fixed
 

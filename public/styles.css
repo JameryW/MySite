@@ -647,6 +647,21 @@ a {
   margin: 0 auto;
   padding-bottom: 48px;
 }
+/* Large displays left ~38% of a 1920 screen as margin. Widen the editorial
+   frame progressively rather than jumping: 1320 from 1600px, 1400 from
+   1920px, with the outer breathing room scaled in. Text blocks keep their own
+   `max-width` (leads 42ch, section summaries 62ch), so line length does not
+   grow with the frame. */
+@media (min-width: 1600px) {
+  .site-frame {
+    width: min(1320px, calc(100% - 80px));
+  }
+}
+@media (min-width: 1920px) {
+  .site-frame {
+    width: min(1400px, calc(100% - 120px));
+  }
+}
 .topbar {
   position: sticky;
   top: 0;
