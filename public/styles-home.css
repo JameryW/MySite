@@ -346,6 +346,16 @@ body[data-page="home"] .home-signal-live {
   border-bottom-color: rgba(80, 90, 140, 0.15);
 }
 
+/* The signal console sits directly behind the command palette, so the shared
+   0.86-alpha panel let the console's titles bleed through the search field
+   (empty hero space used to be behind it). Tighten it on home only. */
+body[data-page="home"] .palette {
+  background: rgba(11, 18, 41, 0.97);
+}
+[data-theme="light"] body[data-page="home"] .palette {
+  background: rgba(214, 220, 236, 0.98);
+}
+
 /* ── Section rhythm ─────────────────────────────────────────────────────
    Bigger, even gaps between bands; the head sits closer to its list. */
 body[data-page="home"] #work.section {
