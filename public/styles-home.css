@@ -218,15 +218,10 @@ body[data-page="home"] .console-pulse {
    narrow pane — same shape the mobile breakpoint already used. */
 body[data-page="home"] .home-signal-strip {
   list-style: none;
+  display: flex;
+  flex-direction: column;
   margin: 0;
   padding: 4px 16px 8px;
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0;
-  max-width: none;
-  border-top: 0;
 }
 body[data-page="home"] .home-signal-row {
   position: relative;
@@ -265,11 +260,10 @@ body[data-page="home"] .home-signal-row:hover .home-signal-title,
 body[data-page="home"] .home-signal-row:focus-visible .home-signal-title {
   color: var(--cyan);
 }
-/* The row is a link but the shared focus ring only covers cards and buttons. */
+/* The row is a link, so the site-wide focus ring already applies; only add
+   the soft halo that ring uses on cards. */
 body[data-page="home"] .home-signal-row:focus-visible {
-  border-radius: 4px;
-  outline: 2px solid var(--lime);
-  outline-offset: 3px;
+  box-shadow: 0 0 18px rgba(216, 255, 98, 0.35);
 }
 [data-theme="light"] body[data-page="home"] .home-signal-row:hover .home-signal-title,
 [data-theme="light"] body[data-page="home"] .home-signal-row:focus-visible .home-signal-title {
@@ -394,6 +388,7 @@ body[data-page="home"] .work-card:first-child {
 }
 body[data-page="home"] .work-card:not(:first-child) {
   grid-template-columns: 56px minmax(0, 1fr);
+  align-items: stretch;
   padding: 20px 22px;
 }
 body[data-page="home"] .work-copy {
@@ -449,9 +444,6 @@ body[data-page="home"] .work-card .work-link {
   margin-top: 0;
 }
 /* The pair below keeps its call to action on the card's bottom edge. */
-body[data-page="home"] .work-card:not(:first-child) {
-  align-items: stretch;
-}
 body[data-page="home"] .work-card:not(:first-child) .work-copy {
   display: flex;
   flex-direction: column;
@@ -491,11 +483,6 @@ body[data-page="home"] .work-copy .card-topline {
   flex-wrap: wrap;
   row-gap: 6px;
   margin-bottom: 8px;
-}
-body[data-page="home"] .work-copy .card-topline .showcase-demo-badge {
-  margin-left: auto;
-  padding: 4px 10px;
-  font-size: 0.66rem;
 }
 body[data-page="home"] .work-copy h3 {
   margin-bottom: 8px;
@@ -618,12 +605,6 @@ body[data-page="home"] .home-principles-compact > div strong {
   }
   body[data-page="home"] .hero-copy h1 {
     max-width: min(24ch, 100%);
-  }
-  body[data-page="home"] .hero-console {
-    max-width: none;
-  }
-  body[data-page="home"] .home-signal-strip {
-    justify-content: flex-start;
   }
 }
 
@@ -764,10 +745,6 @@ body[data-page="home"] .home-principles-compact > div strong {
     font-size: 0.64rem;
     letter-spacing: 0.08em;
   }
-  body[data-page="home"] .work-card .showcase-demo-badge {
-    padding: 3px 8px;
-    font-size: max(0.6rem, 0.66rem);
-  }
   body[data-page="home"] .work-card:first-child .work-copy h3,
   body[data-page="home"] .work-card:not(:first-child) .work-copy h3 {
     font-size: clamp(1.2rem, 5vw, 1.45rem);
@@ -781,12 +758,6 @@ body[data-page="home"] .home-principles-compact > div strong {
   }
   body[data-page="home"] .home-principles {
     padding-top: 34px;
-  }
-}
-
-@media (max-width: 480px) {
-  body[data-page="home"] .work-card .showcase-demo-badge {
-    display: none;
   }
 }
 
@@ -819,8 +790,32 @@ body[data-page="home"] .home-principles-compact > div strong {
   body[data-page="home"] .home-signal-row:hover .home-signal-title {
     color: inherit;
   }
+  /* One level deeper than the rule above: the light-theme hover colour is
+     themed and would otherwise survive the tap. */
+  [data-theme="light"] body[data-page="home"] .home-signal-row:hover .home-signal-title {
+    color: inherit;
+  }
   body[data-page="home"] .home-signal-row:hover::before {
     opacity: 0;
+  }
+  /* The two pill hovers paint on touch and stay painted after a tap. */
+  body[data-page="home"] .work-card:first-child:hover .work-link {
+    border-color: rgba(108, 242, 255, 0.26);
+    background: transparent;
+    color: var(--cyan);
+  }
+  [data-theme="light"] body[data-page="home"] .work-card:first-child:hover .work-link {
+    border-color: rgba(8, 145, 178, 0.24);
+    background: transparent;
+    color: var(--cyan-text);
+  }
+  body[data-page="home"] .section-view-all:hover {
+    border-color: rgba(108, 242, 255, 0.24);
+    background: transparent;
+  }
+  [data-theme="light"] body[data-page="home"] .section-view-all:hover {
+    border-color: rgba(8, 145, 178, 0.26);
+    background: transparent;
   }
 }
 
