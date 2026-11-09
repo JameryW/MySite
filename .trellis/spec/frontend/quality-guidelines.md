@@ -139,7 +139,7 @@ Saved light theme is applied by one inline boot script in every page `<head>`, p
 
 ### Hero And Reveal Paint
 
-Above-the-fold shells (`.hero-copy`, `.hero-focus-panel`, `.page-hero`, `.page-hero-panel`) are in the HTML and must not sit at `opacity: 0` until `app.js`. The home title is not blurred and not held for the intersection observer. `.reveal` entrance is opacity plus translate only: no `filter`, no `scale()`, no permanent `will-change`. A `filter: blur(0)` left on the title after the animation keeps a compositing layer and softens the LCP text.
+Above-the-fold shells (`.hero-copy`, `.hero-console`, `.hero-focus-panel`, `.page-hero`, `.page-hero-panel`) are in the HTML and must not sit at `opacity: 0` until `app.js`. `.hero-console` holds the `profile.now` rows that `app.js` injects, but its chrome (`.console-top`) is static, so the whole panel takes the same exemption: `body[data-page="home"] .hero-console.reveal { opacity: 1; transform: none; transition: none; }`. Pair that with `align-self: start` on the panel — a vertically centred JS-filled panel grows in both directions when its rows land and moves its own origin (83px, the bulk of the remaining cold-load CLS before 2026-11-09). The home title is not blurred and not held for the intersection observer. `.reveal` entrance is opacity plus translate only: no `filter`, no `scale()`, no permanent `will-change`. A `filter: blur(0)` left on the title after the animation keeps a compositing layer and softens the LCP text.
 
 Pointer tilt, the cursor glow, data streams, and the particle canvas run only for `(hover: hover) and (pointer: fine)`. Touch screens keep the orbs and grid, but those orbs and the `body::after` grid scan do not animate. `.cursor-glow` is `display: none` under `(hover: none)`.
 
@@ -208,6 +208,8 @@ html {
   padding-bottom: 48px;
 }
 ```
+
+The one sanctioned exception is deliberate large-display widening above 1600px, added 2026-11-09: the editorial frame stays `1200px` up to 1600px, becomes `1320px` from 1600px, and `1400px` from 1920px (capped, so ultra-wide screens do not stretch indefinitely). It is progressive — every viewport at or below 1440px renders exactly as before — and it buys canvas only, not line length, because body copy keeps its own `max-width` (`leads 42ch`, `.section-summary 62ch`). Verified at 1440/1600/1920/2560: `scrollWidth === clientWidth`, and home/projects/notes/about/detail all reflow correctly. Do not widen further to "fill" a 27-inch display; past 1400px the line lengths and card proportions start to drift.
 
 Do not apply global focus outlines to large non-interactive layout containers such as `main[tabindex="-1"]`; the outline can look like an edge gap on desktop detail pages.
 
@@ -278,16 +280,14 @@ h1 span {
 For the home hero title, allow the secondary line to wrap rather than clipping it at the card edge:
 
 ```css
-body[data-page="home"] .hero-copy h1 {
-  line-height: 1.16;
-}
-
 body[data-page="home"] .hero-copy h1 span {
   margin-block: 0;
   white-space: normal;
   text-wrap: balance;
 }
 ```
+
+Since the 2026-11-09 rebuild the home hero is no longer a card: `body[data-page="home"] .hero-copy` sets `border: 0; overflow: visible`, so the `line-height: 1.16` bump this section used to require is unnecessary — the h1 runs at the shared `1.08` (computed 60.48px at 56px) and CJK descenders are not clipped by any ancestor (verified: no non-visible overflow between the h1 and `body`). Keep the `1.16` guidance for *carded* display titles (`overflow: hidden` on the surrounding card); do not reintroduce `overflow: hidden` on the home hero without re-checking the title box.
 
 ### Project Card Long-Title Handling
 
