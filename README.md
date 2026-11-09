@@ -123,11 +123,9 @@ Self-hosted [Umami](https://umami.is/) at `stats.jameryw.dev`:
 
 Production is the VPS nginx host (`www.jameryw.dev`) — see `AGENTS.md` for the full pipeline. GitHub Pages additionally mirrors `public/` at `https://jameryw.github.io/MySite/` through `.github/workflows/pages.yml`; canonical URLs keep the VPS as the only indexable source.
 
+Production is a single VPS (`jwip`, `142.93.21.26`): nginx serves `public/` from `/var/www/html`, and TLS certificates are issued/renewed by **acme.sh** (DNS-01 via Aliyun) into `/root/.acme.sh/jameryw.dev_ecc/`. GitHub Pages is **not** a deploy target: it holds a read-only mirror of `public/` (above), and canonical URLs keep the VPS as the only indexable source.
 
-
-Production is a single VPS (`jwip`, `142.93.21.26`): nginx serves `public/` from `/var/www/html`, and TLS certificates are issued/renewed by **acme.sh** (DNS-01 via Aliyun) into `/root/.acme.sh/jameryw.dev_ecc/`. GitHub Pages is **not** used.
-
-- `deploy/nginx.conf` is the source of truth for `/etc/nginx/nginx.conf` — HTTP→HTTPS redirect, apex→www canonical redirect, custom 404, gzip, cache headers, and the box's `/ws` / `/xray` reverse proxies.
+- `deploy/nginx.conf` is the source of truth for `/etc/nginx/nginx.conf` — HTTP→HTTPS redirect, apex→www canonical redirect, custom 404, gzip, cache headers, and the box's `/xray` gRPC reverse proxy (the old `/ws` route was removed server-side).
 - `npm run deploy` runs `npm run check`, backs up the current web root on the server (`/root/deploy-backups/`), rsyncs `public/`, then verifies the deployed cache versions.
 - `npm run deploy -- --dry-run` shows the file diff without touching production.
 - `npm run deploy:nginx` uploads `deploy/nginx.conf`, validates it with `nginx -t`, backs up the previous config, installs it, and reloads nginx.
