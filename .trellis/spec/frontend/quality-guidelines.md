@@ -117,17 +117,18 @@ Google Fonts is fully retired from this site (decided 2026-09-08 in `09-08-first
 Latin text uses two self-hosted variable woff2 files under `public/fonts/` with versioned filenames (e.g. `syne-latin-var-v1.woff2`), declared via `@font-face` at the top of `styles.css` together with metric-override fallback faces (`Syne Fallback`, `Space Grotesk Fallback` using `size-adjust`/`ascent-override`/`descent-override`):
 
 ```html
-<link rel="preload" href="./fonts/syne-latin-var-v1.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="./styles.css?v=65" />
-<script src="./app.js?v=29" defer></script>
+<link rel="stylesheet" href="./styles.css?v=156" />
+<script src="./app.js?v=113" defer></script>
 ```
+
+**Do not preload either woff2.** This section used to mandate "preload Syne only"; the 2026-09-08 measurement overturned it and `AGENTS.md` carries the decision — on the live cross-border path (4 runs each) dropping both preloads took cold FCP/LCP from 2588 ms → 1944 ms for +0.016 CLS (still "good"), because 57 KB of font competes with the render-blocking stylesheet for the same slow pipe. Fonts are discovered from CSS instead. Re-adding a preload requires re-running that measurement, not just a cache-warm local load.
 
 CJK text uses the **system font stack only** — no webfont, no swap, zero font-driven CLS. `--font-sans` / `--font-display` fall through `"PingFang SC"`, `"Microsoft YaHei"`, `system-ui`. Do not re-add a CJK webfont or a `Noto Sans SC Fallback` metric-override face; with no web↔fallback exchange there is nothing to override.
 
 Rules that come with this pipeline:
 
-* Preload **Syne only** (the LCP display face); Space Grotesk is discovered through the `@font-face` in `styles.css`. The preload `href` must resolve to exactly the same URL as the `@font-face` `src` or the font downloads twice.
-* Fonts are cache-keyed by their versioned filename — bump `-v1` → `-v2` (file + `@font-face` src + preload href + `sw.js` SHELL entry) when replacing a font file. `CSP` `font-src` is `'self'` only; `style-src` and `connect-src` must NOT list any Google Fonts host.
+* Neither face is preloaded (see above). If a preload is ever reintroduced, its `href` must resolve to exactly the same URL as the `@font-face` `src` or the font downloads twice.
+* Fonts are cache-keyed by their versioned filename — bump `-v1` → `-v2` (file + `@font-face` src + `sw.js` SHELL entry) when replacing a font file. `CSP` `font-src` is `'self'` only; `style-src` and `connect-src` must NOT list any Google Fonts host.
 * When replacing the self-hosted woff2 files, keep the metric-override fallback values in sync (recompute with the web.dev/next-font formulas; current values are one-time-measured approximations noted in `styles.css`).
 * There is no JS font loader anymore. Do not re-introduce `data-fonts-load` / `media="print"` async links; the plain stylesheet link is the single delivery path.
 
@@ -165,7 +166,7 @@ The same boot script owns the page loader: `.page-loader` stays `visibility: hid
 
 Rules that keep this true:
 
-* The `page-enter` keyframes on `body` must stay **opacity-only**. Never add `filter` or `transform` there — the 2026-09-08 check pass found the earlier `blur(2px) → blur(0)` keyframes had broken every fixed element site-wide since they were introduced (forwards fill kept `blur(0)` applied permanently). Verified by CDP probe: `.scroll-progress.top === -scrollY` while scrolled.
+* `body` / `html` must never carry a `filter`, `transform`, or `contain` (the old `page-enter` keyframes that motivated this rule are gone; the only occurrences of those properties on `body`/`html` in `styles.css` today are `*: none !important` resets inside the reduced-motion and print blocks). The 2026-09-08 check pass found the earlier `blur(2px) → blur(0)` keyframes had broken every fixed element site-wide since they were introduced (forwards fill kept `blur(0)` applied permanently). Verify any change with the CDP probe: `window.scrollTo(0, 700)` then assert `document.querySelector(".scroll-progress").getBoundingClientRect().top === 0` (viewport-anchored, not scrolling away) and that `.palette` opens on-screen (`top ≈ 0.18 × innerHeight` while scrolled). Re-run on production, not just localhost. Last verified 2026-11-09 at scrollY 696: progress top 0, body and html `filter`/`transform`/`contain` all `none`.
 * Never add or remove a `filter`/`transform`/`contain` on `body` or `html` without probing the fixed layers: gaining it mid-load flips the containing block and produces large layout shifts; losing it after load moves every body-anchored fixed layer.
 * Decorative fixed elements must anchor with viewport units (`vh`/`vw`) rather than percentages — percentages resolve against body size when body is the containing block, and shift whenever body height changes. `vh`/`vw` resolve identically under either containing block, so the decor survives a regime change — see `.orb-a/b/c` in `styles.css`.
 * Pointer-following decor (`.cursor-glow`) must be positioned by `transform: translate3d(...) translate(-50%, -50%)` — never `left`/`top`, which are real layout work on every pointer move and register as layout shifts (headless CLS 0.096, learned 2026-09-08 in `09-08-first-load-weight-reduction`, check agent fix). Because `cursor-breathe` animates `transform` (animations outrank inline styles), the breathing layer lives on `.cursor-glow::after` so the outer element's transform stays free for positioning.
