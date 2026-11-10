@@ -926,6 +926,7 @@ const projectCardMarkup = (project, variant) => {
           <p class="work-summary">${summary}</p>
           <div class="card-tags work-tags">${createTagList(project.stack, 4)}</div>
           <div class="card-actions">
+            ${project.demoUrl ? `<span class="showcase-demo-badge work-demo">${t("showcase.badge")}</span>` : ""}
             <span class="work-link">${openDetail} <span class="work-arrow" aria-hidden="true">→</span></span>
           </div>
         </div>

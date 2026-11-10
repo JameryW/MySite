@@ -433,10 +433,17 @@ body[data-page="home"] .work-card:first-child .work-copy > .work-tags {
 body[data-page="home"] .work-card:first-child .card-actions {
   grid-row: 1 / span 4;
   grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   align-self: center;
+  gap: 10px;
   margin: 0;
   padding: 0;
-  justify-content: flex-end;
+}
+/* The demo badge is real signal on the featured row and noise on the pair. */
+body[data-page="home"] .work-card:not(:first-child) .work-demo {
+  display: none;
 }
 /* Featured CTA gets the pill treatment: alone in the right half, a bare text
    link reads as a stray label. */
@@ -575,20 +582,31 @@ body[data-page="home"] .note-card .note-summary {
   line-height: 1.75;
   overflow-wrap: break-word;
 }
+/* A full-width rule above the action read as an empty table row whenever the
+   summary was short (the grid stretches every card to the tallest). A short
+   accent mark sets the same boundary without drawing a line across dead space. */
 body[data-page="home"] .note-card .card-actions {
+  position: relative;
   margin-top: auto;
-  padding-top: 12px;
-  border-top: 1px solid rgba(162, 176, 255, 0.12);
+  padding-top: 10px;
+  border-top: 0;
 }
-[data-theme="light"] body[data-page="home"] .note-card .card-actions {
-  border-top-color: rgba(80, 90, 140, 0.14);
+body[data-page="home"] .note-card .card-actions::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 28px;
+  height: 1px;
+  content: "";
+  background: linear-gradient(90deg, var(--cyan), transparent);
+  opacity: 0.45;
 }
 
 /* ── Lens band ──────────────────────────────────────────────────────────
    Title-only rows, but read as one ruled strip with big mono numerals
    instead of three floating pills. */
 body[data-page="home"] .home-principles {
-  padding: 44px 0 6px;
+  padding: 34px 0 6px;
 }
 body[data-page="home"] .home-principles-list {
   display: grid;
@@ -601,7 +619,7 @@ body[data-page="home"] .home-principles-compact > div {
   display: flex;
   align-items: baseline;
   gap: 12px;
-  padding: 18px 24px 20px 0;
+  padding: 14px 24px 16px 0;
   border: 0;
   border-bottom: 1px solid var(--line);
   border-radius: 0;
@@ -764,9 +782,15 @@ body[data-page="home"] .home-principles-compact > div strong {
   body[data-page="home"] .work-card:first-child .work-copy {
     display: block;
   }
+  /* Stacked pills belong in the desktop right column; on mobile the card
+     flows top-to-bottom, so keep them side by side and left-aligned. */
   body[data-page="home"] .work-card:first-child .card-actions {
-    margin-top: 12px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
     justify-content: flex-start;
+    gap: 8px;
+    margin-top: 12px;
   }
   body[data-page="home"] .work-index,
   body[data-page="home"] .work-card:first-child .work-index,
