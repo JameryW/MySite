@@ -727,11 +727,18 @@ body[data-page="home"] .home-principles-compact > div strong {
     max-width: none;
     font-size: 0.95rem;
   }
+  /* Two equal CTAs rather than two full-width rows: the stacked pair spent
+     120px of a 844px fold on buttons, which pushed the first build card out
+     of view. Equal halves keep the tap target at 54x180px. */
   body[data-page="home"] .hero-actions {
     display: grid;
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
     margin-top: 18px;
+  }
+  body[data-page="home"] .hero-actions .button {
+    padding-inline: 12px;
+    white-space: nowrap;
   }
   body[data-page="home"] .hero-console {
     border-radius: 16px;
