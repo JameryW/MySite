@@ -278,7 +278,10 @@ latin avg-width .5897em vs Arial. */
 [data-theme="light"] .showcase-demo-badge {
   border-color: rgba(90, 138, 0, 0.25);
   background: rgba(90, 138, 0, 0.08);
-  color: var(--lime);
+  /* --lime (#5a8a00) is 3.75:1 on the light card — below AA for 11.5px text.
+     The shared light-theme rule above already sets --lime-text; this later
+     duplicate was silently overriding it. */
+  color: var(--lime-text);
 }
 [data-theme="light"] .track-card:hover {
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05), 0 0 8px rgba(8, 145, 178, 0.04);
