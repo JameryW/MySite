@@ -3917,16 +3917,34 @@ h2 {
 .footer-kicker {
     font-size: 0.72rem;
   }
+/* Two columns put the nav and the socials side by side with a 16px gutter,
+   which reads as unrelated pairs (项目 next to 小红书, Showcase next to X).
+   Stack the groups instead and rule them apart. */
+/* Flat link lists (every page but the home page) read best as two columns. */
 .footer-links {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, max-content));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px 16px;
   }
-.footer-nav,
-.footer-socials {
-    display: grid;
-    gap: 8px;
+/* The home footer holds two groups (nav + socials); side by side they read as
+   unrelated pairs (项目 next to 小红书), so stack them and rule them apart. */
+.footer-links--grouped {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
   }
+.footer-nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 16px;
+  }
+.footer-socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    padding-top: 12px;
+    border-top: 1px solid var(--line);
+  }
+
 .footer-meta {
     margin-top: 12px;
     padding-top: 12px;
@@ -4420,6 +4438,13 @@ button,
     display: inline-flex;
     align-items: center;
     min-height: 44px;
+  }
+
+  /* On a phone this floats over the bottom-right corner and covers the card
+     action ("阅读全文", "查看详情"), which sits in the same corner. Swiping up is
+     the native way back; the button is a pointer-era convenience. */
+  .back-to-top {
+    display: none;
   }
 
   .work-card:active,
