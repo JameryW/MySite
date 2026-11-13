@@ -871,7 +871,7 @@ const relatedNoteMarkup = (note) => `
   </a>
 `;
 
-const entryDisplayTitle = (entry) => (entry && entry.titleEn ? noteTitle(entry) : entry?.title || "");
+const entryDisplayTitle = (entry) => (entry && entry.titleEn ? noteTitle(entry) : (entry && entry.title) || "");
 
 const detailPagerMarkup = (options) => {
   const { previous, next, previousHref, nextHref } = options;
@@ -997,19 +997,19 @@ document.querySelectorAll(".nav a").forEach((link) => {
 
 const renderHomeSignals = () => {
   if (!homeSignalsNode) return;
-  const nowItems = Array.isArray(siteData.profile?.now) ? siteData.profile.now : [];
+  const nowItems = Array.isArray(siteData.profile && siteData.profile.now) ? siteData.profile.now : [];
   homeSignalsNode.innerHTML = nowItems
     .map((item) => {
       const project = projectBySlug.get(item.slug);
       const href = project ? projectDetailHref(project) : "./projects.html";
       const beat = siteLang === "en" ? item.beatEn || item.beat : item.beat;
-      const live = project?.demoUrl
+      const live = project && project.demoUrl
         ? `<span class="home-signal-live">${t("home.signalLive")}</span>`
         : "";
       return `
       <li>
         <a class="home-signal-row" href="${href}">
-          <span class="home-signal-code">${escapeHtml(item.code || project?.code || "")}</span>
+          <span class="home-signal-code">${escapeHtml(item.code || (project && project.code) || "")}</span>
           <strong class="home-signal-title">${escapeHtml(item.title)}</strong>
           <span class="home-signal-beat">${escapeHtml(beat || "")}</span>
           ${live}
@@ -1495,14 +1495,14 @@ const renderProjectSurfaces = (instant = false) => {
     }).join("");
   }
   if (nowBuildingNode) {
-    const nowItems = Array.isArray(siteData.profile?.now) ? siteData.profile.now : [];
+    const nowItems = Array.isArray(siteData.profile && siteData.profile.now) ? siteData.profile.now : [];
     nowBuildingNode.innerHTML = nowItems
       .map((item, index) => {
         const project = projectBySlug.get(item.slug);
         const href = project ? projectDetailHref(project) : "./projects.html";
-        const demoHref = project?.demoUrl || "";
+        const demoHref = (project && project.demoUrl) || "";
         const order = String(index + 1).padStart(2, "0");
-        const label = project?.label || item.code || "Now";
+        const label = (project && project.label) || item.code || "Now";
         const beat = siteLang === "en" ? item.beatEn || item.beat : item.beat;
         return `
         <article class="about-now-row reveal">
@@ -1514,7 +1514,7 @@ const renderProjectSurfaces = (instant = false) => {
             <div class="about-now-row-head">
               <p class="about-now-label">
                 ${label}
-                <span class="card-status-dot ${statusDotClass(project?.status)}" aria-hidden="true"></span>
+                <span class="card-status-dot ${statusDotClass(project && project.status)}" aria-hidden="true"></span>
               </p>
               <h3><a href="${href}">${item.title}</a></h3>
             </div>
@@ -1535,7 +1535,7 @@ const renderProjectSurfaces = (instant = false) => {
   }
   if (projectLibraryNode) applyStoredFilter(projectLibraryNode);
   if (profileFocusNodes.length > 0) {
-    const focusItems = Array.isArray(siteData.profile?.focus) ? siteData.profile.focus : [];
+    const focusItems = Array.isArray(siteData.profile && siteData.profile.focus) ? siteData.profile.focus : [];
     profileFocusNodes.forEach((node) => {
       node.innerHTML = focusItems.map((item) => `<span>${item}</span>`).join("");
     });

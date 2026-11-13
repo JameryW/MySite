@@ -65,6 +65,14 @@ Decorative pseudo-elements layered over clickable cards or hero CTAs must use `p
 >
 > The same applies to theme-scoped hovers: `[data-theme="light"] body[data-page="home"] .focus-list div:hover` (0,4,2) outranks a non-theme-scoped reset (0,3,2), so a theme-scoped hover needs its own `[data-theme="light"] …` reset inside `hover: none` (including per-item variants when resting styles differ, e.g. nth-child accent rails). Learned 2026-09-08 in `09-08-site-visual-perf-polish` (check agent fix).
 
+### Shipped JavaScript Syntax Floor
+
+`app.js` and `sw.js` must parse on older phone WebViews — Android WebView < 80 and WeChat's X5 (before its 2020 Chromium rebase). Those engines cannot parse ES2020 syntax, and the failure is a **parse-time** `SyntaxError`: nothing in `app.js` runs at all, so a browser that would otherwise show a usable page instead shows the static hero with **every JS-rendered section missing** (build cards, notes, signal rows, lens items, listing pages empty). There is no graceful degradation and no error in the UI.
+
+So keep the shipped scripts at ES2018: no `?.`, `??`, `||=`, `&&=`, `??=`, `.at(`, `flatMap(`, `fromEntries(`, `replaceAll(`, `structuredClone(`. `npm run check` enforces this (check 15) — optional chaining shipped in `app.js` until 2026-11-13 and produced exactly the blank-section symptom on a phone.
+
+Write `a && a.b` instead of `a?.b`, and `a || fallback` instead of `a ?? fallback`. The inline boot script is ES5 on purpose (arrow functions, `const`/`let` and template literals are all absent) — keep it that way.
+
 ### Static Asset Cache Versioning
 
 When changing a cached static asset, update every cache key that can keep the old bytes alive.
