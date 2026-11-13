@@ -4474,3 +4474,34 @@ button,
     opacity: 0.82;
   }
 }
+
+/* Fallback notice injected by boot-guard.js when app.js never renders the
+   listings. Deliberately loud: it exists to explain an otherwise blank page. */
+.boot-guard {
+  margin: 0 0 24px;
+  padding: 16px 18px;
+  border: 1px solid rgba(255, 141, 76, 0.35);
+  border-radius: 16px;
+  background: rgba(255, 141, 76, 0.08);
+  color: var(--text);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+.boot-guard p {
+  margin: 0 0 8px;
+}
+.boot-guard p:last-child {
+  margin-bottom: 0;
+}
+.boot-guard a {
+  color: var(--cyan);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+[data-theme="light"] .boot-guard {
+  border-color: rgba(180, 90, 20, 0.3);
+  background: rgba(255, 141, 76, 0.12);
+}
+[data-theme="light"] .boot-guard a {
+  color: #1d5f74;
+}
