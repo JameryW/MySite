@@ -706,6 +706,57 @@ body[data-page="home"] .home-principles-compact > div strong {
   }
 }
 
+/* A phone rotated: 844x390 leaves 390px of height, and the single-column hero
+   from the 1080px breakpoint spends 449px of it, so the visitor sees a kicker
+   and half a title. Put the console back beside the copy and trim the display
+   size; the 761-1080px rule already keeps each signal row on one line. */
+@media (orientation: landscape) and (max-height: 520px) {
+  body[data-page="home"] .home-hero {
+    grid-template-columns: minmax(0, 1.06fr) minmax(15rem, 0.94fr);
+    column-gap: 22px;
+    row-gap: 0;
+    padding: 16px 0 4px;
+  }
+  body[data-page="home"] .hero-copy h1 {
+    font-size: clamp(1.8rem, 4.3vw, 2.4rem);
+    line-height: 1.1;
+  }
+  body[data-page="home"] .hero-actions {
+    margin-top: 12px;
+  }
+  body[data-page="home"] .hero-console {
+    padding: 10px 12px 12px;
+  }
+  /* At this width the console is ~370px and the single-line row layout leaves
+     the beat column about 30px — "内…" tells nobody anything. Give the beat its
+     own line instead of truncating it. */
+  body[data-page="home"] .home-signal-row {
+    grid-template-columns: 2.2rem minmax(0, 1fr) auto;
+    gap: 2px 12px;
+    padding: 10px 0 11px;
+  }
+  body[data-page="home"] .home-signal-code {
+    grid-row: 1;
+    grid-column: 1;
+  }
+  body[data-page="home"] .home-signal-title {
+    grid-row: 1;
+    grid-column: 2;
+  }
+  body[data-page="home"] .home-signal-live {
+    grid-row: 1;
+    grid-column: 3;
+  }
+  body[data-page="home"] .home-signal-beat {
+    display: block;
+    grid-row: 2;
+    grid-column: 2 / -1;
+    overflow: visible;
+    white-space: normal;
+    text-overflow: clip;
+  }
+}
+
 @media (max-width: 760px) {
   body[data-page="home"] .home-hero {
     row-gap: 22px;

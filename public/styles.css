@@ -410,6 +410,13 @@ html {
   scrollbar-color: rgba(108, 242, 255, 0.35) var(--bg);
   background: var(--bg);
 }
+html {
+  /* Mobile Safari/Chrome inflate text on wide blocks (landscape especially),
+     which breaks every fixed-size layout below. 100% keeps user zoom intact
+     but stops the automatic inflation. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
 body {
   width: 100%;
   max-width: 100%;
