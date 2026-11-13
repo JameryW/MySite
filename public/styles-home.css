@@ -775,10 +775,20 @@ body[data-page="home"] .home-principles-compact > div strong {
     padding-bottom: 0;
   }
   body[data-page="home"] .section-view-all {
+    position: relative;
     min-height: 30px;
     padding: 0 11px;
     font-size: 0.7rem;
     letter-spacing: 0.04em;
+  }
+  /* The compact pill stays 30px tall, but a phone needs a 44px tap area:
+     extend it by 7px on each side with a transparent overlay. */
+  @media (hover: none) {
+    body[data-page="home"] .section-view-all::after {
+      position: absolute;
+      inset: -7px;
+      content: "";
+    }
   }
   body[data-page="home"] .work-card,
   body[data-page="home"] .work-card:first-child,

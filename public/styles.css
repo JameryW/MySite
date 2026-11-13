@@ -4378,3 +4378,57 @@ a[href^="http"]::after {
     -webkit-text-stroke: 1px #000 !important;
   }
 }
+/* ── Touch ergonomics ────────────────────────────────────────────────────
+   Phone-only fixes for three problems a desktop pointer never shows:
+   1. The browser paints its own tap highlight (Chrome ~rgba(51,181,229,.4),
+      iOS grey) over the element — visible as a blue flash on every tap.
+   2. Without `touch-action: manipulation` each tap waits ~300ms to see if a
+      double-tap-zoom is coming, so controls feel unresponsive.
+   3. `.menu-toggle` was 40x40, `.work-link` 104x37, `.section-view-all` 59x30
+      — all under the 44px minimum and all primary phone targets. Changed only
+      under `(hover: none)` so the desktop rhythm is untouched. */
+a,
+button,
+[role="button"],
+.menu-toggle,
+.lang-option,
+.filter-pill,
+.section-view-all,
+.work-link,
+.work-card,
+.note-card {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (hover: none) {
+  a,
+  button,
+  [role="button"] {
+    touch-action: manipulation;
+  }
+
+  /* The mobile rule above sets `flex: 0 0 40px`, and flex-basis outranks
+     `width` — so the basis has to be raised as well as the box. */
+  .menu-toggle {
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .work-link,
+  .section-view-all {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .work-card:active,
+  .note-card:active,
+  .button:active,
+  .filter-pill:active,
+  .lang-option:active,
+  .menu-toggle:active,
+  .section-view-all:active {
+    opacity: 0.82;
+  }
+}
