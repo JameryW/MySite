@@ -4440,6 +4440,16 @@ button,
     min-height: 44px;
   }
 
+  /* The bar is sticky and its scrim fades to transparent at the bottom edge
+     (0.97 -> 0.88 -> 0), which is fine over the hero but lets scrolled body
+     text ghost through it — a 48px paragraph sliding under the bar stays half
+     readable. Phones get an opaque bar instead; the gradient is a desktop
+     flourish where the bar mostly sits over the hero. */
+  .topbar,
+  [data-theme="light"] .topbar {
+    background: var(--bg);
+  }
+
   /* On a phone this floats over the bottom-right corner and covers the card
      action ("阅读全文", "查看详情"), which sits in the same corner. Swiping up is
      the native way back; the button is a pointer-era convenience. */
