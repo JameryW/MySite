@@ -29,8 +29,8 @@ window.siteData = {
         "slug": "ultimate-coders",
         "code": "E5",
         "title": "UltimateCoders",
-        "beat": "DAG 编排与 Dashboard 可观测；分层记忆和混合检索持续推进。",
-        "beatEn": "DAG orchestration and an observable Dashboard; layered memory and hybrid retrieval keep moving.",
+        "beat": "已公开部署在 uc.jameryw.dev；DAG 编排与 Dashboard 可观测。",
+        "beatEn": "Publicly deployed at uc.jameryw.dev; DAG orchestration and an observable Dashboard.",
         "when": "2026-11"
       }
     ]
@@ -126,7 +126,7 @@ window.siteData = {
     {
       "slug": "ultimate-coders",
       "date": "2026-06-11",
-      "updated": "2026-10-21",
+      "updated": "2026-11-14",
       "code": "E5",
       "label": "Distributed AI",
       "title": "UltimateCoders",
@@ -134,6 +134,7 @@ window.siteData = {
       "summary": "分布式 AI 编程平台：DAG 编排、可观测 Dashboard、多适配 Worker，共享分层记忆与混合检索。",
       "summaryEn": "Distributed AI coding platform: DAG orchestration, observable Dashboard, multi-adapter Workers, shared layered memory and hybrid retrieval.",
       "href": "https://github.com/JameryW/UltimateCoders",
+      "demoUrl": "https://uc.jameryw.dev",
       "status": "Active",
       "stack": [
         "Rust",

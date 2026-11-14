@@ -21,7 +21,7 @@ Machine-readable: https://www.jameryw.dev/llms-full.txt (full text) · https://w
 ## Now building
 
 - XhsGrowthAgent (2026-11): Kernel runtime is live; public Showcase / Replay; optional hy-memory.
-- UltimateCoders (2026-11): DAG orchestration and an observable Dashboard; layered memory and hybrid retrieval keep moving.
+- UltimateCoders (2026-11): Publicly deployed at uc.jameryw.dev; DAG orchestration and an observable Dashboard.
 
 ## Pages
 

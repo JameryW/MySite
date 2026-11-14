@@ -20,8 +20,8 @@ window.siteData = {
         slug: "ultimate-coders",
         code: "E5",
         title: "UltimateCoders",
-        beat: "DAG 编排与 Dashboard 可观测；分层记忆和混合检索持续推进。",
-        beatEn: "DAG orchestration and an observable Dashboard; layered memory and hybrid retrieval keep moving.",
+        beat: "已公开部署在 uc.jameryw.dev；DAG 编排与 Dashboard 可观测。",
+        beatEn: "Publicly deployed at uc.jameryw.dev; DAG orchestration and an observable Dashboard.",
         when: "2026-11"
       }
     ]
@@ -175,7 +175,7 @@ window.siteData = {
     {
       slug: "ultimate-coders",
       date: "2026-06-11",
-      updated: "2026-10-21",
+      updated: "2026-11-14",
       code: "E5",
       label: "Distributed AI",
       title: "UltimateCoders",
@@ -183,6 +183,7 @@ window.siteData = {
       summary: "分布式 AI 编程平台：DAG 编排、可观测 Dashboard、多适配 Worker，共享分层记忆与混合检索。",
       summaryEn: "Distributed AI coding platform: DAG orchestration, observable Dashboard, multi-adapter Workers, shared layered memory and hybrid retrieval.",
       href: "https://github.com/JameryW/UltimateCoders",
+      demoUrl: "https://uc.jameryw.dev",
       status: "Active",
       stack: ["Rust", "Python", "DAG", "NATS", "gRPC", "Grok Build", "Qdrant"],
       timeframe: "2026–now",
@@ -197,16 +198,18 @@ window.siteData = {
         "产品面：首页讲清能力与执行链，Dashboard 提供任务、Worker、事件、调度与检索视图。",
         "混合检索：一次查询组合 Text、Semantic 与 AST，覆盖多个已索引 Git 仓库。",
         "分层记忆：短期 / 长期语义 / 结构化元数据分别落 TiKV、Qdrant、PostgreSQL，依赖不可用时退回内存。",
-        "灵活部署：本机 OMP、Docker Gateway、Compose 应用或多 Worker 集群，同一产品面平滑扩展。"
+        "灵活部署：本机 OMP、Docker Gateway、Compose 应用或多 Worker 集群，同一产品面平滑扩展。",
+        "公开部署：已上线 uc.jameryw.dev，浏览器直接进入 Dashboard，无需本地起容器。"
       ],
       highlightsEn: [
         "DAG orchestration: planners split work, the Rust Gateway dispatches ready nodes, Dashboard and gRPC TaskService share one task state.",
         "Product surface: the home page explains capability and the execution path; Dashboard covers tasks, Workers, events, scheduling, and retrieval.",
         "Hybrid retrieval: one query mixes Text, Semantic, and AST across indexed Git repos.",
         "Layered memory: short-term / long-term semantic / structured metadata on TiKV, Qdrant, PostgreSQL, with in-memory fallback.",
-        "Flexible deploy: local OMP, Docker Gateway, Compose app, or multi-Worker clusters on the same product surface."
+        "Flexible deploy: local OMP, Docker Gateway, Compose app, or multi-Worker clusters on the same product surface.",
+        "Public deployment: live at uc.jameryw.dev — open the Dashboard in a browser, no local containers."
       ],
-      outputs: ["DAG orchestration", "Ops dashboard", "Hybrid retrieval", "Layered memory", "Flexible deploy"],
+      outputs: ["DAG orchestration", "Ops dashboard", "Hybrid retrieval", "Layered memory", "Flexible deploy", "Public deploy (uc.jameryw.dev)"],
       relatedNotes: ["why-agents-matter", "prompt-engineering-evolution", "skills-devoured-tools-fortified"]
     },
     {

@@ -441,10 +441,7 @@ body[data-page="home"] .work-card:first-child .card-actions {
   margin: 0;
   padding: 0;
 }
-/* The demo badge is real signal on the featured row and noise on the pair. */
-body[data-page="home"] .work-card:not(:first-child) .work-demo {
-  display: none;
-}
+
 /* Featured CTA gets the pill treatment: alone in the right half, a bare text
    link reads as a stray label. */
 body[data-page="home"] .work-card:first-child .work-link {
@@ -601,6 +598,10 @@ body[data-page="home"] .note-card .card-actions::before {
   background: linear-gradient(90deg, var(--cyan), transparent);
   opacity: 0.45;
 }
+
+/* All three builds now have a live demo (verified 200 on xhs / quant / uc),
+   so the badge is signal on the pair cards too — it was hidden when only the
+   featured row had one. */
 
 /* ── Lens band ──────────────────────────────────────────────────────────
    Title-only rows, but read as one ruled strip with big mono numerals
