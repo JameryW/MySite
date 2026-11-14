@@ -455,6 +455,28 @@ if (!existsSync(dataListPath)) {
 }
 }
 
+/* 15. Script syntax floor: the site has to render on older phone WebViews.
+       Android WebView < 80 and WeChat's X5 (before its 2020 Chromium rebase)
+       cannot parse ES2020 syntax, and the failure mode is a *parse-time*
+       SyntaxError — nothing in app.js runs, so the home page keeps its static
+       hero and silently loses every JS-rendered section (build cards, notes,
+       signal rows, lens items) instead of degrading gracefully. Optional
+       chaining was in app.js until 2026-11-13 and produced exactly that on a
+       phone. Keep the shipped scripts at ES2018. */
+const ES2020_TOKENS = ["?.", "??", "||=", "&&=", "??=", ".at(", "flatMap(", "fromEntries(", "replaceAll(", "structuredClone("];
+const syntaxHits = [];
+for (const file of ["app.js", "sw.js"]) {
+  const src = readFileSync(join(PUBLIC, file), "utf8");
+  for (const token of ES2020_TOKENS) {
+    if (src.includes(token)) syntaxHits.push(`${file}: ${token}`);
+  }
+}
+if (syntaxHits.length > 0) {
+  fail(`ES2020+ syntax breaks older mobile WebViews: ${syntaxHits.join(", ")}`);
+} else {
+  pass("shipped scripts stay within ES2018 (older Android WebView / WeChat X5 can parse them)");
+}
+
 /* Summary */
 console.log(results.join("\n"));
 if (failures > 0) {
