@@ -60,6 +60,19 @@ Root config: `package.json`, `CLAUDE.md`, `.editorconfig`, `.gitignore`
 - Cross-document view transitions are enabled in CSS (`@view-transition`); they are progressive enhancement (Chrome 126+) and disabled under `prefers-reduced-motion`
 - Home hero is a two-column stage in `styles-home.css`: identity copy left, `.hero-console` right holding the `profile.now` rows that `app.js` injects. Two rules keep it free of cold-load shift, both found by measurement — **never cap a text block with `ch`** (`ch` resolves against the *current* font, so before Syne arrived the fallback capped the h1 at 603 px, the title wrapped to two lines, and it flipped to one on swap: 60 px of movement; the grid column already bounds the width), and **keep JS-filled panels top-aligned** (`align-self: start`) so they grow downwards rather than moving their own origin — a vertically centred console moved its top by 83 px when its rows landed. Cold-load CLS on the home page: 0.247 before the rebuild → 0.057 after; the residue is `#notes` being pushed down when `app.js` mounts the work cards, which sits below the fold and is inherent to JS-rendered listings. Verify a change here by blocking one resource at a time (`Network.setBlockedURLs`) and reading `layout-shift` entries, not by eye
 
+### Measured performance ceiling (2026-11-14)
+
+Cold-start waterfall on the live site under CDP throttling (300 ms RTT, 200 KB/s, cold profile): **TTFB 3101 ms → CSS done 4159 ms → FCP 4260 ms → load 13.3 s**. Unthrottled from the same line: TCP connect 7 ms, **TLS 1.669 s / 0.815 s**, TTFB 2.46 s / 2.00 s. So the cost is the cross-border round trips, not the server (nginx answers a page in 75 ms on loopback).
+
+Things that were tried and did **not** pay off — do not re-litigate them without new numbers:
+
+- **Inlining the stylesheets.** Prototype inlined `styles.css` + `styles-home.css` into `index.html` and dropped both links: FCP 2032 → 1680 ms (−352 ms) and one fewer round trip, and total gzip actually fell 35.4 KB → 34.5 KB. It was still rejected: it makes the home HTML 34.5 KB gzip instead of 5.3 KB, so repeat visitors and every other page lose the immutable 1-year CSS cache to buy one page one round trip.
+- **Inlining only a critical subset.** A strict selector allowlist (`:root`, `body`, `.site-frame`, `.topbar*`, `.hero-*`, `.button`, …) still extracts **51.6 KB raw / ~11 KB gzip** because the hero, topbar and buttons pull in most of the shared layer — more inline bytes than the two files it would replace. Extraction is not worth a generator here.
+- **manifest.json looked broken** (10 s under throttling, 0 KB) but serves in 828 B / 75 ms on the box and 1.25 s over the real link; the stall is a CDP bandwidth-emulation artifact, not a server or SW problem.
+- **TLS tuning.** The cert is Let's Encrypt with **no OCSP URL**, so stapling is moot. `ssl_session_cache` is unset (nginx default `none`) but TLS 1.3 session tickets are issued with a 300 s lifetime, so resumption already works for browsers; adding a shared cache only helps TLS 1.2 Session-ID clients.
+
+The honest levers left are infra-level and need a decision: a CDN in front (moves TTFB off the cross-border path), or HTTP/3 — which this box cannot do, `nginx/1.24.0 (Ubuntu)` is compiled **without** `http_v3_module`, so it needs the nginx.org repo (≥1.25) first.
+
 ## Adding Content
 
 Edit `data.js` — add an entry to `projects[]` or `notes[]`. No HTML changes needed.
