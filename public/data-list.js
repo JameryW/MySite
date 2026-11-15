@@ -48,7 +48,7 @@ window.siteData = {
       "summaryEn": "Xiaohongshu growth workbench: a deterministic Kernel owns state and scheduling, LangGraph only runs the task graph, and publishing stays human-gated.",
       "href": "https://github.com/JameryW/XhsGrowthAgent",
       "demoUrl": "https://xhs.jameryw.dev",
-      "preview": "./shots/xhs-growth-agent.webp",
+      "preview": "./shots/xhs-growth-agent-dark.webp",
       "status": "Active",
       "stack": [
         "LangGraph",
