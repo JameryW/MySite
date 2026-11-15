@@ -87,6 +87,8 @@ Language is site-wide (`localStorage` key `site-lang`, legacy `notes-lang` still
 - `title`, `label`, `status`, `stack`, `detailTitle`, `role`, `outputs` stay English-only
 - Profile `now[]` items need `beatEn`; profile needs `titleEn`
 
+**Demo previews** — the home page has a "LIVE DEMOS" band built from `projects[]`. Any project with a `demoUrl` also needs `preview` (a screenshot path under `public/shots/`, 800×500 WebP, ~25 KB, browser-framed by CSS) or the band silently skips it; `npm run check` (check 16) fails when a `demoUrl` has no `preview`, when a `preview` points at a missing file, and when a `preview` has no `demoUrl`. Capture with the demo's real UI (1280–1440 wide, then crop to 16:10 and `cwebp -q 80`), not a mockup. The images are `loading="lazy"` with declared dimensions so they cannot shift layout or touch LCP.
+
 **Notes** — every `notes[]` entry needs:
 - `date` + `updated` (ISO `YYYY-MM-DD`) — flow into RSS `pubDate`, JSON-LD `datePublished/dateModified`, and sitemap `lastmod`
 - `titleEn`, `detailTitleEn` (EN titles; `title` / `detailTitle` stay Chinese)

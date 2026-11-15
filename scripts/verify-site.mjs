@@ -477,6 +477,25 @@ if (syntaxHits.length > 0) {
   pass("shipped scripts stay within ES2018 (older Android WebView / WeChat X5 can parse them)");
 }
 
+/* 16. Demo previews: a screenshot is only rendered when `preview` exists, so a
+       typo or a forgotten file silently drops the image from the home band and
+       the Showcase page. Also catches a preview on a project with no demoUrl. */
+const previewProblems = [];
+const previewProjects = (siteData.projects || []).filter((project) => project.preview);
+for (const project of previewProjects) {
+  const rel = String(project.preview).replace(/^\.\//, "");
+  if (!existsSync(join(PUBLIC, rel))) previewProblems.push(`${project.slug}: missing ${project.preview}`);
+  if (!project.demoUrl) previewProblems.push(`${project.slug}: has preview but no demoUrl`);
+}
+for (const project of siteData.projects || []) {
+  if (project.demoUrl && !project.preview) previewProblems.push(`${project.slug}: has demoUrl but no preview`);
+}
+if (previewProblems.length > 0) {
+  fail(`demo previews: ${previewProblems.join("; ")}`);
+} else {
+  pass(`demo previews: ${previewProjects.length} screenshot(s) shipped and paired with a demo URL`);
+}
+
 /* Summary */
 console.log(results.join("\n"));
 if (failures > 0) {

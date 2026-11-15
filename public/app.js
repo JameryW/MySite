@@ -22,6 +22,7 @@ const backToTopButton = document.querySelector("[data-back-to-top]");
 const homeProjectsNode = document.querySelector("[data-home-projects]");
 const homeSignalsNode = document.querySelector("[data-home-signals]");
 const homeNotesNode = document.querySelector("[data-home-notes]");
+const homeDemosNode = document.querySelector("[data-home-demos]");
 const projectLibraryNode = document.querySelector("[data-project-library]");
 const noteLibraryNode = document.querySelector("[data-note-library]");
 const showcaseNode = document.querySelector("[data-showcase]");
@@ -358,6 +359,7 @@ const I18N = {
     "aria.principles": "怎么读这些构建",
     "aria.work": "精选项目",
     "aria.latestNotes": "最新笔记",
+    "aria.demos": "在线演示",
     "cta.projects": "浏览项目",
     "cta.showcase": "在线作品",
     "cta.work": "核心项目",
@@ -382,6 +384,12 @@ const I18N = {
     "home.signalsAria": "当前信号",
     "home.signalLive": "Live",
     "home.workSummary": "当前主线上的增长 Agent、分布式编程与量化系统。",
+    "home.demosSummary": "三个正在跑的系统——点进去是真实界面，不是渲染图。",
+    "section.demosKicker": "Live Demos",
+    "section.demos": "在线演示",
+    "cta.allDemos": "全部演示",
+    "demo.open": "打开演示",
+    "demo.shotAlt": "在线演示界面截图",
     "home.notesSummary": "判断、失败和构建方法，沉淀成还能继续改的笔记。",
     "home.principlesKicker": "Lens",
     "home.principlesTitle": "怎么读这些构建",
@@ -519,6 +527,7 @@ const I18N = {
     "aria.principles": "How to read these builds",
     "aria.work": "Selected work",
     "aria.latestNotes": "Latest notes",
+    "aria.demos": "Live demos",
     "cta.projects": "Browse projects",
     "cta.showcase": "Live work",
     "cta.work": "Core builds",
@@ -543,6 +552,12 @@ const I18N = {
     "home.signalsAria": "Live signals",
     "home.signalLive": "Live",
     "home.workSummary": "Growth Agents, distributed coding systems, and quant builds on the current main line.",
+    "home.demosSummary": "Three systems running in production — real interfaces, not mockups.",
+    "section.demosKicker": "Live Demos",
+    "section.demos": "Live demos",
+    "cta.allDemos": "All demos",
+    "demo.open": "Open demo",
+    "demo.shotAlt": "live demo screenshot",
     "home.notesSummary": "Judgment, failure, and build method — kept as notes you can still revise.",
     "home.principlesKicker": "Lens",
     "home.principlesTitle": "How to read these builds",
@@ -1019,11 +1034,35 @@ const renderHomeSignals = () => {
     .join("");
 };
 
+/* Home demos: a framed screenshot per project that has a live deployment.
+   Images are 800x500 WebP (~25 KB each), lazy and dimension-declared so they
+   cannot shift the layout. */
+const renderHomeDemos = () => {
+  if (!homeDemosNode) return;
+  const demos = siteData.projects.filter((project) => project.demoUrl && project.preview);
+  homeDemosNode.innerHTML = demos
+    .map(
+      (project) => `<a class="demo-card" href="${project.demoUrl}" target="_blank" rel="noreferrer">
+        <span class="demo-frame">
+          <span class="demo-bar" aria-hidden="true"><i></i><i></i><i></i></span>
+          <img src="${project.preview}" alt="${escapeHtml(project.title)} — ${t("demo.shotAlt")}" width="800" height="500" loading="lazy" decoding="async" />
+        </span>
+        <span class="demo-meta">
+          <span class="demo-title">${escapeHtml(project.title)}</span>
+          <span class="demo-label">${escapeHtml(project.label)}</span>
+        </span>
+        <span class="demo-open"><span>${t("demo.open")}</span> <span aria-hidden="true">→</span></span>
+      </a>`
+    )
+    .join("");
+};
+
 if (homeProjectsNode) {
   const featuredProjects = siteData.projects.filter((project) => project.featured);
   homeProjectsNode.innerHTML = featuredProjects.map((project) => projectCardMarkup(project, "home")).join("");
 }
 renderHomeSignals();
+renderHomeDemos();
 
 if (projectLibraryNode) {
   projectLibraryNode.innerHTML = siteData.projects.map((project) => projectCardMarkup(project, "library")).join("");
@@ -1456,6 +1495,7 @@ const renderProjectSurfaces = (instant = false) => {
     homeProjectsNode.innerHTML = featuredProjects.map((project) => projectCardMarkup(project, "home")).join("");
   }
   renderHomeSignals();
+  renderHomeDemos();
   if (projectLibraryNode) {
     projectLibraryNode.innerHTML = siteData.projects.map((project) => projectCardMarkup(project, "library")).join("");
   }

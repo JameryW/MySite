@@ -43,9 +43,9 @@
     <link rel="preconnect" href="https://stats.jameryw.dev" />
     <link rel="dns-prefetch" href="https://github.com" />
     <link rel="stylesheet" href="./styles.css?v=162" />
-    <link rel="stylesheet" href="./styles-home.css?v=18" />
-    <link rel="preload" href="./data-list.js?v=12" as="script" />
-    <link rel="preload" href="./app.js?v=115" as="script" />
+    <link rel="stylesheet" href="./styles-home.css?v=19" />
+    <link rel="preload" href="./data-list.js?v=13" as="script" />
+    <link rel="preload" href="./app.js?v=116" as="script" />
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -202,6 +202,20 @@
           <div class="work-list" data-home-projects></div>
         </section>
 
+        <section class="section demos" id="demos" aria-label="在线演示" data-i18n-aria="aria.demos">
+          <div class="section-head reveal">
+            <div class="section-head-top">
+              <div class="section-head-titles">
+                <p class="section-kicker" data-i18n="section.demosKicker">Live Demos</p>
+                <h2 data-i18n="section.demos">在线演示</h2>
+              </div>
+              <a class="section-view-all" href="./showcase.html"><span data-i18n="cta.allDemos">全部演示</span> <span aria-hidden="true">→</span></a>
+            </div>
+            <p class="section-summary" data-i18n="home.demosSummary">三个正在跑的系统——点进去是真实界面，不是渲染图。</p>
+          </div>
+          <div class="demo-grid reveal" data-home-demos></div>
+        </section>
+
         <section class="section" id="notes" aria-label="最新笔记" data-i18n-aria="aria.latestNotes">
           <div class="section-head reveal">
             <div class="section-head-top">
@@ -274,9 +288,9 @@
       <span data-i18n="cta.top">顶部</span>
     </button>
 
-    <script src="./data-list.js?v=12" defer fetchpriority="high"></script>
+    <script src="./data-list.js?v=13" defer fetchpriority="high"></script>
     <script src="./umami-config.js" defer></script>
-    <script src="./app.js?v=115" defer fetchpriority="high"></script>
+    <script src="./app.js?v=116" defer fetchpriority="high"></script>
     <script src="./boot-guard.js?v=1" defer></script>
 
     <!-- Command Palette -->

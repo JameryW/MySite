@@ -48,6 +48,7 @@ window.siteData = {
       "summaryEn": "Xiaohongshu growth workbench: a deterministic Kernel owns state and scheduling, LangGraph only runs the task graph, and publishing stays human-gated.",
       "href": "https://github.com/JameryW/XhsGrowthAgent",
       "demoUrl": "https://xhs.jameryw.dev",
+      "preview": "./shots/xhs-growth-agent.webp",
       "status": "Active",
       "stack": [
         "LangGraph",
@@ -71,6 +72,7 @@ window.siteData = {
       "href": "https://github.com/JameryW/QuantAgent",
       "sourcePrivate": true,
       "demoUrl": "https://quant.jameryw.dev",
+      "preview": "./shots/quant-agent.webp",
       "status": "Active research",
       "stack": [
         "Python",
@@ -135,6 +137,7 @@ window.siteData = {
       "summaryEn": "Distributed AI coding platform: DAG orchestration, observable Dashboard, multi-adapter Workers, shared layered memory and hybrid retrieval.",
       "href": "https://github.com/JameryW/UltimateCoders",
       "demoUrl": "https://uc.jameryw.dev",
+      "preview": "./shots/ultimate-coders.webp",
       "status": "Active",
       "stack": [
         "Rust",

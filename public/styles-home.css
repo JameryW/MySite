@@ -956,3 +956,132 @@ body[data-page="home"] .home-principles-compact > div strong {
     transition: none;
   }
 }
+
+/* ── Live demos ─────────────────────────────────────────────────────────
+   A framed screenshot per live deployment, three across. The frame carries a
+   tiny window bar so a screenshot reads as a running app rather than a
+   decorative image. Images are 800x500 WebP (~25 KB) with declared dimensions,
+   lazy-loaded: they sit below the work list and must not touch LCP or CLS. */
+body[data-page="home"] .demos .demo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 26px;
+}
+body[data-page="home"] .demo-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 10px 10px 14px;
+  border: 1px solid rgba(162, 176, 255, 0.14);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(18, 26, 52, 0.62), rgba(7, 11, 27, 0.84));
+  box-shadow: var(--shadow);
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+body[data-page="home"] .demo-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(108, 242, 255, 0.32);
+  box-shadow: 0 18px 44px rgba(3, 6, 18, 0.5);
+}
+body[data-page="home"] .demo-frame {
+  display: block;
+  overflow: hidden;
+  border: 1px solid rgba(162, 176, 255, 0.12);
+  border-radius: 12px;
+  background: #070b1b;
+}
+body[data-page="home"] .demo-bar {
+  display: flex;
+  gap: 5px;
+  padding: 7px 10px;
+  border-bottom: 1px solid rgba(162, 176, 255, 0.1);
+}
+body[data-page="home"] .demo-bar i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(162, 176, 255, 0.26);
+}
+body[data-page="home"] .demo-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top center;
+}
+body[data-page="home"] .demo-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 4px;
+}
+body[data-page="home"] .demo-title {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+body[data-page="home"] .demo-label {
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+body[data-page="home"] .demo-open {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+  font-size: 0.82rem;
+  color: var(--cyan);
+}
+
+[data-theme="light"] body[data-page="home"] .demo-card {
+  border-color: rgba(80, 90, 140, 0.16);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(230, 234, 245, 0.9));
+}
+[data-theme="light"] body[data-page="home"] .demo-card:hover {
+  border-color: rgba(8, 145, 178, 0.34);
+  box-shadow: 0 12px 34px rgba(20, 30, 60, 0.1);
+}
+[data-theme="light"] body[data-page="home"] .demo-frame {
+  border-color: rgba(80, 90, 140, 0.14);
+  background: #ffffff;
+}
+[data-theme="light"] body[data-page="home"] .demo-bar i {
+  background: rgba(80, 90, 140, 0.24);
+}
+[data-theme="light"] body[data-page="home"] .demo-open {
+  color: #0e7490;
+}
+
+@media (max-width: 980px) {
+  body[data-page="home"] .demos .demo-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  /* With two columns the third card would sit alone; let it use the row. */
+  body[data-page="home"] .demo-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 760px) {
+  body[data-page="home"] .demos .demo-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+    margin-top: 20px;
+  }
+}
+
+/* Touch devices keep the hover state after a tap (spec: Touch Hover Theme
+   Parity) — the lift is a pointer affordance only. */
+@media (hover: none) {
+  body[data-page="home"] .demo-card:hover {
+    transform: none;
+    box-shadow: var(--shadow);
+  }
+}
