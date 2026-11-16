@@ -47,16 +47,23 @@
 /* ── Metric-override fallback faces ──
    One-time-measured approximations (fontTools hhea metrics, 2026-09-08, computed
    with the web.dev/next-font formulas: override = primary-metric / upm / size-adjust).
-   Syne 925/-275 per 1000upm,
-latin avg-width .5605em vs Arial (2048upm) .5791em.
    Space Grotesk 984/-292 per 1000upm,
-latin avg-width .5897em vs Arial. */
+latin avg-width .5897em vs Arial.
+   Syne's 96.8% was derived from an average latin advance width; measured again
+   on 2026-11-16 against real display strings (weight 700, letter-spacing
+   applied) its advances are ~1.25x Arial's, not smaller: at 96.8% the English
+   hero title wrapped to one line while Syne wrapped to two, so the font swap
+   moved the page by 60 px (CLS 0.178 on English home visits). At 121% the
+   fallback wraps identically to Syne at 1440 and 390, so the swap is
+   reflow-free; Chinese copy never used this face (CJK resolves to PingFang /
+   YaHei), which is why the drift never showed before the English static copy
+   shipped. */
 @font-face {
   font-family: "Syne Fallback";
   font-style: normal;
   font-weight: 400 800;
   src: local("Arial"), local("Helvetica Neue"), local("Segoe UI"), local("Roboto");
-  size-adjust: 96.8%;
+  size-adjust: 121%;
   ascent-override: 95.57%;
   descent-override: 28.41%;
   line-gap-override: 0%;
@@ -190,7 +197,6 @@ html[data-lang="en"] [data-lang-zh] {
 [data-theme="light"] .note-meta,
 [data-theme="light"] .project-entry-status,
 [data-theme="light"] .note-overview-label,
-[data-theme="light"] .palette-item-label,
 [data-theme="light"] .showcase-demo-badge,
 [data-theme="light"] .topbar-status {
   color: var(--lime-text);
@@ -2475,7 +2481,12 @@ body[data-page="showcase"] .page-title span:not(.page-title-main) {
   color: var(--muted);
 }
 [data-theme="light"] .archive-kicker {
-  color: var(--cyan-text);
+  color: #0a647e;
+}
+/* The active palette row tints its background, which costs the lime text
+   ~0.4 of contrast: darker ink keeps it above 4.5 on both row states. */
+[data-theme="light"] .palette-item-label {
+  color: #356000;
 }
 [data-theme="light"] .archive-head a,
 [data-theme="light"] .archive-item a,

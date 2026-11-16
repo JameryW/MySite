@@ -20,6 +20,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 
+- The English hero title changed line count when the Syne webfont landed: the metric-override fallback face was tuned from an average advance width and rendered ~25% narrower than Syne for real display strings, so the one-line fallback title became two lines and moved the page 60px (CLS 0.178 on English home visits, measured when the font arrives after first paint — the normal case on the cross-border path). `Syne Fallback` now uses the measured `size-adjust: 121%`; fallback and loaded geometry are identical at 1440 and 390, and English home CLS is 0.030 with the JS-mounted cards as the only residue. Chinese copy never used that face, which is why the drift was invisible before the English static copy shipped
+- Light-theme command-palette labels on the active row were still 4.28:1 (the row tints its own background); they use #356000 now (~5.0:1)
+- `about.html` rendered its profile title (`data-profile-title`) in hard-coded Chinese even for English visitors before `app.js` landed; it is a static zh/en pair now
+- `boot-guard.js` printed the Chinese failure notice first even in the English view; it leads with the visitor's language now (reads `data-lang`)
+
+### Fixed
+
 - English visits reflowed the hero when `app.js` swapped the static Chinese copy into English. Under the cold CDP profile (300 ms RTT / 200 KB/s / 4× CPU) CLS was 0.209 on home and 0.128 on about; with the bilingual markup it is 0.030 and 0.013 (the remainder is the JS-mounted cards), and with `app.js` blocked the English page is readable immediately instead of staying Chinese
 - Cold-load layout shift on the home page, 0.247 → 0.057 (`#notes` being pushed by the JS-mounted work cards is the remainder, below the fold and under the "good" threshold). Two causes: `max-width: min(20ch, 100%)` on the h1 resolved against the fallback font and capped the title at 603px until Syne arrived (a 60px reflow across the page), and the vertically centred signal console moved its own top by 83px when `app.js` injected its rows — it is now top-aligned
 - WebKit-prefixed aliases for the decorative masks and the mobile-menu blur: Safari before 15.4 rendered the `body::before` grid edge-to-edge instead of fading out, and before 18 lost the mobile menu's backdrop blur

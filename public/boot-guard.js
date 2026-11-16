@@ -33,12 +33,16 @@
       box.id = 'boot-guard';
       box.className = 'boot-guard';
       box.setAttribute('role', 'status');
-      box.innerHTML =
+      // Lead with the visitor's language: the boot script already set data-lang.
+      var zh = document.documentElement.getAttribute('data-lang') !== 'en';
+      var zhHtml =
         '<p><strong>内容未能加载。</strong>这些条目由脚本渲染，而脚本在当前浏览器上没有运行成功。' +
-        '<a href="./archive.html">查看静态站点索引</a>，或在 <a href="./llms-full.txt">llms-full.txt</a> 读完整文本。</p>' +
+        '<a href="./archive.html">查看静态站点索引</a>，或在 <a href="./llms-full.txt">llms-full.txt</a> 读完整文本。</p>';
+      var enHtml =
         '<p><strong>Content failed to load.</strong> These entries are rendered by JavaScript, ' +
         'which did not run in this browser. Read the <a href="./archive.html">static index</a> ' +
         'or the full text in <a href="./llms-full.txt">llms-full.txt</a>.</p>';
+      box.innerHTML = zh ? zhHtml + enHtml : enHtml + zhHtml;
       // First child of <main>: it lands under the nav and inherits the page's
       // horizontal padding, so it lines up with the content it explains.
       var host = document.querySelector('main') || document.querySelector('.site-frame') || document.body;
