@@ -706,6 +706,10 @@ const applyChromeI18n = () => {
   document.documentElement.lang = siteLang === "en" ? "en" : "zh-CN";
   document.documentElement.setAttribute("data-lang", siteLang);
   document.querySelectorAll("[data-i18n]").forEach((el) => {
+    /* Static copy is already bilingual in the HTML and CSS picks the pair
+       from [data-lang] (see the note in styles.css); touching it here would
+       throw the pairs away and bring back the post-JS reflow. */
+    if (el.querySelector("[data-lang-zh]")) return;
     const key = el.getAttribute("data-i18n");
     const value = t(key);
     if (value) el.textContent = value;

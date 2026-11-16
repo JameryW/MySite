@@ -354,7 +354,49 @@ if (dictStart === -1) {
   const allKeys = new Set([...zhKeys, ...enKeys]);
   const unresolved = [...referenced].filter((key) => !allKeys.has(key));
   if (unresolved.length) fail(`i18n: referenced keys missing from the dictionary: ${unresolved.slice(0, 5).join(", ")}`);
-  pass(`i18n: ${zhKeys.length} keys with zh/en parity, ${referenced.size} references resolve`);
+
+  /* Static copy ships both languages in the HTML (<span data-lang-zh> /
+     <span data-lang-en>) and CSS picks one from [data-lang], which the boot
+     script sets before first paint. That is what keeps English visits free of
+     a Chinese flash and of the post-JS reflow, so the markup has to stay in
+     lockstep with the dictionary — app.js no longer rewrites these nodes. */
+  const valuesOf = (segment) => {
+    const map = new Map();
+    for (const match of segment.matchAll(/^\s+"([^"]+)": ("(?:[^"\\]|\\.)*")/gm)) {
+      map.set(match[1], JSON.parse(match[2]));
+    }
+    return map;
+  };
+  const zhValues = valuesOf(dict.slice(0, enIndex));
+  const enValues = valuesOf(dict.slice(enIndex, dict.lastIndexOf("\n}")));
+  const decodeEntities = (text) =>
+    text.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&amp;/g, "&");
+  const pairProblems = [];
+  let pairs = 0;
+  let pairSlots = 0;
+  const pairRe =
+    /<([a-zA-Z][a-zA-Z0-9]*)([^>]*?)\sdata-i18n="([^"]+)"[^>]*>\s*<span data-lang-zh>([\s\S]*?)<\/span><span data-lang-en>([\s\S]*?)<\/span>\s*<\/\1>/g;
+  for (const { name, html } of pages) {
+    if (!html.includes("app.js?")) continue;
+    pairSlots += [...html.matchAll(/\sdata-i18n="/g)].length;
+    for (const match of html.matchAll(pairRe)) {
+      const key = match[3];
+      pairs += 1;
+      if (decodeEntities(match[4]).trim() !== String(zhValues.get(key)).trim()) {
+        pairProblems.push(`${name}: ${key} zh text drifted from app.js`);
+      }
+      if (decodeEntities(match[5]).trim() !== String(enValues.get(key)).trim()) {
+        pairProblems.push(`${name}: ${key} en text drifted from app.js`);
+      }
+    }
+  }
+  if (pairs !== pairSlots) {
+    pairProblems.unshift(`${pairSlots - pairs} data-i18n node(s) are not a clean zh/en pair`);
+  }
+  if (pairProblems.length) fail(`i18n static pairs: ${pairProblems.slice(0, 5).join(" | ")}`);
+  pass(
+    `i18n: ${zhKeys.length} keys with zh/en parity, ${referenced.size} references resolve, ${pairs} static zh/en pairs match`
+  );
 }
 
 /* 10. Dead code: a top-level declaration that is never referenced again. */

@@ -71,6 +71,22 @@ latin avg-width .5897em vs Arial. */
   descent-override: 28.67%;
   line-gap-override: 0%;
 }
+/* ── Static bilingual text ──
+   Static copy ships in both languages (<span data-lang-zh> / <span
+   data-lang-en>) and the boot script sets [data-lang] on <html> before first
+   paint, so CSS picks the language instead of app.js swapping textContent
+   after it downloads. That swap used to reframe the English hero (CLS 0.209)
+   and left a Chinese flash on slow links; a language toggle now costs a
+   selector change. `display: contents` keeps the wrapper out of the layout,
+   so flow, flex and grid boxes behave exactly as before. */
+[data-lang-zh],
+[data-lang-en] {
+  display: contents;
+}
+html:not([data-lang="en"]) [data-lang-en],
+html[data-lang="en"] [data-lang-zh] {
+  display: none;
+}
 :root {
   color-scheme: dark;
   --bg: #050816;

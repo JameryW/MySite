@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- Static copy is bilingual in the HTML itself: every `data-i18n` node now carries `<span data-lang-zh>` / `<span data-lang-en>` and CSS shows one from `[data-lang]`, which the head boot script sets before first paint. English visitors get an English nav and hero immediately instead of Chinese that swaps when `app.js` lands, and the swap no longer reflows the page. Cost is 0.2–0.5 KB gzip per page; `npm run check` now fails if the markup drifts from the `I18N` dictionary
+- Static text was a hybrid before this: the nav shipped English while the body shipped Chinese, so every visitor saw the wrong language somewhere and then a layout shift when `app.js` replaced all of it
 - Home hero is now a two-column stage: the identity copy on the left and a live `signal.log` console on the right carrying the `profile.now` rows, so the 1200px frame is no longer two-thirds empty above the fold. It stacks under the copy below 1080px; between 761–1080px the rows go back to a single line for the full-bleed panel
 - Home work list gives the first build a full-width featured row (CTA pill pinned right) with the other two sharing a row beneath it; list height 718px → 398px, page 2910px → 2517px
 - Lens is one ruled strip instead of three floating cells; section links are pills; note cards are equal height with the action pinned to the bottom edge
@@ -17,6 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 
+- English visits reflowed the hero when `app.js` swapped the static Chinese copy into English. Under the cold CDP profile (300 ms RTT / 200 KB/s / 4× CPU) CLS was 0.209 on home and 0.128 on about; with the bilingual markup it is 0.030 and 0.013 (the remainder is the JS-mounted cards), and with `app.js` blocked the English page is readable immediately instead of staying Chinese
 - Cold-load layout shift on the home page, 0.247 → 0.057 (`#notes` being pushed by the JS-mounted work cards is the remainder, below the fold and under the "good" threshold). Two causes: `max-width: min(20ch, 100%)` on the h1 resolved against the fallback font and capped the title at 603px until Syne arrived (a 60px reflow across the page), and the vertically centred signal console moved its own top by 83px when `app.js` injected its rows — it is now top-aligned
 - WebKit-prefixed aliases for the decorative masks and the mobile-menu blur: Safari before 15.4 rendered the `body::before` grid edge-to-edge instead of fading out, and before 18 lost the mobile menu's backdrop blur
 - Three hover states painted on touch and stayed painted after a tap: the "all" pill, the featured CTA pill, and the light-theme signal-row title
