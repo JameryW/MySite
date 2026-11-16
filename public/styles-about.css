@@ -664,3 +664,17 @@ body[data-page="about"] .about-now-row .card-inline-link:hover {
     color: var(--cyan);
   }
 }
+/* Light theme: the "now" index and inline links are text accents, so they
+   take the darker ink tokens (--cyan / --lime are surface colours and landed
+   at ~3.1:1 on the light page). Page-scoped selectors beat the shared
+   [data-theme] list on specificity, hence the repeated prefix here. */
+[data-theme="light"] body[data-page="about"] .about-now-index {
+  color: var(--cyan-text);
+}
+[data-theme="light"] body[data-page="about"] .about-now-row .card-inline-link {
+  color: var(--cyan-text);
+}
+[data-theme="light"] body[data-page="about"] .about-now-row .card-inline-link:hover,
+[data-theme="light"] body[data-page="about"] .about-now-row h3 a:hover {
+  color: var(--lime-text);
+}

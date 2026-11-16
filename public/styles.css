@@ -186,6 +186,11 @@ html[data-lang="en"] [data-lang-zh] {
 [data-theme="light"] .eyebrow,
 [data-theme="light"] .section-kicker,
 [data-theme="light"] .stack-label,
+[data-theme="light"] .card-topline,
+[data-theme="light"] .note-meta,
+[data-theme="light"] .project-entry-status,
+[data-theme="light"] .note-overview-label,
+[data-theme="light"] .palette-item-label,
 [data-theme="light"] .showcase-demo-badge,
 [data-theme="light"] .topbar-status {
   color: var(--lime-text);
@@ -194,8 +199,16 @@ html[data-lang="en"] [data-lang-zh] {
 [data-theme="light"] .repo-meta,
 [data-theme="light"] .work-link,
 [data-theme="light"] .card-inline-link,
+[data-theme="light"] .note-entry-card .note-code,
+[data-theme="light"] .note-lens-label,
 [data-theme="light"] .filter-pill.active {
   color: var(--cyan-text);
+}
+/* Dual-caption subtitle: --muted at full opacity clears AA; the dark theme
+   keeps its 0.5 fade because dark ink has the headroom for it. */
+[data-theme="light"] .title-en {
+  opacity: 1;
+  color: var(--muted);
 }
 [data-theme="light"] .section-view-all:hover {
   color: var(--lime-text);
@@ -2455,7 +2468,6 @@ body[data-page="showcase"] .page-title span:not(.page-title-main) {
 }
 .archive-en {
   margin-top: 6px !important;
-  opacity: 0.7;
   font-size: 0.86rem !important;
 }
 [data-theme="light"] .archive-en {
@@ -2463,7 +2475,25 @@ body[data-page="showcase"] .page-title span:not(.page-title-main) {
   color: var(--muted);
 }
 [data-theme="light"] .archive-kicker {
-  color: var(--cyan);
+  color: var(--cyan-text);
+}
+[data-theme="light"] .archive-head a,
+[data-theme="light"] .archive-item a,
+[data-theme="light"] .archive-footer a {
+  color: var(--cyan-text);
+}
+[data-theme="light"] .archive-head a:hover,
+[data-theme="light"] .archive-item a:hover,
+[data-theme="light"] .archive-footer a:hover {
+  color: var(--lime-text);
+}
+/* Prose links cannot rely on colour alone (WCAG 1.4.1); action buttons keep
+   their pill shape and stay underline-free. */
+.archive-head p a,
+.archive-item p a,
+.archive-en a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 .archive-en-inline {
   color: var(--muted);
@@ -2713,12 +2743,14 @@ html:not([data-lang="en"]) .notfound-hero .page-title .lang-zh.notfound-title-ma
   color: var(--text);
   box-shadow: var(--shadow);
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
   transform: translateY(16px);
-  transition: opacity 180ms ease, transform 180ms ease, border-color 180ms ease;
+  transition: opacity 180ms ease, visibility 180ms ease, transform 180ms ease, border-color 180ms ease;
 }
 .back-to-top.visible {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
   transform: translateY(0);
 }

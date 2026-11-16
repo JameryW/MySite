@@ -1875,6 +1875,21 @@ if (palette && paletteInput) {
   };
 
   function closePalette() {
+    /* Move focus out before marking the dialog hidden: Chrome blocks
+       aria-hidden on an ancestor that still contains the focused node and
+       would otherwise leave focus inside a visibility:hidden dialog. The
+       fallback must be on-screen — below 980px the palette hint sits in the
+       collapsed .topbar-meta, so the menu toggle takes the focus instead. */
+    const isVisible = (el) =>
+      !!el && typeof el.focus === "function" && el.getClientRects().length > 0;
+    const fallback = [
+      paletteTriggerEl && paletteTriggerEl !== document.body ? paletteTriggerEl : null,
+      document.querySelector("[data-palette-trigger]"),
+      menuToggle,
+      document.querySelector(".theme-toggle")
+    ].find(isVisible);
+    if (fallback) fallback.focus();
+    else if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
     palette.classList.remove("open");
     paletteOverlay.classList.remove("open");
     palette.setAttribute("aria-hidden", "true");
@@ -1882,13 +1897,6 @@ if (palette && paletteInput) {
     paletteInput.setAttribute("aria-expanded", "false");
     paletteInput.removeAttribute("aria-activedescendant");
     paletteInput.value = "";
-    // Always hand keyboard focus back to something visible: the element that
-    // opened the dialog, else the palette hint button in the topbar.
-    const fallback =
-      (paletteTriggerEl && paletteTriggerEl !== document.body ? paletteTriggerEl : null) ||
-      document.querySelector("[data-palette-trigger]");
-    if (fallback && typeof fallback.focus === "function") fallback.focus();
-    else if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
     paletteTriggerEl = null;
   }
 
@@ -1934,10 +1942,18 @@ if (palette && paletteInput) {
 
     if (currentResults.length === 0) {
       paletteResults.textContent = "";
+      /* A listbox may only contain options: render the message as a disabled
+         option and make it the active descendant so it is announced instead
+         of leaving aria-expanded=true with a stale aria-activedescendant. */
       const empty = document.createElement("div");
       empty.className = "palette-empty";
+      empty.id = "palette-empty-option";
+      empty.setAttribute("role", "option");
+      empty.setAttribute("aria-disabled", "true");
+      empty.setAttribute("aria-selected", "false");
       empty.textContent = t("palette.empty");
       paletteResults.appendChild(empty);
+      paletteInput.setAttribute("aria-activedescendant", "palette-empty-option");
       return;
     }
 
