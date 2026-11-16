@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- Session replay (`recorder.js`) is now also skipped on low-RAM Chromium devices (`navigator.deviceMemory < 4`, i.e. 2 GB Android phones), which pay its measured ~0.2–0.4 s main-thread parse/exec at 4× CPU for a replay nobody scrubs. No `effectiveType === "3g"` clause was added on purpose: Chrome classifies this site's own 300 ms-RTT cross-border link as 3g, so that would have dropped replay for nearly every real visitor
 - Static copy is bilingual in the HTML itself: every `data-i18n` node now carries `<span data-lang-zh>` / `<span data-lang-en>` and CSS shows one from `[data-lang]`, which the head boot script sets before first paint. English visitors get an English nav and hero immediately instead of Chinese that swaps when `app.js` lands, and the swap no longer reflows the page. Cost is 0.2–0.5 KB gzip per page; `npm run check` now fails if the markup drifts from the `I18N` dictionary
 - Static text was a hybrid before this: the nav shipped English while the body shipped Chinese, so every visitor saw the wrong language somewhere and then a layout shift when `app.js` replaced all of it
 - Home hero is now a two-column stage: the identity copy on the left and a live `signal.log` console on the right carrying the `profile.now` rows, so the 1200px frame is no longer two-thirds empty above the fold. It stacks under the copy below 1080px; between 761–1080px the rows go back to a single line for the full-bleed panel

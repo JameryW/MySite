@@ -2352,10 +2352,16 @@ const idleLoadRecorder = () => {
     setTimeout(loadRecorder, 2000);
   }
 };
-/* Session replay is the heaviest third-party payload (~186 KB). Skip it for
-   visitors who asked for less data or are on a slow/metered connection —
-   analytics must never cost those users their bandwidth budget. */
+/* Session replay is the heaviest third-party payload (58.7 KB gzip / 191 KB
+   raw). Skip it for visitors who asked for less data or are on a slow/metered
+   connection — analytics must never cost those users their bandwidth budget.
+   Do NOT also skip effectiveType "3g": a 300 ms-RTT cross-border link is
+   classified as 3g by Chrome, so that clause would drop replay for nearly
+   every real visitor. Low-RAM devices are the one extra case worth skipping:
+   they pay the ~0.2-0.4 s main-thread parse/exec cost at 4x CPU for a replay
+   nobody scrubs. deviceMemory is Chromium-only; other engines load as today. */
 const shouldLoadRecorder = () => {
+  if (navigator.deviceMemory && navigator.deviceMemory < 4) return false;
   const conn = navigator.connection;
   if (!conn) return true;
   if (conn.saveData) return false;
