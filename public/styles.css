@@ -444,6 +444,11 @@ html {
   scroll-behavior: smooth;
   scrollbar-color: rgba(108, 242, 255, 0.35) var(--bg);
   background: var(--bg);
+  /* Type scale: the site reads small on a 16px default, especially with CJK
+     body copy. 112.5% = 18px, and every size in the stylesheets is rem-based
+     (zero px font sizes), so the whole type system scales proportionally while
+     the percentage still honours a visitor's own browser font preference. */
+  font-size: 112.5%;
 }
 html {
   /* Mobile Safari/Chrome inflate text on wide blocks (landscape especially),

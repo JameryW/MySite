@@ -74,7 +74,10 @@ body[data-page="home"] .hero-copy h1 {
   max-width: 100%;
   line-height: 1.08;
   white-space: normal;
-  font-size: clamp(2.3rem, 4.1vw, 3.5rem);
+  /* Cap in rem is tuned for the 18px root type scale: 3.1rem = 55.8px,
+     the size the one-line hero title was designed at. At 3.5rem the title
+     wrapped to two lines and the measured 60px shift came back. */
+  font-size: clamp(2.3rem, 4.1vw, 3.1rem);
   letter-spacing: -0.02em;
   text-shadow: none;
   display: flex;
