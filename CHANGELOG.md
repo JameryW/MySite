@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Touch layouts have a search entry now: a 40 px palette button in the topbar (≤980 px, where the desktop hint sits inside the collapsed `.topbar-meta`). It opens the same dialog, and Escape returns focus to it; its aria-label drops the `⌘K` suffix that only makes sense with a keyboard. `app.js` binds every `[data-palette-trigger]` and the close handler prefers whichever trigger is actually on-screen
+
+### Changed
+
+- Detail pages now ship an entry-specific head in the prerendered HTML: `/p/<slug>.html` (served for `project.html?slug=` / `note.html?slug=`) carries the entry's own `<title>`, description, canonical (`?slug=`), OG/Twitter tags, zh/en hreflang alternates and CreativeWork / BlogPosting JSON-LD. Before this all 18 URLs served the shell's generic "Project — Jamery Wang" title and a canonical without the slug, so no-JS crawlers (and the sitemap/canonical check that exempted `?slug=`) could not tell them apart
+- The prerendered detail hero ships both languages and CSS picks one from `[data-lang]`, so English visitors get an English hero (breadcrumb, lead, buttons, meta) before `data.js`/`app.js` land instead of an empty `<main>`; the old `[data-lang="en"] .prerender-hero { display: none }` is gone. Hydration geometry is unchanged in both languages (hero/lead heights match; measured CLS 0.000)
+
 ### Changed
 
 - Session replay (`recorder.js`) is now also skipped on low-RAM Chromium devices (`navigator.deviceMemory < 4`, i.e. 2 GB Android phones), which pay its measured ~0.2–0.4 s main-thread parse/exec at 4× CPU for a replay nobody scrubs. No `effectiveType === "3g"` clause was added on purpose: Chrome classifies this site's own 300 ms-RTT cross-border link as 3g, so that would have dropped replay for nearly every real visitor

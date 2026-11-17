@@ -728,7 +728,10 @@ const applyChromeI18n = () => {
      name (WCAG 2.5.3 label-in-name); re-applied on locale changes. */
   document.querySelectorAll("[data-palette-trigger]").forEach((btn) => {
     const label = t("aria.search");
-    if (label) btn.setAttribute("aria-label", `${label} ${paletteShortcut}`);
+    if (!label) return;
+    /* The touch button has no keyboard shortcut to advertise. */
+    const suffix = btn.classList.contains("mobile-search") ? "" : ` ${paletteShortcut}`;
+    btn.setAttribute("aria-label", `${label}${suffix}`);
   });
   const profileTitle = siteData.profile && (siteLang === "en" ? siteData.profile.titleEn : siteData.profile.title);
   document.querySelectorAll("[data-profile-title]").forEach((el) => {
@@ -1884,7 +1887,7 @@ if (palette && paletteInput) {
       !!el && typeof el.focus === "function" && el.getClientRects().length > 0;
     const fallback = [
       paletteTriggerEl && paletteTriggerEl !== document.body ? paletteTriggerEl : null,
-      document.querySelector("[data-palette-trigger]"),
+      ...document.querySelectorAll("[data-palette-trigger]"),
       menuToggle,
       document.querySelector(".theme-toggle")
     ].find(isVisible);
@@ -2017,14 +2020,13 @@ if (palette && paletteInput) {
     }
   });
 
-  /* Open from topbar hint button */
-  const paletteTrigger = document.querySelector("[data-palette-trigger]");
-  if (paletteTrigger) {
-    paletteTrigger.addEventListener("click", (e) => {
+  /* Open from any topbar trigger (desktop hint + mobile search button) */
+  document.querySelectorAll("[data-palette-trigger]").forEach((trigger) => {
+    trigger.addEventListener("click", (e) => {
       e.preventDefault();
       openPalette();
     });
-  }
+  });
 
   /* Focus trap: Tab / Shift+Tab cycles within palette */
   palette.addEventListener("keydown", (e) => {

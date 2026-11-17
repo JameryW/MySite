@@ -382,12 +382,20 @@ const sitemap = [
   ""
 ].join("\n");
 
-/* ── Prerendered detail hero (LCP) ──
+/* ── Prerendered detail pages (LCP + crawlable head) ──
    Both detail pages are JS-rendered shells, so the largest contentful paint
    waits for data.js + app.js. For every slug we emit a copy of the shell with
    the hero already in the HTML; nginx serves it via try_files for the same
    /project.html?slug= URL, so the URL space does not change. app.js still
-   renders the full page on top of it. */
+   renders the full page on top of it.
+
+   The copy also carries the entry's own <title>, description, canonical,
+   OG/Twitter tags, hreflang alternates and JSON-LD: before this the shell's
+   generic "Project — Jamery Wang" head was served for all 18 URLs, and the
+   canonical pointed at project.html without the slug. The hero text ships in
+   both languages and CSS picks one from [data-lang], exactly like the static
+   pages, so English visitors get an English hero before app.js lands instead
+   of an empty <main>. */
 const softBreak = (title) => esc(title).replace(/([a-z0-9])([A-Z])/g, "$1<wbr>$2");
 const heroTitleClass = (title) => {
   const len = String(title || "").length;
@@ -399,33 +407,90 @@ const heroTitleClass = (title) => {
 const githubIcon =
   '<svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="vertical-align:-3px;margin-right:6px;" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>';
 
+/* The chrome strings come from app.js's I18N block (single source of truth),
+   so the prerendered hero cannot drift from what app.js renders on hydration. */
+const appSource = readFileSync(join(PUBLIC, "app.js"), "utf8");
+const i18nBlock = (name) => {
+  const start = appSource.indexOf(`${name}: {`);
+  const from = appSource.indexOf("{", start);
+  let depth = 0;
+  let end = -1;
+  let inString = false;
+  let escaped = false;
+  for (let i = from; i < appSource.length; i += 1) {
+    const ch = appSource[i];
+    if (inString) {
+      if (escaped) escaped = false;
+      else if (ch === "\\") escaped = true;
+      else if (ch === '"') inString = false;
+      continue;
+    }
+    if (ch === '"') inString = true;
+    else if (ch === "{") depth += 1;
+    else if (ch === "}") {
+      depth -= 1;
+      if (depth === 0) {
+        end = i;
+        break;
+      }
+    }
+  }
+  const dict = {};
+  const body = appSource.slice(from, end + 1);
+  for (const match of body.matchAll(/"((?:[^"\\]|\\.)+)"\s*:\s*("(?:[^"\\]|\\.)*")/g)) {
+    dict[JSON.parse(`"${match[1]}"`)] = JSON.parse(match[2]);
+  }
+  return dict;
+};
+const I18N = { zh: i18nBlock("zh"), en: i18nBlock("en") };
+const pair = (zh, en) => `<span data-lang-zh>${esc(zh)}</span><span data-lang-en>${esc(en)}</span>`;
+const pairKey = (key) => pair(I18N.zh[key], I18N.en[key]);
+
+const personRef = {
+  "@type": "Person",
+  "@id": `${SITE}/#person`,
+  name: "Jamery Wang",
+  url: `${SITE}/`
+};
+const breadcrumbJsonLd = (items) => ({
+  "@type": "BreadcrumbList",
+  itemListElement: items.map(([name, item], index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name,
+    item
+  }))
+});
+
 const projectHero = (project) => {
   const overview = oneLine(project.overview);
   const sourceHref = project.sourcePrivate
     ? "https://github.com/jameryw?tab=repositories"
     : project.href;
-  const sourceLabel = project.sourcePrivate ? "查看公开仓库" : "查看源码";
+  const sourceLabel = pairKey(project.sourcePrivate ? "cta.viewPrivateSource" : "cta.viewSource");
   const sourceButton = `<a class="button ${project.demoUrl ? "secondary" : "primary"}" href="${esc(sourceHref)}" target="_blank" rel="noreferrer">${githubIcon}${sourceLabel}</a>`;
   const actionBits = project.demoUrl
     ? [
-        `    <a class="button primary" href="${esc(project.demoUrl)}" target="_blank" rel="noreferrer">在线体验</a>`,
+        `    <a class="button primary" href="${esc(project.demoUrl)}" target="_blank" rel="noreferrer">${pairKey("cta.tryDemo")}</a>`,
         `    ${sourceButton}`
       ]
     : [`    ${sourceButton}`];
-  actionBits.push('    <a class="button secondary" href="./projects.html">返回项目</a>');
+  actionBits.push(`    <a class="button secondary" href="./projects.html">${pairKey("cta.backProjects")}</a>`);
   return [
     '<section class="page-hero">',
-    '  <nav class="detail-breadcrumb" aria-label="面包屑导航">',
-    '    <a href="./index.html">首页</a><span aria-hidden="true">/</span>',
-    '    <a href="./projects.html">项目</a><span aria-hidden="true">/</span>',
+    `  <nav class="detail-breadcrumb" aria-label="${esc(I18N.zh["aria.breadcrumb"])}">`,
+    `    <a href="./index.html">${pairKey("nav.home")}</a><span aria-hidden="true">/</span>`,
+    `    <a href="./projects.html">${pairKey("nav.projects")}</a><span aria-hidden="true">/</span>`,
     `    <span aria-current="page">${esc(project.title)}</span>`,
     '  </nav>',
     `  <p class="eyebrow">${esc(project.label)} / ${esc(project.status)}</p>`,
     `  <h1 class="${heroTitleClass(project.title)}">${softBreak(project.title)}<span>${esc(project.detailTitle)}</span></h1>`,
-    `  <p class="page-lead">${esc(overview)}</p>`,
-    '  <p class="listing-hero-meta detail-hero-meta" aria-label="内容信号">',
+    `  <p class="page-lead">${pair(overview, oneLine(project.overviewEn) || overview)}</p>`,
+    `  <p class="listing-hero-meta detail-hero-meta" aria-label="${esc(I18N.zh["detail.signal"])}">`,
     `    <span>${esc(project.role)}</span>`,
-    project.updated ? `    <span>更新 ${esc(project.updated)}</span>` : null,
+    project.updated
+      ? `    <span>${pair(`${I18N.zh["meta.updated"]} ${project.updated}`, `${I18N.en["meta.updated"]} ${project.updated}`)}</span>`
+      : null,
     '  </p>',
     '  <div class="page-actions">',
     ...actionBits,
@@ -448,30 +513,32 @@ const noteHero = (note) => {
   const relatedCount = Array.isArray(note.relatedProjects) ? note.relatedProjects.length : 0;
   const stamp = note.updated || note.date;
   const metaBits = [
-    `<span>${noteReadMinutes(note)} 分钟</span>`,
-    stamp ? `<span>更新 ${esc(stamp)}</span>` : null,
-    relatedCount ? `<span>${relatedCount} 关联</span>` : null
+    `<span>${noteReadMinutes(note)} ${pairKey("meta.min")}</span>`,
+    stamp
+      ? `<span>${pair(`${I18N.zh["meta.updated"]} ${stamp}`, `${I18N.en["meta.updated"]} ${stamp}`)}</span>`
+      : null,
+    relatedCount ? `<span>${relatedCount} ${pairKey("meta.builds")}</span>` : null
   ].filter(Boolean);
   const actionBits = relatedCount
     ? [
-        '    <a class="button secondary" href="./notes.html">返回笔记</a>',
-        '    <a class="button primary" href="#linked-builds">相关项目</a>'
+        `    <a class="button secondary" href="./notes.html">${pairKey("cta.backNotes")}</a>`,
+        `    <a class="button primary" href="#linked-builds">${pairKey("detail.relatedProjects")}</a>`
       ]
     : [
-        '    <a class="button primary" href="./notes.html">返回笔记</a>',
-        '    <a class="button secondary" href="./projects.html">项目方向</a>'
+        `    <a class="button primary" href="./notes.html">${pairKey("cta.backNotes")}</a>`,
+        `    <a class="button secondary" href="./projects.html">${pairKey("cta.projects")}</a>`
       ];
   return [
     '<section class="page-hero note-detail-hero">',
-    '  <nav class="detail-breadcrumb" aria-label="面包屑导航">',
-    '    <a href="./index.html">首页</a><span aria-hidden="true">/</span>',
-    '    <a href="./notes.html">笔记</a><span aria-hidden="true">/</span>',
-    `    <span aria-current="page">${esc(note.title)}</span>`,
+    `  <nav class="detail-breadcrumb" aria-label="${esc(I18N.zh["aria.breadcrumb"])}">`,
+    `    <a href="./index.html">${pairKey("nav.home")}</a><span aria-hidden="true">/</span>`,
+    `    <a href="./notes.html">${pairKey("nav.notes")}</a><span aria-hidden="true">/</span>`,
+    `    <span aria-current="page">${pair(note.title, note.titleEn || note.title)}</span>`,
     '  </nav>',
     `  <p class="eyebrow">${note.code ? `${esc(note.code)} / ` : ""}${esc(note.label)}</p>`,
-    `  <h1 class="page-title">${esc(note.title)}<span>${esc(note.detailTitle)}</span></h1>`,
-    `  <p class="page-lead">${esc(summary)}</p>`,
-    '  <p class="listing-hero-meta detail-hero-meta note-detail-meta" aria-label="内容信号">',
+    `  <h1 class="page-title">${pair(note.title, note.titleEn || note.title)}<span>${pair(note.detailTitle, note.detailTitleEn || note.detailTitle)}</span></h1>`,
+    `  <p class="page-lead">${pair(summary, oneLine(note.summaryEn) || summary)}</p>`,
+    `  <p class="listing-hero-meta detail-hero-meta note-detail-meta" aria-label="${esc(I18N.zh["detail.signal"])}">`,
     `    ${metaBits.join("\n    ")}`,
     '  </p>',
     '  <div class="page-actions">',
@@ -481,24 +548,136 @@ const noteHero = (note) => {
   ].join("\n      ");
 };
 
-const prerenderDetail = (shellFile, containerAttr, heroHtml) => {
+const projectHeadMeta = (project) => {
+  const canonical = `${SITE}/project.html?slug=${encodeURIComponent(project.slug)}`;
+  const description = oneLine(project.overview);
+  return {
+    canonical,
+    title: project.title,
+    description,
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "CreativeWork",
+          "@id": `${canonical}#work`,
+          name: project.title,
+          headline: project.detailTitle,
+          description,
+          url: canonical,
+          author: personRef,
+          keywords: (project.stack || []).join(", "),
+          about: project.label,
+          datePublished: project.date,
+          dateModified: project.updated || project.date,
+          isPartOf: { "@type": "WebSite", name: "Jamery Wang", url: `${SITE}/` },
+          inLanguage: "zh-CN"
+        },
+        breadcrumbJsonLd([
+          [I18N.zh["nav.home"], `${SITE}/`],
+          [I18N.zh["nav.projects"], `${SITE}/projects.html`],
+          [project.title, canonical]
+        ])
+      ]
+    }
+  };
+};
+
+const noteHeadMeta = (note) => {
+  const canonical = `${SITE}/note.html?slug=${encodeURIComponent(note.slug)}`;
+  const description = oneLine(note.overview);
+  return {
+    canonical,
+    title: note.title,
+    description,
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BlogPosting",
+          "@id": `${canonical}#article`,
+          headline: note.title,
+          description: oneLine(note.summary),
+          url: canonical,
+          author: personRef,
+          keywords: [note.label, note.lens].filter(Boolean).join(", "),
+          articleSection: note.label,
+          datePublished: note.date,
+          dateModified: note.updated || note.date,
+          isPartOf: { "@type": "WebSite", name: "Jamery Wang", url: `${SITE}/` },
+          inLanguage: "zh-CN"
+        },
+        breadcrumbJsonLd([
+          [I18N.zh["nav.home"], `${SITE}/`],
+          [I18N.zh["nav.notes"], `${SITE}/notes.html`],
+          [note.title, canonical]
+        ])
+      ]
+    }
+  };
+};
+
+/* Rewrite the shell's generic head with the entry's own metadata. */
+const withDetailHead = (html, meta) => {
+  const title = `Jamery Wang | ${meta.title}`;
+  const enUrl = `${meta.canonical}&lang=en`;
+  const alternates =
+    `    <link rel="alternate" hreflang="zh-CN" href="${meta.canonical}" />\n` +
+    `    <link rel="alternate" hreflang="en" href="${esc(enUrl)}" />\n` +
+    `    <link rel="alternate" hreflang="x-default" href="${meta.canonical}" />`;
+  const rules = [
+    [/<title>[^<]*<\/title>/, () => `<title>${esc(title)}</title>`],
+    [/(<meta name="description" content=")[^"]*(" \/>)/, (m, a, b) => `${a}${esc(meta.description)}${b}`],
+    [/(<meta property="og:title" content=")[^"]*(" \/>)/, (m, a, b) => `${a}${esc(title)}${b}`],
+    [/(<meta property="og:description" content=")[^"]*(" \/>)/, (m, a, b) => `${a}${esc(meta.description)}${b}`],
+    [/(<meta property="og:url" content=")[^"]*(" \/>)/, (m, a, b) => `${a}${meta.canonical}${b}`],
+    [/(<meta property="og:image:alt" content=")[^"]*(" \/>)/, (m, a, b) => `${a}${esc(title)}${b}`],
+    [/(<meta name="twitter:title" content=")[^"]*(" \/>)/, (m, a, b) => `${a}${esc(title)}${b}`],
+    [/(<meta name="twitter:description" content=")[^"]*(" \/>)/, (m, a, b) => `${a}${esc(meta.description)}${b}`],
+    [
+      /(<link rel="canonical" href=")[^"]*(" \/>)/,
+      (m, a, b) => `${a}${meta.canonical}${b}\n${alternates}`
+    ],
+    [
+      /<script type="application\/ld\+json" data-seo-jsonld>[\s\S]*?<\/script>/,
+      () => `<script type="application/ld+json" data-seo-jsonld>\n${JSON.stringify(meta.jsonLd, null, 2)}\n    </script>`
+    ]
+  ];
+  let out = html;
+  for (const [pattern, replacer] of rules) {
+    if (!pattern.test(out)) throw new Error(`prerender: head pattern not found: ${pattern}`);
+    out = out.replace(pattern, replacer);
+  }
+  return out;
+};
+
+const prerenderDetail = (shellFile, containerAttr, heroHtml, headMeta) => {
   const shell = readFileSync(join(PUBLIC, shellFile), "utf8");
   const marker = `<main id="main-content" ${containerAttr} tabindex="-1"></main>`;
   if (!shell.includes(marker)) throw new Error(`prerender: container not found in ${shellFile}`);
-  // Wrapped so the boot script's language can suppress it: an English
-  // visitor must never see the Chinese hero flash before app.js swaps it.
-  return shell.replace(
+  const withHero = shell.replace(
     marker,
     `<main id="main-content" ${containerAttr} tabindex="-1">\n      <div class="prerender-hero">${heroHtml}</div>\n    </main>`
   );
+  return withDetailHead(withHero, headMeta);
 };
 
 const detailFiles = {};
 for (const project of projects) {
-  detailFiles[`p/${project.slug}.html`] = prerenderDetail("project.html", "data-project-detail", projectHero(project));
+  detailFiles[`p/${project.slug}.html`] = prerenderDetail(
+    "project.html",
+    "data-project-detail",
+    projectHero(project),
+    projectHeadMeta(project)
+  );
 }
 for (const note of notes) {
-  detailFiles[`p/${note.slug}.html`] = prerenderDetail("note.html", "data-note-detail", noteHero(note));
+  detailFiles[`p/${note.slug}.html`] = prerenderDetail(
+    "note.html",
+    "data-note-detail",
+    noteHero(note),
+    noteHeadMeta(note)
+  );
 }
 
 /* ── data-list.js ──

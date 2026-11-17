@@ -3,31 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Project — Jamery Wang</title>
-    <meta name="description" content="项目详情：角色、技术栈、关键输出与相关笔记。" />
+    <title>Jamery Wang | QuantAgent</title>
+    <meta name="description" content="传统强化学习用神经网络权重表达策略，本框架用可执行代码。策略是可读的、可验证的、可调试的。每次有效更新直接跳转到新策略，旧能力固化为回归测试防止遗忘，历史补丁折叠为简洁表示。" />
     <meta name="author" content="Jamery Wang" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
-    <meta property="og:title" content="Project — Jamery Wang" />
-    <meta property="og:description" content="Project detail — role, stack, key outputs, and related notes." />
+    <meta property="og:title" content="Jamery Wang | QuantAgent" />
+    <meta property="og:description" content="传统强化学习用神经网络权重表达策略，本框架用可执行代码。策略是可读的、可验证的、可调试的。每次有效更新直接跳转到新策略，旧能力固化为回归测试防止遗忘，历史补丁折叠为简洁表示。" />
     <meta property="og:type" content="article" />
-    <link rel="canonical" href="https://www.jameryw.dev/project.html" />
+    <link rel="canonical" href="https://www.jameryw.dev/project.html?slug=quant-agent" />
+    <link rel="alternate" hreflang="zh-CN" href="https://www.jameryw.dev/project.html?slug=quant-agent" />
+    <link rel="alternate" hreflang="en" href="https://www.jameryw.dev/project.html?slug=quant-agent&amp;lang=en" />
+    <link rel="alternate" hreflang="x-default" href="https://www.jameryw.dev/project.html?slug=quant-agent" />
     <link rel="alternate" type="application/rss+xml" title="Jamery Wang — Notes" href="./feed.xml" />
-    <meta property="og:url" content="https://www.jameryw.dev/project.html" />
+    <meta property="og:url" content="https://www.jameryw.dev/project.html?slug=quant-agent" />
     <meta property="og:site_name" content="Jamery Wang" />
     <meta property="og:locale" content="zh_CN" />
     <meta property="og:locale:alternate" content="en_US" />
     <meta property="og:image" content="https://www.jameryw.dev/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Project — Jamery Wang" />
+    <meta property="og:image:alt" content="Jamery Wang | QuantAgent" />
     <meta property="og:image:type" content="image/png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@JameryWang" />
     <meta name="twitter:creator" content="@JameryWang" />
     <meta name="twitter:image" content="https://www.jameryw.dev/og-image.png" />
-    <meta name="twitter:title" content="Project — Jamery Wang" />
-    <meta name="twitter:description" content="Project detail — role, stack, key outputs, and related notes." />
+    <meta name="twitter:title" content="Jamery Wang | QuantAgent" />
+    <meta name="twitter:description" content="传统强化学习用神经网络权重表达策略，本框架用可执行代码。策略是可读的、可验证的、可调试的。每次有效更新直接跳转到新策略，旧能力固化为回归测试防止遗忘，历史补丁折叠为简洁表示。" />
     <meta name="theme-color" content="#050816" />
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-vkhMS1n7yPrJZZuX7L/KbZwsI7/sQOe7r5ffim/TlX4=' https://stats.jameryw.dev; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://stats.jameryw.dev;" />
     <script>try{if(localStorage.getItem("theme")==="light"){document.documentElement.setAttribute("data-theme","light");var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content","#f0f2f8")}}catch(e){}try{var Q=new URLSearchParams(location.search).get("lang");var L=(Q==="en"||Q==="zh")?Q:(localStorage.getItem("site-lang")||localStorage.getItem("notes-lang"));if(L==="en"||L==="zh"){document.documentElement.setAttribute("data-lang",L);document.documentElement.lang=L==="en"?"en":"zh-CN";if(Q==="en"||Q==="zh"){localStorage.setItem("site-lang",Q)}}}catch(e){}setTimeout(function(){var el=document.querySelector(".page-loader");if(el&&!el.classList.contains("loaded"))el.classList.add("is-slow")},480);setTimeout(function(){var el=document.querySelector(".page-loader");if(el)el.classList.add("loaded")},2400);</script>
@@ -37,28 +40,36 @@
     <meta name="apple-mobile-web-app-title" content="Jamery Wang">
     <link rel="preconnect" href="https://stats.jameryw.dev" />
     <link rel="dns-prefetch" href="https://github.com" />
-    <link rel="stylesheet" href="./styles.css?v=165" />
+    <link rel="stylesheet" href="./styles.css?v=167" />
     <link rel="preload" href="./data.js?v=57" as="script" />
-    <link rel="preload" href="./app.js?v=119" as="script" />
+    <link rel="preload" href="./app.js?v=121" as="script" />
     <script type="application/ld+json" data-seo-jsonld>
 {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "CreativeWork",
-      "headline": "Project Detail",
-      "url": "https://www.jameryw.dev/project.html",
-      "description": "项目详情 — 角色、输出和构建方向。",
+      "@id": "https://www.jameryw.dev/project.html?slug=quant-agent#work",
+      "name": "QuantAgent",
+      "headline": "Code as Policy, Not Weights as Policy",
+      "description": "传统强化学习用神经网络权重表达策略，本框架用可执行代码。策略是可读的、可验证的、可调试的。每次有效更新直接跳转到新策略，旧能力固化为回归测试防止遗忘，历史补丁折叠为简洁表示。",
+      "url": "https://www.jameryw.dev/project.html?slug=quant-agent",
       "author": {
         "@type": "Person",
+        "@id": "https://www.jameryw.dev/#person",
         "name": "Jamery Wang",
         "url": "https://www.jameryw.dev/"
       },
+      "keywords": "Python, LLM, Code-as-Policy, SQLite, Bandit",
+      "about": "Quant Agent",
+      "datePublished": "2026-05-31",
+      "dateModified": "2026-09-22",
       "isPartOf": {
         "@type": "WebSite",
         "name": "Jamery Wang",
         "url": "https://www.jameryw.dev/"
-      }
+      },
+      "inLanguage": "zh-CN"
     },
     {
       "@type": "BreadcrumbList",
@@ -66,20 +77,20 @@
         {
           "@type": "ListItem",
           "position": 1,
-          "name": "Home",
+          "name": "首页",
           "item": "https://www.jameryw.dev/"
         },
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Projects",
+          "name": "项目",
           "item": "https://www.jameryw.dev/projects.html"
         },
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "Project",
-          "item": "https://www.jameryw.dev/project.html"
+          "name": "QuantAgent",
+          "item": "https://www.jameryw.dev/project.html?slug=quant-agent"
         }
       ]
     }
@@ -135,6 +146,9 @@
           </div>
         </div>
         <div class="topbar-end">
+          <button class="mobile-search" type="button" aria-label="搜索" data-palette-trigger data-i18n-aria="aria.search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </button>
           <div class="lang-toggle lang-toggle-compact topbar-lang" role="group" aria-label="语言切换 Language" data-i18n-aria="aria.lang">
             <button type="button" data-lang-toggle="zh" class="active" aria-pressed="true">中文</button>
             <button type="button" data-lang-toggle="en" aria-pressed="false">EN</button>
@@ -156,21 +170,21 @@
       <main id="main-content" data-project-detail tabindex="-1">
       <div class="prerender-hero"><section class="page-hero">
         <nav class="detail-breadcrumb" aria-label="面包屑导航">
-          <a href="./index.html">首页</a><span aria-hidden="true">/</span>
-          <a href="./projects.html">项目</a><span aria-hidden="true">/</span>
+          <a href="./index.html"><span data-lang-zh>首页</span><span data-lang-en>Home</span></a><span aria-hidden="true">/</span>
+          <a href="./projects.html"><span data-lang-zh>项目</span><span data-lang-en>Projects</span></a><span aria-hidden="true">/</span>
           <span aria-current="page">QuantAgent</span>
         </nav>
         <p class="eyebrow">Quant Agent / Active research</p>
         <h1 class="page-title">Quant<wbr>Agent<span>Code as Policy, Not Weights as Policy</span></h1>
-        <p class="page-lead">传统强化学习用神经网络权重表达策略，本框架用可执行代码。策略是可读的、可验证的、可调试的。每次有效更新直接跳转到新策略，旧能力固化为回归测试防止遗忘，历史补丁折叠为简洁表示。</p>
-        <p class="listing-hero-meta detail-hero-meta" aria-label="内容信号">
+        <p class="page-lead"><span data-lang-zh>传统强化学习用神经网络权重表达策略，本框架用可执行代码。策略是可读的、可验证的、可调试的。每次有效更新直接跳转到新策略，旧能力固化为回归测试防止遗忘，历史补丁折叠为简洁表示。</span><span data-lang-en>Classic RL stores policy in neural weights. This framework stores policy as executable code: readable, checkable, and debuggable. Each valid update jumps straight to a new strategy; old capability hardens into regression tests so it isn&#39;t forgotten; historical patches fold into a compact representation.</span></p>
+        <p class="listing-hero-meta detail-hero-meta" aria-label="项目信号">
           <span>Architect / Builder</span>
-          <span>更新 2026-09-22</span>
+          <span><span data-lang-zh>更新 2026-09-22</span><span data-lang-en>Updated 2026-09-22</span></span>
         </p>
         <div class="page-actions">
-          <a class="button primary" href="https://quant.jameryw.dev" target="_blank" rel="noreferrer">在线体验</a>
-          <a class="button secondary" href="https://github.com/jameryw?tab=repositories" target="_blank" rel="noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="vertical-align:-3px;margin-right:6px;" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>查看公开仓库</a>
-          <a class="button secondary" href="./projects.html">返回项目</a>
+          <a class="button primary" href="https://quant.jameryw.dev" target="_blank" rel="noreferrer"><span data-lang-zh>在线体验</span><span data-lang-en>Try demo</span></a>
+          <a class="button secondary" href="https://github.com/jameryw?tab=repositories" target="_blank" rel="noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="vertical-align:-3px;margin-right:6px;" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg><span data-lang-zh>查看公开仓库</span><span data-lang-en>View public repos</span></a>
+          <a class="button secondary" href="./projects.html"><span data-lang-zh>返回项目</span><span data-lang-en>Back to projects</span></a>
         </div>
       </section></div>
     </main>
@@ -203,7 +217,7 @@
 
 <script src="./data.js?v=57" defer fetchpriority="high"></script>
 <script src="./umami-config.js" defer></script>
-<script src="./app.js?v=119" defer fetchpriority="high"></script>
+<script src="./app.js?v=121" defer fetchpriority="high"></script>
     <script src="./boot-guard.js?v=2" defer></script>
 
     <!-- Command Palette -->

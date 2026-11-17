@@ -244,8 +244,19 @@ for (const { html } of pages) {
   const match = html.match(/<link rel="canonical" href="([^"]+)"/);
   if (match) canonicalSet.add(match[1]);
 }
+/* The /p/<slug>.html copies are what nginx serves for the ?slug= URLs, so
+   their canonical has to match the sitemap entry exactly (it used to point at
+   the bare project.html/note.html shell). */
+const canonicalPrerenderDir = join(PUBLIC, "p");
+if (existsSync(canonicalPrerenderDir)) {
+  for (const file of readdirSync(canonicalPrerenderDir).filter((name) => name.endsWith(".html"))) {
+    const html = readFileSync(join(canonicalPrerenderDir, file), "utf8");
+    const match = html.match(/<link rel="canonical" href="([^"]+)"/);
+    if (match) canonicalSet.add(match[1]);
+  }
+}
 const sitemapLocs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
-const mismatched = sitemapLocs.filter((loc) => !canonicalSet.has(loc) && !loc.includes("?slug="));
+const mismatched = sitemapLocs.filter((loc) => !canonicalSet.has(loc));
 if (mismatched.length) fail(`sitemap.xml <loc> without a matching canonical: ${mismatched.slice(0, 3).join(", ")}`);
 pass(`sitemap/canonical alignment: ${sitemapLocs.length} URLs, ${mismatched.length} mismatched`);
 
@@ -468,9 +479,26 @@ if (existsSync(prerenderDir)) {
       continue;
     }
     const html = readFileSync(file, "utf8");
+    const projectEntry = (siteData.projects || []).find((entry) => entry.slug === slug);
+    const noteEntry = (siteData.notes || []).find((entry) => entry.slug === slug);
+    const entryTitle = projectEntry ? projectEntry.title : noteEntry.title;
+    const expectedCanonical = `${SITE}/${projectEntry ? "project" : "note"}.html?slug=${slug}`;
     if (!html.includes('class="prerender-hero"')) fail(`prerender: public/p/${slug}.html has no hero block`);
     if (!/<h1[^>]*>/.test(html)) fail(`prerender: public/p/${slug}.html has no h1`);
     if (/<link rel="canonical" href="[^"]*\/p\//.test(html)) fail(`prerender: public/p/${slug}.html must keep the ?slug= canonical`);
+    const title = html.match(/<title>([^<]*)<\/title>/);
+    if (!title || !title[1].includes(entryTitle)) fail(`prerender: public/p/${slug}.html <title> is not entry-specific`);
+    const canonical = html.match(/<link rel="canonical" href="([^"]+)"/);
+    if (!canonical || canonical[1] !== expectedCanonical) {
+      fail(`prerender: public/p/${slug}.html canonical is not ${expectedCanonical}`);
+    }
+    if (!html.includes(`hreflang="en" href="${expectedCanonical}&amp;lang=en"`)) {
+      fail(`prerender: public/p/${slug}.html has no en hreflang alternate`);
+    }
+    if (!html.includes('"url": "' + expectedCanonical + '"')) {
+      fail(`prerender: public/p/${slug}.html JSON-LD does not carry the entry URL`);
+    }
+    if (!html.includes("data-lang-en")) fail(`prerender: public/p/${slug}.html hero is not bilingual`);
   }
   for (const loc of sitemapLocs) {
     if (loc.includes("/p/")) fail(`sitemap.xml must not list prerendered file ${loc}`);
@@ -478,7 +506,7 @@ if (existsSync(prerenderDir)) {
   const orphanFiles = readdirSync(prerenderDir)
     .filter((file) => file.endsWith(".html") && !prerenderSlugs.includes(file.replace(/\.html$/, "")));
   if (orphanFiles.length) fail(`prerender: orphaned file(s) for removed slugs: ${orphanFiles.slice(0, 5).join(", ")}`);
-  pass(`prerender: ${prerenderSlugs.length} detail pages carry the hero in HTML (not in the sitemap, no orphans)`);
+  pass(`prerender: ${prerenderSlugs.length} detail pages carry a bilingual hero and entry-specific head (not in the sitemap, no orphans)`);
 
 /* 14. Data split: listing pages must not ship the detail-only copy. */
 const dataListPath = join(PUBLIC, "data-list.js");

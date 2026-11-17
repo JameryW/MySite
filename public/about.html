@@ -42,10 +42,10 @@
     <meta name="apple-mobile-web-app-title" content="Jamery Wang">
     <link rel="preconnect" href="https://stats.jameryw.dev" />
     <link rel="dns-prefetch" href="https://github.com" />
-    <link rel="stylesheet" href="./styles.css?v=165" />
+    <link rel="stylesheet" href="./styles.css?v=167" />
     <link rel="stylesheet" href="./styles-about.css?v=8" />
     <link rel="preload" href="./data-list.js?v=14" as="script" />
-    <link rel="preload" href="./app.js?v=119" as="script" />
+    <link rel="preload" href="./app.js?v=121" as="script" />
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -153,6 +153,9 @@
           </div>
         </div>
         <div class="topbar-end">
+          <button class="mobile-search" type="button" aria-label="搜索" data-palette-trigger data-i18n-aria="aria.search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </button>
           <div class="lang-toggle lang-toggle-compact topbar-lang" role="group" aria-label="语言切换 Language" data-i18n-aria="aria.lang">
             <button type="button" data-lang-toggle="zh" class="active" aria-pressed="true">中文</button>
             <button type="button" data-lang-toggle="en" aria-pressed="false">EN</button>
@@ -272,7 +275,7 @@
 
 <script src="./data-list.js?v=14" defer fetchpriority="high"></script>
 <script src="./umami-config.js" defer></script>
-<script src="./app.js?v=119" defer fetchpriority="high"></script>
+<script src="./app.js?v=121" defer fetchpriority="high"></script>
 
     <!-- Command Palette -->
     <div class="palette-overlay" data-palette-overlay aria-hidden="true"></div>
