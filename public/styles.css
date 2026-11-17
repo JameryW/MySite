@@ -173,8 +173,8 @@ html[data-lang="en"] [data-lang-zh] {
   border-color: rgba(8, 145, 178, 0.35);
 }
 /* Detail subtitles stay solid muted ink on light (not near-white). */
-[data-theme="light"] [data-project-detail] .page-title span,
-[data-theme="light"] [data-note-detail] .page-title span {
+[data-theme="light"] [data-project-detail] .page-title > span:not([data-lang-zh]):not([data-lang-en]),
+[data-theme="light"] [data-note-detail] .page-title > span:not([data-lang-zh]):not([data-lang-en]) {
   color: var(--muted);
   -webkit-text-stroke: 0;
   text-shadow: none;
@@ -185,7 +185,7 @@ html[data-lang="en"] [data-lang-zh] {
 [data-theme="light"] .orb-a { background: rgba(192, 38, 160, 0.08); }
 [data-theme="light"] .orb-b { background: rgba(8, 145, 178, 0.06); }
 [data-theme="light"] .orb-c { background: rgba(90, 138, 0, 0.05); }
-[data-theme="light"] h1 span {
+[data-theme="light"] h1 > span {
   -webkit-text-stroke: 2px rgba(10, 14, 26, 0.72);
   text-shadow: 0 0 18px rgba(8, 145, 178, 0.1);
 }
@@ -225,9 +225,9 @@ html[data-lang="en"] [data-lang-zh] {
 }
 /* Listing outline subtitles are small display type: solid ink reads better
    on light surfaces (detail pages already use solid muted ink). */
-[data-theme="light"] body[data-page="projects"]:not(:has([data-project-detail])) .page-title span:not(.page-title-main),
-[data-theme="light"] body[data-page="notes"]:not(:has([data-note-detail])) .page-title span:not(.page-title-main),
-[data-theme="light"] body[data-page="showcase"] .page-title span:not(.page-title-main) {
+[data-theme="light"] body[data-page="projects"]:not(:has([data-project-detail])) .page-title > span:not(.page-title-main),
+[data-theme="light"] body[data-page="notes"]:not(:has([data-note-detail])) .page-title > span:not(.page-title-main),
+[data-theme="light"] body[data-page="showcase"] .page-title > span:not(.page-title-main) {
   color: var(--muted);
   -webkit-text-stroke: 0;
   text-shadow: none;
@@ -968,7 +968,7 @@ h1 {
   font-size: clamp(3.2rem, 8vw, 5.8rem);
   padding-block: 0.04em;
 }
-h1 span {
+h1 > span {
   display: block;
   padding-block: 0.04em;
   margin-block: -0.04em;
@@ -990,6 +990,16 @@ h1 .page-title-main,
   margin-block: 0;
   max-width: none;
   white-space: normal;
+}
+/* The bilingual pairs are not extra title lines. As direct children of h1
+   (the detail pages' title string) they carry the title itself, so they must
+   inherit the title ink instead of the outlined treatment reserved for the
+   secondary lines — otherwise the title renders hollow at 0.42em. */
+h1 > span[data-lang-zh],
+h1 > span[data-lang-en] {
+  color: inherit;
+  -webkit-text-stroke: 0;
+  text-shadow: none;
 }
 .page-title {
   max-width: 9ch;
@@ -1553,8 +1563,8 @@ instead of a lone orphan card and a dead half-row. */
   font-size: clamp(1.95rem, 3.8vw, 2.95rem);
   letter-spacing: -0.025em;
 }
-[data-project-detail] .page-title span,
-[data-note-detail] .page-title span {
+[data-project-detail] .page-title > span:not([data-lang-zh]):not([data-lang-en]),
+[data-note-detail] .page-title > span:not([data-lang-zh]):not([data-lang-en]) {
   max-width: 36ch;
   margin-block: 0.14em 0;
   padding-block: 0;
@@ -2400,7 +2410,7 @@ body[data-page="projects"] .project-entry-card h3 {
 body[data-page="projects"]:not(:has([data-project-detail])) .page-title {
   max-width: 18ch;
 }
-body[data-page="projects"]:not(:has([data-project-detail])) .page-title span:not(.page-title-main) {
+body[data-page="projects"]:not(:has([data-project-detail])) .page-title > span:not(.page-title-main) {
   max-width: none;
   font-size: 0.42em;
   letter-spacing: 0.04em;
@@ -2411,8 +2421,8 @@ body[data-page="notes"] .page-title,
 body[data-page="showcase"] .page-title {
   max-width: 14ch;
 }
-body[data-page="notes"] .page-title span:not(.page-title-main),
-body[data-page="showcase"] .page-title span:not(.page-title-main) {
+body[data-page="notes"]:not(:has([data-note-detail])) .page-title > span:not(.page-title-main),
+body[data-page="showcase"] .page-title > span:not(.page-title-main) {
   max-width: none;
   white-space: nowrap;
   font-size: 0.42em;
@@ -4615,4 +4625,71 @@ button,
 }
 [data-theme="light"] .boot-guard a {
   color: #1d5f74;
+}
+
+/* ── Listing pages: bigger reading surface ──
+   18px root was still too small on projects / notes / showcase: the library
+   cards' summary — the text people actually read — sat at 1.04rem (notes at
+   0.96rem) while the 0.74rem hero eyebrow and 0.82rem meta read as captions
+   next to a 1200px frame. Raise the content one step and keep the kickers at
+   label size so the hierarchy survives the bump. */
+body[data-page="projects"] .page-hero .eyebrow,
+body[data-page="notes"] .page-hero .eyebrow,
+body[data-page="showcase"] .page-hero .eyebrow {
+  font-size: 0.84rem;
+}
+body[data-page="projects"] .listing-hero-meta,
+body[data-page="notes"] .listing-hero-meta,
+body[data-page="showcase"] .listing-hero-meta {
+  font-size: 0.92rem;
+}
+body[data-page="projects"] .page-lead,
+body[data-page="notes"] .page-lead,
+body[data-page="showcase"] .page-lead {
+  font-size: 1.14rem;
+}
+body[data-page="projects"] .project-entry-card h3 {
+  font-size: clamp(1.35rem, 2.4vw, 1.8rem);
+}
+body[data-page="notes"] .note-entry-card h3 {
+  font-size: clamp(1.45rem, 2.6vw, 1.95rem);
+}
+body[data-page="showcase"] .showcase-card h3 {
+  font-size: clamp(1.45rem, 2.6vw, 1.95rem);
+}
+body[data-page="projects"] .project-entry-card > p,
+body[data-page="notes"] .note-entry-card .note-summary,
+body[data-page="showcase"] .showcase-card > p {
+  font-size: 1.13rem;
+  line-height: 1.75;
+}
+body[data-page="projects"] .project-entry-card .stack-label,
+body[data-page="notes"] .note-entry-card .stack-label,
+body[data-page="showcase"] .showcase-card .card-topline {
+  font-size: 0.86rem;
+  letter-spacing: 0.12em;
+}
+body[data-page="notes"] .note-entry-card .title-en {
+  font-size: max(0.5em, 0.86rem);
+}
+body[data-page="projects"] .project-entry-card .project-entry-status,
+body[data-page="projects"] .project-entry-card .card-inline-link,
+body[data-page="notes"] .note-entry-card .repo-meta,
+body[data-page="notes"] .note-entry-card .card-inline-link,
+body[data-page="showcase"] .showcase-card .card-inline-link,
+body[data-page="showcase"] .showcase-card .work-link {
+  font-size: 0.86rem;
+}
+body[data-page="projects"] .project-entry-card .card-tags span,
+body[data-page="notes"] .note-entry-card .card-tags span,
+body[data-page="showcase"] .showcase-card .card-tags span {
+  font-size: 0.82rem;
+}
+@media (max-width: 760px) {
+  body[data-page="projects"] .project-entry-card > p,
+  body[data-page="notes"] .note-entry-card .note-summary,
+  body[data-page="showcase"] .showcase-card > p {
+    font-size: 1.04rem;
+    line-height: 1.7;
+  }
 }

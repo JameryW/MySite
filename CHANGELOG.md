@@ -33,6 +33,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 
+- Listing page titles on projects / notes / showcase were rendering at 0.42em and hollow: the listing subtitle selectors (`body[data-page="..."] .page-title span:not(.page-title-main)`) and the `h1 span` outline rule also matched the bilingual pair spans nested inside `.page-title-main`, so the 93.6px solid line was replaced by a 39.3px outlined one — the real reason those pages read small. The line rules now target direct children only, and the pair spans inherit the title ink instead of the outlined secondary-line treatment (also fixes the no-JS note detail title, which rendered at 0.42em)
+- The three listing pages got their reading surface raised to match: card body 1.13rem (20.3px, notes summary was 0.96rem), card titles up a step, the hero eyebrow/meta/lead lifted (20.5px lead), kickers demoted to a real label size, and tags/links/meta raised to 15.5-16.5px
+
+### Fixed
+
 - `archive.html` no longer loads the webfonts: as a no-JS fallback page it now uses the system stack, which removes its 57 KB font download and the font-swap CLS the 18px type scale exposed (0.161 → 0.000 measured under the cold profile; the fallback lead wrapped to three lines and two for Space Grotesk, and the nav buttons changed width)
 
 ### Fixed
