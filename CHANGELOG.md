@@ -33,6 +33,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 
+- `archive.html` no longer loads the webfonts: as a no-JS fallback page it now uses the system stack, which removes its 57 KB font download and the font-swap CLS the 18px type scale exposed (0.161 → 0.000 measured under the cold profile; the fallback lead wrapped to three lines and two for Space Grotesk, and the nav buttons changed width)
+
+### Fixed
+
 - The English hero title changed line count when the Syne webfont landed: the metric-override fallback face was tuned from an average advance width and rendered ~25% narrower than Syne for real display strings, so the one-line fallback title became two lines and moved the page 60px (CLS 0.178 on English home visits, measured when the font arrives after first paint — the normal case on the cross-border path). `Syne Fallback` now uses the measured `size-adjust: 121%`; fallback and loaded geometry are identical at 1440 and 390, and English home CLS is 0.030 with the JS-mounted cards as the only residue. Chinese copy never used that face, which is why the drift was invisible before the English static copy shipped
 - Light-theme command-palette labels on the active row were still 4.28:1 (the row tints its own background); they use #356000 now (~5.0:1)
 - `about.html` rendered its profile title (`data-profile-title`) in hard-coded Chinese even for English visitors before `app.js` landed; it is a static zh/en pair now
