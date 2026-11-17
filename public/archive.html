@@ -8,6 +8,9 @@
     <meta name="author" content="Jamery Wang" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <link rel="canonical" href="https://www.jameryw.dev/archive.html" />
+    <link rel="alternate" hreflang="zh-CN" href="https://www.jameryw.dev/archive.html" />
+    <link rel="alternate" hreflang="en" href="https://www.jameryw.dev/archive.html?lang=en" />
+    <link rel="alternate" hreflang="x-default" href="https://www.jameryw.dev/archive.html" />
     <meta property="og:title" content="站点索引 / Site Archive — Jamery Wang" />
     <meta property="og:description" content="Static text index of every project, note, and live demo on jameryw.dev." />
     <meta property="og:type" content="website" />
@@ -38,140 +41,134 @@
     </script>
   </head>
   <body data-page="archive">
-    <a class="skip-link" href="#main-content">跳到主要内容 · Skip to content</a>
-    <main class="site-frame archive-page" id="main-content" tabindex="-1">
+    <a class="skip-link" href="#main-content"><span data-lang-zh>跳到主要内容</span><span data-lang-en>Skip to content</span></a>
+    <div class="site-frame archive-page">
       <header class="archive-head">
-        <p class="eyebrow">Index / 站点索引</p>
+        <p class="eyebrow"><span data-lang-zh>索引 / Index</span><span data-lang-en>Index / Site archive</span></p>
         <h1>Site Archive</h1>
-        <p class="page-lead">无需 JavaScript 的静态索引：全部项目、笔记和在线演示。机器可读版本见
-          <a href="./llms.txt">llms.txt</a>、<a href="./llms-full.txt">llms-full.txt</a> 与
-          <a href="./feed.xml">feed.xml</a>。</p>
+        <p class="page-lead"><span data-lang-zh>无需 JavaScript 的静态索引：全部项目、笔记和在线演示。机器可读版本见 <a href="./llms.txt">llms.txt</a>、<a href="./llms-full.txt">llms-full.txt</a> 与 <a href="./feed.xml">feed.xml</a>。</span><span data-lang-en>A JavaScript-free static index of every project, note, and live demo. Machine-readable versions: <a href="./llms.txt">llms.txt</a>, <a href="./llms-full.txt">llms-full.txt</a>, and <a href="./feed.xml">feed.xml</a>.</span></p>
         <nav class="archive-actions" aria-label="站点导航">
-          <a class="button secondary" href="./index.html">首页 / Home</a>
-          <a class="button secondary" href="./projects.html">项目 / Projects</a>
-          <a class="button secondary" href="./showcase.html">Showcase / 在线演示</a>
-          <a class="button secondary" href="./notes.html">笔记 / Notes</a>
-          <a class="button secondary" href="./about.html">关于 / About</a>
+          <a class="button secondary" href="./index.html"><span data-lang-zh>首页</span><span data-lang-en>Home</span></a>
+          <a class="button secondary" href="./projects.html"><span data-lang-zh>项目</span><span data-lang-en>Projects</span></a>
+          <a class="button secondary" href="./showcase.html"><span data-lang-zh>Showcase</span><span data-lang-en>Showcase</span></a>
+          <a class="button secondary" href="./notes.html"><span data-lang-zh>笔记</span><span data-lang-en>Notes</span></a>
+          <a class="button secondary" href="./about.html"><span data-lang-zh>关于</span><span data-lang-en>About</span></a>
         </nav>
       </header>
-      <section class="section archive-section" aria-labelledby="archive-projects">
-        <h2 id="archive-projects">项目 / Projects</h2>
-        <ul class="archive-list">
+      <main id="main-content" tabindex="-1">
+        <section class="section archive-section" aria-labelledby="archive-projects">
+          <h2 id="archive-projects"><span data-lang-zh>项目</span><span data-lang-en>Projects</span></h2>
+          <ul class="archive-list">
         <li class="archive-item">
           <p class="archive-kicker">A1 / Growth Agent · Active · 2026-10-21</p>
           <h3><a href="./project.html?slug=xhs-growth-agent">XhsGrowthAgent</a></h3>
-          <p>小红书增长工作台：确定性内核承载状态与调度，LangGraph 只跑任务图，发布前保留人工确认。</p>
-          <p class="archive-en">Xiaohongshu growth workbench: a deterministic Kernel owns state and scheduling, LangGraph only runs the task graph, and publishing stays human-gated.</p>
+          <p><span data-lang-zh>小红书增长工作台：确定性内核承载状态与调度，LangGraph 只跑任务图，发布前保留人工确认。</span><span data-lang-en>Xiaohongshu growth workbench: a deterministic Kernel owns state and scheduling, LangGraph only runs the task graph, and publishing stays human-gated.</span></p>
         </li>
         <li class="archive-item">
           <p class="archive-kicker">B2 / Quant Agent · Active research · 2026-09-22</p>
           <h3><a href="./project.html?slug=quant-agent">QuantAgent</a></h3>
-          <p>代码即策略的启发式代理框架 — 用可执行代码替代神经网络权重作为策略载体，迭代即学习，测试即记忆。</p>
-          <p class="archive-en">A heuristic agent framework where executable code is the policy — not neural weights — so iteration is learning and tests are memory.</p>
+          <p><span data-lang-zh>代码即策略的启发式代理框架 — 用可执行代码替代神经网络权重作为策略载体，迭代即学习，测试即记忆。</span><span data-lang-en>A heuristic agent framework where executable code is the policy — not neural weights — so iteration is learning and tests are memory.</span></p>
         </li>
         <li class="archive-item">
           <p class="archive-kicker">C3 / Quant Engine · Active · 2026-10-21</p>
           <h3><a href="./project.html?slug=real-quant-engine">RealQuantEngine</a></h3>
-          <p>模块化量化策略库 — 多策略编排、券商适配和风控管理的交易引擎，支持 Futu 实盘与 dry-run。</p>
-          <p class="archive-en">A modular quant strategy library — multi-strategy orchestration, broker adapters, and risk controls, with Futu live trading and dry-run.</p>
+          <p><span data-lang-zh>模块化量化策略库 — 多策略编排、券商适配和风控管理的交易引擎，支持 Futu 实盘与 dry-run。</span><span data-lang-en>A modular quant strategy library — multi-strategy orchestration, broker adapters, and risk controls, with Futu live trading and dry-run.</span></p>
         </li>
         <li class="archive-item">
           <p class="archive-kicker">D4 / Strategy Lab · Archive · 2026-06-26</p>
           <h3><a href="./project.html?slug=quant-strategy-prototypes">QuantStrategyPrototypes</a></h3>
-          <p>受 arXiv 量化研究启发的策略原型集合 — 含回测引擎、10 个策略模块与测试套件。已归档，策略面并入 RealQuantEngine。</p>
-          <p class="archive-en">Quant strategy prototypes inspired by arXiv research — backtest engine, 10 strategy modules, and a tracked test suite. Archived; strategy surface folded into RealQuantEngine.</p>
+          <p><span data-lang-zh>受 arXiv 量化研究启发的策略原型集合 — 含回测引擎、10 个策略模块与测试套件。已归档，策略面并入 RealQuantEngine。</span><span data-lang-en>Quant strategy prototypes inspired by arXiv research — backtest engine, 10 strategy modules, and a tracked test suite. Archived; strategy surface folded into RealQuantEngine.</span></p>
         </li>
         <li class="archive-item">
           <p class="archive-kicker">E5 / Distributed AI · Active · 2026-11-14</p>
           <h3><a href="./project.html?slug=ultimate-coders">UltimateCoders</a></h3>
-          <p>分布式 AI 编程平台：DAG 编排、可观测 Dashboard、多适配 Worker，共享分层记忆与混合检索。</p>
-          <p class="archive-en">Distributed AI coding platform: DAG orchestration, observable Dashboard, multi-adapter Workers, shared layered memory and hybrid retrieval.</p>
+          <p><span data-lang-zh>分布式 AI 编程平台：DAG 编排、可观测 Dashboard、多适配 Worker，共享分层记忆与混合检索。</span><span data-lang-en>Distributed AI coding platform: DAG orchestration, observable Dashboard, multi-adapter Workers, shared layered memory and hybrid retrieval.</span></p>
         </li>
         <li class="archive-item">
           <p class="archive-kicker">H8 / Agent Workflows · Lab · 2026-09-03</p>
           <h3><a href="./project.html?slug=awesome-workflows">AwesomeWorkflows</a></h3>
-          <p>可在 Codex / Claude Code / Grok Build / DeepSeek Harness 复用的 Issue 驱动交付工作流 — 整合 Matt Pocock 工程技能与 Trellis 任务生命周期。</p>
-          <p class="archive-en">Issue-driven delivery workflows reusable across Codex / Claude Code / Grok Build / DeepSeek Harness — Matt Pocock engineering skills plus the Trellis task lifecycle.</p>
+          <p><span data-lang-zh>可在 Codex / Claude Code / Grok Build / DeepSeek Harness 复用的 Issue 驱动交付工作流 — 整合 Matt Pocock 工程技能与 Trellis 任务生命周期。</span><span data-lang-en>Issue-driven delivery workflows reusable across Codex / Claude Code / Grok Build / DeepSeek Harness — Matt Pocock engineering skills plus the Trellis task lifecycle.</span></p>
         </li>
-        </ul>
-      </section>
-      <section class="section archive-section" aria-labelledby="archive-notes">
-        <h2 id="archive-notes">笔记 / Notes</h2>
-        <ul class="archive-list">
+          </ul>
+        </section>
+        <section class="section archive-section" aria-labelledby="archive-notes">
+          <h2 id="archive-notes"><span data-lang-zh>笔记</span><span data-lang-en>Notes</span></h2>
+          <ul class="archive-list">
         <li class="archive-item">
           <p class="archive-kicker">N1 / Agents · Current lens · 2026-09-14</p>
-          <h3><a href="./note.html?slug=why-agents-matter">为什么 Agent 重要</a> <span class="archive-en-inline">Why Agents Matter</span></h3>
-          <p>我更关心连续执行、记忆和工具协作，而不是单轮问答的漂亮程度。</p>
+          <h3><a href="./note.html?slug=why-agents-matter"><span data-lang-zh>为什么 Agent 重要</span><span data-lang-en>Why Agents Matter</span></a></h3>
+          <p><span data-lang-zh>我更关心连续执行、记忆和工具协作，而不是单轮问答的漂亮程度。</span><span data-lang-en>I care more about continuous execution, memory, and tool collaboration than about polished single-turn answers.</span></p>
         </li>
         <li class="archive-item">
           <p class="archive-kicker">N2 / Build · Working rule · 2026-05-31</p>
-          <h3><a href="./note.html?slug=prototype-first">先做原型</a> <span class="archive-en-inline">Prototype First</span></h3>
-          <p>先跑起来，再暴露真正的问题。很多判断只有在界面和脚本一起工作时才成立。</p>
+          <h3><a href="./note.html?slug=prototype-first"><span data-lang-zh>先做原型</span><span data-lang-en>Prototype First</span></a></h3>
+          <p><span data-lang-zh>先跑起来，再暴露真正的问题。很多判断只有在界面和脚本一起工作时才成立。</span><span data-lang-en>Get it running first, then let the real problems surface. Many judgments only hold once the interface and the scripts work together.</span></p>
         </li>
         <li class="archive-item">
           <p class="archive-kicker">N3 / Interface · Ongoing principle · 2026-05-31</p>
-          <h3><a href="./note.html?slug=interface-as-signal">界面即信号</a> <span class="archive-en-inline">Interface as Signal</span></h3>
-          <p>界面选择会暴露技术理解和产品判断，所以站点本身也应该是作品的一部分。</p>
+          <h3><a href="./note.html?slug=interface-as-signal"><span data-lang-zh>界面即信号</span><span data-lang-en>Interface as Signal</span></a></h3>
+          <p><span data-lang-zh>界面选择会暴露技术理解和产品判断，所以站点本身也应该是作品的一部分。</span><span data-lang-en>Interface choices reveal technical understanding and product judgment, so the site itself should be part of the work.</span></p>
         </li>
         <li class="archive-item">
           <p class="archive-kicker">N4 / Prompt · 2026 observation · 2026-09-14</p>
-          <h3><a href="./note.html?slug=prompt-engineering-evolution">提示工程正在演进</a> <span class="archive-en-inline">Prompt Engineering Is Evolving</span></h3>
-          <p>提示工程正在从手工技巧转向结构化接口，从写 prompt 变成设计工具和编排流程。</p>
+          <h3><a href="./note.html?slug=prompt-engineering-evolution"><span data-lang-zh>提示工程正在演进</span><span data-lang-en>Prompt Engineering Is Evolving</span></a></h3>
+          <p><span data-lang-zh>提示工程正在从手工技巧转向结构化接口，从写 prompt 变成设计工具和编排流程。</span><span data-lang-en>Prompt engineering is shifting from handcrafted tricks to structured interfaces — from writing prompts to designing tools and orchestrating flows.</span></p>
         </li>
         <li class="archive-item">
           <p class="archive-kicker">N5 / Philosophy · Ongoing practice · 2026-09-14</p>
-          <h3><a href="./note.html?slug=build-in-public">公开构建</a> <span class="archive-en-inline">Build In Public</span></h3>
-          <p>公开构建不是表演，是让迭代过程本身成为信号，让能力、判断和执行力可直接验证。</p>
+          <h3><a href="./note.html?slug=build-in-public"><span data-lang-zh>公开构建</span><span data-lang-en>Build In Public</span></a></h3>
+          <p><span data-lang-zh>公开构建不是表演，是让迭代过程本身成为信号，让能力、判断和执行力可直接验证。</span><span data-lang-en>Building in public isn&#39;t performance — it turns the iteration process itself into signal, making ability, judgment, and execution directly verifiable.</span></p>
         </li>
         <li class="archive-item">
           <p class="archive-kicker">N6 / Org · 2026 observation · 2026-06-09</p>
-          <h3><a href="./note.html?slug=productivity-and-relations">生产力与生产关系</a> <span class="archive-en-inline">Productivity &amp; Production Relations</span></h3>
-          <p>生产力决定生产关系，用旧的组织形态匹配新生产力，终将被效率更极致的新形态替代。</p>
+          <h3><a href="./note.html?slug=productivity-and-relations"><span data-lang-zh>生产力与生产关系</span><span data-lang-en>Productivity &amp; Production Relations</span></a></h3>
+          <p><span data-lang-zh>生产力决定生产关系，用旧的组织形态匹配新生产力，终将被效率更极致的新形态替代。</span><span data-lang-en>Productive forces determine production relations: organizations that match new productive forces with old forms will ultimately be replaced by a more radically efficient form.</span></p>
         </li>
         <li class="archive-item">
           <p class="archive-kicker">N7 / Loop · Ongoing practice · 2026-10-18</p>
-          <h3><a href="./note.html?slug=evolve-in-loop">在loop中进化</a> <span class="archive-en-inline">Evolve In Loop</span></h3>
-          <p>进化的本质不是一次性跃迁，而是无数次闭环反馈的累积。每一次 loop 都是一次校准：行动→反馈→调整→再行动。</p>
+          <h3><a href="./note.html?slug=evolve-in-loop"><span data-lang-zh>在loop中进化</span><span data-lang-en>Evolve In Loop</span></a></h3>
+          <p><span data-lang-zh>进化的本质不是一次性跃迁，而是无数次闭环反馈的累积。每一次 loop 都是一次校准：行动→反馈→调整→再行动。</span><span data-lang-en>Evolution isn&#39;t a one-time leap but the accumulation of countless closed feedback loops. Each loop is a calibration: act, feedback, adjust, act again.</span></p>
         </li>
         <li class="archive-item">
           <p class="archive-kicker">N8 / Alpha · 2026 observation · 2026-06-26</p>
-          <h3><a href="./note.html?slug=quantity-to-quality">量变引起质变</a> <span class="archive-en-inline">Quantity Becomes Quality</span></h3>
-          <p>持续高质量的数据产生高质量的策略，高质量策略催生新的 alpha。这是一个自增强的飞轮，不是线性积累。</p>
+          <h3><a href="./note.html?slug=quantity-to-quality"><span data-lang-zh>量变引起质变</span><span data-lang-en>Quantity Becomes Quality</span></a></h3>
+          <p><span data-lang-zh>持续高质量的数据产生高质量的策略，高质量策略催生新的 alpha。这是一个自增强的飞轮，不是线性积累。</span><span data-lang-en>Sustained high-quality data produces high-quality strategies, and high-quality strategies spawn new alpha. It&#39;s a self-reinforcing flywheel, not linear accumulation.</span></p>
         </li>
         <li class="archive-item">
           <p class="archive-kicker">N9 / Judgment · 2026 observation · 2026-07-02</p>
-          <h3><a href="./note.html?slug=knowledge-depreciates-experience-appreciates">知识贬值，经验升值</a> <span class="archive-en-inline">Knowledge Depreciates, Experience Appreciates</span></h3>
-          <p>AI 让可检索的知识快速贬值，却让从踩坑里长出来的工程经验升值。设计能扛亿级并发的分布式架构，靠的不是教科书上的基本知识。</p>
+          <h3><a href="./note.html?slug=knowledge-depreciates-experience-appreciates"><span data-lang-zh>知识贬值，经验升值</span><span data-lang-en>Knowledge Depreciates, Experience Appreciates</span></a></h3>
+          <p><span data-lang-zh>AI 让可检索的知识快速贬值，却让从踩坑里长出来的工程经验升值。设计能扛亿级并发的分布式架构，靠的不是教科书上的基本知识。</span><span data-lang-en>AI rapidly depreciates retrievable knowledge while appreciating engineering experience earned from real failures. Designing distributed architectures that survive hundred-million-scale concurrency takes more than textbook basics.</span></p>
         </li>
         <li class="archive-item">
           <p class="archive-kicker">N10 / Moat · 2026 observation · 2026-10-18</p>
-          <h3><a href="./note.html?slug=skills-devoured-tools-fortified">技能被吞，工具成护城河</a> <span class="archive-en-inline">Skills Devoured, Tools Fortified</span></h3>
-          <p>模型能力越强，纯软件技能越像免费 API 一样被吞噬。真正难复刻的是连接物理世界的 tools——传感器、执行器、私有协议、真实环境的反馈闭环。</p>
+          <h3><a href="./note.html?slug=skills-devoured-tools-fortified"><span data-lang-zh>技能被吞，工具成护城河</span><span data-lang-en>Skills Devoured, Tools Fortified</span></a></h3>
+          <p><span data-lang-zh>模型能力越强，纯软件技能越像免费 API 一样被吞噬。真正难复刻的是连接物理世界的 tools——传感器、执行器、私有协议、真实环境的反馈闭环。</span><span data-lang-en>The stronger models get, the more pure-software skills get devoured like free APIs. Truly hard to replicate are tools that touch the physical world — sensors, actuators, private protocols, real-environment feedback loops.</span></p>
         </li>
         <li class="archive-item">
           <p class="archive-kicker">N11 / Value · 2026 observation · 2026-09-22</p>
-          <h3><a href="./note.html?slug=pure-software-devalued-physical-premium">纯软件贬值，软硬一体升值</a> <span class="archive-en-inline">Pure Software Devalued, Physical Integration Premium</span></h3>
-          <p>大模型把纯软件能力不断内化为免费基础设施，与物理世界相连的软硬一体技术反而因真实数据闭环而升值。</p>
+          <h3><a href="./note.html?slug=pure-software-devalued-physical-premium"><span data-lang-zh>纯软件贬值，软硬一体升值</span><span data-lang-en>Pure Software Devalued, Physical Integration Premium</span></a></h3>
+          <p><span data-lang-zh>大模型把纯软件能力不断内化为免费基础设施，与物理世界相连的软硬一体技术反而因真实数据闭环而升值。</span><span data-lang-en>Large models keep internalizing pure-software capability into free infrastructure, while software-hardware integration tied to the physical world appreciates on the back of real-world data loops.</span></p>
         </li>
         <li class="archive-item">
           <p class="archive-kicker">N12 / Divergence · 2026 observation · 2026-10-21</p>
-          <h3><a href="./note.html?slug=ai-k-shaped-divergence">AI 时代的 K 型分化</a> <span class="archive-en-inline">K-Shaped Divergence In The AI Era</span></h3>
-          <p>AI 把世界撕成两极：应用侧越来越文科化，审美与品格决定胜负；技术侧越来越硬核，绑定物理世界的硬件、真实环境的感知—行动—反馈，以及自我进化。</p>
+          <h3><a href="./note.html?slug=ai-k-shaped-divergence"><span data-lang-zh>AI 时代的 K 型分化</span><span data-lang-en>K-Shaped Divergence In The AI Era</span></a></h3>
+          <p><span data-lang-zh>AI 把世界撕成两极：应用侧越来越文科化，审美与品格决定胜负；技术侧越来越硬核，绑定物理世界的硬件、真实环境的感知—行动—反馈，以及自我进化。</span><span data-lang-en>AI splits the world into a K: apps go liberal-arts — taste and character decide who wins; tech goes hardcore — hardware bound to the physical world, perception–action–feedback in real environments, and self-evolution.</span></p>
         </li>
-        </ul>
-      </section>
-      <section class="section archive-section" aria-labelledby="archive-demos">
-        <h2 id="archive-demos">在线演示 / Showcase</h2>
-        <ul class="archive-list">
+          </ul>
+        </section>
+        <section class="section archive-section" aria-labelledby="archive-demos">
+          <h2 id="archive-demos"><span data-lang-zh>在线演示</span><span data-lang-en>Live demos</span></h2>
+          <ul class="archive-list">
         <li class="archive-item"><h3><a href="https://xhs.jameryw.dev" target="_blank" rel="noreferrer">XhsGrowthAgent</a></h3><p>https://xhs.jameryw.dev</p></li>
         <li class="archive-item"><h3><a href="https://quant.jameryw.dev" target="_blank" rel="noreferrer">QuantAgent</a></h3><p>https://quant.jameryw.dev</p></li>
         <li class="archive-item"><h3><a href="https://uc.jameryw.dev" target="_blank" rel="noreferrer">UltimateCoders</a></h3><p>https://uc.jameryw.dev</p></li>
-        </ul>
-      </section>
+          </ul>
+        </section>
+      </main>
       <footer class="archive-footer">
         <p>Jamery Wang · Hangzhou / Online · <a href="./index.html">jameryw.dev</a></p>
         <p><a href="./feed.xml">RSS</a> · <a href="./llms.txt">llms.txt</a> · <a href="./llms-full.txt">llms-full.txt</a> · <a href="./sitemap.xml">sitemap.xml</a></p>
       </footer>
-    </main>
+    </div>
   </body>
 </html>

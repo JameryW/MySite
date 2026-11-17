@@ -242,7 +242,13 @@ const feed = [
   ""
 ].join("\n");
 
-/* ── archive.html (static, no JS) ── */
+/* ── archive.html (static, no JS) ──
+   The page is genuinely bilingual: static text carries data-lang pairs, and
+   the head boot script already sets [data-lang] before first paint, so
+   ?lang=en shows English rather than flipping html lang while the copy stays
+   Chinese. It also gives the page the landmarks it lacked (header / main /
+   footer were all inside one <main>). */
+const bi = (zh, en) => `<span data-lang-zh>${esc(zh)}</span><span data-lang-en>${esc(en)}</span>`;
 const stamp = (entry) => entry.updated || entry.date || "";
 
 const projectItems = projects
@@ -250,8 +256,7 @@ const projectItems = projects
     (project) => `        <li class="archive-item">
           <p class="archive-kicker">${esc(project.code)} / ${esc(project.label)} · ${esc(project.status)}${stamp(project) ? ` · ${esc(stamp(project))}` : ""}</p>
           <h3><a href="./project.html?slug=${esc(project.slug)}">${esc(project.title)}</a></h3>
-          <p>${esc(oneLine(project.summary))}</p>
-          <p class="archive-en">${esc(oneLine(project.summaryEn))}</p>
+          <p>${bi(oneLine(project.summary), oneLine(project.summaryEn))}</p>
         </li>`
   )
   .join("\n");
@@ -260,10 +265,8 @@ const noteItems = notes
   .map(
     (note) => `        <li class="archive-item">
           <p class="archive-kicker">${esc(note.code)} / ${esc(note.label)} · ${esc(note.timeframe)}${stamp(note) ? ` · ${esc(stamp(note))}` : ""}</p>
-          <h3><a href="./note.html?slug=${esc(note.slug)}">${esc(note.title)}</a> <span class="archive-en-inline">${esc(
-      note.titleEn
-    )}</span></h3>
-          <p>${esc(oneLine(note.summary))}</p>
+          <h3><a href="./note.html?slug=${esc(note.slug)}">${bi(note.title, note.titleEn || note.title)}</a></h3>
+          <p>${bi(oneLine(note.summary), oneLine(note.summaryEn))}</p>
         </li>`
   )
   .join("\n");
@@ -278,6 +281,15 @@ const demoItems = projects
   )
   .join("\n");
 
+const archiveIntroZh =
+  '无需 JavaScript 的静态索引：全部项目、笔记和在线演示。机器可读版本见 ' +
+  '<a href="./llms.txt">llms.txt</a>、<a href="./llms-full.txt">llms-full.txt</a> 与 ' +
+  '<a href="./feed.xml">feed.xml</a>。';
+const archiveIntroEn =
+  'A JavaScript-free static index of every project, note, and live demo. ' +
+  'Machine-readable versions: <a href="./llms.txt">llms.txt</a>, ' +
+  '<a href="./llms-full.txt">llms-full.txt</a>, and <a href="./feed.xml">feed.xml</a>.';
+
 const archive = `<!DOCTYPE html>
 <html lang="zh-CN">
   <head>
@@ -288,6 +300,9 @@ const archive = `<!DOCTYPE html>
     <meta name="author" content="Jamery Wang" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <link rel="canonical" href="${SITE}/archive.html" />
+    <link rel="alternate" hreflang="zh-CN" href="${SITE}/archive.html" />
+    <link rel="alternate" hreflang="en" href="${SITE}/archive.html?lang=en" />
+    <link rel="alternate" hreflang="x-default" href="${SITE}/archive.html" />
     <meta property="og:title" content="站点索引 / Site Archive — Jamery Wang" />
     <meta property="og:description" content="Static text index of every project, note, and live demo on jameryw.dev." />
     <meta property="og:type" content="website" />
@@ -318,45 +333,45 @@ const archive = `<!DOCTYPE html>
     </script>
   </head>
   <body data-page="archive">
-    <a class="skip-link" href="#main-content">跳到主要内容 · Skip to content</a>
-    <main class="site-frame archive-page" id="main-content" tabindex="-1">
+    <a class="skip-link" href="#main-content">${bi("跳到主要内容", "Skip to content")}</a>
+    <div class="site-frame archive-page">
       <header class="archive-head">
-        <p class="eyebrow">Index / 站点索引</p>
+        <p class="eyebrow">${bi("索引 / Index", "Index / Site archive")}</p>
         <h1>Site Archive</h1>
-        <p class="page-lead">无需 JavaScript 的静态索引：全部项目、笔记和在线演示。机器可读版本见
-          <a href="./llms.txt">llms.txt</a>、<a href="./llms-full.txt">llms-full.txt</a> 与
-          <a href="./feed.xml">feed.xml</a>。</p>
+        <p class="page-lead"><span data-lang-zh>${archiveIntroZh}</span><span data-lang-en>${archiveIntroEn}</span></p>
         <nav class="archive-actions" aria-label="站点导航">
-          <a class="button secondary" href="./index.html">首页 / Home</a>
-          <a class="button secondary" href="./projects.html">项目 / Projects</a>
-          <a class="button secondary" href="./showcase.html">Showcase / 在线演示</a>
-          <a class="button secondary" href="./notes.html">笔记 / Notes</a>
-          <a class="button secondary" href="./about.html">关于 / About</a>
+          <a class="button secondary" href="./index.html">${bi("首页", "Home")}</a>
+          <a class="button secondary" href="./projects.html">${bi("项目", "Projects")}</a>
+          <a class="button secondary" href="./showcase.html">${bi("Showcase", "Showcase")}</a>
+          <a class="button secondary" href="./notes.html">${bi("笔记", "Notes")}</a>
+          <a class="button secondary" href="./about.html">${bi("关于", "About")}</a>
         </nav>
       </header>
-      <section class="section archive-section" aria-labelledby="archive-projects">
-        <h2 id="archive-projects">项目 / Projects</h2>
-        <ul class="archive-list">
+      <main id="main-content" tabindex="-1">
+        <section class="section archive-section" aria-labelledby="archive-projects">
+          <h2 id="archive-projects">${bi("项目", "Projects")}</h2>
+          <ul class="archive-list">
 ${projectItems}
-        </ul>
-      </section>
-      <section class="section archive-section" aria-labelledby="archive-notes">
-        <h2 id="archive-notes">笔记 / Notes</h2>
-        <ul class="archive-list">
+          </ul>
+        </section>
+        <section class="section archive-section" aria-labelledby="archive-notes">
+          <h2 id="archive-notes">${bi("笔记", "Notes")}</h2>
+          <ul class="archive-list">
 ${noteItems}
-        </ul>
-      </section>
-      <section class="section archive-section" aria-labelledby="archive-demos">
-        <h2 id="archive-demos">在线演示 / Showcase</h2>
-        <ul class="archive-list">
+          </ul>
+        </section>
+        <section class="section archive-section" aria-labelledby="archive-demos">
+          <h2 id="archive-demos">${bi("在线演示", "Live demos")}</h2>
+          <ul class="archive-list">
 ${demoItems}
-        </ul>
-      </section>
+          </ul>
+        </section>
+      </main>
       <footer class="archive-footer">
-        <p>Jamery Wang · ${profile.base} · <a href="./index.html">jameryw.dev</a></p>
+        <p>Jamery Wang · ${esc(profile.base)} · <a href="./index.html">jameryw.dev</a></p>
         <p><a href="./feed.xml">RSS</a> · <a href="./llms.txt">llms.txt</a> · <a href="./llms-full.txt">llms-full.txt</a> · <a href="./sitemap.xml">sitemap.xml</a></p>
       </footer>
-    </main>
+    </div>
   </body>
 </html>
 `;
