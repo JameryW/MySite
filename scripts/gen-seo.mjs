@@ -308,14 +308,18 @@ const archive = `<!DOCTYPE html>
     <meta property="og:type" content="website" />
     <meta property="og:url" content="${SITE}/archive.html" />
     <meta property="og:site_name" content="Jamery Wang" />
-    <meta property="og:image" content="${SITE}/og-image.png" />
-    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image" content="${SITE}/og/archive.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="站点索引 / Site Archive — Jamery Wang" />
+    <meta property="og:image:type" content="image/jpeg" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@JameryWang" />
     <meta name="twitter:creator" content="@JameryWang" />
     <meta name="twitter:title" content="站点索引 / Site Archive — Jamery Wang" />
     <meta name="twitter:description" content="Static text index of every project, note, and live demo on jameryw.dev." />
-    <meta name="twitter:image" content="${SITE}/og-image.png" />
+    <meta name="twitter:image" content="${SITE}/og/archive.jpg" />
+    <meta name="twitter:image:alt" content="站点索引 / Site Archive — Jamery Wang" />
     <meta name="theme-color" content="#050816" />
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-vkhMS1n7yPrJZZuX7L/KbZwsI7/sQOe7r5ffim/TlX4='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:;" />
     <script>try{if(localStorage.getItem("theme")==="light"){document.documentElement.setAttribute("data-theme","light");var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content","#f0f2f8")}}catch(e){}try{var Q=new URLSearchParams(location.search).get("lang");var L=(Q==="en"||Q==="zh")?Q:(localStorage.getItem("site-lang")||localStorage.getItem("notes-lang"));if(L==="en"||L==="zh"){document.documentElement.setAttribute("data-lang",L);document.documentElement.lang=L==="en"?"en":"zh-CN";if(Q==="en"||Q==="zh"){localStorage.setItem("site-lang",Q)}}}catch(e){}setTimeout(function(){var el=document.querySelector(".page-loader");if(el&&!el.classList.contains("loaded"))el.classList.add("is-slow")},480);setTimeout(function(){var el=document.querySelector(".page-loader");if(el)el.classList.add("loaded")},2400);</script>
@@ -570,6 +574,7 @@ const projectHeadMeta = (project) => {
     canonical,
     title: project.title,
     description,
+    ogImage: `${SITE}/og/project-${project.slug}.jpg`,
     jsonLd: {
       "@context": "https://schema.org",
       "@graph": [
@@ -605,6 +610,7 @@ const noteHeadMeta = (note) => {
     canonical,
     title: note.title,
     description,
+    ogImage: `${SITE}/og/note-${note.slug}.jpg`,
     jsonLd: {
       "@context": "https://schema.org",
       "@graph": [
@@ -614,6 +620,7 @@ const noteHeadMeta = (note) => {
           headline: note.title,
           description: oneLine(note.summary),
           url: canonical,
+          image: `${SITE}/og/note-${note.slug}.jpg`,
           author: personRef,
           keywords: [note.label, note.lens].filter(Boolean).join(", "),
           articleSection: note.label,
@@ -646,7 +653,11 @@ const withDetailHead = (html, meta) => {
     [/(<meta property="og:title" content=")[^"]*(" \/>)/, (m, a, b) => `${a}${esc(title)}${b}`],
     [/(<meta property="og:description" content=")[^"]*(" \/>)/, (m, a, b) => `${a}${esc(meta.description)}${b}`],
     [/(<meta property="og:url" content=")[^"]*(" \/>)/, (m, a, b) => `${a}${meta.canonical}${b}`],
+    [/(<meta property="og:image" content=")[^"]*(" \/>)/, (m, a, b) => `${a}${meta.ogImage}${b}`],
+    [/(<meta property="og:image:type" content=")[^"]*(" \/>)/, () => '<meta property="og:image:type" content="image/jpeg" />'],
     [/(<meta property="og:image:alt" content=")[^"]*(" \/>)/, (m, a, b) => `${a}${esc(title)}${b}`],
+    [/(<meta name="twitter:image" content=")[^"]*(" \/>)/, (m, a, b) => `${a}${meta.ogImage}${b}`],
+    [/(<meta name="twitter:image:alt" content=")[^"]*(" \/>)/, (m, a, b) => `${a}${esc(title)}${b}`],
     [/(<meta name="twitter:title" content=")[^"]*(" \/>)/, (m, a, b) => `${a}${esc(title)}${b}`],
     [/(<meta name="twitter:description" content=")[^"]*(" \/>)/, (m, a, b) => `${a}${esc(meta.description)}${b}`],
     [

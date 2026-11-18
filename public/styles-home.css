@@ -1100,3 +1100,44 @@ body[data-page="home"] .demo-open {
     box-shadow: var(--shadow);
   }
 }
+
+/* ── Home layout reservations ────────────────────────────────────────────
+   The home lists are filled by app.js from data-list.js. Reserving their
+   rendered height (scripting-only, so a no-JS page still flows naturally)
+   stops #work / #demos / #notes being pushed down after first paint:
+   measured CLS at 1440 was 0.063 zh / 0.020 en, 0.232 at 1024 and 0.103 at
+   1920 before; all five breakpoint groups read 0.000-0.001 after. Values are
+   the measured rendered heights per breakpoint (zh/en max). */
+@media (scripting: enabled) {
+  .hero-console { min-height: 254px; }
+  [data-home-projects] { min-height: 520px; }
+  [data-home-demos] { min-height: 346px; }
+}
+@media (scripting: enabled) and (max-width: 1199px) {
+  .hero-console { min-height: 154px; }
+  [data-home-projects] { min-height: 500px; }
+  [data-home-demos] { min-height: 300px; }
+}
+@media (scripting: enabled) and (max-width: 980px) {
+  .hero-console { min-height: 154px; }
+  [data-home-projects] { min-height: 800px; }
+  [data-home-demos] { min-height: 900px; }
+}
+@media (scripting: enabled) and (max-width: 760px) {
+  .hero-console { min-height: 244px; }
+  [data-home-projects] { min-height: 740px; }
+  [data-home-demos] { min-height: 1016px; }
+}
+@media (scripting: enabled) and (max-width: 360px) {
+  .hero-console { min-height: 244px; }
+  [data-home-projects] { min-height: 810px; }
+  [data-home-demos] { min-height: 1016px; }
+}
+@media (scripting: enabled) and (min-width: 1600px) {
+  html[data-lang="zh"] .hero-console { min-height: 208px; }
+  html[data-lang="zh"] [data-home-projects] { min-height: 480px; }
+  html[data-lang="zh"] [data-home-demos] { min-height: 388px; }
+  html[data-lang="en"] .hero-console { min-height: 254px; }
+  html[data-lang="en"] [data-home-projects] { min-height: 512px; }
+  html[data-lang="en"] [data-home-demos] { min-height: 385px; }
+}

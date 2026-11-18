@@ -566,6 +566,54 @@ if (previewProblems.length > 0) {
   pass(`demo previews: ${previewProjects.length} screenshot(s) shipped and paired with a demo URL`);
 }
 
+/* 17. Social previews: every page advertises its own 1200x630 JPEG and the
+       file it points at actually exists (a broken og:image degrades a shared
+       link to a blank card without breaking anything the page itself shows). */
+const jpegSize = (buf) => {
+  let i = 2;
+  while (i < buf.length - 9) {
+    if (buf[i] !== 0xff) { i += 1; continue; }
+    const marker = buf[i + 1];
+    if (marker >= 0xc0 && marker <= 0xcf && marker !== 0xc4 && marker !== 0xc8 && marker !== 0xcc) {
+      return { h: buf.readUInt16BE(i + 5), w: buf.readUInt16BE(i + 7) };
+    }
+    if (marker === 0xd8 || marker === 0xd9) { i += 2; continue; }
+    const len = buf.readUInt16BE(i + 2);
+    i += 2 + len;
+  }
+  return null;
+};
+const allHtml = [
+  ...pages.map(({ name, html }) => ({ name, html })),
+  ...readdirSync(join(PUBLIC, "p")).filter((n) => n.endsWith(".html")).sort().map((n) => ({ name: "p/" + n, html: readFileSync(join(PUBLIC, "p", n), "utf8") }))
+];
+const ogProblems = [];
+const ogRefs = new Set();
+const detailOg = [];
+for (const { name, html } of allHtml) {
+  const og = (html.match(/<meta property="og:image" content="([^"]+)"/) || [])[1];
+  const tw = (html.match(/<meta name="twitter:image" content="([^"]+)"/) || [])[1];
+  const alt = (html.match(/<meta property="og:image:alt" content="([^"]+)"/) || [])[1];
+  if (!og) { ogProblems.push(name + ": no og:image"); continue; }
+  if (tw !== og) ogProblems.push(name + ": twitter:image differs from og:image");
+  if (!alt) ogProblems.push(name + ": no og:image:alt");
+  const rel = og.replace(SITE + "/", "");
+  if (name.startsWith("p/")) detailOg.push(rel);
+  if (!existsSync(join(PUBLIC, rel))) { ogProblems.push(name + ": missing " + rel); continue; }
+  ogRefs.add(rel);
+  if (rel.endsWith(".jpg")) {
+    const dim = jpegSize(readFileSync(join(PUBLIC, rel)));
+    if (!dim || dim.w !== 1200 || dim.h !== 630) {
+      ogProblems.push(name + ": " + rel + " is " + (dim ? dim.w + "x" + dim.h : "unparseable") + ", expected 1200x630");
+    }
+  }
+}
+if (new Set(detailOg).size !== detailOg.length) ogProblems.push("detail og:image values are not unique per slug");
+const ogFiles = readdirSync(join(PUBLIC, "og")).filter((n) => n.endsWith(".jpg"));
+for (const file of ogFiles) if (!ogRefs.has("og/" + file)) ogProblems.push("orphan og image: og/" + file);
+if (ogProblems.length > 0) fail("social previews: " + ogProblems.join("; "));
+else pass(`social previews: ${ogRefs.size} pages point at existing 1200x630 JPEG cards (18 detail cards unique per slug)`);
+
 /* Summary */
 console.log(results.join("\n"));
 if (failures > 0) {

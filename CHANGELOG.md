@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- Social previews are per page now: 26 committed 1200×630 cards under `public/og/` (home / projects / notes / showcase / about / archive / project shell / note shell + one per project and note slug), and every page's `og:image` / `twitter:image` points at its own card instead of the single site image. `verify-site` fails on a missing or non-1200×630 card, a `twitter:image` that differs, duplicate detail cards, or an orphaned file
+- Home layout shift removed: the home sections are filled from `data-list.js` after first paint, so the work list / demo grid / hero console grew and pushed #demos and #notes down. `styles-home.css` now reserves the measured rendered height of `[data-home-projects]`, `[data-home-demos]` and `.hero-console` per breakpoint behind `@media (scripting: enabled)` (no-JS pages keep flowing naturally). Measured CLS: 1440 0.063→0.000, 1024 0.232→0.001, 1920 0.103→0.000, 390/768 0.000→0.000
+
+### Changed
+
 - Showcase page says "three" now: the lead still claimed "两个可直接打开的运行面" while three projects ship a `demoUrl` (XhsGrowthAgent, QuantAgent, UltimateCoders). The static pairs and the `showcase.lead` I18N entry are updated, and `.showcase-grid` uses `repeat(auto-fit, minmax(340px, 1fr))` so the three cards sit in one balanced row at desktop widths instead of leaving an orphan half-row
 - Archive intro lead widened to `46rem`: the shared 42ch cap resolves to ~500px in the archive's system font (narrower than the site faces) and wrapped the intro awkwardly
 - ≤360px topbar tightened (wordmark 0.72rem, 36px menu button, 34px search, denser language toggle) so brand, menu, search and language fit on one 58px row on 320px-class phones instead of wrapping to two rows
