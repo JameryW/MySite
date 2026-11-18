@@ -46,6 +46,7 @@ body[data-page="about"] .about-hero .page-title span {
 body[data-page="about"] .about-hero .page-lead {
   max-width: 38rem;
   margin-top: 14px;
+  font-size: 1.14rem;
 }
 body[data-page="about"] .about-id-card {
   position: relative;

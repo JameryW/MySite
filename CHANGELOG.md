@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- Finished the reading scale: home work-card summaries and home note summaries now match the library cards at 1.13rem (20.3px; home note summaries were 0.98rem), home note titles use the 1.95rem cap, section summaries and the home hero tagline move to 1.13rem, the about lead to 1.14rem (20.5px), and demo badges/labels lift to 0.76-0.8rem. Mobile keeps its own step (work summary 20.3px, note summary 18.7px, tagline 18.4px) so the phone layout does not turn into a wall of text
+
+### Changed
+
 - Type scale raised to 18px: `html { font-size: 112.5% }` scales the whole rem-based system (the stylesheets ship zero px font sizes) so body copy, cards, labels, archive and footer all read one step larger without touching individual rules. The home hero title's clamp caps at `3.1rem` (55.8px at the new root) because 3.5rem wrapped the one-line title at 1440 and reintroduced the 60px shift; verified 0 horizontal overflow on all pages at 320/360/390/768/1024/1440/1920 in zh/en, and the detail prerender/hydration hero heights still match (CLS 0.000)
 
 ### Changed

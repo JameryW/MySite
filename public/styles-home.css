@@ -109,6 +109,7 @@ body[data-page="home"] .hero-copy h1 .home-portal-line {
 body[data-page="home"] .hero-tagline {
   margin-top: 14px;
   max-width: 34ch;
+  font-size: 1.13rem;
 }
 body[data-page="home"] .hero-actions {
   margin-top: 22px;
@@ -546,6 +547,7 @@ body[data-page="home"] .work-summary {
   -webkit-box-orient: vertical;
   overflow: hidden;
   max-width: 78ch;
+  font-size: 1.13rem;
 }
 body[data-page="home"] .work-card .work-arrow {
   display: inline-block;
@@ -567,7 +569,7 @@ body[data-page="home"] .note-card {
   height: 100%;
 }
 body[data-page="home"] .note-card h3 {
-  font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+  font-size: clamp(1.45rem, 2.6vw, 1.95rem);
   word-break: break-word;
   overflow-wrap: anywhere;
   transition: color 200ms ease;
@@ -578,9 +580,15 @@ body[data-page="home"] .note-card:hover h3 {
 body[data-page="home"] .note-card .note-overview,
 body[data-page="home"] .note-card .note-summary {
   margin: 0;
-  font-size: 0.98rem;
+  font-size: 1.13rem;
   line-height: 1.75;
   overflow-wrap: break-word;
+}
+/* The card kicker is a label, not body copy: without this it inherits the
+   1.04rem card-paragraph size and crowds the title. */
+body[data-page="home"] .work-copy .card-topline {
+  font-size: 0.86rem;
+  letter-spacing: 0.12em;
 }
 /* A full-width rule above the action read as an empty table row whenever the
    summary was short (the grid stretches every card to the tallest). A short
@@ -780,7 +788,7 @@ body[data-page="home"] .home-principles-compact > div strong {
   body[data-page="home"] .hero-tagline {
     margin-top: 10px;
     max-width: none;
-    font-size: 0.95rem;
+    font-size: 1.02rem;
   }
   /* Two equal CTAs rather than two full-width rows: the stacked pair spent
      120px of a 844px fold on buttons, which pushed the first build card out
@@ -880,6 +888,10 @@ body[data-page="home"] .home-principles-compact > div strong {
   }
   body[data-page="home"] .work-summary {
     -webkit-line-clamp: 2;
+  }
+  body[data-page="home"] .note-card .note-overview,
+  body[data-page="home"] .note-card .note-summary {
+    font-size: 1.04rem;
   }
   body[data-page="home"] .notes-grid {
     grid-template-columns: 1fr;
@@ -1029,7 +1041,7 @@ body[data-page="home"] .demo-title {
   letter-spacing: -0.01em;
 }
 body[data-page="home"] .demo-label {
-  font-size: 0.66rem;
+  font-size: 0.76rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--muted);

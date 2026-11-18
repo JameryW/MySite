@@ -1265,7 +1265,7 @@ h3 {
 }
 .section-summary {
   margin: 4px 0 0;
-  font-size: 1rem;
+  font-size: 1.13rem;
   line-height: 1.7;
   max-width: 62ch;
 }
@@ -1458,7 +1458,7 @@ h3 {
   border-radius: 999px;
   background: rgba(216, 255, 98, 0.08);
   color: var(--lime);
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -1879,7 +1879,7 @@ but let unbroken Latin tokens wrap and
 .project-entry-head .showcase-demo-badge {
   flex-shrink: 0;
   padding: 5px 10px;
-  font-size: 0.68rem;
+  font-size: 0.76rem;
 }
 .project-entry-meta {
   display: grid;
@@ -3739,7 +3739,7 @@ body[data-page="about"] .about-hero-meta > span:not(.about-hero-meta-sep) + span
     overflow-wrap: anywhere;
   }
 .lead { line-height: 1.55; font-size: 0.94rem; }
-.section-summary { line-height: 1.55; font-size: 0.94rem; }
+.section-summary { line-height: 1.55; font-size: 1.04rem; }
 body[data-page="about"] .about-hero-meta,
   .listing-hero-meta {
     margin-top: 12px;
