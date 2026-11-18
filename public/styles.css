@@ -1389,7 +1389,7 @@ h3 {
 }
 .showcase-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
   gap: 20px;
 }
 .showcase-card {
@@ -2454,6 +2454,11 @@ body[data-page="showcase"] .page-title > span:not(.page-title-main) {
   text-align: center;
 }
 /* ── Static archive page (SEO / no-JS fallback) ──
+   System font 'ch' is narrower than the site faces, so the shared 42ch cap
+   gave the intro only ~500px; let the archive use its 52rem header width. */
+.archive-head .page-lead {
+  max-width: 46rem;
+}
    System fonts only: this page exists for crawlers and no-JS visitors, and the
    webfont swap cost it 0.161 CLS (the lead wrapped to three lines in the
    fallback face and two in Space Grotesk, and the nav buttons changed width).
@@ -4109,13 +4114,30 @@ h2 {
   }
 }
 @media (max-width: 360px) {
+/* 320px-class phones: the default wordmark + 40px controls wrapped the
+   topbar onto two rows. Tighten the type and controls so brand, menu,
+   search and language stay on one 58px row. */
 .topbar {
-    gap: 8px;
+    gap: 6px;
+    padding: 12px 0 10px;
   }
 .brand {
-    gap: 8px;
-    font-size: 0.84rem;
-    letter-spacing: 0.06em;
+    gap: 6px;
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+  }
+.menu-toggle {
+    flex: 0 0 36px;
+    width: 36px;
+    height: 36px;
+  }
+.lang-toggle-compact button {
+    padding: 5px 7px;
+    font-size: 0.68rem;
+  }
+.mobile-search {
+    width: 34px;
+    height: 34px;
   }
 .brand-mark {
     width: 10px;

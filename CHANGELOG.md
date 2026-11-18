@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- Showcase page says "three" now: the lead still claimed "两个可直接打开的运行面" while three projects ship a `demoUrl` (XhsGrowthAgent, QuantAgent, UltimateCoders). The static pairs and the `showcase.lead` I18N entry are updated, and `.showcase-grid` uses `repeat(auto-fit, minmax(340px, 1fr))` so the three cards sit in one balanced row at desktop widths instead of leaving an orphan half-row
+- Archive intro lead widened to `46rem`: the shared 42ch cap resolves to ~500px in the archive's system font (narrower than the site faces) and wrapped the intro awkwardly
+- ≤360px topbar tightened (wordmark 0.72rem, 36px menu button, 34px search, denser language toggle) so brand, menu, search and language fit on one 58px row on 320px-class phones instead of wrapping to two rows
+
+### Changed
+
 - Typography is now one explicit system: `:root` carries the `--type-*` role tokens (display / hero / h2 / h3 / lead / body / label / micro + line heights) and the "Type system" block at the end of `styles.css` applies them. Detail reading copy moves from 18px to 20.3px (project highlights, note points, lens), all card titles share the 1.95rem cap (35.1px), `.title-en` uses `max(0.5em, 0.86rem)` so a mobile card caption is 15.5px instead of 12.6px, and every uppercase label (stack labels, card toplines, statuses, inline links, eyebrow, kickers, note meta) sits at 0.86rem (15.5px). Mobile keeps a 1.04rem reading step for detail body
 
 ### Changed
