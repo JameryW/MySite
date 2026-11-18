@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- Typography is now one explicit system: `:root` carries the `--type-*` role tokens (display / hero / h2 / h3 / lead / body / label / micro + line heights) and the "Type system" block at the end of `styles.css` applies them. Detail reading copy moves from 18px to 20.3px (project highlights, note points, lens), all card titles share the 1.95rem cap (35.1px), `.title-en` uses `max(0.5em, 0.86rem)` so a mobile card caption is 15.5px instead of 12.6px, and every uppercase label (stack labels, card toplines, statuses, inline links, eyebrow, kickers, note meta) sits at 0.86rem (15.5px). Mobile keeps a 1.04rem reading step for detail body
+
+### Changed
+
 - Finished the reading scale: home work-card summaries and home note summaries now match the library cards at 1.13rem (20.3px; home note summaries were 0.98rem), home note titles use the 1.95rem cap, section summaries and the home hero tagline move to 1.13rem, the about lead to 1.14rem (20.5px), and demo badges/labels lift to 0.76-0.8rem. Mobile keeps its own step (work summary 20.3px, note summary 18.7px, tagline 18.4px) so the phone layout does not turn into a wall of text
 
 ### Changed

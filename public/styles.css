@@ -110,6 +110,18 @@ html[data-lang="en"] [data-lang-zh] {
   --font-sans: "Space Grotesk", "Space Grotesk Fallback", "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
   --font-display: "Syne", "Syne Fallback", "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
   --font-mono: "SFMono-Regular", "Menlo", "Consolas", monospace;
+  /* Type scale — one value per role; the Type system block at the end of this
+     file applies them. Keep new rules on these roles instead of new sizes. */
+  --type-display: clamp(3rem, 7.2vw, 5.2rem);
+  --type-hero: clamp(2.55rem, 5.4vw, 4.4rem);
+  --type-h2: clamp(2.2rem, 4.6vw, 3.4rem);
+  --type-h3: clamp(1.45rem, 2.6vw, 1.95rem);
+  --type-lead: 1.14rem;
+  --type-body: 1.13rem;
+  --type-label: 0.86rem;
+  --type-micro: 0.76rem;
+  --lh-display: 1.05;
+  --lh-body: 1.75;
 }
 /* ── Light Theme ── */
 [data-theme="light"] {
@@ -4691,5 +4703,89 @@ body[data-page="showcase"] .showcase-card .card-tags span {
   body[data-page="showcase"] .showcase-card > p {
     font-size: 1.04rem;
     line-height: 1.7;
+  }
+}
+
+
+/* ── Type system: canonical role sizes ──────────────────────────────────
+   display → hero → h2 → h3 → lead → body → label → micro.
+   Sizes come from the --type-* tokens on :root (rem, root 112.5% = 18px).
+   New typography should use these roles, not a fresh ad-hoc size; the
+   inventory that drove this consolidation found 20+ distinct sizes on a
+   single page (12.96 / 13.68 / 14.04 / 15.3 / 15.48 / 16.56 / 17.1 / 18 /
+   18.36 / 18.72 / 20.34 / 21.6 / 25.2 / 30.6 / 32.4 / 35.1 / 45.9 / 61.2 /
+   69.12 / 77.76 / 93.6). */
+.page-title {
+  font-size: var(--type-display);
+}
+[data-project-detail] .page-title,
+[data-note-detail] .page-title {
+  font-size: var(--type-hero);
+}
+.section-head h2 {
+  font-size: var(--type-h2);
+}
+.repo-card h3,
+.note-card h3,
+.track-card h3,
+.showcase-card h3,
+.note-entry-card h3,
+body[data-page="projects"] .project-entry-card h3 {
+  font-size: var(--type-h3);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+.page-lead {
+  font-size: var(--type-lead);
+}
+/* Reading copy — detail pages were still at 18px while the cards read at 20.3 */
+.track-card p:not(.stack-label),
+.detail p,
+.note-point p,
+.note-lens p {
+  font-size: var(--type-body);
+  line-height: var(--lh-body);
+}
+/* The kicker is a <p> inside the cards above; keep it on the label role
+   instead of letting the reading-copy rule promote it to 20px. */
+.note-card .stack-label,
+.repo-card .stack-label,
+.track-card .stack-label {
+  font-size: var(--type-label);
+  letter-spacing: 0.12em;
+  line-height: 1.45;
+}
+/* Secondary line under a card title: a genuine caption, not 0.45em of a
+   title that can be 28px on mobile (which produced 12.6px). */
+.title-en {
+  font-size: max(0.5em, var(--type-label));
+  line-height: 1.35;
+}
+/* Uppercase metadata shares one label size across cards, details and notes */
+.card-inline-link,
+.work-link,
+.stack-label,
+.card-topline,
+.note-meta,
+.project-entry-status,
+.note-lens-label,
+.note-overview-label,
+.repo-meta,
+.eyebrow,
+.section-kicker,
+.note-timeframe {
+  font-size: var(--type-label);
+}
+@media (max-width: 760px) {
+  .track-card p,
+  .detail p,
+  .note-point p,
+  .note-lens p {
+    font-size: 1.04rem;
+    line-height: 1.7;
+  }
+  .note-entry-card h3,
+  .showcase-card h3 {
+    font-size: 1.5rem;
   }
 }
